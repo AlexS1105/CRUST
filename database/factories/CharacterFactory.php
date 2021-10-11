@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CharacterStatus;
 use App\Models\Character;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,7 +25,8 @@ class CharacterFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'registrar_id' => User::factory()
+            'registrar_id' => User::factory(),
+            'status' => array_rand(CharacterStatus::getValues())
         ];
     }
 }

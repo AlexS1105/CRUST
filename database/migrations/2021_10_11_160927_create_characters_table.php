@@ -17,6 +17,7 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('registrar_id');
+            $table->unsignedInteger('status');
             $table->timestamps();
         });
     }
