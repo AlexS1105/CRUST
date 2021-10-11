@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Character;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('characters');
 })->middleware(['auth']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/characters', function () {
+    return view('characters');
+})->middleware(['auth'])->name('characters');
 
 require __DIR__.'/auth.php';
