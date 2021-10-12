@@ -9,8 +9,13 @@
                     Login: {{ $character->login }}
                 </div>
             </div>
-            <div class="flex items-center gap-4 font-bold">
-                Status: <x-character-status :status="$character->status"/>
+            <div>
+                <div class="flex items-center gap-4 font-bold">
+                    Status: <x-character-status :status="$character->status"/>
+                </div>
+                <div class="font-thin text-base text-right">
+                    Registrar: {{ $character->registrar->name }}
+                </div>
             </div>
         </div>
     </x-slot>
