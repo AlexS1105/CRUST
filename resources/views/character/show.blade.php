@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center text-2xl text-gray-600">
+        <div class="flex justify-between items-center text-gray-600">
             <div>
-                <h2 class="font-semibold leading-tight text-gray-800">
+                <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
                     {{ $character->name }}
                 </h2>
-                <div class="font-thin text-base">
+                <div class="font-thin text-base mt-2">
                     Login: {{ $character->login }}
                 </div>
             </div>
             <div>
-                <div class="flex items-center gap-4 font-bold">
+                <div class="flex items-center gap-4 font-bold text-xl">
                     Status: <x-character-status :status="$character->status"/>
                 </div>
-                <div class="font-thin text-base text-right">
+                <div class="font-thin text-base text-right mt-2">
                     Registrar: {{ $character->registrar->name }}
                 </div>
             </div>
