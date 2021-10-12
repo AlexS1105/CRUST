@@ -20,8 +20,8 @@
         </div>
     </x-slot>
 
-    <div class="py-12 max-w-6xl mx-auto space-y-12">
-        <div class="bg-white p-4 rounded-xl place-self-center max-w-md mx-auto">
+    <div class="py-8 max-w-6xl mx-auto space-y-8">
+        <div class="bg-white p-4 rounded-xl place-self-center max-w-md mx-auto shadow-lg">
             <img
                 class="object-cover"
                 src="{{ $character->getReference(); }}"
@@ -29,7 +29,7 @@
             >
         </div>
 
-        <div class="bg-white p-4 rounded-xl">
+        <div class="bg-white p-4 rounded-xl shadow-lg">
             <h1 class="font-bold text-xl mb-2">
                 Description
             </h1>
