@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CharacterController;
 use App\Models\Character;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('characters');
-})->middleware(['auth']);
-
-Route::get('/characters', function () {
-    return view('characters', [
-        'characters' => auth()->user()->characters
-    ]);
-})->middleware(['auth'])->name('characters');
+Route::middleware('auth')->group(function() {
+    Route::get('/', [CharacterController::class, 'index'])->name('characters');
+    Route::get('/character/{$character:login}', [CharacterController::class, 'show'])->name('characters.show');
+});
 
 require __DIR__.'/auth.php';
