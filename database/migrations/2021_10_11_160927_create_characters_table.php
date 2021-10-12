@@ -15,6 +15,9 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            $table->text('name');
+            $table->text('description');
+            $table->string('login');
             $table->foreignId('user_id');
             $table->foreignId('registrar_id');
             $table->unsignedInteger('status');

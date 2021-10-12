@@ -24,6 +24,9 @@ class CharacterFactory extends Factory
     public function definition()
     {
         return [
+            'name' => $this->faker->name(),
+            'description' => $this->faker->paragraph(6),
+            'login' => $this->faker->userName(),
             'user_id' => User::factory(),
             'registrar_id' => User::factory(),
             'status' => array_rand(CharacterStatus::getValues())

@@ -16,10 +16,10 @@
     </div> -->
 
     <div class="py-12 max-w-7xl mx-auto grid grid-cols-3 gap-8 justify-items-center">
-        <x-character/>
-        <x-character/>
-        <x-character/>
-        <x-character/>
-        <x-character/>
+        @foreach($characters as $character)
+            <x-character :character="$character"/>
+        @endforeach
+        
+        <x-character-new />
     </div>
 </x-app-layout>

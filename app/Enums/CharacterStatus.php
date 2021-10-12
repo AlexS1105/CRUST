@@ -10,4 +10,15 @@ final class CharacterStatus extends Enum
     const Pending = 1;
     const Approved = 2;
     const Deleting = 3;
+
+    static public function getColor($status) {
+        $colors = [
+            CharacterStatus::Blank => "gray-400",
+            CharacterStatus::Pending => "blue-400",
+            CharacterStatus::Approved => "green-400",
+            CharacterStatus::Deleting => "red-400"
+        ];
+
+        return $colors[$status->value];
+    }
 }

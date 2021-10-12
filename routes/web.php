@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('characters');
+    return redirect()->route('characters');
 })->middleware(['auth']);
 
 Route::get('/characters', function () {
-    return view('characters');
+    return view('characters', [
+        'characters' => auth()->user()->characters
+    ]);
 })->middleware(['auth'])->name('characters');
 
 require __DIR__.'/auth.php';
