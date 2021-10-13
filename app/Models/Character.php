@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
 use Illuminate\Support\Facades\Storage;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 class Character extends Model
 {
-    use HasFactory;
+    use HasFactory, HybridRelations;
 
     protected $guarded = [];
 
@@ -29,5 +30,9 @@ class Character extends Model
 
     public function registrar() {
         return $this->belongsTo(User::class, 'registrar_id');
+    }
+
+    public function charsheet() {
+        return $this->hasOne(Charsheet::class, 'character', 'login');
     }
 }
