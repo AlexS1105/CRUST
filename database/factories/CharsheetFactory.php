@@ -23,7 +23,29 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'character' => Character::factory()->create()->login
+            'character' => Character::factory()->create()->login,
+            'special_stats' => [
+                'points' => $this->faker->randomNumber(2)
+            ],
+            'approaches' => [
+                'careful' => $this->faker->numberBetween(1, 4),
+                'clever' => $this->faker->numberBetween(1, 4),
+                'flashy' => $this->faker->numberBetween(1, 4),
+                'forceful' => $this->faker->numberBetween(1, 4),
+                'quick' => $this->faker->numberBetween(1, 4),
+                'sneaky' => $this->faker->numberBetween(1, 4)
+            ],
+            'crafts' => [
+                'arc' => $this->faker->numberBetween(0, 3),
+                'mys' => $this->faker->numberBetween(0, 3),
+                'enc' => $this->faker->numberBetween(0, 3),
+                'alc' => $this->faker->numberBetween(0, 3),
+                'eng' => $this->faker->numberBetween(0, 3),
+                'mnf' => $this->faker->numberBetween(0, 3),
+                'inf' => $this->faker->numberBetween(0, 3),
+                'chm' => $this->faker->numberBetween(0, 3),
+                'smt' => $this->faker->numberBetween(0, 3),
+            ],
         ];
     }
 }

@@ -17,6 +17,9 @@ class CreateCharsheetsTable extends Migration
         Schema::connection('mongodb2')->create('charsheets', function (Blueprint $table) {
             $table->id();
             $table->string('character');
+            $table->json('special_stats');
+            $table->json('approaches');
+            $table->json('crafts');
             $table->timestamps();
 
             $table->foreign('character')
