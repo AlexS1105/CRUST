@@ -13,9 +13,11 @@
                 <div class="flex items-center gap-4 font-bold text-xl">
                     Status: <x-character-status :status="$character->status"/>
                 </div>
-                <div class="font-thin text-base text-right mt-2">
-                    Registrar: {{ $character->registrar->name }}
-                </div>
+                @if ($character->registrar)
+                    <div class="font-thin text-base text-right mt-2">
+                        Registrar: {{ $character->registrar->name }}
+                    </div>
+                @endif
             </div>
         </div>
     </x-slot>

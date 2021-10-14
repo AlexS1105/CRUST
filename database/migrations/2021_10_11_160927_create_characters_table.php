@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CharacterStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,8 +20,8 @@ class CreateCharactersTable extends Migration
             $table->text('description');
             $table->string('login');
             $table->foreignId('user_id');
-            $table->foreignId('registrar_id');
-            $table->unsignedInteger('status');
+            $table->foreignId('registrar_id')->nullable();
+            $table->unsignedInteger('status')->default(CharacterStatus::Blank);
             $table->timestamps();
         });
     }
