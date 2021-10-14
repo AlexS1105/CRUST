@@ -10,6 +10,6 @@
             <x-character :character="$character"/>
         @endforeach
         
-        <x-character-new />
+        <x-character-new :href="route('characters.create')"/>
     </div>
 </x-app-layout>

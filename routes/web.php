@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
+    Route::get('/character/create', [CharacterController::class, 'create'])->name('characters.create');
+    Route::post('/character', [CharacterController::class, 'store'])->name('characters.store');
     Route::get('/character/{character:login}', [CharacterController::class, 'show'])->name('characters.show');
 });
 

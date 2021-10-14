@@ -1,4 +1,4 @@
-<a href="#" class="bg-white rounded-3xl shadow-lg max-w-sm overflow-hidden pb-4 mb-auto text-gray-400 p-4">
+<a href="{{ $href }}" class="bg-white rounded-3xl shadow-lg max-w-sm overflow-hidden pb-4 mb-auto text-gray-400 p-4">
   <div class="text-center font-bold text-9xl">
     +
   </div>
