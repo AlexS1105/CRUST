@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
+use App\Models\Charsheet;
 
 class CharacterController extends Controller
 {
@@ -22,7 +23,8 @@ class CharacterController extends Controller
         $character = $request->validated();
         $character['user_id'] = auth()->id();
         
-        Character::create($character);
+        $character = Character::create($character);
+        $character->charsheet()->create();
 
         return redirect(route('characters.index'));
     }
