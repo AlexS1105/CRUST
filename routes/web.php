@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CharacterController;
 use App\Models\Character;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,14 @@ Route::middleware('auth')->group(function() {
     Route::get('/character/{character:login}', [CharacterController::class, 'show'])->name('characters.show');
     Route::get('/character/{character:login}/edit', [CharacterController::class, 'edit'])->name('characters.edit');
     Route::patch('/character/{character:login}', [CharacterController::class, 'update'])->name('characters.update');
+    Route::delete('/character/{character:login}', [CharacterController::class, 'destroy'])->name('characters.destroy');
+
+    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])->name('application.send');
+    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])->name('application.cancel');
+    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])->name('application.takeForApproval');
+    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])->name('application.cancelApproval');
+    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])->name('application.approve');
+    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])->name('application.reapproval');
 });
 
 require __DIR__.'/auth.php';

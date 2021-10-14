@@ -24,6 +24,23 @@ class Character extends Model
         ? $this->login : '_default') . '.png');
     }
 
+    public function setStatus(CharacterStatus $status) {
+        $this->status = $status;
+        $this->save();
+    }
+
+    public function takeForApproval() {
+        $this->status = CharacterStatus::Approval;
+        $this->registrar_id = auth()->id();
+        $this->save();
+    }
+
+    public function cancelApproval() {
+        $this->status = CharacterStatus::Pending;
+        $this->registrar_id = null;
+        $this->save();
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

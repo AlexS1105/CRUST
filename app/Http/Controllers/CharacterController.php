@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 
@@ -41,5 +42,10 @@ class CharacterController extends Controller
     public function update(CharacterRequest $request, Character $character) {
         $character->update($request->validated());
         return redirect(route('characters.show', $character->login));
+    }
+
+    public function destroy(Character $character) {
+        //$character->delete();
+        return redirect(route('characters.index'));
     }
 }
