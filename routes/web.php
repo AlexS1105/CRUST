@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function() {
-    Route::get('/', [CharacterController::class, 'index'])->name('characters');
+    Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
     Route::get('/character/{character:login}', [CharacterController::class, 'show'])->name('characters.show');
 });
 
