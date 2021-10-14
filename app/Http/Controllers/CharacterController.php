@@ -31,4 +31,15 @@ class CharacterController extends Controller
             'character' => $character
         ]);
     }
+
+    public function edit(Character $character) {
+        return view('character.edit', [
+            'character' => $character
+        ]);
+    }
+
+    public function update(CharacterRequest $request, Character $character) {
+        $character->update($request->validated());
+        return redirect(route('characters.show', $character->login));
+    }
 }

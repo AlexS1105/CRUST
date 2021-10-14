@@ -22,10 +22,15 @@ class CharacterRequest extends FormRequest
      * @return array
      */
     public function rules() {
-        return [
-            'name' => 'required|max:255',
-            'login' => 'required|unique:characters|max:16',
-            'description' => 'required|max:512'
+        $rules = [
+            'name' => ['required', 'max:255'],
+            'description' => ['required', 'max:512']
         ];
+
+        if ($this->method() != 'PATCH') {
+            $rules['login'] = ['required', 'unique:characters,login', 'max:16'];
+        }
+
+        return $rules;
     }
 }

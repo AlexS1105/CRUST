@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/character/create', [CharacterController::class, 'create'])->name('characters.create');
     Route::post('/character', [CharacterController::class, 'store'])->name('characters.store');
     Route::get('/character/{character:login}', [CharacterController::class, 'show'])->name('characters.show');
+    Route::get('/character/{character:login}/edit', [CharacterController::class, 'edit'])->name('characters.edit');
+    Route::patch('/character/{character:login}', [CharacterController::class, 'update'])->name('characters.update');
 });
 
 require __DIR__.'/auth.php';

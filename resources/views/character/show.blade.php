@@ -9,6 +9,9 @@
                     Login: {{ $character->login }}
                 </div>
             </div>
+            <a href="{{ route('characters.edit', $character->login) }}">
+                Edit
+            </a>
             <div>
                 <div class="flex items-center gap-4 font-bold text-xl">
                     Status: <x-character-status :status="$character->status"/>
