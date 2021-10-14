@@ -45,6 +45,7 @@
                         placeholder="Login"
                         value="{{ old('login') }}"
                         required
+                        maxlength="16"
                     >
                 
                     @error('login')
