@@ -5,80 +5,19 @@
         </h2>
     </x-slot>
 
-    <div class="py-8 max-w-6xl mx-auto space-y-8">
-        <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6">
-            <form method="POST" action="{{ route('characters.store') }}">
-                @csrf
+    <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6">
+        <form method="POST" action="{{ route('characters.store') }}">
+            @csrf
 
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="name"
-                    >
-                        Name
-                    </label>
+            <x-form.input name="name" required />
+            <x-form.input name="login" required maxlength="16" />
+            <x-form.textarea name="description" required />
 
-                    <input class="border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Name"
-                        value="{{ old('name') }}"
-                        required
-                    >
+            <x-button>
+                Submit
+            </x-button>
+        </form>
 
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="login"
-                    >
-                        Login
-                    </label>
-
-                    <input class="border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="login"
-                        id="login"
-                        placeholder="Login"
-                        value="{{ old('login') }}"
-                        required
-                        maxlength="16"
-                    >
-                
-                    @error('login')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                        for="description"
-                    >
-                        Description
-                    </label>
-
-                    <textarea class="border border-gray-400 p-2 w-full"
-                        type="text"
-                        name="description"
-                        id="description"
-                        placeholder="Description"
-                        required
-                    >{{ old('description') }}</textarea>
-                
-                    @error('description')
-                        <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <x-button>
-                    Submit
-                </x-button>
-            </form>
-
-            <script src="{{ asset('js/character.js') }}"></script>
-        </div>
+        <script src="{{ asset('js/character.js') }}"></script>
     </div>
 </x-app-layout>
