@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
@@ -17,12 +18,6 @@ class Character extends Model
     protected $casts = [
         'status' => CharacterStatus::class,
     ];
-
-    public function getReference() {
-        return asset('storage/characters/references/' . 
-        (Storage::exists("public/characters/references/" . $this->login . ".png")
-        ? $this->login : '_default') . '.png');
-    }
 
     public function setStatus(CharacterStatus $status) {
         $this->status = $status;

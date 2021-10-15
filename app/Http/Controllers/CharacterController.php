@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
-use App\Models\Charsheet;
 
 class CharacterController extends Controller
 {
@@ -42,12 +40,20 @@ class CharacterController extends Controller
     }
 
     public function update(CharacterRequest $request, Character $character) {
+        $file = $request->file('reference');
+
+        if ($file) {
+            $character->reference = str_replace('public/', 'storage/', 
+                $file->storePubliclyAs('public/characters/references', $character->login.'.'.$file->extension()));
+        }
+
         $character->update($request->validated());
+
         return redirect(route('characters.show', $character->login));
     }
 
     public function destroy(Character $character) {
-        //$character->delete();
+        $character->delete();
         return redirect(route('characters.index'));
     }
 }

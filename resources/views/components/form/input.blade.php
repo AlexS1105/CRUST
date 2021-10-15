@@ -1,4 +1,4 @@
-@props(['name'])
+@props(['name', 'accept' => false])
 
 <x-form.field>
   <x-form.label name="{{ $name }}"/>
@@ -7,7 +7,8 @@
     name="{{ $name }}"
     id="{{ $name }}"
     {{ $attributes(['value' => old($name)]) }}
+    {{ $accept ? 'accept='.$accept: '' }}
   >
-  
+
   <x-form.error name="{{ $name }}"/>
 </x-form.field>

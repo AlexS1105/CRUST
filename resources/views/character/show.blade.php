@@ -96,15 +96,15 @@
         </div>
     </x-slot>
 
-    <div class="grid grid-cols-2 grid-rows-3 gap-4">
-        <div class="bg-white rounded-xl max-w-md mx-auto shadow-lg row-span-3 place-self-start ">
+    <div class="grid grid-cols-2 grid-rows-3 gap-8">
+        <div class="bg-white rounded-xl max-w-md ml-auto shadow-lg row-span-3 place-self-start overflow-hidden">
             <img
                 class="object-cover"
-                src="{{ $character->getReference(); }}"
+                src="{{ asset($character->reference).'?='.$character->updated_at }}"
                 alt="Character Reference"
             >
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-lg place-self-center">
+        <div class="bg-white p-4 rounded-xl shadow-lg place-self-center text-justify">
             <h1 class="font-bold text-xl mb-2">
                 Description
             </h1>
