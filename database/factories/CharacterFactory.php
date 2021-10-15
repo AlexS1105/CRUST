@@ -30,7 +30,7 @@ class CharacterFactory extends Factory
             'user_id' => User::factory(),
             'registrar_id' => User::factory(),
             'status' => array_rand(CharacterStatus::getValues()),
-            'status_changed_at' => now()
+            'status_updated_at' => now()
         ];
     }
 }
