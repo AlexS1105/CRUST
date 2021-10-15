@@ -25,7 +25,7 @@
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('user.name', 'Player')
               </th>
-              @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending())
+              @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('registrar.name', 'Registrar')
               </th>
