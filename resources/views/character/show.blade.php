@@ -10,7 +10,6 @@
                 </div>
             </div>
             <div class="flex flex-wrap flex-shrink-0">
-
                 <x-application.button text="Delete"
                     action="{{ route('characters.destroy', $character->login) }}"
                     bladeMethod="DELETE"
@@ -95,21 +94,23 @@
             </div>
         </div>
     </x-slot>
+    
+    <x-container>
+        <div class="grid grid-cols-2 grid-rows-3 gap-8">
+            <div class="bg-white rounded-xl max-w-md ml-auto shadow-lg row-span-3 place-self-start overflow-hidden">
+                <img
+                    class="object-cover"
+                    src="{{ asset($character->reference).'?='.$character->updated_at }}"
+                    alt="Character Reference"
+                >
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-lg place-self-start text-justify">
+                <h1 class="font-bold text-xl mb-2">
+                    Description
+                </h1>
 
-    <div class="grid grid-cols-2 grid-rows-3 gap-8">
-        <div class="bg-white rounded-xl max-w-md ml-auto shadow-lg row-span-3 place-self-start overflow-hidden">
-            <img
-                class="object-cover"
-                src="{{ asset($character->reference).'?='.$character->updated_at }}"
-                alt="Character Reference"
-            >
+                {{ $character->description }}
+            </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-lg place-self-start text-justify">
-            <h1 class="font-bold text-xl mb-2">
-                Description
-            </h1>
-
-            {{ $character->description }}
-        </div>
-    </div>
+    </x-container>
 </x-app-layout>
