@@ -22,6 +22,7 @@ class CreateCharactersTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('registrar_id')->nullable();
             $table->unsignedInteger('status')->default(CharacterStatus::Blank);
+            $table->timestamp('status_changed_at')->nullable();
             $table->string('reference')->default('storage/characters/references/_default.png');
             $table->timestamps();
         });

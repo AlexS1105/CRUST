@@ -21,17 +21,20 @@ class Character extends Model
 
     public function setStatus(CharacterStatus $status) {
         $this->status = $status;
+        $this->status_changed_at = now();
         $this->save();
     }
 
     public function takeForApproval() {
         $this->status = CharacterStatus::Approval;
+        $this->status_changed_at = now();
         $this->registrar_id = auth()->id();
         $this->save();
     }
 
     public function cancelApproval() {
         $this->status = CharacterStatus::Pending;
+        $this->status_changed_at = now();
         $this->registrar_id = null;
         $this->save();
     }

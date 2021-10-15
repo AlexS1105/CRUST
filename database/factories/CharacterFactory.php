@@ -29,7 +29,8 @@ class CharacterFactory extends Factory
             'login' => $this->faker->userName(),
             'user_id' => User::factory(),
             'registrar_id' => User::factory(),
-            'status' => array_rand(CharacterStatus::getValues())
+            'status' => array_rand(CharacterStatus::getValues()),
+            'status_changed_at' => now()
         ];
     }
 }
