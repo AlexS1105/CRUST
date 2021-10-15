@@ -5,18 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
+use Kyslik\ColumnSortable\Sortable;
 
 class Character extends Model
 {
-    use HasFactory, HybridRelations;
+    use HasFactory, HybridRelations, Sortable;
 
     protected $guarded = [];
 
     protected $casts = [
         'status' => CharacterStatus::class,
+    ];
+
+    public $sortable = [
+        'name',
+        'status_updated_at'
     ];
 
     public function setStatus(CharacterStatus $status) {

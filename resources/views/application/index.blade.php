@@ -20,16 +20,16 @@
           <thead class="border bg-gray-200">
             <tr>
               <th class="px-4 py-2 border border-gray-400">
-                Character
+                @sortablelink('name', 'Name')
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Player
+                @sortablelink('user.name', 'Player')
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Registrar
+                @sortablelink('registrar.name', 'Registrar')
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Time
+                @sortablelink('status_updated_at', 'Time')
               </th>
               <th class="px-4 py-2 border border-gray-400">
                 Actions

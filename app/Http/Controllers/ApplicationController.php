@@ -13,6 +13,7 @@ class ApplicationController extends Controller
         return view('application.index', [
             'status' => $status,
             'characters' => Character::where('status', $status)
+                                    ->sortable()
                                     ->oldest()
                                     ->paginate(10)
         ]);
