@@ -15,9 +15,11 @@
                     <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
                         {{ __('My Characters') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
-                        {{ __('Applications') }}
-                    </x-nav-link>
+                    @can('viewApplications', App\Models\Character::class)
+                        <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+                            {{ __('Applications') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
                 
             </div>
@@ -70,6 +72,11 @@
             <x-responsive-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
                 {{ __('My Characters') }}
             </x-responsive-nav-link>
+            @can('viewApplications', App\Models\Character::class)
+                <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+                    {{ __('Applications') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

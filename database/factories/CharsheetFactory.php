@@ -24,7 +24,7 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'character' => Character::factory()->create(['status' => CharacterStatus::Pending()])->login,
+            'character' => Character::factory()->create(['status' => CharacterStatus::Pending(), 'registrar_id' => null])->login,
             'special_stats' => [
                 'points' => $this->faker->randomNumber(2)
             ],

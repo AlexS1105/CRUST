@@ -9,7 +9,9 @@
         @foreach($characters as $character)
             <x-character.card :character="$character"/>
         @endforeach
-        
-        <x-character.new :href="route('characters.create')"/>
+
+        @can('create', App\Models\Character::class)
+            <x-character.new :href="route('characters.create')"/>
+        @endcan
     </div>
 </x-app-layout>

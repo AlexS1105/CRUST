@@ -177,6 +177,7 @@ return [
 
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Character;
+use App\Models\User;
+
+class CharacterPolicy
+{
+    public function create(User $user) {
+        return $user->characters->count() < 3;
+    }
+
+    public function view(User $user, Character $character) {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-view');
+    }
+
+    public function edit(User $user, Character $character) {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-edit');
+    }
+
+    public function delete(User $user, Character $character) {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-delete');
+    }
+
+    public function viewApplications(User $user) {
+        return $user->hasPermissionTo('application-index');
+    }
+
+    public function send(User $user, Character $character) {
+        return $character->user_id === $user->id;
+    }
+
+    public function cancel(User $user, Character $character) {
+        return $character->user_id === $user->id;
+    }
+
+    public function takeForApproval(User $user, Character $character) {
+        return $character->user_id != $user->id
+            && $user->hasPermissionTo('application-take-for-approval');
+    }
+
+    public function cancelApproval(User $user, Character $character) {
+        return $character->user_id != $user->id
+            && $user->hasPermissionTo('application-cancel-approval');
+    }
+
+    public function approve(User $user, Character $character) {
+        return $character->user_id != $user->id
+            && $user->hasPermissionTo('application-approve');
+    }
+
+    public function reapproval(User $user, Character $character) {
+        return $character->user_id === $user->id
+        || $user->hasPermissionTo('application-reapproval');
+    }
+}

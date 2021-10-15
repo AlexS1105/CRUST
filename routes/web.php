@@ -18,21 +18,58 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
-    Route::get('/character/create', [CharacterController::class, 'create'])->name('characters.create');
-    Route::post('/character', [CharacterController::class, 'store'])->name('characters.store');
-    Route::get('/character/{character:login}', [CharacterController::class, 'show'])->name('characters.show');
-    Route::get('/character/{character:login}/edit', [CharacterController::class, 'edit'])->name('characters.edit');
-    Route::patch('/character/{character:login}', [CharacterController::class, 'update'])->name('characters.update');
-    Route::delete('/character/{character:login}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 
-    Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/character/create', [CharacterController::class, 'create'])
+        ->name('characters.create')
+        ->middleware('can:create,App\Models\Character');
 
-    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])->name('applications.send');
-    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])->name('applications.cancel');
-    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])->name('applications.takeForApproval');
-    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])->name('applications.cancelApproval');
-    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])->name('applications.approve');
-    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])->name('applications.reapproval');
+    Route::post('/character', [CharacterController::class, 'store'])
+        ->name('characters.store')
+        ->middleware('can:create,App\Models\Character');
+
+    Route::get('/character/{character:login}', [CharacterController::class, 'show'])
+        ->name('characters.show')
+        ->middleware('can:view,character');
+
+    Route::get('/character/{character:login}/edit', [CharacterController::class, 'edit'])
+        ->name('characters.edit')
+        ->middleware('can:edit,character');
+
+    Route::patch('/character/{character:login}', [CharacterController::class, 'update'])
+        ->name('characters.update')
+        ->middleware('can:edit,character');
+
+    Route::delete('/character/{character:login}', [CharacterController::class, 'destroy'])
+        ->name('characters.destroy')
+        ->middleware('can:delete,character');
+
+    Route::get('/applications', [ApplicationController::class, 'index'])
+        ->middleware('can:viewApplications,App\Models\Character')
+        ->name('applications.index');
+
+    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])
+        ->name('applications.send')
+        ->middleware('can:send,character');
+
+    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])
+        ->name('applications.cancel')
+        ->middleware('can:cancel,character');
+
+    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
+        ->name('applications.takeForApproval')
+        ->middleware('can:takeForApproval,character');
+
+    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
+        ->name('applications.cancelApproval')
+        ->middleware('can:cancelApproval,character');
+
+    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])
+        ->name('applications.approve')
+        ->middleware('can:approve,character');
+
+    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
+        ->name('applications.reapproval')
+        ->middleware('can:reapproval,character');
 });
 
 require __DIR__.'/auth.php';

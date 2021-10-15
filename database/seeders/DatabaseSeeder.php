@@ -16,8 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            RoleSeeder::class
+        ]);
+
         //User::factory(10)->create();
         //Character::factory(10)->create();
         Charsheet::factory(10)->create();
+
+        User::first()->assignRole('admin');
+        User::find(2)->assignRole('registrar');
+        User::find(3)->assignRole('gamemaster');
     }
 }
