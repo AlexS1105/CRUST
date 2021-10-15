@@ -5,7 +5,7 @@
       </h2>
   </x-slot>
 
-  <div class="py-8 max-w-4xl mx-auto">
+  <div class="py-8 max-w-5xl mx-auto">
     <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
       <div class="flex mb-4 gap-4 justify-center">
         @foreach (App\Enums\CharacterStatus::getInstances() as $_status)
@@ -53,8 +53,10 @@
                 <td class="px-4 py-2 border">
                   {{ Carbon\Carbon::parse($character->status_updated_at)->diffForHumans() }}
                 </td>
-                <td class="px-4 py-2 border">
-                  {{-- TODO: Application Actions --}}
+                <td class="border">
+                  <div class="flex w-min mx-auto">
+                    <x-application.actions :character="$character" :tooltip="true"/>
+                  </div>
                 </td>
               </tr>
             @endforeach
