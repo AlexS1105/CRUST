@@ -30,7 +30,7 @@
                 />
                 @if ($character->status == \App\Enums\CharacterStatus::Blank())
                     <x-application.button text="Send To Approval"
-                        action="{{ route('application.send', $character->login) }}"
+                        action="{{ route('applications.send', $character->login) }}"
                         color="blue-100"
                         colorHover="blue-200"
                         colorRing="blue-300"
@@ -40,14 +40,14 @@
 
                 @if ($character->status == \App\Enums\CharacterStatus::Pending())
                     <x-application.button text="Cancel"
-                        action="{{ route('application.cancel', $character->login) }}"
+                        action="{{ route('applications.cancel', $character->login) }}"
                         color="gray-200"
                         colorHover="gray-300"
                         colorRing="gray-400"
                         icon="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                     <x-application.button text="Take For Approval"
-                        action="{{ route('application.takeForApproval', $character->login) }}"
+                        action="{{ route('applications.takeForApproval', $character->login) }}"
                         color="blue-200"
                         colorHover="blue-300"
                         colorRing="blue-400"
@@ -57,14 +57,14 @@
 
                 @if ($character->status == \App\Enums\CharacterStatus::Approval())
                     <x-application.button text="Cancel Approval"
-                        action="{{ route('application.cancelApproval', $character->login) }}"
+                        action="{{ route('applications.cancelApproval', $character->login) }}"
                         color="yellow-200"
                         colorHover="yellow-300"
                         colorRing="yellow-400"
                         icon="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                     <x-application.button text="Approve"
-                        action="{{ route('application.approve', $character->login) }}"
+                        action="{{ route('applications.approve', $character->login) }}"
                         color="green-200"
                         colorHover="green-300"
                         colorRing="green-400"
@@ -74,7 +74,7 @@
 
                 @if ($character->status == \App\Enums\CharacterStatus::Approved())
                     <x-application.button text="Send For Reapproval"
-                        action="{{ route('application.reapproval', $character->login) }}"
+                        action="{{ route('applications.reapproval', $character->login) }}"
                         color="yellow-100"
                         colorHover="yellow-200"
                         colorRing="yellow-300"

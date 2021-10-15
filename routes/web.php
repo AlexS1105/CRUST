@@ -25,12 +25,14 @@ Route::middleware('auth')->group(function() {
     Route::patch('/character/{character:login}', [CharacterController::class, 'update'])->name('characters.update');
     Route::delete('/character/{character:login}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 
-    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])->name('application.send');
-    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])->name('application.cancel');
-    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])->name('application.takeForApproval');
-    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])->name('application.cancelApproval');
-    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])->name('application.approve');
-    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])->name('application.reapproval');
+    Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+
+    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])->name('applications.send');
+    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])->name('applications.cancel');
+    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])->name('applications.takeForApproval');
+    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])->name('applications.cancelApproval');
+    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])->name('applications.approve');
+    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])->name('applications.reapproval');
 });
 
 require __DIR__.'/auth.php';

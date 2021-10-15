@@ -15,7 +15,11 @@
                     <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
                         {{ __('My Characters') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+                        {{ __('Applications') }}
+                    </x-nav-link>
                 </div>
+                
             </div>
 
             <!-- Settings Dropdown -->

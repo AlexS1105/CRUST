@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CharacterStatus;
 use App\Models\Charsheet;
 use App\Models\Character;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +24,7 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'character' => Character::factory()->create()->login,
+            'character' => Character::factory()->create(['status' => CharacterStatus::Pending()])->login,
             'special_stats' => [
                 'points' => $this->faker->randomNumber(2)
             ],

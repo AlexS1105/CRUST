@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Enums\CharacterStatus;
 use App\Models\Character;
-use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
+    public function index()
+    {
+        $status = request('status', CharacterStatus::Pending());
+        return view('application.index', [
+            'status' => $status,
+            'characters' => Character::where('status', $status)
+                                    ->oldest()
+                                    ->paginate(10)
+        ]);
+    }
+
     public function send(Character $character)
     {
         $character->setStatus(CharacterStatus::Pending());
