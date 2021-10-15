@@ -25,9 +25,11 @@
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('user.name', 'Player')
               </th>
+              @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending())
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('registrar.name', 'Registrar')
               </th>
+              @endunless
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('status_updated_at', 'Time')
               </th>
@@ -47,9 +49,11 @@
                 <td class="px-4 py-2 border">
                   {{ $character->user->name }}
                 </td>
+                @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
                 <td class="px-4 py-2 border">
                   {{ $character->registrar ? $character->registrar->name : "" }}
                 </td>
+                @endunless
                 <td class="px-4 py-2 border">
                   {{ Carbon\Carbon::parse($character->status_updated_at)->diffForHumans() }}
                 </td>
