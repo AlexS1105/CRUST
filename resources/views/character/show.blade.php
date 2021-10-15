@@ -104,7 +104,7 @@
                 alt="Character Reference"
             >
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-lg place-self-center text-justify">
+        <div class="bg-white p-4 rounded-xl shadow-lg place-self-start text-justify">
             <h1 class="font-bold text-xl mb-2">
                 Description
             </h1>
