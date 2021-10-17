@@ -24,8 +24,8 @@ class ApplicationController extends Controller
             'status' => $status,
             'search' => $search,
             'characters' => $characters->sortable()
-                                    ->oldest('status_updated_at')
-                                    ->paginate(10)
+                                        ->oldest('status_updated_at')
+                                        ->paginate(10)
         ]);
     }
 
