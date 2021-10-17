@@ -7,13 +7,14 @@
 
   <x-container class="max-w-5xl">
     <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
-      <div class="flex mb-4 gap-4 justify-center">
+      <div class="flex mb-4 gap-4 items-center">
         @foreach (App\Enums\CharacterStatus::getInstances() as $_status)
           <a href="{{ route('applications.index', [ 'status' => $_status->value ]) }}" class="{{ $status == $_status ?:"opacity-40" }}">
             <x-character.status :status=$_status/>
           </a>
         @endforeach
-      </div>
+
+        <x-search-field class="w-full" :route="route('applications.index')"/>
 
       @if(count($characters))
         <table class="table-auto w-full border">
@@ -30,6 +31,11 @@
                 @sortablelink('registrar.name', 'Registrar')
               </th>
               @endunless
+              @unless (isset($status))
+                <th class="px-4 py-2 border border-gray-400">
+                  @sortablelink('status', 'Status')
+                </th>
+              @endif
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('status_updated_at', 'Time')
               </th>
@@ -52,6 +58,11 @@
                 @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
                 <td class="px-4 py-2 border">
                   {{ $character->registrar ? $character->registrar->name : "" }}
+                </td>
+                @endunless
+                @unless (isset($status))
+                <td class="px-4 py-2 border">
+                  <x-character.status :status="$character->status" />
                 </td>
                 @endunless
                 <td class="px-4 py-2 border">

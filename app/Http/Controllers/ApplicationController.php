@@ -9,11 +9,20 @@ class ApplicationController extends Controller
 {
     public function index()
     {
+        $characters = null;
+        $search = request('search');
         $status = request('status', CharacterStatus::Pending());
+
+        if (isset($search)) {
+            $characters = Character::where('name', 'like', '%'.$search.'%');
+            $status = null;
+        } else {
+            $characters = Character::where('status', $status);
+        }
+
         return view('applications.index', [
             'status' => $status,
-            'characters' => Character::where('status', $status)
-                                    ->sortable()
+            'characters' => $characters->sortable()
                                     ->oldest('status_updated_at')
                                     ->paginate(10)
         ]);
