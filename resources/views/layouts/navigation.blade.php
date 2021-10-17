@@ -45,14 +45,12 @@
           </x-slot>
 
           <x-slot name="content">
-            <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}">
-              @csrf
-
-              <x-dropdown-link :href="route('logout')">
-                {{ __('Log Out') }}
-              </x-dropdown-link>
-            </form>
+            <x-dropdown-link :href="route('users.edit', auth()->user())" :method="'GET'">
+              {{ __('Edit Profile') }}
+            </x-dropdown-link>
+            <x-dropdown-link :href="route('logout')" :method="'POST'">
+              {{ __('Log Out') }}
+            </x-dropdown-link>
           </x-slot>
         </x-dropdown>
       </div>
