@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        if (request()->user()->can('user-manage', $user)) {
+        if (request()->user()->can('manage', $user)) {
             if ($request->collect('roles'))
             {
                 $user->syncRoles($request->collect('roles')->keys());

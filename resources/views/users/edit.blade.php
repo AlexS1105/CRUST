@@ -13,7 +13,7 @@
 
         <x-form.input name="name" required :value="old('name', $user->name)"/>
 
-        @can('user-manage', $user)
+        @can('manage', $user)
           <div class="flex justify-items-between space-x-8">
             <div>
               <h1 class="font-bold text-2xl mb-1">Roles</h1>
