@@ -5,13 +5,9 @@
     </h2>
   </x-slot>
 
-  <div class="py-12 max-w-7xl mx-auto grid grid-cols-3 gap-8 justify-items-center">
-    @foreach($characters as $character)
-      <x-character.card :character="$character"/>
-    @endforeach
-
+  <x-character.list :characters="$characters">
     @can('create', App\Models\Character::class)
       <x-character.new :href="route('characters.create')"/>
     @endcan
-  </div>
+  </x-character.list>
 </x-app-layout>
