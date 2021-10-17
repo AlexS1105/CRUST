@@ -14,7 +14,7 @@
           </a>
         @endforeach
 
-        <x-search-field class="w-full" :route="route('applications.index')"/>
+        <x-search-field class="w-full" :search="$search" :route="route('applications.index')"/>
       </div>
 
       @if(count($characters))

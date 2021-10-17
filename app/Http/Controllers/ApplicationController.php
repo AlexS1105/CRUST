@@ -22,6 +22,7 @@ class ApplicationController extends Controller
 
         return view('applications.index', [
             'status' => $status,
+            'search' => $search,
             'characters' => $characters->sortable()
                                     ->oldest('status_updated_at')
                                     ->paginate(10)
