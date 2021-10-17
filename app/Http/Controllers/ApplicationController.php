@@ -14,7 +14,7 @@ class ApplicationController extends Controller
         $status = request('status', CharacterStatus::Pending());
 
         if (isset($search)) {
-            $characters = Character::where('name', 'like', '%'.$search.'%');
+            $characters = Character::where('characters.name', 'like', '%'.$search.'%');
             $status = null;
         } else {
             $characters = Character::where('status', $status);

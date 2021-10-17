@@ -20,7 +20,8 @@ class Character extends Model
 
     public $sortable = [
         'name',
-        'status_updated_at'
+        'status_updated_at',
+        'status'
     ];
 
     public function setStatus(CharacterStatus $status) {

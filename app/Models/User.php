@@ -45,7 +45,8 @@ class User extends Authenticatable
     ];
 
     public $sortable = [
-        'name'
+        'name',
+        'created_at'
     ];
 
     public function characters() {
