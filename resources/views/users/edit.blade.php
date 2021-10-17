@@ -55,7 +55,8 @@
           <script>
             var roles = @json($roles);
             var permissions = @json($permissions->pluck('name'));
-            var userRoles = @json($user->roles->pluck('id'))
+            var userRoles = @json($user->roles->pluck('id'));
+            var userPermissions = @json($user->permissions->pluck('name'));
           </script>
           <script src="{{ asset('js/user.js') }}"></script>
         @endcan

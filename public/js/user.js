@@ -1,10 +1,14 @@
-function updatePermissions() {
+console.log(userPermissions);
+
+function updatePermissions(initial) {
   permissions.forEach(permission => {
-    var permissionCheckbox = document.getElementsByName(`permissions[${permission}]`)[0];
-    var has = hasPermission(permission);
-    console.log(has);
-    permissionCheckbox.disabled = has;
-    permissionCheckbox.checked = has;
+    if (!initial || !userPermissions.includes(permission)) {
+      var permissionCheckbox = document.getElementsByName(`permissions[${permission}]`)[0];
+      var has = hasPermission(permission);
+
+      permissionCheckbox.disabled = has;
+      permissionCheckbox.checked = has;
+    }
   });
 }
 
@@ -34,4 +38,4 @@ function hasPermission(permission) {
   return has;
 }
 
-updatePermissions();
+updatePermissions(true);
