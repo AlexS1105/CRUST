@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     
-    <x-container>
+    <x-container class="max-w-6xl space-y-8">
         <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6">
             <form method="POST" action="{{ route('characters.update', $character->login) }}" enctype="multipart/form-data">
                 @csrf

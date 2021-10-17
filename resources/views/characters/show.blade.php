@@ -28,7 +28,7 @@
         </div>
     </x-slot>
     
-    <x-container>
+    <x-container class="max-w-6xl space-y-8">
         <div class="grid grid-cols-2 grid-rows-3 gap-8">
             <div class="bg-white rounded-xl max-w-md ml-auto shadow-lg row-span-3 place-self-start overflow-hidden">
                 <img

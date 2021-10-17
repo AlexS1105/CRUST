@@ -5,7 +5,7 @@
       </h2>
   </x-slot>
 
-  <div class="py-8 max-w-5xl mx-auto">
+  <x-container class="max-w-5xl">
     <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
       <div class="flex mb-4 gap-4 justify-center">
         @foreach (App\Enums\CharacterStatus::getInstances() as $_status)
@@ -76,5 +76,5 @@
         {{ $characters->appends(request()->query())->links() }}
       </div>
     </div>
-  </div>
+  </x-container>
 </x-app-layout>
