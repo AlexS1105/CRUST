@@ -13,8 +13,7 @@ class UserPolicy
 
     public function view(User $user, User $model)
     {
-        return $user->hasPermissionTo('user-view')
-            || $user->id == $model->id;
+        return $user->hasPermissionTo('user-view');
     }
 
     public function update(User $user, User $model)
