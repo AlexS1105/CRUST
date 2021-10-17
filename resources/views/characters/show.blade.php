@@ -6,7 +6,10 @@
           {{ $character->name }}
         </h2>
         <div class="font-thin text-base mt-2">
-          Player: <span class="select-all">{{ $character->user->name }}</span>
+          Player: <a @can('view', $character->user)
+            class="font-bold underline text-blue-600 visited:text-purple-600"
+            href="{{ route('users.show', $character->user) }}"
+          @endcan>{{ $character->user->name }}</a>
         </div>
         <div class="font-thin text-base">
           Login: <span class="select-all">{{ $character->login }}</span>
