@@ -55,4 +55,14 @@ class User extends Authenticatable
     public function registrationCharacters() {
         return $this->hasMany(Character::class, 'registrar_id');
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(User $user) {
+            $user->characters->map(function($character) {
+                $character->charsheet->delete();
+            });
+        });
+    }
 }

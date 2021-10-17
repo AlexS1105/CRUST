@@ -54,4 +54,12 @@ class Character extends Model
     public function charsheet() {
         return $this->hasOne(Charsheet::class, 'character', 'login');
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(Character $character) {
+            $character->charsheet->delete();
+        });
+    }
 }
