@@ -10,7 +10,7 @@ class ApplicationController extends Controller
     public function index()
     {
         $status = request('status', CharacterStatus::Pending());
-        return view('application.index', [
+        return view('applications.index', [
             'status' => $status,
             'characters' => Character::where('status', $status)
                                     ->sortable()

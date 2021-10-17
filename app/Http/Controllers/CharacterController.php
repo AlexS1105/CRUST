@@ -8,13 +8,13 @@ use App\Models\Character;
 class CharacterController extends Controller
 {
     public function index() {
-        return view('character.index', [
+        return view('characters.index', [
             'characters' => auth()->user()->characters
         ]);
     }
 
     public function create() {
-        return view('character.create');
+        return view('characters.create');
     }
 
     public function store(CharacterRequest $request) {
@@ -28,13 +28,13 @@ class CharacterController extends Controller
     }
 
     public function show(Character $character) {
-        return view('character.show', [
+        return view('characters.show', [
             'character' => $character
         ]);
     }
 
     public function edit(Character $character) {
-        return view('character.edit', [
+        return view('characters.edit', [
             'character' => $character
         ]);
     }
