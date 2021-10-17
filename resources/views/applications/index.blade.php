@@ -15,6 +15,7 @@
         @endforeach
 
         <x-search-field class="w-full" :route="route('applications.index')"/>
+      </div>
 
       @if(count($characters))
         <table class="table-auto w-full border">
