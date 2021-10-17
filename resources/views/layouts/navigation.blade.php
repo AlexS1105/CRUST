@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
-                        {{ __('My Characters') }}
+                        {{ __('Characters') }}
                     </x-nav-link>
                     @can('viewApplications', App\Models\Character::class)
                         <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
@@ -70,7 +70,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
-                {{ __('My Characters') }}
+                {{ __('Characters') }}
             </x-responsive-nav-link>
             @can('viewApplications', App\Models\Character::class)
                 <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
