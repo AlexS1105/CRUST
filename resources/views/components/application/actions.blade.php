@@ -1,5 +1,5 @@
 @can('delete', $character)
-<x-application.button text="Delete"
+<x-action-button text="Delete"
     action="{{ route('characters.destroy', $character->login) }}"
     bladeMethod="DELETE"
     color="red-100"
@@ -12,7 +12,7 @@
 @endcan
 
 @can('edit', $character)
-<x-application.button text="Edit"
+<x-action-button text="Edit"
     method="GET"
     action="{{ route('characters.edit', $character->login) }}"
     color="gray-100"
@@ -25,7 +25,7 @@
 
 @if ($character->status == \App\Enums\CharacterStatus::Blank())
 @can('send', $character)
-    <x-application.button text="Send To Approval"
+    <x-action-button text="Send To Approval"
         action="{{ route('applications.send', $character->login) }}"
         color="blue-100"
         colorHover="blue-200"
@@ -38,7 +38,7 @@
 
 @if ($character->status == \App\Enums\CharacterStatus::Pending())
 @can('cancel', $character)
-    <x-application.button text="Cancel"
+    <x-action-button text="Cancel"
         action="{{ route('applications.cancel', $character->login) }}"
         color="gray-200"
         colorHover="gray-300"
@@ -49,7 +49,7 @@
     />
 @endcan
 @can('takeForApproval', $character)
-    <x-application.button text="Take For Approval"
+    <x-action-button text="Take For Approval"
         action="{{ route('applications.takeForApproval', $character->login) }}"
         color="blue-200"
         colorHover="blue-300"
@@ -62,7 +62,7 @@
 
 @if ($character->status == \App\Enums\CharacterStatus::Approval())
 @can('cancelApproval', $character)
-    <x-application.button text="Cancel Approval"
+    <x-action-button text="Cancel Approval"
         action="{{ route('applications.cancelApproval', $character->login) }}"
         color="yellow-200"
         colorHover="yellow-300"
@@ -73,7 +73,7 @@
     />
 @endcan
 @can('approve', $character)
-    <x-application.button text="Approve"
+    <x-action-button text="Approve"
         action="{{ route('applications.approve', $character->login) }}"
         color="green-200"
         colorHover="green-300"
@@ -86,7 +86,7 @@
 
 @if ($character->status == \App\Enums\CharacterStatus::Approved())
 @can('reapproval', $character)
-    <x-application.button text="Send For Reapproval"
+    <x-action-button text="Send For Reapproval"
         action="{{ route('applications.reapproval', $character->login) }}"
         color="yellow-100"
         colorHover="yellow-200"
