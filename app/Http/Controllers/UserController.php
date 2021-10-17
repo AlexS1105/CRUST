@@ -37,6 +37,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        session()->put('url.intended', url()->previous());
+
         $can = request()->user()->can('user-manage', $user);
         return view('users.edit', [
             'user' => $user,
@@ -61,7 +63,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect(route('users.show', $user));
+        return redirect()->intended('/');
     }
 
     public function destroy(User $user)
