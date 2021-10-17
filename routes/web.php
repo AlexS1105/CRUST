@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CharacterController;
-use App\Models\Character;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function() {
     Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
         ->name('applications.reapproval')
         ->middleware('can:reapproval,character');
+
+    Route::resource('users', UserController::class)
+        ->except(['create', 'store']);
 });
 
 require __DIR__.'/auth.php';

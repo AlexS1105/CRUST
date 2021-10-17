@@ -18,15 +18,21 @@ class RoleSeeder extends Seeder
         $admin = Role::create(['name' => 'admin']);
 
         $permissions = [
-            'character-edit' => [$registrar, $gamemaster],
-            'character-view' => [$registrar, $gamemaster],
-            'character-delete' => [$registrar, $gamemaster],
+            'character-edit' => [$admin, $registrar, $gamemaster],
+            'character-view' => [$admin, $registrar, $gamemaster],
+            'character-delete' => [$admin, $registrar, $gamemaster],
             
-            'application-index' => [$registrar, $gamemaster],
-            'application-take-for-approval' => [$registrar],
-            'application-cancel-approval' => [$registrar],
-            'application-approve' => [$registrar],
-            'application-reapproval' => [$registrar, $gamemaster]
+            'application-index' => [$admin, $registrar, $gamemaster],
+            'application-take-for-approval' => [$admin, $registrar],
+            'application-cancel-approval' => [$admin, $registrar],
+            'application-approve' => [$admin, $registrar],
+            'application-reapproval' => [$admin, $registrar, $gamemaster],
+
+            'user-index' => [$admin, $registrar, $gamemaster],
+            'user-view' => [$admin, $registrar, $gamemaster],
+            'user-edit' => [$admin],
+            'user-manage' => [$admin],
+            'user-delete' => [$admin]
         ];
 
         foreach ($permissions as $permission => $roles) {

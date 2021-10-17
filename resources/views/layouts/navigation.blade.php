@@ -20,6 +20,11 @@
               {{ __('Applications') }}
             </x-nav-link>
           @endcan
+          @can('viewAny', App\Models\User::class)
+            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+              {{ __('Manage Users') }}
+            </x-nav-link>
+          @endcan
         </div>
         
       </div>
@@ -75,6 +80,11 @@
       @can('viewApplications', App\Models\Character::class)
         <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
           {{ __('Applications') }}
+        </x-responsive-nav-link>
+      @endcan
+      @can('viewAny', App\Models\User::class)
+        <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+          {{ __('Manage Users') }}
         </x-responsive-nav-link>
       @endcan
     </div>
