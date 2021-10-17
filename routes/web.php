@@ -43,6 +43,14 @@ Route::middleware('auth')->group(function() {
         ->name('characters.destroy')
         ->middleware('can:delete,character');
 
+    Route::delete('/character/{character:login}/force', [CharacterController::class, 'forceDestroy'])
+        ->name('characters.forceDestroy')
+        ->middleware('can:forceDelete,character');
+
+    Route::patch('/character/{character:login}/restore', [CharacterController::class, 'restore'])
+        ->name('characters.restore')
+        ->middleware('can:restore,character');
+
     Route::get('/applications', [ApplicationController::class, 'index'])
         ->middleware('can:viewApplications,App\Models\Character')
         ->name('applications.index');

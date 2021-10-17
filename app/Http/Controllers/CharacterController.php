@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 
@@ -53,6 +54,16 @@ class CharacterController extends Controller
     }
 
     public function destroy(Character $character) {
+        $character->setStatus(CharacterStatus::Deleting());
+        return back();
+    }
+
+    public function restore(Character $character) {
+        $character->setStatus(CharacterStatus::Blank());
+        return back();
+    }
+
+    public function forceDestroy(Character $character) {
         $character->delete();
         return redirect(route('characters.index'));
     }

@@ -26,6 +26,15 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-delete');
     }
 
+    public function forceDelete(User $user, Character $character) {
+        return $user->hasPermissionTo('character-force-delete');
+    }
+
+    public function restore(User $user, Character $character) {
+        return $character->user_id === $user->id
+        || $user->hasPermissionTo('character-restore');
+    }
+
     public function viewApplications(User $user) {
         return $user->hasPermissionTo('application-index');
     }
