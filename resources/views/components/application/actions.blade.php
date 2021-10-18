@@ -37,7 +37,7 @@
     />
 	@endcan
 
-	@can('edit', $character)
+	@can('update', $character)
     <x-action-button text="Edit"
       method="GET"
       action="{{ route('characters.edit', $character->login) }}"
