@@ -23,7 +23,7 @@ class CharacterRequest extends FormRequest
      */
     public function rules() {
         $rules = [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
             'reference' => ['image']
         ];
