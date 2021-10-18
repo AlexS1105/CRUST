@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
 {
@@ -75,6 +77,8 @@ class CharacterController extends Controller
         $file = $request->file('reference');
 
         if ($file) {
+            // TODO: Existing references deleting
+
             $character->reference = str_replace('public/', 'storage/', 
                 $file->storePubliclyAs('public/characters/references', $character->login.'.'.$file->extension()));
             $character->save();
