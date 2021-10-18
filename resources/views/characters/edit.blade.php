@@ -18,7 +18,7 @@
         </x-form.textarea>
 
         <x-button>
-        Submit
+          Submit
         </x-button>
       </form>
     </div>
