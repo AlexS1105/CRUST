@@ -13,7 +13,8 @@ class CharacterPolicy
     }
 
     public function create(User $user) {
-        return $user->characters->count() < app(GeneralSettings::class)->max_characters;
+        return $user->characters->count() < app(GeneralSettings::class)->max_characters
+            || $user->hasPermissionTo('character-create-unlimited');
     }
 
     public function view(User $user, Character $character) {

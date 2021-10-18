@@ -23,6 +23,7 @@ class RoleSeeder extends Seeder
             'character-delete' => [$admin, $registrar, $gamemaster],
             'character-force-delete' => [$admin],
             'character-restore' => [$admin, $registrar, $gamemaster],
+            'character-create-unlimited' => [$admin],
             
             'application-index' => [$admin, $registrar, $gamemaster],
             'application-take-for-approval' => [$admin, $registrar],
