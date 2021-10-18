@@ -34,7 +34,9 @@ class RoleSeeder extends Seeder
             'user-view' => [$admin, $registrar, $gamemaster],
             'user-edit' => [$admin],
             'user-manage' => [$admin],
-            'user-delete' => [$admin]
+            'user-delete' => [$admin],
+
+            'settings' => [$admin]
         ];
 
         foreach ($permissions as $permission => $roles) {

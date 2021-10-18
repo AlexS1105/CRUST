@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Character;
 use App\Models\User;
+use App\Settings\GeneralSettings;
 
 class CharacterPolicy
 {
@@ -12,7 +13,7 @@ class CharacterPolicy
     }
 
     public function create(User $user) {
-        return $user->characters->count() < 3;
+        return $user->characters->count() < app(GeneralSettings::class)->max_characters;
     }
 
     public function view(User $user, Character $character) {
