@@ -53,6 +53,7 @@
 		@can('send', $character)
 			<x-action-button text="Send To Approval"
 				action="{{ route('applications.send', $character->login) }}"
+				bladeMethod="PATCH"
 				color="blue-100"
 				colorHover="blue-200"
 				colorRing="blue-300"
@@ -66,6 +67,7 @@
 		@can('cancel', $character)
 			<x-action-button text="Cancel"
 				action="{{ route('applications.cancel', $character->login) }}"
+				bladeMethod="PATCH"
 				color="gray-200"
 				colorHover="gray-300"
 				colorRing="gray-400"
@@ -77,6 +79,7 @@
 		@can('takeForApproval', $character)
 			<x-action-button text="Take For Approval"
 				action="{{ route('applications.takeForApproval', $character->login) }}"
+				bladeMethod="PATCH"
 				color="blue-200"
 				colorHover="blue-300"
 				colorRing="blue-400"
@@ -90,6 +93,7 @@
 		@can('cancelApproval', $character)
 			<x-action-button text="Cancel Approval"
 				action="{{ route('applications.cancelApproval', $character->login) }}"
+				bladeMethod="PATCH"
 				color="yellow-200"
 				colorHover="yellow-300"
 				colorRing="yellow-400"
@@ -101,6 +105,7 @@
 		@can('approve', $character)
 			<x-action-button text="Approve"
 				action="{{ route('applications.approve', $character->login) }}"
+				bladeMethod="PATCH"
 				color="green-200"
 				colorHover="green-300"
 				colorRing="green-400"
@@ -114,6 +119,7 @@
 		@can('reapproval', $character)
 			<x-action-button text="Send For Reapproval"
 				action="{{ route('applications.reapproval', $character->login) }}"
+				bladeMethod="PATCH"
 				color="yellow-100"
 				colorHover="yellow-200"
 				colorRing="yellow-300"

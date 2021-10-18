@@ -37,27 +37,27 @@ Route::middleware('auth')->group(function() {
         ->middleware('can:viewApplications,App\Models\Character')
         ->name('applications.index');
 
-    Route::post('/character/{character:login}/send', [ApplicationController::class, 'send'])
+    Route::patch('/characters/{character:login}/send', [ApplicationController::class, 'send'])
         ->name('applications.send')
         ->middleware('can:send,character');
 
-    Route::post('/character/{character:login}/cancel', [ApplicationController::class, 'cancel'])
+    Route::patch('/characters/{character:login}/cancel', [ApplicationController::class, 'cancel'])
         ->name('applications.cancel')
         ->middleware('can:cancel,character');
 
-    Route::post('/character/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
+    Route::patch('/characters/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
         ->name('applications.takeForApproval')
         ->middleware('can:takeForApproval,character');
 
-    Route::post('/character/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
+    Route::patch('/characters/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
         ->name('applications.cancelApproval')
         ->middleware('can:cancelApproval,character');
 
-    Route::post('/character/{character:login}/approve', [ApplicationController::class, 'approve'])
+    Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
         ->name('applications.approve')
         ->middleware('can:approve,character');
 
-    Route::post('/character/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
+    Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
         ->name('applications.reapproval')
         ->middleware('can:reapproval,character');
 

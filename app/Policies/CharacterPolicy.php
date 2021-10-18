@@ -7,6 +7,10 @@ use App\Models\User;
 
 class CharacterPolicy
 {
+    public function viewAny(User $user) {
+        return true;
+    }
+
     public function create(User $user) {
         return $user->characters->count() < 3;
     }
