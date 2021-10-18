@@ -2,30 +2,35 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CharacterGender;
 use Illuminate\Foundation\Http\FormRequest;
+use BenSampo\Enum\Rules\Enum;
 
 class CharacterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'gender' => CharacterGender::fromKey($this->gender)
+        ]);
+    }
+
     public function rules() {
         $rules = [
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
-            'reference' => ['image']
+            'reference' => ['image'],
+            'gender' => ['required', new Enum(CharacterGender::class)],
+            'race' => ['required', 'max:100'],
+            'age' => ['required', 'max:100'],
+            'appearance' => ['max:10000'],
+            'background' => ['nullable']
         ];
 
         if ($this->method() != 'PATCH') {

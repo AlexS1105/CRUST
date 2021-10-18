@@ -32,21 +32,63 @@
   </x-slot>
   
   <x-container class="max-w-6xl space-y-8">
-    <div class="grid grid-cols-2 grid-rows-3 gap-8">
-      <div class="bg-white rounded-xl max-w-md ml-auto shadow-lg row-span-3 place-self-start overflow-hidden">
+    <div class="flex justify-center gap-8">
+      <div class="bg-white rounded-xl max-w-md my-auto shadow-lg row-span-3 flex-none overflow-hidden">
         <img
           class="object-cover"
           src="{{ asset($character->reference).'?='.$character->updated_at }}"
           alt="Character Reference"
         >
       </div>
-      <div class="bg-white p-4 rounded-xl shadow-lg place-self-start text-justify">
-        <h1 class="font-bold text-xl mb-2">
-          Description
-        </h1>
+      <div class="space-y-8 my-auto">
+        <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
+          <h1 class="font-bold text-xl mb-2">
+            Info
+          </h1>
+  
+          <div class="text-lg">
+            <div class="flex items-center gap-1">
+              <b>Gender:</b> 
+              {{ $character->gender->description }}
+              <div class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
+            </div>
+            <div>
+              <b>Race:</b> {{ $character->race }}
+            </div>
+            <div>
+              <b>Age:</b> {{ $character->age }}
+            </div>
+          </div>
+        </div>
 
-        {{ $character->description }}
+        <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
+          <h1 class="font-bold text-xl my-2">
+            Description
+          </h1>
+  
+          <div class="whitespace-pre-line">{{ $character->description }}</div>
+        </div>
+
+        @if ($character->appearance)
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+            <h1 class="font-bold text-xl mb-2">
+              Appearance
+            </h1>
+
+            <div class="whitespace-pre-line">{{ $character->appearance }}</div>
+          </div>
+        @endif
       </div>
     </div>
+
+    @if ($character->background)
+      <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+        <h1 class="font-bold text-xl mb-2">
+          Background
+        </h1>
+
+        <div class="whitespace-pre-line">{{ $character->background }}</div>
+      </div>
+    @endif
   </x-container>
 </x-app-layout>

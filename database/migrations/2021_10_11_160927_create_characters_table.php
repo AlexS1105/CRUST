@@ -18,6 +18,11 @@ class CreateCharactersTable extends Migration
             $table->id();
             $table->text('name');
             $table->text('description');
+            $table->unsignedInteger('gender');
+            $table->text('race');
+            $table->text('age');
+            $table->text('appearance')->nullable();
+            $table->text('background')->nullable();
             $table->string('login');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('registrar_id')->nullable()->constrained('users')->onDelete('set null');

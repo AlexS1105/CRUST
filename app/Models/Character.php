@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CharacterGender;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
@@ -16,6 +17,7 @@ class Character extends Model
 
     protected $casts = [
         'status' => CharacterStatus::class,
+        'gender' => CharacterGender::class,
     ];
 
     public $sortable = [
