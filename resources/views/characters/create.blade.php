@@ -11,7 +11,7 @@
         @csrf
 
         <x-form.input name="name" required />
-        <x-form.input name="login" required maxlength="16" />
+        <x-form.input name="login" required maxlength="16" pattern="[A-Za-z0-9-_]+"/>
         <x-form.input name="reference" type="file" accept="image/*" />
         <x-form.textarea name="description" required />
 

@@ -7,16 +7,29 @@ function transliterate(word){
 }
 
 function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+    return word.toLowerCase().charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
-let nameField = document.getElementById('name');
+var nameField = document.getElementById('name');
 nameField.onchange = function() {
-    let value = nameField.value;
-    let loginField = document.getElementById('login');
+    var value = nameField.value;
+    var loginField = document.getElementById('login');
+    var maxLength = 16;
+
+    console.log(loginField.value);
 
     if (loginField.value == '') {
-        let login = capitalize(transliterate(value).replace(/\s/g, "").substr(0, 16));
+        var words = value.split(' ');
+        var login = "";
+
+        words.forEach(word => {
+            var tWord = transliterate(word).replaceAll(/[\W_]+/g, "");
+
+            if (login.length + tWord.length <= maxLength) {
+                login = login + capitalize(tWord);
+            }
+        });
+
         loginField.value = login;
     }
 }
