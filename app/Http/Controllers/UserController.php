@@ -52,15 +52,8 @@ class UserController extends Controller
         $user->update($request->validated());
 
         if (request()->user()->can('manage', $user)) {
-            if ($request->collect('roles'))
-            {
-                $user->syncRoles($request->collect('roles')->keys());
-            }
-    
-            if ($request->collect('permissions'))
-            {
-                $user->syncPermissions($request->collect('permissions')->keys());
-            }
+            $user->syncRoles($request->collect('roles')->keys());
+            $user->syncPermissions($request->collect('permissions')->keys());
         }
 
         return redirect()->intended('/');
