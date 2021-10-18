@@ -22,11 +22,6 @@ class UserPolicy
         || $user->id == $model->id;
     }
 
-    public function edit(User $user, User $model)
-    {
-        return $user->hasPermissionTo('user-edit');
-    }
-
     public function manage(User $user, User $model)
     {
         return $user->hasPermissionTo('user-manage');
