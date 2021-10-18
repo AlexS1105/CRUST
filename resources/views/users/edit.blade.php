@@ -5,12 +5,12 @@
     </h2>
   </x-slot>
   
-  <x-container class="max-w-6xl space-y-8">
-    <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6">
-      <form method="POST" action="{{ route('users.update', $user) }}">
-        @csrf
-        @method('PATCH')
+  <x-container class="max-w-3xl mx-auto">
+    <form method="POST" action="{{ route('users.update', $user) }}">
+      @csrf
+      @method('PATCH')
 
+      <x-form.card>
         <x-form.input name="name" required :value="old('name', $user->name)"/>
 
         @can('manage', $user)
@@ -64,7 +64,7 @@
         <x-button>
           Submit
         </x-button>
-      </form>
-    </div>
+      </x-form.card>
+    </form>
   </x-container>
 </x-app-layout>
