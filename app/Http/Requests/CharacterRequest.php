@@ -24,7 +24,8 @@ class CharacterRequest extends FormRequest
     public function rules() {
         $rules = [
             'name' => ['required', 'max:255'],
-            'description' => ['required', 'max:512']
+            'description' => ['required', 'max:512'],
+            'reference' => ['image']
         ];
 
         if ($this->method() != 'PATCH') {

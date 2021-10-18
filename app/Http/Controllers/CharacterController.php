@@ -28,6 +28,9 @@ class CharacterController extends Controller
         $character['user_id'] = auth()->id();
         
         $character = Character::create($character);
+        
+        $this->saveReference($character, $request);
+        
         $character->charsheet()->create();
 
         return redirect(route('characters.index'));
@@ -46,14 +49,9 @@ class CharacterController extends Controller
     }
 
     public function update(CharacterRequest $request, Character $character) {
-        $file = $request->file('reference');
-
-        if ($file) {
-            $character->reference = str_replace('public/', 'storage/', 
-                $file->storePubliclyAs('public/characters/references', $character->login.'.'.$file->extension()));
-        }
-
         $character->update($request->validated());
+
+        $this->saveReference($character, $request);
 
         return redirect(route('characters.show', $character->login));
     }
@@ -71,5 +69,15 @@ class CharacterController extends Controller
     public function forceDestroy(Character $character) {
         $character->delete();
         return redirect(route('characters.index'));
+    }
+
+    private function saveReference(Character $character, CharacterRequest $request) {
+        $file = $request->file('reference');
+
+        if ($file) {
+            $character->reference = str_replace('public/', 'storage/', 
+                $file->storePubliclyAs('public/characters/references', $character->login.'.'.$file->extension()));
+            $character->save();
+        }
     }
 }
