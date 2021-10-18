@@ -62,7 +62,9 @@ class User extends Authenticatable
 
         static::deleting(function(User $user) {
             $user->characters->map(function($character) {
-                $character->charsheet->delete();
+                if ($character->charsheet) {
+                    $character->charsheet->delete();
+                }
             });
         });
     }

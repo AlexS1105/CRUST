@@ -60,7 +60,9 @@ class Character extends Model
         parent::boot();
 
         static::deleting(function(Character $character) {
-            $character->charsheet->delete();
+            if ($character->charsheet) {
+                $character->charsheet->delete();
+            }
         });
     }
 }
