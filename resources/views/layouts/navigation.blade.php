@@ -25,6 +25,11 @@
               {{ __('Manage Users') }}
             </x-nav-link>
           @endcan
+          @can('settings')
+            <x-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
+              {{ __('Global Settings') }}
+            </x-nav-link>
+          @endcan
         </div>
         
       </div>
@@ -81,6 +86,11 @@
       @can('viewAny', App\Models\User::class)
         <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
           {{ __('Manage Users') }}
+        </x-responsive-nav-link>
+      @endcan
+      @can('settings')
+        <x-responsive-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
+          {{ __('Global Settings') }}
         </x-responsive-nav-link>
       @endcan
     </div>

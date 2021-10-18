@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +65,18 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('users', UserController::class)
         ->except(['create', 'store']);
+
+    Route::get('settings', SettingsController::class)
+        ->name('settings.index')
+        ->middleware('can:settings');
+
+    Route::get('settings/general', [GeneralSettingsController::class, 'show'])
+        ->name('settings.general.show')
+        ->middleware('can:settings');
+
+    Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
+        ->name('settings.general.update')
+        ->middleware('can:settings');
 });
 
 require __DIR__.'/auth.php';
