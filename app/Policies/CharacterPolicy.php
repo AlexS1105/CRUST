@@ -16,7 +16,7 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-view');
     }
 
-    public function edit(User $user, Character $character) {
+    public function update(User $user, Character $character) {
         return $character->user_id === $user->id
             || $user->hasPermissionTo('character-edit');
     }

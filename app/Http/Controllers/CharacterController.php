@@ -8,6 +8,11 @@ use App\Models\Character;
 
 class CharacterController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Character::class, 'character');
+    }
+
     public function index() {
         return view('characters.index', [
             'characters' => auth()->user()->characters

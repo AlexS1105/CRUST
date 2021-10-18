@@ -19,37 +19,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
 
-    Route::get('/character/create', [CharacterController::class, 'create'])
-        ->name('characters.create')
-        ->middleware('can:create,App\Models\Character');
-
-    Route::post('/character', [CharacterController::class, 'store'])
-        ->name('characters.store')
-        ->middleware('can:create,App\Models\Character');
-
-    Route::get('/character/{character:login}', [CharacterController::class, 'show'])
-        ->name('characters.show')
-        ->middleware('can:view,character');
-
-    Route::get('/character/{character:login}/edit', [CharacterController::class, 'edit'])
-        ->name('characters.edit')
-        ->middleware('can:edit,character');
-
-    Route::patch('/character/{character:login}', [CharacterController::class, 'update'])
-        ->name('characters.update')
-        ->middleware('can:edit,character');
-
-    Route::delete('/character/{character:login}', [CharacterController::class, 'destroy'])
-        ->name('characters.destroy')
-        ->middleware('can:delete,character');
-
-    Route::delete('/character/{character:login}/force', [CharacterController::class, 'forceDestroy'])
+    Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
         ->name('characters.forceDestroy')
         ->middleware('can:forceDelete,character');
 
-    Route::patch('/character/{character:login}/restore', [CharacterController::class, 'restore'])
+    Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
         ->name('characters.restore')
         ->middleware('can:restore,character');
+
+    Route::resource('characters', CharacterController::class)
+        ->except('index')
+        ->scoped([
+            'character' => 'login'
+        ]);
 
     Route::get('/applications', [ApplicationController::class, 'index'])
         ->middleware('can:viewApplications,App\Models\Character')
