@@ -15,8 +15,10 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "mediawiki/oauthclient": "^1.0",
         "spatie/laravel-permission": "^5.1",
-        "spatie/laravel-settings": "^2.1"
+        "spatie/laravel-settings": "^2.1",
+        "starcitizenwiki/mediawikiapi": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
