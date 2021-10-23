@@ -179,6 +179,7 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         NotificationChannels\Discord\DiscordServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class
     ],
 
     /*
@@ -233,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
     ],
 
 ];

@@ -18,7 +18,7 @@
         <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::getKeys()" :value="old('gender')"/>
         <x-form.input name="race" maxlength="100" required />
         <x-form.input name="age" maxlength="100" required />
-        <x-form.textarea name="description" maxlength="512" required />
+        <x-form.textarea name="description" maxlength="512" required onfocus="preview(this)" />
       </x-form.card>
 
       <x-form.card>
@@ -27,7 +27,7 @@
         </x-slot>
 
         <x-form.input name="reference" type="file" accept="image/*" />
-        <x-form.textarea name="appearance" maxlength="10000" required />
+        <x-form.textarea name="appearance" maxlength="10000" required onfocus="preview(this)" />
       </x-form.card>
 
       <x-form.card>
@@ -35,7 +35,7 @@
           Biography
         </x-slot>
 
-        <x-form.textarea name="background" />
+        <x-form.textarea name="background" onfocus="preview(this)" />
       </x-form.card>
       
       <x-form.card>
@@ -51,5 +51,7 @@
       </x-form.card>
     </form>
     <script src="{{ asset('js/character.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ asset('js/markdown-preview.js') }}"></script>
   </x-container>
 </x-app-layout>

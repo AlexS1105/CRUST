@@ -66,7 +66,7 @@
             Description
           </h1>
   
-          <div class="whitespace-pre-line">{{ $character->description }}</div>
+          @markdown($character->description)
         </div>
 
         @if ($character->appearance)
@@ -75,7 +75,7 @@
               Appearance
             </h1>
 
-            <div class="whitespace-pre-line">{{ $character->appearance }}</div>
+            @markdown($character->appearance)
           </div>
         @endif
       </div>
@@ -87,7 +87,7 @@
           Background
         </h1>
 
-        <div class="whitespace-pre-line">{{ $character->background }}</div>
+        @markdown($character->background)
       </div>
     @endif
   </x-container>

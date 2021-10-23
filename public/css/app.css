@@ -38307,6 +38307,10 @@ select {
   -webkit-line-clamp: unset;
 }
 
+p ~ p {
+  margin-top: 0.75em;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

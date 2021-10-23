@@ -13,6 +13,6 @@
     {{ $character->name }}
   </div>
   <div class="px-4 line-clamp-2 text-center">
-  {{ $character->description }}
+    @markdown($character->description)
   </div>
 </a>

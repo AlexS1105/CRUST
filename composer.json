@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "bensampo/laravel-enum": "^3.4",
         "fruitcake/laravel-cors": "^2.0",
+        "graham-campbell/markdown": "13.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/mongodb": "^3.8",
         "kyslik/column-sortable": "^6.4",
