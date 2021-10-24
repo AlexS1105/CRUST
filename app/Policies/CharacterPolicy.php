@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\CharacterStatus;
 use App\Models\Character;
 use App\Models\User;
 use App\Settings\GeneralSettings;
@@ -38,7 +39,7 @@ class CharacterPolicy
 
     public function restore(User $user, Character $character) {
         return $character->user_id === $user->id
-        || $user->hasPermissionTo('character-restore');
+            || $user->hasPermissionTo('character-restore');
     }
 
     public function viewApplications(User $user) {
@@ -46,30 +47,36 @@ class CharacterPolicy
     }
 
     public function send(User $user, Character $character) {
-        return $character->user_id === $user->id;
+        return $character->user_id === $user->id
+            && $character->status == CharacterStatus::Blank();
     }
 
     public function cancel(User $user, Character $character) {
-        return $character->user_id === $user->id;
+        return $character->user_id === $user->id
+            && $character->status == CharacterStatus::Pending();
     }
 
     public function takeForApproval(User $user, Character $character) {
         return $character->user_id != $user->id
-            && $user->hasPermissionTo('application-take-for-approval');
+            && $user->hasPermissionTo('application-take-for-approval')
+            && $character->status == CharacterStatus::Pending();
     }
 
     public function cancelApproval(User $user, Character $character) {
         return $character->user_id != $user->id
-            && $user->hasPermissionTo('application-cancel-approval');
+            && $user->hasPermissionTo('application-cancel-approval')
+            && $character->status == CharacterStatus::Approval();
     }
 
     public function approve(User $user, Character $character) {
         return $character->user_id != $user->id
-            && $user->hasPermissionTo('application-approve');
+            && $user->hasPermissionTo('application-approve')
+            && $character->status == CharacterStatus::Approval();
     }
 
     public function reapproval(User $user, Character $character) {
-        return $character->user_id === $user->id
-        || $user->hasPermissionTo('application-reapproval');
+        return ($character->user_id === $user->id
+            || $user->hasPermissionTo('application-reapproval'))
+            && $character->status == CharacterStatus::Approved();
     }
 }
