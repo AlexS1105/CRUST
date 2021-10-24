@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Discord implements Rule
+class DiscordTag implements Rule
 {
 
     public function passes($attribute, $value)
