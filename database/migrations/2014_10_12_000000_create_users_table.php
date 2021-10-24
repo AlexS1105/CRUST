@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('discord_tag')->nullable();
             $table->unsignedBigInteger('discord_id')->nullable();
+            $table->unsignedBigInteger('discord_private_channel_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

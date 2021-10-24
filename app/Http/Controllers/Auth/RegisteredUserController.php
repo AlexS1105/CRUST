@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use NotificationChannels\Discord\Discord;
 
 class RegisteredUserController extends Controller
 {
@@ -50,11 +51,15 @@ class RegisteredUserController extends Controller
             'rules_confirmation' => ['accepted']
         ]);
 
+        $discordId = $request->discord_id;
+        $channelId = app(Discord::class)->getPrivateChannel($discordId);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'discord_tag' => $request->discord_tag,
-            'discord_id' => $request->discord_id,
+            'discord_id' => $discordId,
+            'discord_private_channel_id' => $channelId,
             'password' => Hash::make($request->password),
         ]);
 

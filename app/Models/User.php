@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'discord_tag',
         'discord_id',
+        'discord_private_channel_id',
         'password',
     ];
 
@@ -69,5 +70,10 @@ class User extends Authenticatable
                 }
             });
         });
+    }
+
+    public function routeNotificationForDiscord()
+    {
+        return $this->discord_private_channel_id;
     }
 }
