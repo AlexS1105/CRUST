@@ -52,14 +52,13 @@ class RegisteredUserController extends Controller
         ]);
 
         $discordId = $request->discord_id;
-        $channelId = app(Discord::class)->getPrivateChannel($discordId);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'discord_tag' => $request->discord_tag,
             'discord_id' => $discordId,
-            'discord_private_channel_id' => $channelId,
+            'discord_private_channel_id' => app(Discord::class)->getPrivateChannel($discordId),
             'password' => Hash::make($request->password),
         ]);
 
