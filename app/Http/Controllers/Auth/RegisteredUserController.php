@@ -46,6 +46,8 @@ class RegisteredUserController extends Controller
             'discord_tag' => ['required', new Discord, 'unique:users'],
             'discord_id' => ['required', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'age_confirmation' => ['accepted'],
+            'rules_confirmation' => ['accepted']
         ]);
 
         $user = User::create([

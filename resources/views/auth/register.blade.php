@@ -57,6 +57,22 @@
 								name="password_confirmation" required />
 			</div>
 
+			<div class="mt-4 flex items-center space-x-2">
+				<x-input id="age_confirmation" class="block"
+								type="checkbox"
+								name="age_confirmation" required />
+
+				<x-label for="age_confirmation" :value="__('I am 18 years old and I am an adult')" />
+			</div>
+
+			<div class="mt-4 flex items-start space-x-2">
+				<x-input id="rules_confirmation" class="block"
+								type="checkbox"
+								name="rules_confirmation" required />
+
+				<x-label for="rules_confirmation" :value="__('I have read the project rules, I fully agree with them and undertake to abide by them, and also unconditionally acknowledge the project administration\'s right to interpret them.')" />
+			</div>
+
 			<div class="flex items-center justify-end mt-4">
 				<a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
 					{{ __('Already registered?') }}
