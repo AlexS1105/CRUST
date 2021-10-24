@@ -10,10 +10,14 @@ class SendDiscordApplicationCanceledNotification
 {
     public function handle($event)
     {
-        $character = $event->character;
-        
-        $character->user->notify(new ApplicationCanceledNotification($character));
+        try {
+            $character = $event->character;
+            
+            $character->user->notify(new ApplicationCanceledNotification($character));
 
-        event(new CharacterSent($character));
+            event(new CharacterSent($character));
+        } catch (Exception $e) {
+            
+        }
     }
 }

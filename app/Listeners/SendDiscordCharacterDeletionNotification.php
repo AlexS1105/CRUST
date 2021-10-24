@@ -3,12 +3,17 @@
 namespace App\Listeners;
 
 use App\Notifications\CharacterDeletionNotification;
+use Exception;
 
 class SendDiscordCharacterDeletionNotification
 {
     public function handle($event)
     {
-        $character = $event->character;
-        $character->user->notify(new CharacterDeletionNotification($character));
+        try {
+            $character = $event->character;
+            $character->user->notify(new CharacterDeletionNotification($character));
+        } catch (Exception $e) {
+            
+        }
     }
 }
