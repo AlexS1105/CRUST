@@ -2,6 +2,20 @@
 
 namespace App\Providers;
 
+use App\Events\CharacterApproved;
+use App\Events\CharacterCanceled;
+use App\Events\CharacterCompletelyDeleted;
+use App\Events\CharacterDeleted;
+use App\Events\CharacterReapproval;
+use App\Events\CharacterSent;
+use App\Events\CharacterTaken;
+use App\Listeners\SendDiscordApplicationApprovedNotification;
+use App\Listeners\SendDiscordApplicationCanceledNotification;
+use App\Listeners\SendDiscordApplicationReapprovalNotification;
+use App\Listeners\SendDiscordApplicationTakenNotification;
+use App\Listeners\SendDiscordCharacterCompleteDeletionNotification;
+use App\Listeners\SendDiscordCharacterDeletionNotification;
+use App\Listeners\SendDiscordNewApplicationNotification;
 use App\Listeners\SendDiscordRegistrationNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -14,6 +28,27 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             SendDiscordRegistrationNotification::class
         ],
+        CharacterDeleted::class => [
+            SendDiscordCharacterDeletionNotification::class
+        ],
+        CharacterCompletelyDeleted::class => [
+            SendDiscordCharacterCompleteDeletionNotification::class
+        ],
+        CharacterSent::class => [
+            SendDiscordNewApplicationNotification::class
+        ],
+        CharacterCanceled::class => [
+            SendDiscordApplicationCanceledNotification::class
+        ],
+        CharacterTaken::class => [
+            SendDiscordApplicationTakenNotification::class
+        ],
+        CharacterApproved::class => [
+            SendDiscordApplicationApprovedNotification::class
+        ],
+        CharacterReapproval::class => [
+            SendDiscordApplicationReapprovalNotification::class
+        ]
     ];
 
     public function boot()

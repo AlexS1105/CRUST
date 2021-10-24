@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CharacterStatus;
+use App\Events\CharacterDeleted;
+use App\Events\CharacterCompletelyDeleted;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 use Illuminate\Support\Facades\File;
@@ -60,6 +62,9 @@ class CharacterController extends Controller
 
     public function destroy(Character $character) {
         $character->setStatus(CharacterStatus::Deleting());
+
+        event(new CharacterDeleted($character));
+
         return back();
     }
 
@@ -69,7 +74,10 @@ class CharacterController extends Controller
     }
 
     public function forceDestroy(Character $character) {
+        event(new CharacterCompletelyDeleted($character));
+        
         $character->delete();
+
         return redirect(route('characters.index'));
     }
 
