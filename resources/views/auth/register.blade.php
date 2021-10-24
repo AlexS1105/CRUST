@@ -12,11 +12,23 @@
 		<form method="POST" action="{{ route('register') }}">
 			@csrf
 
-			<!-- Name -->
 			<div>
+				<x-label for="discord_tag" :value="__('Discord Tag')" />
+
+				<x-input id="discord_tag" class="block mt-1 w-full bg-gray-100 opacity-75" type="text" name="discord_tag" :value="old('discord_tag', $discord_data['username'].'#'.$discord_data['discriminator'])" pattern="^.{3,32}#[0-9]{4}$" required readonly />
+			</div>
+
+			<div class="mt-4">
+				<x-label for="discord_id" :value="__('Discord Id')" />
+
+				<x-input id="discord_id" class="block mt-1 w-full bg-gray-100 opacity-75" type="text" name="discord_id" :value="old('discord_id', $discord_data['id'])" readonly required />
+			</div>
+
+			<!-- Name -->
+			<div class="mt-4">
 				<x-label for="name" :value="__('Name')" />
 
-				<x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+				<x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $discord_data['username'])" required autofocus />
 			</div>
 
 			<!-- Email Address -->

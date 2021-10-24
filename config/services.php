@@ -31,6 +31,11 @@ return [
     ],
 
     'discord' => [
-        'token' => '',
+        'api' => env('DISCORD_API'),
+        'token' => env('DISCORD_TOKEN'),
+        'clientid' => env('DISCORD_CLIENT_ID'),
+        'secret' => env('DISCORD_SECRET'),
+        'redirecturi' => env('DISCORD_REDIRECT_URI'),
+        'oauth2url' => env('DISCORD_OAUTH2_URL')
     ],
 ];

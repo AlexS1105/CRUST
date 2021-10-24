@@ -40,8 +40,12 @@
 				</label>
 			</div>
 
+			@if (isset($error))
+				<p class="text-red-500 text-xs mt-2">{{ $error }}</p>
+			@endif
+
 			<div class="flex items-center justify-end mt-4 space-x-3">
-				<x-button onclick="window.location.href='{{ route('register') }}'" type="button">
+				<x-button onclick="window.location.href='{{ config('services.discord.oauth2url') }}'" type="button">
 					{{ __('Sign Up') }}
 				</x-button>
 
