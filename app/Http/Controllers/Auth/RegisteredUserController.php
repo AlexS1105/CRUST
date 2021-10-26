@@ -48,8 +48,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'login' => ['required', 'string', 'max:255', 'unique:users'],
             'discord_tag' => ['required', new DiscordTag, 'unique:users'],
             'discord_id' => ['required', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -60,8 +59,7 @@ class RegisteredUserController extends Controller
         $discordId = $request->discord_id;
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'login' => $request->login,
             'discord_tag' => $request->discord_tag,
             'discord_id' => $discordId,
             'discord_private_channel_id' => app(Discord::class)->getPrivateChannel($discordId),

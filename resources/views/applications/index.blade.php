@@ -25,7 +25,7 @@
                 @sortablelink('name', 'Name')
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('user.name', 'Player')
+                @sortablelink('user.login', 'Player')
               </th>
               @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
               <th class="px-4 py-2 border border-gray-400">
@@ -47,26 +47,28 @@
           </thead>
           <tbody>
             @foreach ($characters as $character)
-              <tr class="py-2 border hover:bg-gray-100 text-center">
+              <tr class="py-2 border hover:bg-gray-100">
                 <td class="px-4 py-2 border">
                   <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.show', $character->login) }}">
                     {{ $character->name }}
                   </a>
                 </td>
-                <td class="px-4 py-2 border">
-                  {{ $character->user->name }}
+                <td class="px-4 py-2 border text-center">
+                  <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.show', $character->login) }}">
+                    {{ $character->user->login }}
+                  </a>
                 </td>
                 @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
-                <td class="px-4 py-2 border">
-                  {{ $character->registrar ? $character->registrar->name : "" }}
+                <td class="px-4 py-2 border text-center">
+                  {{ $character->registrar ? $character->registrar->login : "" }}
                 </td>
                 @endunless
                 @unless (isset($status))
-                <td class="px-4 py-2 border">
+                <td class="px-4 py-2 border text-center">
                   <x-character.status :status="$character->status" />
                 </td>
                 @endunless
-                <td class="px-4 py-2 border">
+                <td class="px-4 py-2 border text-center">
                   {{ Carbon\Carbon::parse($character->status_updated_at)->diffForHumans() }}
                 </td>
                 <td class="border">

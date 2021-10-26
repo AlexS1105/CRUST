@@ -5,11 +5,14 @@
         <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
           {{ $character->name }}
         </h2>
-        <div class="font-thin text-base mt-2">
+        <div class="font-thin text-base">
           Player: <a @can('view', $character->user)
             class="font-bold underline text-blue-600 visited:text-purple-600"
             href="{{ route('users.show', $character->user) }}"
-          @endcan>{{ $character->user->name }}</a>
+          @endcan>{{ $character->user->login }}</a>
+        </div>
+        <div class="font-thin text-base">
+          Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
         </div>
         <div class="font-thin text-base">
           Login: <span class="select-all">{{ $character->login }}</span>
@@ -24,7 +27,7 @@
         </div>
         @if ($character->registrar)
           <div class="font-thin text-base text-right mt-2">
-            Registrar: {{ $character->registrar->name }}
+            Registrar: {{ $character->registrar->discord_tag }}
           </div>
         @endif
       </div>

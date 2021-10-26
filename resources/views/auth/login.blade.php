@@ -16,8 +16,8 @@
 		<form class='space-y-2' method="POST" action="{{ route('login') }}">
 			@csrf
 
-			<x-form.input name="email" autofocus />
-			<x-form.input name="password" type="password" autocomplete="current-password"/>
+			<x-form.input name="login" autofocus required />
+			<x-form.input name="password" type="password" autocomplete="current-password" required />
 			<x-form.checkbox name="remember_me" />
 
 			<div class="flex items-center justify-end mt-4 space-x-3">

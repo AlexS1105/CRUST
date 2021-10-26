@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -21,7 +20,7 @@ class UserController extends Controller
         $search = request('search');
         return view('users.index', [
             'search' => $search,
-            'users' => User::where('users.name', 'like', '%'.$search.'%')
+            'users' => User::where('users.login', 'like', '%'.$search.'%')
                             ->latest('created_at')
                             ->sortable()
                             ->paginate(10)

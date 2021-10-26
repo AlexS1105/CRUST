@@ -11,7 +11,7 @@
       @method('PATCH')
 
       <x-form.card>
-        <x-form.input name="name" required :value="old('name', $user->name)"/>
+        <x-form.input name="login" required :value="old('login', $user->login)"/>
 
         @can('manage', $user)
           <div class="flex justify-items-between space-x-8">

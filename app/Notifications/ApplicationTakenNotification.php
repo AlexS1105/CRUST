@@ -21,7 +21,7 @@ class ApplicationTakenNotification extends DiscordNotification
         $registrar = $character->registrar;
         $embed = [
             'title' => "Ваш персонаж '$character->name' взят на проверку!",
-            'description' => "Регистратор $registrar->name проверит её как можно скорее.",
+            'description' => "Регистратор $registrar->discord_tag проверит её как можно скорее.",
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [

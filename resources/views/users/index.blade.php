@@ -14,7 +14,10 @@
           <thead class="border bg-gray-200">
             <tr>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('name', 'Name')
+                @sortablelink('login', 'Login')
+              </th>
+              <th class="px-4 py-2 border border-gray-400">
+                @sortablelink('discord_tag', 'Discord Tag')
               </th>
               <th class="px-4 py-2 border border-gray-400">
                 Characters
@@ -32,9 +35,12 @@
               <tr class="py-2 border hover:bg-gray-100">
                 <td class="px-4 py-2 border">
                   <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('users.show', $user) }}">
-                    {{ $user->name }}
+                    {{ $user->login }}
                   </a>
                 </td>
+                <td class="px-4 py-2 border text-center">
+                  <span class="select-all">{{ $user->discord_tag }}</span>
+                </td>                
                 <td class="px-4 py-2 border text-center">
                   @foreach ($user->characters as $character)
                     <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.show', $character->login) }}">
