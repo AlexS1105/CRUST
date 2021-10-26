@@ -14,6 +14,12 @@
       </div>
     </div>
   </x-slot>
-
-  <x-character.list :characters="$user->characters"/>
+  
+  @if (count($user->characters))
+    <x-character.list :characters="$user->characters"/>
+  @else
+    <div class="text-gray-300 text-6xl text-center font-bold mt-40">
+      {{ __('users.no_characters') }}
+    </div>
+  @endif
 </x-app-layout>
