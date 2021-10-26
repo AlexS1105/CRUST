@@ -27,7 +27,7 @@
 				</x-button>
 
 				<x-button>
-					{{ __('login.login') }}
+					{{ __('login.button') }}
 				</x-button>
 			</div>
 
