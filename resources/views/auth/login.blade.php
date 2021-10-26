@@ -9,6 +9,10 @@
 		<x-auth-session-status class="mb-4" :status="session('status')" />
 		<x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+		@if (isset($error))
+			<p class="text-red-500 text-xs mt-2">{{ $error }}</p>
+		@endif
+		
 		<form class='space-y-2' method="POST" action="{{ route('login') }}">
 			@csrf
 
@@ -16,12 +20,9 @@
 			<x-form.input name="password" type="password" autocomplete="current-password"/>
 			<x-form.checkbox name="remember_me" />
 
-			@if (isset($error))
-				<p class="text-red-500 text-xs mt-2">{{ $error }}</p>
-			@endif
-
 			<div class="flex items-center justify-end mt-4 space-x-3">
-				<x-button onclick="window.location.href='{{ config('services.discord.oauth2url') }}'" type="button">
+				<x-button class="bg-indigo-500" onclick="window.location.href='{{ config('services.discord.oauth2url') }}'" type="button">
+					<div class="fab fa-discord mr-2"></div>
 					{{ __('login.register') }}
 				</x-button>
 

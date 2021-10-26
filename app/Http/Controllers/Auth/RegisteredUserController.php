@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             ]);
         } catch (Exception $e)
         {
-            return view('auth.login')->with('error', $request->input('error_description', 'Unknown Discord authorization error'));
+            return view('auth.login')->with('error', $request->input('error_description', __('auth.discord_error')));
         }
     }
 
