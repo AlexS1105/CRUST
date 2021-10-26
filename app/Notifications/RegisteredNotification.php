@@ -35,6 +35,6 @@ class RegisteredNotification extends DiscordNotification
             ]
         ];
         
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

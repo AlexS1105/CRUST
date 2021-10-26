@@ -11,16 +11,20 @@ class DiscordNotification extends Notification
 {
     use Queueable;
 
-    public $embed = [
-        'type' => 'rich',
-        'footer' => [
-            'text' => 'Система Тесея',
-            'icon_url' => 'https://i.imgur.com/NlCDmmT.png'
-        ],
-    ];
-
     public function via($notifiable)
     {
         return [DiscordChannel::class];
+    }
+
+    protected function getEmbed()
+    {
+        return [
+            'type' => 'rich',
+            'footer' => [
+                'text' => config('app.name'),
+                'icon_url' => 'https://i.imgur.com/NlCDmmT.png'
+            ],
+            'timestamp' => now()
+        ];
     }
 }

@@ -23,7 +23,6 @@ class ApplicationTakenNotification extends DiscordNotification
             'title' => "Ваш персонаж '$character->name' взят на проверку!",
             'description' => "Регистратор $registrar->name проверит её как можно скорее.",
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0x60A5FA,
             'image' => [
                 'url' => asset($character->reference)
@@ -56,6 +55,6 @@ class ApplicationTakenNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

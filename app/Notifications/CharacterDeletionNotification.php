@@ -22,7 +22,6 @@ class CharacterDeletionNotification extends DiscordNotification
             'title' => "Ваш персонаж '$character->name' скоро будет удалён",
             'description' => 'Это произойдет автоматически через некоторое время. До этого момента его всё ещё можно будет восстановить!',
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0xEF4444,
             'image' => [
                 'url' => asset($character->reference)
@@ -52,6 +51,6 @@ class CharacterDeletionNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

@@ -23,7 +23,6 @@ class NewApplicationNotification extends DiscordNotification
             'title' => "Персонаж '$character->name' подан на проверку",
             'description' => 'Пожалуйста, возьмите на проверку как можно скорее!',
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0x60A5FA,
             'image' => [
                 'url' => asset($character->reference)
@@ -57,6 +56,6 @@ class NewApplicationNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

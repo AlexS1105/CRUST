@@ -28,7 +28,6 @@ class ApplicationCanceledNotification extends DiscordNotification
             
             Новый регистратор возьмёт Вашего персонажа на проверку в ближайшее время.',
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0xFCD34D,
             'image' => [
                 'url' => asset($character->reference)
@@ -58,6 +57,6 @@ class ApplicationCanceledNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

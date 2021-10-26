@@ -24,7 +24,6 @@ class ApplicationApprovedNotification extends DiscordNotification
             'title' => "Ваш персонаж '$character->name' одобрен!",
             'description' => 'Вы можете начать игру уже сейчас!',
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0x34D399,
             'image' => [
                 'url' => asset($character->reference)
@@ -66,6 +65,6 @@ class ApplicationApprovedNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

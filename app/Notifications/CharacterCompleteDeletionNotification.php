@@ -24,7 +24,6 @@ class CharacterCompleteDeletionNotification extends DiscordNotification
             
             ***Помянем***',
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0xEF4444,
             'image' => [
                 'url' => asset($character->reference)
@@ -52,6 +51,6 @@ class CharacterCompleteDeletionNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

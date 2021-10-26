@@ -33,7 +33,6 @@ class ApplicationReapprovalNotification extends DiscordNotification
             
             Игровой аккаунт отключен до повторной проверки регистратором $registrar->discord_tag.",
             'url' => $url,
-            'timestamp' => now(),
             'color' => 0xFCD34D,
             'image' => [
                 'url' => asset($character->reference)
@@ -66,6 +65,6 @@ class ApplicationReapprovalNotification extends DiscordNotification
             ]
         ];
 
-        return DiscordMessage::create('', array_merge($this->embed, $embed));
+        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }
