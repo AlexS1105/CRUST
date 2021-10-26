@@ -35,7 +35,13 @@ return [
         'token' => env('DISCORD_TOKEN'),
         'clientid' => env('DISCORD_CLIENT_ID'),
         'secret' => env('DISCORD_SECRET'),
-        'redirecturi' => env('DISCORD_REDIRECT_URI'),
-        'oauth2url' => env('DISCORD_OAUTH2_URL')
+        'redirecturi' => [
+            'login' => env('DISCORD_REDIRECT_LOGIN'),
+            'reset' => env('DISCORD_REDIRECT_RESET')
+        ],
+        'oauth2url' => [
+            'login' => env('DISCORD_OAUTH2_URL_LOGIN'),
+            'reset' => env('DISCORD_OAUTH2_URL_RESET')
+        ]
     ],
 ];

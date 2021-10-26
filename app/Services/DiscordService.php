@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Cache;
 
 class DiscordService
 {
-    public function getUserData($code)
+    public function getUserData($code, $redirect)
     {
-        $accessData = Cache::remember('accessData'.$code, 604800, function() use($code) {
-            return $this->getAccessToken($code);
+        $accessData = Cache::remember('accessData'.$code, 604800, function() use($code, $redirect) {
+            return $this->getAccessToken($code, $redirect);
         });
 
         $token = $accessData['access_token'];
@@ -27,10 +27,12 @@ class DiscordService
             return json_decode(curl_exec($curl), true);
         });
 
+        $userData['accessData'] = $accessData;
+
         return $userData;
     }
 
-    public function getAccessToken($code)
+    public function getAccessToken($code, $redirect)
     {
         $curl = curl_init(config('services.discord.api').'/oauth2/token');
 
@@ -41,7 +43,7 @@ class DiscordService
             'client_secret' => config('services.discord.secret'),
             'grant_type' => 'authorization_code',
             'code' => $code,
-            'redirect_uri' => config('services.discord.redirecturi')
+            'redirect_uri' => $redirect
         ]);
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, [

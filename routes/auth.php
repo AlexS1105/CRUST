@@ -28,11 +28,11 @@ Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.request');
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+Route::get('/forgot-password/sent', [PasswordResetLinkController::class, 'sent'])
                 ->middleware('guest')
-                ->name('password.email');
+                ->name('password.sent');
 
-Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+Route::get('/reset-password/{discord_id}', [NewPasswordController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.reset');
 

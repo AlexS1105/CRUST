@@ -28,12 +28,14 @@ class RegisteredUserController extends Controller
     {
         try
         {
-            $userData = $this->discordService->getUserData($request->input('code'));
+            $userData = $this->discordService->getUserData($request->input('code'), config('services.discord.redirecturi.login'));
 
             $user = User::where('discord_id', $userData['id'])->first();
 
             if ($user) {
-                return view('auth.login')->with('error', __('auth.already_registered'));
+                return redirect()->route('login', [
+                    'error' => $request->input('error_description', __('auth.already_registered'))
+                ]);
             }
 
             return view('auth.register', [
@@ -41,7 +43,9 @@ class RegisteredUserController extends Controller
             ]);
         } catch (Exception $e)
         {
-            return view('auth.login')->with('error', $request->input('error_description', __('auth.discord_error')));
+            return redirect()->route('login', [
+                'error' => $request->input('error_description', __('auth.discord_error'))
+            ]);
         }
     }
 

@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\DiscordService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class PasswordResetLinkController extends Controller
 {
+    private $discordService;
+
+    public function __construct(DiscordService $discordService)
+    {
+        $this->discordService = $discordService;
+    }
+    
     /**
      * Display the password reset link request view.
      *
@@ -18,30 +27,30 @@ class PasswordResetLinkController extends Controller
         return view('auth.forgot-password');
     }
 
-    /**
-     * Handle an incoming password reset link request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request)
+    public function sent(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
+        try
+        {
+            $userData = $this->discordService->getUserData($request->code, config('services.discord.redirecturi.reset'));
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+            $status = Password::sendResetLink([
+                'discord_id' => $userData['id']
+            ], function($user, $token) {
+                session()->put('token', $token);
+            });
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            return $status == Password::RESET_LINK_SENT
+                    ? redirect()->route('password.reset', [
+                        'discord_id' => $userData['id']
+                    ])
+                    : redirect()->route('password.request')->withInput($request->only('login'))
+                            ->withErrors(['login' => __($status)]);
+        } catch (Exception $e)
+        {
+            ddd($e);
+            return redirect()->route('password.request', [
+                'error' => $request->input('error_description', __('auth.discord_error'))
+            ]);
+        }
     }
 }
