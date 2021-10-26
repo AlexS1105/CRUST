@@ -4,6 +4,7 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'password_confirmation' => 'Confirm Password',
+    'remember_me' => 'Remember me',
     'discord_tag' => 'Discord Tag',
     'discord_id' => 'Discord ID',
     'name' => 'Name',
