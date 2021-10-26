@@ -30,6 +30,12 @@ class RegisteredUserController extends Controller
         {
             $userData = $this->discordService->getUserData($request->input('code'));
 
+            $user = User::where('discord_id', $userData['id']);
+            
+            if ($user) {
+                return view('auth.login')->with('error', __('auth.already_registered'));
+            }
+
             return view('auth.register', [
                 'discord_data' => $userData
             ]);
