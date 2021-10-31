@@ -3,6 +3,6 @@
     +
   </div>
   <div class="px-12 py-2 text-2xl font-bold text-center">
-    Create New Character
+    {{ __('characters.create') }}
   </div>
 </a>

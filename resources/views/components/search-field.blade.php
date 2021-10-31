@@ -5,7 +5,7 @@
       <input class="px-3 w-full bg-transparent border-0 rounded-full focus:ring-blue-200" 
         type="text" 
         name="search" 
-        placeholder="Search..." 
+        placeholder="{{ __('ui.search') }}" 
         value="{{ isset($search) ? $search : "" }}"
       />
 

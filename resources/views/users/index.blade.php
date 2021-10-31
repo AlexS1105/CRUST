@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Manage Users') }}
+      {{ __('users.index') }}
     </h2>
   </x-slot>
 
@@ -14,19 +14,19 @@
           <thead class="border bg-gray-200">
             <tr>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('login', 'Login')
+                @sortablelink('login', __('label.login'))
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('discord_tag', 'Discord Tag')
+                @sortablelink('discord_tag', __('label.discord_tag'))
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Characters
+                {{ __('label.characters') }}
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('created_at', 'Registered')
+                @sortablelink('created_at', __('label.registered'))
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Actions
+                {{ __('label.actions') }}
               </th>
             </tr>
           </thead>
@@ -66,7 +66,7 @@
         </table>
       @else
         <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
-          No users found
+          {{ __('users.empty') }}
         </p>
       @endif
 

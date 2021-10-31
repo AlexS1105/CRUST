@@ -1,12 +1,12 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex justify-between items-center text-gray-600">
-      <div class="flex-grow-0">
+      <div class="flex-shrink-0">
         <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
           {{ $character->name }}
         </h2>
         <div class="font-thin text-base">
-          Player: <a @can('view', $character->user)
+          {{ __('label.player') }}: <a @can('view', $character->user)
             class="font-bold underline text-blue-600 visited:text-purple-600"
             href="{{ route('users.show', $character->user) }}"
           @endcan>{{ $character->user->login }}</a>
@@ -15,19 +15,19 @@
           Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
         </div>
         <div class="font-thin text-base">
-          Login: <span class="select-all">{{ $character->login }}</span>
+          {{ __('label.login') }}: <span class="select-all">{{ $character->login }}</span>
         </div>
       </div>
-      <div class="flex flex-wrap flex-shrink-0">
+      <div class="flex flex-wrap justify-center">
         <x-application.actions :character="$character"/>
       </div>
       <div>
         <div class="flex items-center gap-4 font-bold text-xl">
-          Status: <x-character.status :status="$character->status"/>
+          {{ __('label.status') }}: <x-character.status :status="$character->status"/>
         </div>
         @if ($character->registrar)
           <div class="font-thin text-base text-right mt-2">
-            Registrar: {{ $character->registrar->discord_tag }}
+            {{ __('label.registrar') }}: {{ $character->registrar->discord_tag }}
           </div>
         @endif
       </div>
@@ -46,27 +46,27 @@
       <div class="space-y-8 my-auto">
         <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
           <h1 class="font-bold text-xl mb-2">
-            Info
+            {{ __('characters.cards.main_info') }}
           </h1>
   
           <div class="text-lg">
             <div class="flex items-center gap-1">
-              <b>Gender:</b> 
-              {{ $character->gender->description }}
+              <b>{{ __('label.gender') }}:</b> 
+              {{ $character->gender->localized() }}
               <div class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
             </div>
             <div>
-              <b>Race:</b> {{ $character->race }}
+              <b>{{ __('label.race') }}:</b> {{ $character->race }}
             </div>
             <div>
-              <b>Age:</b> {{ $character->age }}
+              <b>{{ __('label.age') }}:</b> {{ $character->age }}
             </div>
           </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
           <h1 class="font-bold text-xl my-2">
-            Description
+            {{ __('label.description') }}
           </h1>
   
           @markdown($character->description)
@@ -75,7 +75,7 @@
         @if ($character->appearance)
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
             <h1 class="font-bold text-xl mb-2">
-              Appearance
+              {{ __('label.appearance') }}
             </h1>
 
             @markdown($character->appearance)
@@ -87,7 +87,7 @@
     @if ($character->background)
       <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
         <h1 class="font-bold text-xl mb-2">
-          Background
+          {{ __('label.background') }}
         </h1>
 
         @markdown($character->background)

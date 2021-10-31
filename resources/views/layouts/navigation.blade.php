@@ -13,21 +13,21 @@
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
-            {{ __('Characters') }}
+            {{ __('characters.index') }}
           </x-nav-link>
           @can('viewApplications', App\Models\Character::class)
             <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
-              {{ __('Applications') }}
+              {{ __('applications.index') }}
             </x-nav-link>
           @endcan
           @can('viewAny', App\Models\User::class)
             <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-              {{ __('Manage Users') }}
+              {{ __('users.index') }}
             </x-nav-link>
           @endcan
           @can('settings')
             <x-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
-              {{ __('Global Settings') }}
+              {{ __('settings.index') }}
             </x-nav-link>
           @endcan
         </div>
@@ -51,10 +51,10 @@
 
           <x-slot name="content">
             <x-dropdown-link :href="route('users.edit', auth()->user())" :method="'GET'">
-              {{ __('Edit Profile') }}
+              {{ __('ui.edit_profile') }}
             </x-dropdown-link>
             <x-dropdown-link :href="route('logout')" :method="'POST'">
-              {{ __('Log Out') }}
+              {{ __('ui.logout') }}
             </x-dropdown-link>
           </x-slot>
         </x-dropdown>
@@ -76,21 +76,21 @@
   <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
-        {{ __('Characters') }}
+        {{ __('characters.index') }}
       </x-responsive-nav-link>
       @can('viewApplications', App\Models\Character::class)
         <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
-          {{ __('Applications') }}
+          {{ __('applications.index') }}
         </x-responsive-nav-link>
       @endcan
       @can('viewAny', App\Models\User::class)
         <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-          {{ __('Manage Users') }}
+          {{ __('users.index') }}
         </x-responsive-nav-link>
       @endcan
       @can('settings')
         <x-responsive-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
-          {{ __('Global Settings') }}
+          {{ __('settings.index') }}
         </x-responsive-nav-link>
       @endcan
     </div>
@@ -103,14 +103,22 @@
       </div>
 
       <div class="mt-3 space-y-1">
-        <!-- Authentication -->
+        <form method="GET" action="{{ route('users.edit', auth()->user()) }}">
+          @csrf
+
+          <x-responsive-nav-link :href="route('users.edit', auth()->user())"
+              onclick="event.preventDefault();
+                    this.closest('form').submit();">
+            {{ __('ui.edit_profile') }}
+          </x-responsive-nav-link>
+        </form>
         <form method="POST" action="{{ route('logout') }}">
           @csrf
 
           <x-responsive-nav-link :href="route('logout')"
               onclick="event.preventDefault();
                     this.closest('form').submit();">
-            {{ __('Log Out') }}
+            {{ __('ui.logout') }}
           </x-responsive-nav-link>
         </form>
       </div>

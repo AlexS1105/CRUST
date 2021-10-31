@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('General Settings') }}
+      {{ __('settings.index') }}
     </h2>
   </x-slot>
   
@@ -15,7 +15,7 @@
           <x-form.input name="max_characters" type="number" min="0" max="100" :value="old('max_characters', $settings->max_characters)"/>
 
           <x-button>
-            Submit
+            {{ __('ui.submit') }}
           </x-button>
       </x-form.card>
     </form>

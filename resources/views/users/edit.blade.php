@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Edit User') }}
+      {{ __('users.edit') }}
     </h2>
   </x-slot>
   
@@ -16,7 +16,7 @@
         @can('manage', $user)
           <div class="flex justify-items-between space-x-8">
             <div>
-              <h1 class="font-bold text-2xl mb-1">Roles</h1>
+              <h1 class="font-bold text-2xl mb-1">{{ __('users.roles') }}</h1>
               <div class="space-y-2">
                 @foreach ($roles as $role)
                   <div class="flex items-center">
@@ -26,14 +26,14 @@
                       onchange="updateRole({{ $role->id }}, this.checked)"
                       {{ $user->hasRole($role->name) ? 'checked' : '' }}/>
                     <div class="ml-2">
-                      {{ $role->name }}
+                      {{ __('role.'.$role->name) }}
                     </div>
                   </div>
                 @endforeach
               </div>
             </div>
             <div class="w-full">
-              <h1 class="font-bold text-2xl mb-1">Permissions</h1>
+              <h1 class="font-bold text-2xl mb-1">{{ __('users.permissions') }}</h1>
               <div class="grid grid-cols-3 gap-2">
                 @foreach ($permissions as $permission)
                   <div class="inline-flex space-x-2">
@@ -44,7 +44,7 @@
                       {{ $user->hasDirectPermission($permission->name) ? 'checked' : '' }}/>
                     </div>
                     <div class="inline-block">
-                      {{ $permission->name }}
+                      {{ __('permission.'.$permission->name) }}
                     </div>
                   </div>
                 @endforeach
@@ -62,7 +62,7 @@
         @endcan
 
         <x-button>
-          Submit
+          {{ __('ui.submit') }}
         </x-button>
       </x-form.card>
     </form>

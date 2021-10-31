@@ -1,19 +1,19 @@
 @if ($character->status == \App\Enums\CharacterStatus::Deleting())
   @can('forceDelete', $character)
-    <x-action-button text="Force Delete"
+    <x-action-button text="{{ __('applications.force_delete') }}"
       action="{{ route('characters.forceDestroy', $character->login) }}"
       bladeMethod="DELETE"
       color="red-300"
       colorHover="red-400"
       colorRing="red-500"
-      confirmationText="return confirm('{{ __('Are you sure?') }}')"
+      confirmationText="return confirm('{{ __('ui.confirm') }}')"
       icon="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
       tooltip="{{ isset($tooltip) }}"
     />
   @endcan
 
   @can('restore', $character)
-    <x-action-button text="Restore"
+    <x-action-button text="{{ __('applications.restore') }}"
       action="{{ route('characters.restore', $character->login) }}"
       bladeMethod="PATCH"
       color="blue-100"
@@ -25,20 +25,20 @@
   @endcan
 @else
   @can('delete', $character)
-    <x-action-button text="Delete"
+    <x-action-button text="{{ __('applications.delete') }}"
       action="{{ route('characters.destroy', $character->login) }}"
       bladeMethod="DELETE"
       color="red-100"
       colorHover="red-200"
       colorRing="red-300"
-      confirmationText="return confirm('{{ __('Are you sure?') }}')"
+      confirmationText="return confirm('{{ __('ui.confirm') }}')"
       icon="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
       tooltip="{{ isset($tooltip) }}"
     />
 	@endcan
 
 	@can('update', $character)
-    <x-action-button text="Edit"
+    <x-action-button text="{{ __('applications.edit') }}"
       method="GET"
       action="{{ route('characters.edit', $character->login) }}"
       color="gray-100"
@@ -51,7 +51,7 @@
 
 	@if ($character->status == \App\Enums\CharacterStatus::Blank())
 		@can('send', $character)
-			<x-action-button text="Send To Approval"
+			<x-action-button text="{{ __('applications.send') }}"
 				action="{{ route('applications.send', $character->login) }}"
 				bladeMethod="PATCH"
 				color="blue-100"
@@ -65,19 +65,19 @@
 
 	@if ($character->status == \App\Enums\CharacterStatus::Pending())
 		@can('cancel', $character)
-			<x-action-button text="Cancel"
+			<x-action-button text="{{ __('applications.cancel') }}"
 				action="{{ route('applications.cancel', $character->login) }}"
 				bladeMethod="PATCH"
 				color="gray-200"
 				colorHover="gray-300"
 				colorRing="gray-400"
-				confirmationText="return confirm('{{ __('Are you sure?') }}')"
+				confirmationText="return confirm('{{ __('ui.confirm') }}')"
 				icon="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
 				tooltip="{{ isset($tooltip) }}"
 			/>
 		@endcan
 		@can('takeForApproval', $character)
-			<x-action-button text="Take For Approval"
+			<x-action-button text="{{ __('applications.take') }}"
 				action="{{ route('applications.takeForApproval', $character->login) }}"
 				bladeMethod="PATCH"
 				color="blue-200"
@@ -91,19 +91,19 @@
 
 	@if ($character->status == \App\Enums\CharacterStatus::Approval())
 		@can('cancelApproval', $character)
-			<x-action-button text="Cancel Approval"
+			<x-action-button text="{{ __('applications.cancel_approval') }}"
 				action="{{ route('applications.cancelApproval', $character->login) }}"
 				bladeMethod="PATCH"
 				color="yellow-200"
 				colorHover="yellow-300"
 				colorRing="yellow-400"
-				confirmationText="return confirm('{{ __('Are you sure?') }}')"
+				confirmationText="return confirm('{{ __('ui.confirm') }}')"
 				icon="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
 				tooltip="{{ isset($tooltip) }}"
 			/>
 		@endcan
 		@can('approve', $character)
-			<x-action-button text="Approve"
+			<x-action-button text="{{ __('applications.approve') }}"
 				action="{{ route('applications.approve', $character->login) }}"
 				bladeMethod="PATCH"
 				color="green-200"
@@ -117,13 +117,13 @@
 
 	@if ($character->status == \App\Enums\CharacterStatus::Approved())
 		@can('reapproval', $character)
-			<x-action-button text="Send For Reapproval"
+			<x-action-button text="{{ __('applications.reapproval') }}"
 				action="{{ route('applications.reapproval', $character->login) }}"
 				bladeMethod="PATCH"
 				color="yellow-100"
 				colorHover="yellow-200"
 				colorRing="yellow-300"
-				confirmationText="return confirm('{{ __('Are you sure?') }}')"
+				confirmationText="return confirm('{{ __('ui.confirm') }}')"
 				icon="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
 				tooltip="{{ isset($tooltip) }}"
 			/>

@@ -1,5 +1,5 @@
 @can('update', $user)
-    <x-action-button text="Edit"
+    <x-action-button text="{{ __('users.edit') }}"
         method="GET"
         action="{{ route('users.edit', $user) }}"
         color="gray-100"
@@ -11,7 +11,7 @@
 @endcan
 
 @can('ban', $user)
-    <x-action-button text="Ban"
+    <x-action-button text="{{ __('users.ban') }}"
         method="GET"
         action="{{ route('users.ban.create', $user) }}"
         color="red-100"
@@ -24,7 +24,7 @@
 
 @if ($user->ban)
     @can('unban', $user)
-    <x-action-button text="Unban"
+    <x-action-button text="{{ __('users.unban') }}"
         bladeMethod="DELETE"
         action="{{ route('ban.destroy', $user->ban) }}"
         color="green-100"
@@ -37,13 +37,13 @@
 @endif
 
 @can('delete', $user)
-    <x-action-button text="Delete"
+    <x-action-button text="{{ __('users.delete') }}"
         action="{{ route('users.destroy', $user) }}"
         bladeMethod="DELETE"
         color="red-300"
         colorHover="red-400"
         colorRing="red-500"
-        confirmationText="return confirm('{{ __('Are you sure?') }}')"
+        confirmationText="return confirm('{{ __('ui.confirm') }}')"
         icon="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
         tooltip="{{ isset($tooltip) }}"
     />

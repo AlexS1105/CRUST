@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          {{ __('Applications') }}
+          {{ __('applications.index') }}
       </h2>
   </x-slot>
 
@@ -22,26 +22,26 @@
           <thead class="border bg-gray-200">
             <tr>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('name', 'Name')
+                @sortablelink('name', __('label.name'))
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('user.login', 'Player')
+                @sortablelink('user.login', __('label.player'))
               </th>
               @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('registrar.name', 'Registrar')
+                @sortablelink('registrar.name', __('label.registrar'))
               </th>
               @endunless
               @unless (isset($status))
                 <th class="px-4 py-2 border border-gray-400">
-                  @sortablelink('status', 'Status')
+                  @sortablelink('status', __('label.status'))
                 </th>
               @endif
               <th class="px-4 py-2 border border-gray-400">
-                @sortablelink('status_updated_at', 'Time')
+                @sortablelink('status_updated_at', __('label.waiting'))
               </th>
               <th class="px-4 py-2 border border-gray-400">
-                Actions
+                {{ __('label.actions') }}
               </th>
             </tr>
           </thead>

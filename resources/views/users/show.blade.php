@@ -21,13 +21,13 @@
         <div class="fa fa-gavel text-7xl text-gray-800"></div>
         <div class="min-w-auto">
           <div class="font-bold text-lg">
-            {{ $user->login }} is currently banned by {{ $user->ban->by->login }}
+            {{ __('ban.title', [ 'user' => $user->login, 'admin' => $user->ban->by->login ]) }}
           </div>
           <div>
-            Reason: {{ $user->ban->reason }}
+            {{ __('label.reason') }}: {{ $user->ban->reason }}
           </div>
           <div>
-            Expires {{ Carbon\Carbon::parse($user->ban->expires)->diffForHumans() }} ({{ $user->ban->expires }})
+            {{ __('label.expires') }} {{ Carbon\Carbon::parse($user->ban->expires)->diffForHumans() }} ({{ $user->ban->expires }})
           </div>
         </div>
       </div>

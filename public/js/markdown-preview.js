@@ -11,8 +11,8 @@ function preview(element) {
     element.previewWindow.className = 'mt-2'
 
     element.previewWindow.header = element.previewWindow.appendChild(document.createElement('div'));
-    element.previewWindow.header.className = 'block mb-2 uppercase font-bold text-xs text-gray-700'
-    element.previewWindow.header.innerHTML = 'Preview'
+    element.previewWindow.header.className = 'block mb-2 uppercase text-xs text-gray-700'
+    element.previewWindow.header.innerHTML = previewText
 
     element.previewWindow.text = element.previewWindow.appendChild(document.createElement('div'));
 
