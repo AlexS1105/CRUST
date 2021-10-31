@@ -21,9 +21,9 @@ class CheckBanned
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            
+
             return redirect()->route('login', [
-                'error' => "You are banned by {$by->login}, reason: {$ban->reason}. Ban will expire {$expires}"
+                'error' => "You are banned by {$by->login} ({$by->discord_tag}), reason: {$ban->reason}. Ban will expire {$expires}"
             ]);
         }
 
