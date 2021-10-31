@@ -44,15 +44,18 @@ class User extends Authenticatable
         'created_at'
     ];
 
-    public function characters() {
+    public function characters()
+    {
         return $this->hasMany(Character::class);
     }
 
-    public function registrationCharacters() {
+    public function registrationCharacters()
+    {
         return $this->hasMany(Character::class, 'registrar_id');
     }
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
         static::deleting(function(User $user) {
