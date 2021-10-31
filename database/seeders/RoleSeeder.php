@@ -36,6 +36,7 @@ class RoleSeeder extends Seeder
             'user-edit' => [$admin],
             'user-manage' => [$admin],
             'user-delete' => [$admin],
+            'user-ban' => [$admin],
 
             'settings' => [$admin]
         ];

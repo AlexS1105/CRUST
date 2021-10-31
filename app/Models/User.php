@@ -44,6 +44,8 @@ class User extends Authenticatable
         'created_at'
     ];
 
+    protected $with = ['ban'];
+
     public function characters()
     {
         return $this->hasMany(Character::class);
@@ -52,6 +54,16 @@ class User extends Authenticatable
     public function registrationCharacters()
     {
         return $this->hasMany(Character::class, 'registrar_id');
+    }
+
+    public function ban()
+    {
+        return $this->hasOne(Ban::class);
+    }
+
+    public function issuedBans()
+    {
+        return $this->hasMany(Ban::class, 'banned_by');
     }
 
     protected static function boot()

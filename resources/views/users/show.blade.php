@@ -14,6 +14,25 @@
       </div>
     </div>
   </x-slot>
+
+  @if ($user->ban)
+    <x-card class="bg-yellow-100 mt-4 mx-auto max-w-7xl">
+      <div class="flex items-center space-x-4">
+        <div class="fa fa-gavel text-7xl text-gray-800"></div>
+        <div class="min-w-auto">
+          <div class="font-bold text-lg">
+            {{ $user->login }} is currently banned by {{ $user->ban->by->login }}
+          </div>
+          <div>
+            Reason: {{ $user->ban->reason }}
+          </div>
+          <div>
+            Expires {{ Carbon\Carbon::parse($user->ban->expires)->diffForHumans() }} ({{ $user->ban->expires }})
+          </div>
+        </div>
+      </div>
+    </x-card>
+  @endif
   
   @if (count($user->characters))
     <x-character.list :characters="$user->characters"/>

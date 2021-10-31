@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
@@ -65,6 +66,10 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('users', UserController::class)
         ->except(['create', 'store']);
+
+    Route::resource('users.ban', BanController::class)
+        ->only(['create', 'store', 'destroy'])
+        ->shallow();
 
     Route::get('settings', SettingsController::class)
         ->name('settings.index')

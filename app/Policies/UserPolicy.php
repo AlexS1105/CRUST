@@ -31,4 +31,14 @@ class UserPolicy
     {
         return $user->hasPermissionTo('user-delete');
     }
+
+    public function ban(User $user, User $model)
+    {
+        return $user->hasPermissionTo('user-ban');
+    }
+
+    public function unban(User $user, User $model)
+    {
+        return $user->ban && $user->hasPermissionTo('user-ban');
+    }
 }

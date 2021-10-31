@@ -10,6 +10,32 @@
     />
 @endcan
 
+@can('ban', $user)
+    <x-action-button text="Ban"
+        method="GET"
+        action="{{ route('users.ban.create', $user) }}"
+        color="red-100"
+        colorHover="red-200"
+        colorRing="red-300"
+        icon="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+        tooltip="{{ isset($tooltip) }}"
+    />
+@endcan
+
+@if ($user->ban)
+    @can('unban', $user)
+    <x-action-button text="Unban"
+        bladeMethod="DELETE"
+        action="{{ route('ban.destroy', $user->ban) }}"
+        color="green-100"
+        colorHover="green-200"
+        colorRing="green-300"
+        icon="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+        tooltip="{{ isset($tooltip) }}"
+    />
+    @endcan
+@endif
+
 @can('delete', $user)
     <x-action-button text="Delete"
         action="{{ route('users.destroy', $user) }}"
