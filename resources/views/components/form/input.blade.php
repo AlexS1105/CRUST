@@ -8,7 +8,7 @@
     id="{{ $name }}"
     {{ $attributes(['value' => old($name)]) }}
     {{ $accept ? 'accept='.$accept: '' }}
-  >
+  />
 
   <x-form.error name="{{ $name }}"/>
 </x-form.field>
