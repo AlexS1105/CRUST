@@ -16,14 +16,18 @@ class CheckBanned
         {
             $ban = $user->ban;
             $by = $ban->by;
-            $expires = Carbon::parse($user->ban->expires)->diffForHumans();
-            
+
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('login', [
-                'error' => "You are banned by {$by->login} ({$by->discord_tag}), reason: {$ban->reason}. Ban will expire {$expires}"
+            return redirect()->route('login')->withErrors([
+                'error' => __('ban.message', [
+                    'admin' => $by->login,
+                    'tag' => $by->discord_tag,
+                    'reason' => $ban->reason,
+                    'time' => Carbon::parse($user->ban->expires)->diffForHumans()
+                ])
             ]);
         }
 

@@ -9,10 +9,6 @@
 		<x-auth-session-status class="mb-4" :status="session('status')" />
 		<x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-		@if (isset($error))
-			<p class="text-red-500 text-xs mt-2">{{ $error }}</p>
-		@endif
-		
 		<form class='space-y-2' method="POST" action="{{ route('login') }}">
 			@csrf
 
