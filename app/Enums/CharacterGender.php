@@ -29,4 +29,8 @@ final class CharacterGender extends Enum
     public function color() {
         return $this->colors[$this->value];
     }
+
+    public function localized() {
+        return __('characters.gender.'.strtolower($this->description));
+    }
 }

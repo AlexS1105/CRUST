@@ -23,4 +23,8 @@ final class CharacterStatus extends Enum
     public function color() {
         return $this->colors[$this->value];
     }
+
+    public function localized() {
+        return __('characters.status.'.strtolower($this->description));
+    }
 }
