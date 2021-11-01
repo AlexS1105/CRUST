@@ -68,7 +68,8 @@ class ApplicationController extends Controller
         return back();
     }
 
-    public function approve(Character $character) {
+    public function approve(Character $character)
+    {
         $character->setStatus(CharacterStatus::Approved());
 
         event(new CharacterApproved($character));
@@ -76,7 +77,8 @@ class ApplicationController extends Controller
         return back();
     }
 
-    public function reapproval(Character $character) {
+    public function reapproval(Character $character)
+    {
         $character->setStatus(CharacterStatus::Approval());
 
         event(new CharacterReapproval($character, auth()->user()));

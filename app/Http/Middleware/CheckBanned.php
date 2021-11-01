@@ -12,8 +12,7 @@ class CheckBanned
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
-        if (auth()->check() && $user->ban && now()->lessThan($user->ban->expires))
-        {
+        if (auth()->check() && $user->ban && now()->lessThan($user->ban->expires)) {
             $ban = $user->ban;
             $by = $ban->by;
 

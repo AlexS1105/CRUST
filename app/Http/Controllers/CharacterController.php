@@ -17,17 +17,20 @@ class CharacterController extends Controller
         $this->authorizeResource(Character::class, 'character');
     }
 
-    public function index() {
+    public function index()
+    {
         return view('characters.index', [
             'characters' => auth()->user()->characters
         ]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('characters.create');
     }
 
-    public function store(CharacterRequest $request) {
+    public function store(CharacterRequest $request)
+    {
         $character = $request->validated();
         $character['user_id'] = auth()->id();
         
@@ -40,19 +43,22 @@ class CharacterController extends Controller
         return redirect(route('characters.index'));
     }
 
-    public function show(Character $character) {
+    public function show(Character $character)
+    {
         return view('characters.show', [
             'character' => $character
         ]);
     }
 
-    public function edit(Character $character) {
+    public function edit(Character $character)
+    {
         return view('characters.edit', [
             'character' => $character
         ]);
     }
 
-    public function update(CharacterRequest $request, Character $character) {
+    public function update(CharacterRequest $request, Character $character)
+    {
         $character->update($request->validated());
 
         $this->saveReference($character, $request);
@@ -60,7 +66,8 @@ class CharacterController extends Controller
         return redirect(route('characters.show', $character->login));
     }
 
-    public function destroy(Character $character) {
+    public function destroy(Character $character)
+    {
         $character->setStatus(CharacterStatus::Deleting());
 
         event(new CharacterDeleted($character));
@@ -68,12 +75,14 @@ class CharacterController extends Controller
         return back();
     }
 
-    public function restore(Character $character) {
+    public function restore(Character $character)
+    {
         $character->setStatus(CharacterStatus::Blank());
         return back();
     }
 
-    public function forceDestroy(Character $character) {
+    public function forceDestroy(Character $character)
+    {
         event(new CharacterCompletelyDeleted($character));
         
         $character->delete();
@@ -81,7 +90,8 @@ class CharacterController extends Controller
         return redirect(route('characters.index'));
     }
 
-    private function saveReference(Character $character, CharacterRequest $request) {
+    private function saveReference(Character $character, CharacterRequest $request)
+    {
         $file = $request->file('reference');
 
         if ($file) {

@@ -22,15 +22,18 @@ final class CharacterGender extends Enum
         CharacterGender::Other => 'gray-400',
     ];
 
-    public function icon() {
+    public function icon()
+    {
         return $this->icons[$this->value];
     }
 
-    public function color() {
+    public function color()
+    {
         return $this->colors[$this->value];
     }
 
-    public function localized() {
+    public function localized()
+    {
         return __('characters.gender.'.strtolower($this->description));
     }
 }

@@ -20,11 +20,13 @@ final class CharacterStatus extends Enum
         CharacterStatus::Deleting => "red-400"
     ];
 
-    public function color() {
+    public function color()
+    {
         return $this->colors[$this->value];
     }
 
-    public function localized() {
+    public function localized()
+    {
         return __('characters.status.'.strtolower($this->description));
     }
 }

@@ -15,7 +15,8 @@ class GeneralSettings extends Settings
         return 'general';
     }
 
-    public function update($properties) {
+    public function update($properties)
+    {
         $this->fill($properties);
         $this->save();
     }
