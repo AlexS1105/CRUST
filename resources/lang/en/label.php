@@ -18,7 +18,7 @@ return [
     'reference' => 'Reference Image',
     'appearance' => 'Appearance',
     'background' => 'Background',
-    'background_hidden' => 'Hide \'Biography\' section from other players',
+    'bio_hidden' => 'Hide \'Biography\' section from other players',
     'preview' => 'Preview',
     'player' => 'Player',
     'status' => 'Status',

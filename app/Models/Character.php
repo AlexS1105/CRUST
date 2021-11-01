@@ -19,7 +19,7 @@ class Character extends Model
         'status' => CharacterStatus::class,
         'gender' => CharacterGender::class,
         'info_hidden' => 'boolean',
-        'background_hidden' => 'boolean'
+        'bio_hidden' => 'boolean'
     ];
 
     public $sortable = [

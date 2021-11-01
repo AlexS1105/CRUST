@@ -37,7 +37,7 @@
         </x-slot>
 
         <x-form.textarea name="background" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.background') }}" wrap="off" />
-        <x-form.checkbox name="background_hidden" value="{{ old('background_hidden', true) }}" />
+        <x-form.checkbox name="bio_hidden" value="{{ old('bio_hidden', true) }}" />
       </x-form.card>
       
       <x-form.card>

@@ -24,7 +24,7 @@ class CreateCharactersTable extends Migration
             $table->text('appearance')->nullable();
             $table->text('background')->nullable();
             $table->boolean('info_hidden')->default(true);
-            $table->boolean('background_hidden')->default(true);
+            $table->boolean('bio_hidden')->default(true);
             $table->string('login');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('registrar_id')->nullable()->constrained('users')->onDelete('set null');

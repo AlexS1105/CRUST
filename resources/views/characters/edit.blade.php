@@ -45,7 +45,7 @@
         <x-form.textarea name="background" onfocus="preview(this)" wrap="off">
           {{ old('background', $character->background) }}
         </x-form.textarea>
-        <x-form.checkbox name="background_hidden" value="{{ old('background_hidden', boolval($character->background_hidden)) }}" />
+        <x-form.checkbox name="bio_hidden" value="{{ old('bio_hidden', boolval($character->bio_hidden)) }}" />
       </x-form.card>
 
       <x-button>

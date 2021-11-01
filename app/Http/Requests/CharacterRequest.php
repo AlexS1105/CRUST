@@ -19,7 +19,7 @@ class CharacterRequest extends FormRequest
         $this->merge([
             'gender' => CharacterGender::fromKey($this->gender),
             'info_hidden' => $this->info_hidden == 'on',
-            'background_hidden' => $this->background_hidden == 'on'
+            'bio_hidden' => $this->bio_hidden == 'on'
         ]);
     }
 
@@ -35,7 +35,7 @@ class CharacterRequest extends FormRequest
             'appearance' => ['max:10000'],
             'background' => ['nullable'],
             'info_hidden' => ['boolean'],
-            'background_hidden' => ['boolean']
+            'bio_hidden' => ['boolean']
         ];
 
         if ($this->method() != 'PATCH') {

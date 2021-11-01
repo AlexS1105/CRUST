@@ -108,11 +108,11 @@ class CharacterPolicy
         return true;
     }
 
-    public function seeBackground(User $user, Character $character)
+    public function seeBio(User $user, Character $character)
     {
-        return $character->background_hidden
+        return $character->bio_hidden
             && ($character->user_id === $user->id
             || $user->hasPermissionTo('character-view'))
-            || !$character->background_hidden;
+            || !$character->bio_hidden;
     }
 }
