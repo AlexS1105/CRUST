@@ -179,8 +179,7 @@ return [
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        NotificationChannels\Discord\DiscordServiceProvider::class,
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class
+        NotificationChannels\Discord\DiscordServiceProvider::class
     ],
 
     /*
