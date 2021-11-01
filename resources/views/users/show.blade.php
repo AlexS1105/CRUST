@@ -38,7 +38,7 @@
     <x-character.list :characters="$user->characters"/>
   @else
     <div class="text-gray-300 text-6xl text-center font-bold mt-40">
-      {{ __('users.no_characters') }}
+      {{ __('characters.empty') }}
     </div>
   @endif
 </x-app-layout>
