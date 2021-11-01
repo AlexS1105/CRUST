@@ -13,6 +13,6 @@
     {{ $character->name }}
   </div>
   @can('seeMainInfo', $character)
-    <div class="px-4 line-clamp-2 text-center markdown prose">{!! $character->description !!}</div>
+    <div class="px-4 line-clamp-2 text-center markdown prose max-w-none">{!! $character->description !!}</div>
   @endcan
 </a>

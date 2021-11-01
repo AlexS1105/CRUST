@@ -72,7 +72,7 @@
               {{ __('label.description') }}
             </h1>
 
-            <div class="prose markdown">{!! $character->description !!}</div>
+            <div class="prose markdown max-w-none">{!! $character->description !!}</div>
           </div>
         @endcan
 
@@ -83,7 +83,7 @@
                 {{ __('label.appearance') }}
               </h1>
 
-              <div class="prose markdown">{!! $character->appearance !!}</div>
+              <div class="prose markdown max-w-none">{!! $character->appearance !!}</div>
             </div>
           @endcan
         @endif
@@ -97,7 +97,7 @@
             {{ __('label.background') }}
           </h1>
 
-          <div class="prose markdown">{!! $character->background !!}</div>
+          <div class="prose markdown max-w-none">{!! $character->background !!}</div>
         </div>
       @endcan
     @endif
