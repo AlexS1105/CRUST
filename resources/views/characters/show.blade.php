@@ -91,7 +91,7 @@
     </div>
 
     @if ($character->background)
-      @can('seeBackground')
+      @can('seeBackground', $character)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
           <h1 class="font-bold text-xl mb-2">
             {{ __('label.background') }}
