@@ -22,7 +22,7 @@ class CharacterPolicy
 
     public function view(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $character->status == CharacterStatus::Approved()
             || $user->hasPermissionTo('character-view');
     }
 
@@ -96,6 +96,18 @@ class CharacterPolicy
 
     public function seeMainInfo(User $user, Character $character)
     {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-view');
+    }
 
+    public function seeVisuals(User $user, Character $character)
+    {
+        return true;
+    }
+
+    public function seeBackground(User $user, Character $character)
+    {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-view');
     }
 }
