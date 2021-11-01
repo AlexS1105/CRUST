@@ -30,6 +30,7 @@ return [
         'blank' => 'Черновик',
         'pending' => 'Подан на проверку',
         'approval' => 'На проверке',
+        'changes_requested' => 'Нужны правки',
         'approved' => 'Проверен',
         'deleting' => 'Удален'
     ]

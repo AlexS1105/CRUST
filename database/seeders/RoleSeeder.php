@@ -28,6 +28,8 @@ class RoleSeeder extends Seeder
             'application-index' => [$admin, $registrar, $gamemaster],
             'application-take-for-approval' => [$admin, $registrar],
             'application-cancel-approval' => [$admin, $registrar],
+            'application-request-changes' => [$admin, $registrar],
+            'application-request-approval' => [$admin, $registrar],
             'application-approve' => [$admin, $registrar],
             'application-reapproval' => [$admin, $registrar, $gamemaster],
 

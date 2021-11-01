@@ -81,6 +81,21 @@ class CharacterPolicy
             && $character->status == CharacterStatus::Approval();
     }
 
+    public function requestChanges(User $user, Character $character)
+    {
+        return $character->user_id != $user->id
+            && $user->registrar->id == $user->id
+            && $user->hasPermissionTo('application-request-changes')
+            && $character->status == CharacterStatus::Approval();
+    }
+
+    public function requestApproval(User $user, Character $character)
+    {
+        return $character->user_id == $user->idate
+            && $user->hasPermissionTo('application-request-approval')
+            && $character->status == CharacterStatus::ChangesRequested();
+    }
+    
     public function approve(User $user, Character $character)
     {
         return $character->user_id != $user->id

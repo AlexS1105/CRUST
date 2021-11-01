@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CharacterStatus;
+use App\Events\CharacterApprovalRequested;
 use App\Events\CharacterApproved;
 use App\Events\CharacterCanceled;
+use App\Events\CharacterChangesRequested;
 use App\Events\CharacterReapproval;
 use App\Events\CharacterSent;
 use App\Events\CharacterTaken;
@@ -64,6 +66,24 @@ class ApplicationController extends Controller
         $character->cancelApproval();
 
         event(new CharacterCanceled($character));
+
+        return back();
+    }
+
+    public function requestChanges(Character $character)
+    {
+        $character->setStatus(CharacterStatus::ChangesRequested());
+
+        event(new CharacterChangesRequested($character));
+
+        return back();
+    }
+
+    public function requestApproval(Character $character)
+    {
+        $character->setStatus(CharacterStatus::Approval());
+
+        event(new CharacterApprovalRequested($character));
 
         return back();
     }

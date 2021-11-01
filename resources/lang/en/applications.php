@@ -10,6 +10,8 @@ return [
     'cancel' => 'Revoke From Approval',
     'take' => 'Take For Approval',
     'cancel_approval' => 'Cancel Approval',
+    'request_changes' => 'Request Changes',
+    'request_approval' => 'Request Approval',
     'approve' => 'Approve',
     'reapproval' => 'Send To Reapproval'
 ];

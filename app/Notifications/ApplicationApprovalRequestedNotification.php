@@ -5,7 +5,7 @@ namespace App\Notifications;
 use App\Models\Character;
 use NotificationChannels\Discord\DiscordMessage;
 
-class ApplicationCanceledNotification extends DiscordNotification
+class ApplicationApprovalRequestedNotification extends DiscordNotification
 {
     public $character;
 
@@ -19,10 +19,8 @@ class ApplicationCanceledNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $embed = [
-            'title' => "Ваш персонаж '$character->name' снят с проверки",
-            'description' => '*Что-то пошло не так*
-            
-            Новый регистратор возьмёт Вашего персонажа на проверку в ближайшее время.',
+            'title' => "Для проверяемого Вами персонажа '$character->name' внесены необходимые правки",
+            'description' => 'Пожалуйста, закончите проверку как можно скорее.',
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [

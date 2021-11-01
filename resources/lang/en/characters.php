@@ -30,6 +30,7 @@ return [
         'blank' => 'Blank',
         'pending' => 'Pending',
         'approval' => 'Approval',
+        'changes_requested' => 'Changes Requested',
         'approved' => 'Approved',
         'deleting' => 'Deleted'
     ]

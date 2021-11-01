@@ -2,15 +2,19 @@
 
 namespace App\Providers;
 
+use App\Events\CharacterApprovalRequested;
 use App\Events\CharacterApproved;
 use App\Events\CharacterCanceled;
+use App\Events\CharacterChangesRequested;
 use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterDeleted;
 use App\Events\CharacterReapproval;
 use App\Events\CharacterSent;
 use App\Events\CharacterTaken;
+use App\Listeners\SendDiscordApplicationApprovalRequestedNotification;
 use App\Listeners\SendDiscordApplicationApprovedNotification;
 use App\Listeners\SendDiscordApplicationCanceledNotification;
+use App\Listeners\SendDiscordApplicationChangesRequestedNotification;
 use App\Listeners\SendDiscordApplicationReapprovalNotification;
 use App\Listeners\SendDiscordApplicationTakenNotification;
 use App\Listeners\SendDiscordCharacterCompleteDeletionNotification;
@@ -37,6 +41,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         CharacterCanceled::class => [
             SendDiscordApplicationCanceledNotification::class
+        ],
+        CharacterChangesRequested::class => [
+            SendDiscordApplicationChangesRequestedNotification::class
+        ],
+        CharacterApprovalRequested::class => [
+            SendDiscordApplicationApprovalRequestedNotification::class
         ],
         CharacterTaken::class => [
             SendDiscordApplicationTakenNotification::class

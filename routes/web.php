@@ -59,6 +59,14 @@ Route::middleware('auth')->group(function() {
         ->name('applications.cancelApproval')
         ->middleware('can:cancelApproval,character');
 
+    Route::patch('/characters/{character:login}/requestChanges', [ApplicationController::class, 'requestChanges'])
+        ->name('applications.requestChanges')
+        ->middleware('can:requestChanges,character');
+
+    Route::patch('/characters/{character:login}/requestApproval', [ApplicationController::class, 'requestApproval'])
+        ->name('applications.requestApproval')
+        ->middleware('can:requestApproval,character');
+
     Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
         ->name('applications.approve')
         ->middleware('can:approve,character');
