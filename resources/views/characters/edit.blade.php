@@ -4,7 +4,7 @@
       {{ __('characters.edit') }}
     </h2>
   </x-slot>
-  
+
   <x-container class="max-w-3xl mx-auto">
     <form class="space-y-8" method="POST" action="{{ route('characters.update', $character->login) }}" enctype="multipart/form-data">
       @csrf
@@ -22,6 +22,8 @@
         <x-form.textarea name="description" maxlength="512" required onfocus="preview(this)" wrap="off">
           {{ old('description', $character->description) }}
         </x-form.textarea>
+
+        <x-form.checkbox name="info_hidden" value="{{ old('info_hidden', $character->info_hidden) }}" />
       </x-form.card>
 
       <x-form.card>
@@ -43,6 +45,7 @@
         <x-form.textarea name="background" onfocus="preview(this)" wrap="off">
           {{ old('background', $character->background) }}
         </x-form.textarea>
+        <x-form.checkbox name="background_hidden" value="{{ old('background_hidden', boolval($character->background_hidden)) }}" />
       </x-form.card>
 
       <x-button>

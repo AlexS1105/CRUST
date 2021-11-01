@@ -17,7 +17,9 @@ class CharacterRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'gender' => CharacterGender::fromKey($this->gender)
+            'gender' => CharacterGender::fromKey($this->gender),
+            'info_hidden' => $this->info_hidden == 'on',
+            'background_hidden' => $this->background_hidden == 'on'
         ]);
     }
 
@@ -31,7 +33,9 @@ class CharacterRequest extends FormRequest
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
             'appearance' => ['max:10000'],
-            'background' => ['nullable']
+            'background' => ['nullable'],
+            'info_hidden' => ['boolean'],
+            'background_hidden' => ['boolean']
         ];
 
         if ($this->method() != 'PATCH') {

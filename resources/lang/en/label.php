@@ -14,9 +14,11 @@ return [
     'race' => 'Race',
     'age' => 'Age',
     'description' => 'Description',
+    'info_hidden' => 'Hide \'Main Info\' section from other players (except for name)',
     'reference' => 'Reference Image',
     'appearance' => 'Appearance',
     'background' => 'Background',
+    'background_hidden' => 'Hide \'Biography\' section from other players',
     'preview' => 'Preview',
     'player' => 'Player',
     'status' => 'Status',
@@ -28,5 +30,5 @@ return [
     'expires' => 'Истекает',
     'reason' => 'Причина',
     'start_points' => 'Start Points',
-    'max_characters' => 'Max Characters Amount'
+    'max_characters' => 'Max Characters Amount',
 ];

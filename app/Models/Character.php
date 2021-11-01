@@ -18,6 +18,8 @@ class Character extends Model
     protected $casts = [
         'status' => CharacterStatus::class,
         'gender' => CharacterGender::class,
+        'info_hidden' => 'boolean',
+        'background_hidden' => 'boolean'
     ];
 
     public $sortable = [

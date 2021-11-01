@@ -22,7 +22,8 @@ class CharacterPolicy
 
     public function view(User $user, Character $character)
     {
-        return $character->status == CharacterStatus::Approved()
+        return $character->user_id === $user->id
+            || $character->status == CharacterStatus::Approved()
             || $user->hasPermissionTo('character-view');
     }
 
@@ -96,8 +97,10 @@ class CharacterPolicy
 
     public function seeMainInfo(User $user, Character $character)
     {
-        return $character->user_id === $user->id
-            || $user->hasPermissionTo('character-view');
+        return $character->info_hidden
+            && ($character->user_id === $user->id
+            || $user->hasPermissionTo('character-view'))
+            || !$character->info_hidden;
     }
 
     public function seeVisuals(User $user, Character $character)
@@ -107,7 +110,9 @@ class CharacterPolicy
 
     public function seeBackground(User $user, Character $character)
     {
-        return $character->user_id === $user->id
-            || $user->hasPermissionTo('character-view');
+        return $character->background_hidden
+            && ($character->user_id === $user->id
+            || $user->hasPermissionTo('character-view'))
+            || !$character->background_hidden;
     }
 }

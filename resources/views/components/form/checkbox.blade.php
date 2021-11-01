@@ -6,7 +6,7 @@
         name="{{ $name }}"
         id="{{ $name }}"
         type="checkbox"
-        {{ $attributes(['value' => old($name)]) }}
+        {{ ($attributes['value'] ?? old($name)) ? 'checked' : '' }}
         {{ $accept ? 'accept='.$accept: '' }}
       >
 

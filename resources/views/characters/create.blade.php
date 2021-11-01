@@ -19,6 +19,7 @@
         <x-form.input name="race" maxlength="100" required placeholder="{{ __('characters.placeholder.race') }}" />
         <x-form.input name="age" maxlength="100" required placeholder="{{ __('characters.placeholder.age') }}" />
         <x-form.textarea name="description" maxlength="512" required onfocus="preview(this)" placeholder="{{ __('characters.placeholder.description') }}" wrap="off" />
+        <x-form.checkbox name="info_hidden" value="{{ old('info_hidden', true) }}" />
       </x-form.card>
 
       <x-form.card>
@@ -36,6 +37,7 @@
         </x-slot>
 
         <x-form.textarea name="background" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.background') }}" wrap="off" />
+        <x-form.checkbox name="background_hidden" value="{{ old('background_hidden', true) }}" />
       </x-form.card>
       
       <x-form.card>
