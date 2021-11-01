@@ -49,6 +49,9 @@
         {{ __('ui.submit') }}
       </x-button>
     </form>
+    <script>
+      var previewText = @json(__('label.preview'))
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="{{ asset('js/markdown-preview.js') }}"></script>
   </x-container>
