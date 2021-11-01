@@ -39,26 +39,31 @@ class Character extends Model
         $this->save();
     }
 
-    public function cancelApproval() {
+    public function cancelApproval()
+    {
         $this->status = CharacterStatus::Pending;
         $this->status_updated_at = now();
         $this->registrar_id = null;
         $this->save();
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function registrar() {
+    public function registrar()
+    {
         return $this->belongsTo(User::class, 'registrar_id');
     }
 
-    public function charsheet() {
+    public function charsheet()
+    {
         return $this->hasOne(Charsheet::class, 'character', 'login');
     }
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
         static::deleting(function(Character $character) {

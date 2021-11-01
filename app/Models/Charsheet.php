@@ -36,7 +36,8 @@ class Charsheet extends Model
         ],
     ];
 
-    public function character() {
+    public function character()
+    {
         return $this->hasOne(Character::class, 'character', 'login');
     }
 }
