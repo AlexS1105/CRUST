@@ -12,21 +12,24 @@
 
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
+          <x-nav-link :href="route('characters.all')" :active="request()->routeIs('characters.all')">
+            {{ __('characters.all') }}
+          </x-nav-link>
+          <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
             {{ __('characters.index') }}
           </x-nav-link>
           @can('viewApplications', App\Models\Character::class)
-            <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+            <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
               {{ __('applications.index') }}
             </x-nav-link>
           @endcan
           @can('viewAny', App\Models\User::class)
-            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
               {{ __('users.index') }}
             </x-nav-link>
           @endcan
           @can('settings')
-            <x-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
+            <x-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.index')">
               {{ __('settings.index') }}
             </x-nav-link>
           @endcan

@@ -6,5 +6,10 @@ return [
     'confirm' => 'Are you sure?',
     'edit_profile' => 'Edit Profile',
     'logout' => 'Log Out',
-    'error' => 'Whoops! Something went wrong.'
+    'error' => 'Whoops! Something went wrong.',
+    'sort' => [
+        'title' => 'Sorting',
+        'created_at' => 'By Creation Date',
+        'updated_at' => 'By Latest Activity'
+    ]
 ];

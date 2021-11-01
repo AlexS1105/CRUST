@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'index' => 'Characters',
+    'index' => 'My Characters',
+    'all' => 'Characters',
     'create' => 'Create New Character',
     'edit' => 'Edit Character',
     'empty' => 'Characters not found',

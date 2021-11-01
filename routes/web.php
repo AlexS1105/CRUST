@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllCharactersController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
+
+    Route::get('/characters', AllCharactersController::class)->name('characters.all');
 
     Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
         ->name('characters.forceDestroy')
