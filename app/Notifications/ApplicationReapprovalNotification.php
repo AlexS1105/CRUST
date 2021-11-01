@@ -28,7 +28,7 @@ class ApplicationReapprovalNotification extends DiscordNotification
         $user = $this->user;
         $registrar = $character->registrar;
         $embed = [
-            'title' => ($notifiable->is($registrar) ? "Проверенный Вами" : "Ваш")." персонаж '$character->name' отправлен на перепроверку",
+            'title' => ($notifiable->is($user) ? "Ваш" : "Проверенный Вами")." персонаж '$character->name' отправлен на перепроверку",
             'description' => "$user->discord_tag что-то не понравилось.
             
             Игровой аккаунт отключен до повторной проверки регистратором $registrar->discord_tag.",

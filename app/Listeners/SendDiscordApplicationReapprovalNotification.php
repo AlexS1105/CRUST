@@ -16,7 +16,10 @@ class SendDiscordApplicationReapprovalNotification
             $notification = new ApplicationReapprovalNotification($character, $user);
             
             $character->user->notify($notification);
-            $character->registrar->notify($notification);
+
+            if ($character->registrar->id != $user->id) {
+                $character->registrar->notify($notification);
+            }
         } catch (Exception $e) {
             
         }
