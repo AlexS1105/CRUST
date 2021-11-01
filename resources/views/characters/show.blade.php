@@ -44,54 +44,62 @@
         >
       </div>
       <div class="space-y-8 my-auto">
-        <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
-          <h1 class="font-bold text-xl mb-2">
-            {{ __('characters.cards.main_info') }}
-          </h1>
-  
-          <div class="text-lg">
-            <div class="flex items-center gap-1">
-              <b>{{ __('label.gender') }}:</b> 
-              {{ $character->gender->localized() }}
-              <div class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
-            </div>
-            <div>
-              <b>{{ __('label.race') }}:</b> {{ $character->race }}
-            </div>
-            <div>
-              <b>{{ __('label.age') }}:</b> {{ $character->age }}
+        @can('seeMainInfo', $character)
+          <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('characters.cards.main_info') }}
+            </h1>
+    
+            <div class="text-lg">
+              <div class="flex items-center gap-1">
+                <b>{{ __('label.gender') }}:</b> 
+                {{ $character->gender->localized() }}
+                <div class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
+              </div>
+              <div>
+                <b>{{ __('label.race') }}:</b> {{ $character->race }}
+              </div>
+              <div>
+                <b>{{ __('label.age') }}:</b> {{ $character->age }}
+              </div>
             </div>
           </div>
-        </div>
+        @endcan
 
-        <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
-          <h1 class="font-bold text-xl my-2">
-            {{ __('label.description') }}
-          </h1>
-  
-          @markdown($character->description)
-        </div>
-
-        @if ($character->appearance)
-          <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+        @can('seeMainInfo', $character)
+          <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
             <h1 class="font-bold text-xl mb-2">
-              {{ __('label.appearance') }}
+              {{ __('label.description') }}
             </h1>
 
-            @markdown($character->appearance)
+            <div class="prose markdown">{!! $character->description !!}</div>
           </div>
+        @endcan
+
+        @if ($character->appearance)
+          @can('seeVisuals', $character)
+            <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+              <h1 class="font-bold text-xl mb-2">
+                {{ __('label.appearance') }}
+              </h1>
+
+              <div class="prose markdown">{!! $character->appearance !!}</div>
+            </div>
+          @endcan
         @endif
       </div>
     </div>
 
     @if ($character->background)
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-        <h1 class="font-bold text-xl mb-2">
-          {{ __('label.background') }}
-        </h1>
+      @can('seeBackground')
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('label.background') }}
+          </h1>
 
-        @markdown($character->background)
-      </div>
+          <div class="prose markdown">{!! $character->background !!}</div>
+        </div>
+      @endcan
     @endif
   </x-container>
 </x-app-layout>

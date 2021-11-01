@@ -58,7 +58,6 @@
             var userRoles = @json($user->roles->pluck('id'));
             var userPermissions = @json($user->permissions->pluck('name'));
           </script>
-          <script src="{{ asset('js/user.js') }}"></script>
         @endcan
 
         <x-button>

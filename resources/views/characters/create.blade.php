@@ -14,11 +14,11 @@
           {{ __('characters.cards.main_info') }}
         </x-slot>
 
-        <x-form.input name="name" maxlength="100" required placeholder="{{ __('characters.placeholder.name') }}" />
+        <x-form.input name="name" maxlength="100" required placeholder="{{ __('characters.placeholder.name') }}" onchange="updateLoginField(this)" />
         <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::getKeys()" :labels="array_map(function($status) { return App\Enums\CharacterGender::fromValue($status)->localized(); }, App\Enums\CharacterGender::getValues())" :value="old('gender')" />
         <x-form.input name="race" maxlength="100" required placeholder="{{ __('characters.placeholder.race') }}" />
         <x-form.input name="age" maxlength="100" required placeholder="{{ __('characters.placeholder.age') }}" />
-        <x-form.textarea name="description" maxlength="512" required onfocus="preview(this)" placeholder="{{ __('characters.placeholder.description') }}" />
+        <x-form.textarea name="description" maxlength="512" required onfocus="preview(this)" placeholder="{{ __('characters.placeholder.description') }}" wrap="off" />
       </x-form.card>
 
       <x-form.card>
@@ -27,7 +27,7 @@
         </x-slot>
 
         <x-form.input name="reference" type="file" accept="image/*" />
-        <x-form.textarea name="appearance" maxlength="10000" required onfocus="preview(this)" placeholder="{{ __('characters.placeholder.appearance') }}" />
+        <x-form.textarea name="appearance" maxlength="10000" required onfocus="preview(this)" placeholder="{{ __('characters.placeholder.appearance') }}" wrap="off" />
       </x-form.card>
 
       <x-form.card>
@@ -35,7 +35,7 @@
           {{ __('characters.cards.biography') }}
         </x-slot>
 
-        <x-form.textarea name="background" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.background') }}" />
+        <x-form.textarea name="background" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.background') }}" wrap="off" />
       </x-form.card>
       
       <x-form.card>
@@ -53,8 +53,5 @@
     <script>
       var previewText = @json(__('label.preview'))
     </script>
-    <script src="{{ asset('js/character.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="{{ asset('js/markdown-preview.js') }}"></script>
   </x-container>
 </x-app-layout>
