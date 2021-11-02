@@ -23,4 +23,11 @@ return [
     'request' => [
         'timeout' => 1.0,
     ],
+
+    'credentials' => [
+        'consumer_token' => env('WIKI_CONSUMER_TOKEN'),
+        'consumer_secret' => env('WIKI_CONSUMER_SECRET'),
+        'access_token' => env('WIKI_ACCESS_TOKEN'),
+        'access_secret' => env('WIKI_ACCESS_SECRET'),
+    ],
 ];

@@ -7,8 +7,6 @@ use App\Events\CharacterDeleted;
 use App\Events\CharacterCompletelyDeleted;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
 {

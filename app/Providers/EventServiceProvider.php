@@ -11,6 +11,7 @@ use App\Events\CharacterDeleted;
 use App\Events\CharacterReapproval;
 use App\Events\CharacterSent;
 use App\Events\CharacterTaken;
+use App\Listeners\CreateMediaWikiAccount;
 use App\Listeners\SendDiscordApplicationApprovalRequestedNotification;
 use App\Listeners\SendDiscordApplicationApprovedNotification;
 use App\Listeners\SendDiscordApplicationCanceledNotification;
@@ -28,7 +29,8 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         Registered::class => [
-            SendDiscordRegistrationNotification::class
+            SendDiscordRegistrationNotification::class,
+            CreateMediaWikiAccount::class
         ],
         CharacterDeleted::class => [
             SendDiscordCharacterDeletionNotification::class
