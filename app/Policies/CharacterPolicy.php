@@ -84,7 +84,7 @@ class CharacterPolicy
     public function requestChanges(User $user, Character $character)
     {
         return $character->user_id != $user->id
-            && $user->registrar->id == $user->id
+            && $character->registrar->id == $user->id
             && $user->hasPermissionTo('application-request-changes')
             && $character->status == CharacterStatus::Approval();
     }
