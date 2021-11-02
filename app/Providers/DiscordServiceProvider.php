@@ -9,7 +9,7 @@ class DiscordServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->bind('App\Services\Discord', function($app) {
+        $this->app->bind(DiscordService::class, function($app) {
             return new DiscordService();
         });
     }
