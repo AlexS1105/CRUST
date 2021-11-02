@@ -12,6 +12,7 @@ class NewApplicationNotification extends DiscordNotification
     public function __construct(Character $character)
     {
         $this->character = $character;
+        $this->registrarNotification = true;
     }
 
     public function toDiscord($notifiable)

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('discord_id')->unique();
             $table->unsignedBigInteger('discord_private_channel_id')->unique();
             $table->string('password');
+            $table->boolean('discord_notify')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

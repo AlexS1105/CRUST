@@ -26,6 +26,7 @@ class User extends Authenticatable
         'discord_id',
         'discord_private_channel_id',
         'password',
+        'discord_notify'
     ];
 
     /**
@@ -42,6 +43,10 @@ class User extends Authenticatable
         'login',
         'discord_tag',
         'created_at'
+    ];
+
+    protected $casts = [
+        'discord_notify'
     ];
 
     protected $with = ['ban'];

@@ -4,10 +4,6 @@ namespace App\Notifications;
 
 use App\Models\Character;
 use App\Models\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordMessage;
 
 class ApplicationReapprovalNotification extends DiscordNotification
@@ -15,10 +11,11 @@ class ApplicationReapprovalNotification extends DiscordNotification
     public $character;
     public $user;
 
-    public function __construct(Character $character, User $user)
+    public function __construct(Character $character, User $user, $isRegistrar = false)
     {
         $this->character = $character;
         $this->user = $user;
+        $this->registrarNotification = $isRegistrar;
     }
 
     public function toDiscord($notifiable)

@@ -29,5 +29,6 @@ return [
     'registered' => 'Зарегистрирован',
     'characters' => 'Персонажи',
     'start_points' => 'Очки на распределение',
-    'max_characters' => 'Максимальное количество персонажей'
+    'max_characters' => 'Максимальное количество персонажей',
+    'discord_notify' => 'Отправлять оповещения Discord'
 ];

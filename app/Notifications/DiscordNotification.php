@@ -11,9 +11,11 @@ class DiscordNotification extends Notification
 {
     use Queueable;
 
+    protected $registrarNotification = false;
+
     public function via($notifiable)
     {
-        return [DiscordChannel::class];
+        return $this->registrarNotification || $notifiable->discord_notify ? [DiscordChannel::class] : [];
     }
 
     protected function getEmbed()

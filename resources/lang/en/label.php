@@ -31,4 +31,5 @@ return [
     'reason' => 'Причина',
     'start_points' => 'Start Points',
     'max_characters' => 'Max Characters Amount',
+    'discord_notify' => 'Send Discord Notifications'
 ];

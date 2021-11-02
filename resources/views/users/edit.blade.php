@@ -12,6 +12,7 @@
 
       <x-form.card>
         <x-form.input name="login" required :value="old('login', $user->login)"/>
+        <x-form.checkbox name="discord_notify" value="{{ old('discord_notify', boolval($user->discord_notify)) }}"/>
 
         @can('manage', $user)
           <div class="flex justify-items-between space-x-8">
