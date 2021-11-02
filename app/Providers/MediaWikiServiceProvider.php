@@ -10,7 +10,7 @@ class MediaWikiServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(MediaWikiService::class, function($app) {
+        $this->app->singleton(MediaWikiService::class, function($app) {
             return new MediaWikiService();
         });
     }
