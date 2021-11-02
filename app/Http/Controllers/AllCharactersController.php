@@ -13,7 +13,7 @@ class AllCharactersController extends Controller
         $created_at = request('created_at');
         $updated_at = request('updated_at');
         $characters = Character::where('characters.name', 'like', '%'.$search.'%')
-            ->where('characters.status', CharacterStatus::Pending);
+            ->where('characters.status', CharacterStatus::Approved);
 
         if (isset($created_at)) {
             if ($created_at == 'asc') {
