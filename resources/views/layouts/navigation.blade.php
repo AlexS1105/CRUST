@@ -33,6 +33,9 @@
               {{ __('settings.index') }}
             </x-nav-link>
           @endcan
+          <x-nav-link :href="env('WIKI_LINK')">
+            {{ __('wiki.index') }}
+          </x-nav-link>
         </div>
         
       </div>
@@ -96,6 +99,9 @@
           {{ __('settings.index') }}
         </x-responsive-nav-link>
       @endcan
+      <x-responsive-nav-link :href="env('WIKI_LINK')">
+        {{ __('wiki.index') }}
+      </x-responsive-nav-link>
     </div>
 
     <!-- Responsive Settings Options -->
