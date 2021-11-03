@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Character;
+use App\Models\Passport\Client;
 use App\Policies\CharacterPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        if (!$this->app->routesAreCached()) {
+            Passport::routes();
+        }
+
+        Passport::useClientModel(Client::class);
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole('admin') ? true : null;
