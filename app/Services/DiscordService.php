@@ -65,7 +65,9 @@ class DiscordService
                 throw new Exception('Character ticket already exists');
             }
     
-            $response = Http::post(config('services.discord.tickets.api_url').'/ticket', [
+            $response = Http::withHeaders([
+                'Authenticate' => config('services.discord.token')
+            ])->post(config('services.discord.tickets.api_url').'/ticket', [
                 'guild_id' => config('services.discord.tickets.guild_id'),
                 'user_id' => '167230144371490816',
                 'registrar_id' => '167230144371490816',
@@ -93,7 +95,9 @@ class DiscordService
                 throw new Exception('Character has no ticket');
             }
     
-            $response = Http::delete(config('services.discord.tickets.api_url').'/ticket', [
+            $response = Http::withHeaders([
+                'Authenticate' => config('services.discord.token')
+            ])->delete(config('services.discord.tickets.api_url').'/ticket', [
                 'ticket_id' => $character->ticket->id
             ]);
             $response->throw();
