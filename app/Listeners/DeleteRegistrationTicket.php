@@ -2,19 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Services\DiscordService;
+use App\Jobs\DeleteTicket;
+
 class DeleteRegistrationTicket
 {
-
-    private DiscordService $discordService;
-
-    public function __construct(DiscordService $discordService)
-    {
-        $this->discordService = $discordService;
-    }
-
     public function handle($event)
     {
-        $this->discordService->deleteRegistrationTicket($event->character);
+        DeleteTicket::dispatchAfterResponse($event->character);
     }
 }
