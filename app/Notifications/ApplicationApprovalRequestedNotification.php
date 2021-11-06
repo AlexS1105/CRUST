@@ -30,7 +30,7 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
             'fields' => [
                 [
                     'name' => 'Пол',
-                    'value' => $character->gender->description,
+                    'value' => $character->gender->localized(),
                     'inline' => true
                 ],
                 [
