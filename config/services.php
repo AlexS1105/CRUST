@@ -42,6 +42,11 @@ return [
         'oauth2url' => [
             'login' => env('DISCORD_OAUTH2_URL_LOGIN'),
             'reset' => env('DISCORD_OAUTH2_URL_RESET')
+        ],
+        'tickets' => [
+            'api_url' => env('DISCORD_TICKETS_API_URL'),
+            'guild_id' => env('DISCORD_TICKETS_GUILD_ID'),
+            'category_id' => env('DISCORD_TICKETS_CATEGORY_ID')
         ]
     ],
 ];
