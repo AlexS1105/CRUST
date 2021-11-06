@@ -64,6 +64,11 @@ class Character extends Model
         return $this->hasOne(Charsheet::class, 'character', 'login');
     }
 
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
