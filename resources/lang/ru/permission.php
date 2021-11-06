@@ -10,6 +10,8 @@ return [
     'application-index' => 'Просматривать заявки',
     'application-take-for-approval' => 'Брать персонажей на проверку',
     'application-cancel-approval' => 'Снимать персонажей с проверки',
+    'application-request-changes' => 'Запрос изменений при проверке',
+    'application-request-approval' => 'Запрос продолжения проверки',
     'application-approve' => 'Одобрять персонажей',
     'application-reapproval' => 'Отправлять персонажей на перепроверку',
     'user-index' => 'Просматривать список пользоваетелей',

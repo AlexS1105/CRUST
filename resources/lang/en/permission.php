@@ -10,6 +10,8 @@ return [
     'application-index' => 'View Applications',
     'application-take-for-approval' => 'Take Applications For Approval',
     'application-cancel-approval' => 'Cancel Applications Approval',
+    'application-request-changes' => 'Request Applications Changes',
+    'application-request-approval' => 'Request Applications Approval',
     'application-approve' => 'Approve Applications',
     'application-reapproval' => 'Send Characters To Reapproval',
     'user-index' => 'View Users List',
