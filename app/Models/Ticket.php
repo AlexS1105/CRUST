@@ -15,4 +15,10 @@ class Ticket extends Model
     {
         return $this->belongsTo(Character::class);
     }
+
+    public function link()
+    {
+        $guildId = config('services.discord.tickets.guild_id');
+        return "https://discord.com/channels/$guildId/$this->id/";
+    }
 }

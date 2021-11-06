@@ -11,6 +11,8 @@ use App\Events\CharacterDeleted;
 use App\Events\CharacterReapproval;
 use App\Events\CharacterSent;
 use App\Events\CharacterTaken;
+use App\Listeners\CreateRegistrationTicket;
+use App\Listeners\DeleteRegistrationTicket;
 use App\Listeners\SendDiscordApplicationApprovalRequestedNotification;
 use App\Listeners\SendDiscordApplicationApprovedNotification;
 use App\Listeners\SendDiscordApplicationCanceledNotification;
@@ -31,7 +33,8 @@ class EventServiceProvider extends ServiceProvider
             SendDiscordRegistrationNotification::class
         ],
         CharacterDeleted::class => [
-            SendDiscordCharacterDeletionNotification::class
+            SendDiscordCharacterDeletionNotification::class,
+            DeleteRegistrationTicket::class
         ],
         CharacterCompletelyDeleted::class => [
             SendDiscordCharacterCompleteDeletionNotification::class
@@ -40,7 +43,8 @@ class EventServiceProvider extends ServiceProvider
             SendDiscordNewApplicationNotification::class
         ],
         CharacterCanceled::class => [
-            SendDiscordApplicationCanceledNotification::class
+            SendDiscordApplicationCanceledNotification::class,
+            DeleteRegistrationTicket::class
         ],
         CharacterChangesRequested::class => [
             SendDiscordApplicationChangesRequestedNotification::class
@@ -49,12 +53,15 @@ class EventServiceProvider extends ServiceProvider
             SendDiscordApplicationApprovalRequestedNotification::class
         ],
         CharacterTaken::class => [
+            CreateRegistrationTicket::class,
             SendDiscordApplicationTakenNotification::class
         ],
         CharacterApproved::class => [
-            SendDiscordApplicationApprovedNotification::class
+            SendDiscordApplicationApprovedNotification::class,
+            DeleteRegistrationTicket::class
         ],
         CharacterReapproval::class => [
+            CreateRegistrationTicket::class,
             SendDiscordApplicationReapprovalNotification::class
         ]
     ];
