@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Notifications\PasswordResetNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BanRequest;
 use App\Models\Ban;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class BanController extends Controller
 {
