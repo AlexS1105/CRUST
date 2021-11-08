@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         }
 
         Passport::useClientModel(Client::class);
-        Passport::tokensExpireIn(now()->addYear());
+        Passport::tokensExpireIn(now()->addMonth());
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole('admin') ? true : null;

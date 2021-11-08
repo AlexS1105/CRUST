@@ -7,6 +7,7 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
 
     Route::get('/characters', AllCharactersController::class)->name('characters.all');
+
+    Route::get('/wiki', WikiController::class)->name('wiki.index');
 
     Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
         ->name('characters.forceDestroy')

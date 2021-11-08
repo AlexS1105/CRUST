@@ -11,7 +11,7 @@ class RegisteredNotification extends DiscordNotification
         $profileLink = route('users.edit', $notifiable);
         $createCharacterLink = route('characters.create');
         $appUrl = config('app.url');
-        $wikiLink = env('WIKI_LINK');
+        $wikiLink = route('wiki.index');
 
         $embed = [
             'title' => "Добро пожаловать на ролевой проект Тесей, $notifiable->login!",
