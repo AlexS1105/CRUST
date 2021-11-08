@@ -11,12 +11,13 @@ class RegisteredNotification extends DiscordNotification
         $profileLink = route('users.edit', $notifiable);
         $createCharacterLink = route('characters.create');
         $appUrl = config('app.url');
+        $wikiLink = env('WIKI_LINK');
 
         $embed = [
             'title' => "Добро пожаловать на ролевой проект Тесей, $notifiable->login!",
-            'description' => "Вы успешно прошли регистрацию в нашей системе. Чтобы начать игру, Вам необходимо создать персонажа и дождаться его проверки нашими регистраторами.
+            'description' => "Вы успешно прошли регистрацию в нашей системе. Чтобы начать игру, Вам необходимо [создать персонажа]($createCharacterLink) и дождаться его проверки нашими регистраторами.
             
-            Для Вас был создан аккаунт на нашей [Вики]($appUrl). Используйте логин **$notifiable->login** и пароль, **указанный при регистрации**, или просто нажмите [сюда]($appUrl) для автоматического входа.",
+            А ещё, теперь Вы можете [войти]($wikiLink) на нашу вики.",
             'url' => $appUrl,
             'color' => 0x70a7ff,
             'fields' => [
