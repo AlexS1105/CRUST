@@ -19,6 +19,7 @@ class ApplicationChangesRequestedNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $registrar = $character->registrar;
+        $ticketLink = $character->ticket->link();
         $embed = [
             'title' => "Для вашего персонажа '$character->name' запрошены правки",
             'description' => "$registrar->discord_tag что-то не понравилось на странице Вашего персонажа. Спросите, что не так, внесите изменения и подайте заявку на проверку снова.",
@@ -50,7 +51,8 @@ class ApplicationChangesRequestedNotification extends DiscordNotification
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)"
+                    [**Страница персонажа**]($url)
+                    [**Тикет для обсуждения**]($ticketLink)"
                 ]
             ]
         ];

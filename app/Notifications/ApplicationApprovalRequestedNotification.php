@@ -19,6 +19,7 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
     {
         $url = route('characters.show', $this->character);
         $character = $this->character;
+        $ticketLink = $character->ticket->link();
         $embed = [
             'title' => "Для проверяемого Вами персонажа '$character->name' внесены необходимые правки",
             'description' => 'Пожалуйста, закончите проверку как можно скорее.',
@@ -47,7 +48,8 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)"
+                    [**Страница персонажа**]($url)
+                    [**Тикет для обсуждения**]($ticketLink)"
                 ]
             ]
         ];

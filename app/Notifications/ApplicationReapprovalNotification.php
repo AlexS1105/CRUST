@@ -24,6 +24,7 @@ class ApplicationReapprovalNotification extends DiscordNotification
         $character = $this->character;
         $user = $this->user;
         $registrar = $character->registrar;
+        $ticketLink = $character->ticket->link();
         $embed = [
             'title' => ($notifiable->is($character->user) ? "Ваш" : "Проверенный Вами")." персонаж '$character->name' отправлен на перепроверку",
             'description' => "$user->discord_tag что-то не понравилось.
@@ -57,7 +58,8 @@ class ApplicationReapprovalNotification extends DiscordNotification
                     'name' => 'Описание',
                     'value' => $character->description."
 
-                    [**Страница персонажа**]($url)"
+                    [**Страница персонажа**]($url)
+                    [**Тикет для обсуждения**]($ticketLink)"
                 ]
             ]
         ];

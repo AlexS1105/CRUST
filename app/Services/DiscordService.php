@@ -60,51 +60,47 @@ class DiscordService
 
     public function createRegistrationTicket(Character $character)
     {
-        try {
-            if ($character->ticket) {
-                throw new Exception('Character ticket already exists');
-            }
-    
-            $response = Http::withHeaders([
-                'Authenticate' => config('services.discord.token')
-            ])->post(config('services.discord.tickets.api_url').'/ticket', [
-                'guild_id' => config('services.discord.tickets.guild_id'),
-                'user_id' => '167230144371490816',
-                'registrar_id' => '167230144371490816',
-                'category_id' => config('services.discord.tickets.category_id'),
-                'topic' => "Регистрация $character->name"
+        if ($character->ticket) {
+            throw new Exception('Character ticket already exists');
+        }
+
+        $response = Http::withHeaders([
+            'Authenticate' => config('services.discord.token')
+        ])->post(config('services.discord.tickets.api_url').'/ticket', [
+            'guild_id' => config('services.discord.tickets.guild_id'),
+            'user_id' => $character->user->discord_id,
+            'registrar_id' => '167230144371490816',
+            'category_id' => config('services.discord.tickets.category_id'),
+            'topic' => "Регистрация $character->name"
+        ]);
+        $response->throw();
+
+        if ($response->ok()) {
+            $ticket = json_decode($response->body(), true);
+
+            $character->ticket()->create([
+                'id' => $ticket['id'],
+                'character_id' => $character->id,
+                'category_id' => config('services.discord.tickets.category_id')
             ]);
-            $response->throw();
-    
-            if ($response->ok()) {
-                $ticket = json_decode($response->body(), true);
-    
-                $character->ticket()->create([
-                    'id' => $ticket['id'],
-                    'character_id' => $character->id,
-                    'category_id' => config('services.discord.tickets.category_id')
-                ]);
-            }
-        } catch (Exception $e) {}
+        }
     }
 
     public function deleteRegistrationTicket(Character $character)
     {
-        try {
-            if (!$character->ticket) {
-                throw new Exception('Character has no ticket');
-            }
-    
-            $response = Http::withHeaders([
-                'Authenticate' => config('services.discord.token')
-            ])->delete(config('services.discord.tickets.api_url').'/ticket', [
-                'ticket_id' => $character->ticket->id
-            ]);
-            $response->throw();
-    
-            if ($response->ok()) {
-                $character->ticket->delete();
-            }
-        } catch (Exception $e) {}
+        if (!$character->ticket) {
+            throw new Exception('Character has no ticket');
+        }
+
+        $response = Http::withHeaders([
+            'Authenticate' => config('services.discord.token')
+        ])->delete(config('services.discord.tickets.api_url').'/ticket', [
+            'ticket_id' => $character->ticket->id
+        ]);
+        $response->throw();
+
+        if ($response->ok()) {
+            $character->ticket->delete();
+        }
     }
 }

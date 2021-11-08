@@ -46,7 +46,9 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'discord_notify'
+        'discord_notify' => 'boolean',
+        'discord_id' => 'string',
+        'discord_private_channel_id' => 'string'
     ];
 
     protected $with = ['ban'];

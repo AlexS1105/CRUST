@@ -19,6 +19,7 @@ class ApplicationTakenNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $registrar = $character->registrar;
+        $ticketLink = $character->ticket->link();
         $embed = [
             'title' => "Ваш персонаж '$character->name' взят на проверку!",
             'description' => "Регистратор $registrar->discord_tag проверит её как можно скорее.",
@@ -50,7 +51,8 @@ class ApplicationTakenNotification extends DiscordNotification
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)"
+                    [**Страница персонажа**]($url)
+                    [**Тикет для обсуждения**]($ticketLink)"
                 ]
             ]
         ];
