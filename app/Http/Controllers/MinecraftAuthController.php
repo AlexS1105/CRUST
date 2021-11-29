@@ -20,10 +20,12 @@ class MinecraftAuthController extends Controller
             if (isset($character)) {
                 $user = $character->user;
 
-                return Hash::check($password, $user->password) ? 'OK' : 'Invalid login';
+                if (Hash::check($password, $user->password)) {
+                    return "OK:$login";
+                }
             }
         }
 
-        return 'Invalid login';
+        return __('minecraft.auth_failed');
     }
 }
