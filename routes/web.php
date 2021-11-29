@@ -6,6 +6,7 @@ use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
+use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
