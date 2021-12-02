@@ -39,6 +39,9 @@ class RoleSeeder extends Seeder
             'user-manage' => [$admin],
             'user-delete' => [$admin],
             'user-ban' => [$admin],
+            'user-accounts-index' => [$admin],
+            'user-accounts-create' => [$admin],
+            'user-accounts-delete' => [$admin],
 
             'settings' => [$admin]
         ];

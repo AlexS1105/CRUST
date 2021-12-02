@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(Ban::class, 'banned_by');
     }
 
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

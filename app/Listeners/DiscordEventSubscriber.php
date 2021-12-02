@@ -11,12 +11,15 @@ use App\Events\CharacterDeleted;
 use App\Events\CharacterReapproval;
 use App\Events\CharacterSent;
 use App\Events\CharacterTaken;
+use App\Events\UserAccountCreated;
+use App\Events\UserAccountDeleted;
 use App\Jobs\Discord\CreateTicket;
 use App\Jobs\Discord\DeleteTicket;
-use App\Jobs\Discord\SendRegisterWelcome;
 use App\Jobs\Discord\SendCharacterNotification;
 use App\Jobs\Discord\SendRegistrarNotification;
+use App\Jobs\Discord\SendUserNotification;
 use App\Models\User;
+use App\Models\Account;
 use App\Notifications\ApplicationApprovalRequestedNotification;
 use App\Notifications\ApplicationApprovedNotification;
 use App\Notifications\ApplicationCanceledNotification;
@@ -26,6 +29,9 @@ use App\Notifications\ApplicationTakenNotification;
 use App\Notifications\CharacterCompleteDeletionNotification;
 use App\Notifications\CharacterDeletionNotification;
 use App\Notifications\NewApplicationNotification;
+use App\Notifications\RegisteredNotification;
+use App\Notifications\UserAccountCreatedNotification;
+use App\Notifications\UserAccountDeletedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Bus;
 
@@ -33,7 +39,7 @@ class DiscordEventSubscriber
 {
     public function handleRegistered($event)
     {
-        SendRegisterWelcome::dispatch($event->user);
+        SendUserNotification::dispatch($event->user, new RegisteredNotification());
     }
 
     public function handleCharacterDeleted($event)
@@ -131,6 +137,20 @@ class DiscordEventSubscriber
         Bus::chain($jobs)->dispatch();
     }
 
+    public function handleUserAccountCreated($event)
+    {
+        $account = $event->account;
+
+        SendUserNotification::dispatch($account->user, new UserAccountCreatedNotification($account));
+    }
+
+    public function handleUserAccountDeleted($event)
+    {
+        $account = $event->account;
+
+        SendUserNotification::dispatch($account->user, new UserAccountDeletedNotification($account->login));
+    }
+
     public function subscribe($events)
     {
         return [
@@ -143,7 +163,9 @@ class DiscordEventSubscriber
             CharacterChangesRequested::class => 'handleCharacterChangesRequested',
             CharacterApprovalRequested::class => 'handleCharacterApprovalRequested',
             CharacterApproved::class => 'handleCharacterApproved',
-            CharacterReapproval::class => 'handleCharacterReapproval'
+            CharacterReapproval::class => 'handleCharacterReapproval',
+            UserAccountCreated::class => 'handleUserAccountCreated',
+            UserAccountDeleted::class => 'handleUserAccountDeleted'
         ];
     }
 }

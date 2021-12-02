@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AllCharactersController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
@@ -86,6 +87,10 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('users.ban', BanController::class)
         ->only(['create', 'store', 'destroy'])
+        ->shallow();
+
+    Route::resource('users.accounts', AccountController::class)
+        ->except(['show', 'edit', 'update'])
         ->shallow();
 
     Route::get('settings', SettingsController::class)

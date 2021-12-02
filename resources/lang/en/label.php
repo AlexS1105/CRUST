@@ -31,5 +31,6 @@ return [
     'reason' => 'Причина',
     'start_points' => 'Start Points',
     'max_characters' => 'Max Characters Amount',
-    'discord_notify' => 'Send Discord Notifications (Except those sent to registrars)'
+    'discord_notify' => 'Send Discord Notifications (Except those sent to registrars)',
+    'account' => 'Account'
 ];

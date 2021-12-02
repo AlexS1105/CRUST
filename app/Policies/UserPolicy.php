@@ -41,4 +41,19 @@ class UserPolicy
     {
         return $user->ban && $user->hasPermissionTo('user-ban');
     }
+
+    public function accounts(User $user, User $model)
+    {
+        return $user->hasPermissionTo('user-accounts-index');
+    }
+
+    public function createAccount(User $user, User $model)
+    {
+        return $user->hasPermissionTo('user-accounts-create');
+    }
+
+    public function deleteAccount(User $user, User $model)
+    {
+        return $user->hasPermissionTo('user-accounts-delete');
+    }
 }
