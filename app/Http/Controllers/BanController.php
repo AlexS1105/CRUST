@@ -10,7 +10,7 @@ class BanController extends Controller
 {
     public function create(User $user)
     {
-        $this->authorize('user-ban', $user);
+        $this->authorize('ban', $user);
         session()->put('url.intended', url()->previous());
         return view('ban.create', [
             'user' => $user
@@ -19,7 +19,7 @@ class BanController extends Controller
 
     public function store(BanRequest $request, User $user)
     {
-        $this->authorize('user-ban', $user);
+        $this->authorize('ban', $user);
 
         $ban = $request->validated();
         $ban['banned_by'] = auth()->id();
@@ -35,7 +35,7 @@ class BanController extends Controller
     public function destroy(Ban $ban)
     {
         $user = $ban->user;
-        $this->authorize('user-ban', $user);
+        $this->authorize('ban', $user);
         $ban->delete();
         return back();
     }
