@@ -3,5 +3,6 @@
 return [
     'index' => 'Accounts',
     'create' => 'Create Account',
-    'delete' => 'Delete'
+    'delete' => 'Delete',
+    'empty' => 'This user has no special accounts'
 ];

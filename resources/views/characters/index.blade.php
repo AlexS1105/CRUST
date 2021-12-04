@@ -10,4 +10,12 @@
       <x-character.new :href="route('characters.create')"/>
     @endcan
   </x-character.list>
+
+  @cannot('create', App\Models\Character::class)
+    @if (!count($characters))
+      <div class="text-gray-300 text-6xl text-center font-bold my-40">
+        {{ __('characters.empty') }}
+      </div>
+    @endif
+  @endcannot
 </x-app-layout>
