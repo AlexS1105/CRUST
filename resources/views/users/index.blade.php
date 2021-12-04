@@ -33,7 +33,7 @@
           <tbody>
             @foreach ($users as $user)
               <tr class="py-2 border hover:bg-gray-100">
-                <td class="px-4 py-2 border">
+                <td class="px-4 py-2 border text-center">
                   <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('users.show', $user) }}">
                     {{ $user->login }}
                   </a>
