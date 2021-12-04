@@ -20,5 +20,8 @@ return [
     'user-manage' => 'Manage Users Permissions',
     'user-delete' => 'Delete Users',
     'user-ban' => 'Ban/Unban Users',
-    'settings' => 'Change System Settings'
+    'settings' => 'Change System Settings',
+    'user-accounts-index' => 'View User Special Accounts',
+    'user-accounts-create' => 'Create User Special Accounts',
+    'user-accounts-delete' => 'Delete User Special Accounts'
 ];
