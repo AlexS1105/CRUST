@@ -41,6 +41,6 @@ class MinecraftAuthController extends Controller
             Log::error($e->getMessage());
         }
 
-        return response(__('minecraft.auth_failed'), 401)->header('Content-Type', 'text/plain');
+        return response(__('minecraft.auth_failed'), 200)->header('Content-Type', 'text/plain');
     }
 }
