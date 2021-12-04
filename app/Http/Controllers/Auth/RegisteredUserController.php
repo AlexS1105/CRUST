@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
 
             if ($user) {
                 return redirect()->route('login')->withErrors([
-                    'disord' => $request->input('error_description', __('auth.already_registered'))
+                    'discord' => $request->input('error_description', __('auth.already_registered'))
                 ]);
             }
 
@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
         {
             error_log($e->getMessage());
             return redirect()->route('login')->withErrors([
-                'disord' => $request->input('error_description', __('auth.discord_error'))
+                'discord' => $request->input('error_description', __('auth.discord_error'))
             ]);
         }
     }

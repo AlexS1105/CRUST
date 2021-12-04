@@ -6,8 +6,8 @@ use App\Services\DiscordService;
 
 class CreateTicket extends TicketJob
 {
-    public function handle(DiscordService $disordService)
+    public function handle(DiscordService $discordService)
     {
-        $disordService->createRegistrationTicket($this->character);
+        $discordService->createRegistrationTicket($this->character);
     }
 }

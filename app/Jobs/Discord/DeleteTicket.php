@@ -6,8 +6,8 @@ use App\Services\DiscordService;
 
 class DeleteTicket extends TicketJob
 {
-    public function handle(DiscordService $disordService)
+    public function handle(DiscordService $discordService)
     {
-        $disordService->deleteRegistrationTicket($this->character);
+        $discordService->deleteRegistrationTicket($this->character);
     }
 }
