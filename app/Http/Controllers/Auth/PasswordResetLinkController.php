@@ -47,6 +47,7 @@ class PasswordResetLinkController extends Controller
                             ->withErrors(['login' => __($status)]);
         } catch (Exception $e)
         {
+            error_log($e->getMessage());
             return redirect()->route('password.request')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error'))
             ]);

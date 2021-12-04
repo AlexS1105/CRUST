@@ -37,7 +37,7 @@ class MinecraftAuthController extends Controller
                 }
             }
         } catch (Exception $e) {
-
+            error_log($e->getMessage());
         }
 
         return __('minecraft.auth_failed');

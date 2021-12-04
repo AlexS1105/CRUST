@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
             ]);
         } catch (Exception $e)
         {
+            error_log($e->getMessage());
             return redirect()->route('login')->withErrors([
                 'disord' => $request->input('error_description', __('auth.discord_error'))
             ]);
