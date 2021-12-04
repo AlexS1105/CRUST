@@ -18,6 +18,7 @@ class UserAccountCreatedNotification extends DiscordNotification
     {
         $appUrl = config('app.url');
         $login = $this->account->login;
+        $launcherUrl = config('services.launcherurl');
 
         $embed = [
             'title' => 'Для Вас создан новый аккаунт!',
@@ -32,7 +33,7 @@ class UserAccountCreatedNotification extends DiscordNotification
                     
                     **Приятной игры!**
                     
-                    [**Скачать лаунчер**]($appUrl)"
+                    [**Скачать лаунчер**]($launcherUrl)"
                 ]
             ]
         ];

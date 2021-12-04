@@ -49,4 +49,6 @@ return [
             'category_id' => env('DISCORD_TICKETS_CATEGORY_ID')
         ]
     ],
+
+    'launcherurl' => env('LAUNCHER_DOWNLOAD_URL')
 ];

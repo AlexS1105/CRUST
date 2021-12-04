@@ -19,7 +19,8 @@ class ApplicationApprovedNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $registrar = $character->registrar;
-        $appUrl = config('app.url');
+        $launcherUrl = config('services.launcherurl');
+        
         $embed = [
             'title' => "Ваш персонаж '$character->name' одобрен!",
             'description' => 'Вы можете начать игру уже сейчас!',
@@ -60,7 +61,7 @@ class ApplicationApprovedNotification extends DiscordNotification
                     
                     **Приятной игры!**
                     
-                    [**Скачать лаунчер**]($appUrl)"
+                    [**Скачать лаунчер**]($launcherUrl)"
                 ]
             ]
         ];
