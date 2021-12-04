@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\DiscordService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 
 class PasswordResetLinkController extends Controller
@@ -47,7 +48,7 @@ class PasswordResetLinkController extends Controller
                             ->withErrors(['login' => __($status)]);
         } catch (Exception $e)
         {
-            error_log($e->getMessage());
+            Log::error($e->getMessage());
             return redirect()->route('password.request')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error'))
             ]);

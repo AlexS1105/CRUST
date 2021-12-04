@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use NotificationChannels\Discord\Discord;
 
@@ -43,7 +44,7 @@ class RegisteredUserController extends Controller
             ]);
         } catch (Exception $e)
         {
-            error_log($e->getMessage());
+            Log::error($e->getMessage());
             return redirect()->route('login')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error'))
             ]);

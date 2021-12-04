@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Character;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class MinecraftAuthController extends Controller
 {
@@ -37,7 +38,7 @@ class MinecraftAuthController extends Controller
                 }
             }
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            Log::error($e->getMessage());
         }
 
         return __('minecraft.auth_failed');
