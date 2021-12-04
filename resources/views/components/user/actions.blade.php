@@ -11,13 +11,13 @@
 @endcan
 
 @can('accounts', $user)
-    <x-action-button text="{{ __('users.accounts') }}"
+    <x-action-button text="{{ __('accounts.index') }}"
         method="GET"
         action="{{ route('users.accounts.index', $user) }}"
         color="gray-100"
         colorHover="gray-200"
         colorRing="gray-300"
-        icon="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+        icon="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
         tooltip="{{ isset($tooltip) }}"
     />
 @endcan
