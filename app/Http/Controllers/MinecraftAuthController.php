@@ -34,13 +34,13 @@ class MinecraftAuthController extends Controller
                 }
     
                 if (isset($user) && Hash::check($password, $user->password)) {
-                    return "OK:$login";
+                    return response("OK:$login", 200)->header('Content-Type', 'text/plain');
                 }
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
 
-        return __('minecraft.auth_failed');
+        return response(__('minecraft.auth_failed'), 401)->header('Content-Type', 'text/plain');
     }
 }
