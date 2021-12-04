@@ -15,7 +15,7 @@ class GeneralSettingsRequest extends FormRequest
     {
         return [
             'start_points' => 'integer|min:0',
-            'max_characters' => 'integer|min:1',
+            'max_characters' => 'integer|min:0',
         ];
     }
 }
