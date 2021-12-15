@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/characters', AllCharactersController::class)->name('characters.all');
 
-    Route::get('/wiki', WikiController::class)->name('wiki.index');
+    Route::get('/wikiauth', WikiController::class)->name('wiki.index');
 
     Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
         ->name('characters.forceDestroy')
