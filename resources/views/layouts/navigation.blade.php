@@ -36,6 +36,9 @@
           <x-nav-link :href="route('wiki.index')">
             {{ __('wiki.index') }}
           </x-nav-link>
+          <x-nav-link :href="route('discord.invite')">
+            {{ __('discord.index') }}
+          </x-nav-link>
         </div>
         
       </div>
@@ -101,6 +104,9 @@
       @endcan
       <x-responsive-nav-link :href="route('wiki.index')">
         {{ __('wiki.index') }}
+      </x-responsive-nav-link>
+      <x-responsive-nav-link :href="route('discord.invite')">
+        {{ __('discord.index') }}
       </x-responsive-nav-link>
     </div>
 

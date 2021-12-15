@@ -15,7 +15,7 @@ class DiscordNotification extends Notification
 
     public function via($notifiable)
     {
-        return $this->registrarNotification || $notifiable->discord_notify ? [DiscordChannel::class] : [];
+        return $notifiable->verified && ($this->registrarNotification || $notifiable->discord_notify) ? [DiscordChannel::class] : [];
     }
 
     protected function getEmbed()

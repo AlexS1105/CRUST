@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Character;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -93,6 +94,28 @@ class DiscordService
 
         if ($response->ok()) {
             $character->ticket->delete();
+        }
+    }
+
+    public function verifyUser(User $user)
+    {
+        if ($user->verified) {
+            return;
+        }
+
+        $response = Http::withHeaders([
+            'Authenticate' => config('services.discord.token')
+        ])->get(config('services.discord.tickets.api_url').'/has-user', [
+            'id' => $user->discord_id
+        ]);
+        $response->throw();
+
+        if ($response->ok()) {
+            $found = json_decode($response->body(), true);
+            if ($found) {
+                $user->verified = true;
+                $user->save();
+            }
         }
     }
 }

@@ -47,7 +47,8 @@ return [
             'api_url' => env('DISCORD_TICKETS_API_URL'),
             'guild_id' => env('DISCORD_TICKETS_GUILD_ID'),
             'category_id' => env('DISCORD_TICKETS_CATEGORY_ID')
-        ]
+        ],
+        'invite' => env('DISCORD_INVITE')
     ],
 
     'launcherurl' => env('LAUNCHER_DOWNLOAD_URL')

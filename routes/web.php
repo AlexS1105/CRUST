@@ -26,84 +26,95 @@ use Illuminate\Support\Facades\Route;
 Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
 
 Route::middleware('auth')->group(function() {
-    Route::get('/', [CharacterController::class, 'index'])->name('characters.index');
+    Route::get('/discord-invite', function() {
+        return redirect(config('services.discord.invite'));
+    })->name('discord.invite');
 
-    Route::get('/characters', AllCharactersController::class)->name('characters.all');
+    Route::get('/discord-verify', function() {
+        return view('discord.index');
+    })->name('discord.verify');
 
-    Route::get('/wikiauth', WikiController::class)->name('wiki.index');
+    Route::middleware('verified')->group(function() {
+        Route::get('/', [CharacterController::class, 'index'])
+            ->name('characters.index');
 
-    Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
-        ->name('characters.forceDestroy')
-        ->middleware('can:forceDelete,character');
+        Route::get('/characters', AllCharactersController::class)->name('characters.all');
 
-    Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
-        ->name('characters.restore')
-        ->middleware('can:restore,character');
+        Route::get('/wikiauth', WikiController::class)->name('wiki.index');
 
-    Route::resource('characters', CharacterController::class)
-        ->except('index')
-        ->scoped([
-            'character' => 'login'
-        ]);
+        Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
+            ->name('characters.forceDestroy')
+            ->middleware('can:forceDelete,character');
 
-    Route::get('/applications', [ApplicationController::class, 'index'])
-        ->middleware('can:viewApplications,App\Models\Character')
-        ->name('applications.index');
+        Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
+            ->name('characters.restore')
+            ->middleware('can:restore,character');
 
-    Route::patch('/characters/{character:login}/send', [ApplicationController::class, 'send'])
-        ->name('applications.send')
-        ->middleware('can:send,character');
+        Route::resource('characters', CharacterController::class)
+            ->except('index')
+            ->scoped([
+                'character' => 'login'
+            ]);
 
-    Route::patch('/characters/{character:login}/cancel', [ApplicationController::class, 'cancel'])
-        ->name('applications.cancel')
-        ->middleware('can:cancel,character');
+        Route::get('/applications', [ApplicationController::class, 'index'])
+            ->middleware('can:viewApplications,App\Models\Character')
+            ->name('applications.index');
 
-    Route::patch('/characters/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
-        ->name('applications.takeForApproval')
-        ->middleware('can:takeForApproval,character');
+        Route::patch('/characters/{character:login}/send', [ApplicationController::class, 'send'])
+            ->name('applications.send')
+            ->middleware('can:send,character');
 
-    Route::patch('/characters/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
-        ->name('applications.cancelApproval')
-        ->middleware('can:cancelApproval,character');
+        Route::patch('/characters/{character:login}/cancel', [ApplicationController::class, 'cancel'])
+            ->name('applications.cancel')
+            ->middleware('can:cancel,character');
 
-    Route::patch('/characters/{character:login}/requestChanges', [ApplicationController::class, 'requestChanges'])
-        ->name('applications.requestChanges')
-        ->middleware('can:requestChanges,character');
+        Route::patch('/characters/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
+            ->name('applications.takeForApproval')
+            ->middleware('can:takeForApproval,character');
 
-    Route::patch('/characters/{character:login}/requestApproval', [ApplicationController::class, 'requestApproval'])
-        ->name('applications.requestApproval')
-        ->middleware('can:requestApproval,character');
+        Route::patch('/characters/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
+            ->name('applications.cancelApproval')
+            ->middleware('can:cancelApproval,character');
 
-    Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
-        ->name('applications.approve')
-        ->middleware('can:approve,character');
+        Route::patch('/characters/{character:login}/requestChanges', [ApplicationController::class, 'requestChanges'])
+            ->name('applications.requestChanges')
+            ->middleware('can:requestChanges,character');
 
-    Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
-        ->name('applications.reapproval')
-        ->middleware('can:reapproval,character');
+        Route::patch('/characters/{character:login}/requestApproval', [ApplicationController::class, 'requestApproval'])
+            ->name('applications.requestApproval')
+            ->middleware('can:requestApproval,character');
 
-    Route::resource('users', UserController::class)
-        ->except(['create', 'store']);
+        Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
+            ->name('applications.approve')
+            ->middleware('can:approve,character');
 
-    Route::resource('users.ban', BanController::class)
-        ->only(['create', 'store', 'destroy'])
-        ->shallow();
+        Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
+            ->name('applications.reapproval')
+            ->middleware('can:reapproval,character');
 
-    Route::resource('users.accounts', AccountController::class)
-        ->except(['show', 'edit', 'update'])
-        ->shallow();
+        Route::resource('users', UserController::class)
+            ->except(['create', 'store']);
 
-    Route::get('settings', SettingsController::class)
-        ->name('settings.index')
-        ->middleware('can:settings');
+        Route::resource('users.ban', BanController::class)
+            ->only(['create', 'store', 'destroy'])
+            ->shallow();
 
-    Route::get('settings/general', [GeneralSettingsController::class, 'show'])
-        ->name('settings.general.show')
-        ->middleware('can:settings');
+        Route::resource('users.accounts', AccountController::class)
+            ->except(['show', 'edit', 'update'])
+            ->shallow();
 
-    Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
-        ->name('settings.general.update')
-        ->middleware('can:settings');
+        Route::get('settings', SettingsController::class)
+            ->name('settings.index')
+            ->middleware('can:settings');
+
+        Route::get('settings/general', [GeneralSettingsController::class, 'show'])
+            ->name('settings.general.show')
+            ->middleware('can:settings');
+
+        Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
+            ->name('settings.general.update')
+            ->middleware('can:settings');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -18,8 +18,8 @@ use App\Jobs\Discord\DeleteTicket;
 use App\Jobs\Discord\SendCharacterNotification;
 use App\Jobs\Discord\SendRegistrarNotification;
 use App\Jobs\Discord\SendUserNotification;
+use App\Jobs\Discord\VerifyUser;
 use App\Models\User;
-use App\Models\Account;
 use App\Notifications\ApplicationApprovalRequestedNotification;
 use App\Notifications\ApplicationApprovedNotification;
 use App\Notifications\ApplicationCanceledNotification;
@@ -39,7 +39,10 @@ class DiscordEventSubscriber
 {
     public function handleRegistered($event)
     {
-        SendUserNotification::dispatch($event->user, new RegisteredNotification());
+        Bus::chain([
+            new VerifyUser($event->user),
+            new SendUserNotification($event->user, new RegisteredNotification())
+        ])->dispatch();
     }
 
     public function handleCharacterDeleted($event)
