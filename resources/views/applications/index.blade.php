@@ -82,7 +82,7 @@
         </table>
       @else
         <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
-          No characters found
+          {{ __('characters.empty') }}
         </p>
       @endif
 
