@@ -130,4 +130,6 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'discordtag' => 'Поле :attribute должно быть тэгом Discord.',
+    'skillpool' => 'Превышена допустимая сумма значений навыков.',
 ];

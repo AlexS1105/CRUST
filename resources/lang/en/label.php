@@ -29,10 +29,11 @@ return [
     'characters' => 'Characters',
     'expires' => 'Истекает',
     'reason' => 'Причина',
-    'start_points' => 'Start Points',
     'max_characters' => 'Max Characters Amount',
     'discord_notify' => 'Send Discord Notifications (Except those sent to registrars)',
     'account' => 'Account',
     'player_only_info' => 'Hidden Info',
-    'gm_only_info' => 'Gamemaster Info'
+    'gm_only_info' => 'Gamemaster Info',
+    'skill_points' => 'Start Skill Points',
+    'perk_points' => 'Start Perk Points',
 ];

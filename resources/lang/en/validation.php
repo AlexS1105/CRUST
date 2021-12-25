@@ -125,6 +125,9 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'discordtag' => 'The :attribute must be valid discord tag.',
+    'skillpool' => 'The allowed amount of skill levels has been exceeded.',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
