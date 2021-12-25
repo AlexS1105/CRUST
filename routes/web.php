@@ -5,6 +5,7 @@ use App\Http\Controllers\AllCharactersController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\MinecraftAuthController;
@@ -49,6 +50,14 @@ Route::middleware('auth')->group(function() {
         Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
             ->name('characters.restore')
             ->middleware('can:restore,character');
+
+        Route::get('/characters/{character:login}/charsheet', [CharsheetController::class, 'edit'])
+            ->name('characters.charsheet.edit')
+            ->middleware('can:update,character');
+
+        Route::patch('/characters/{character:login}/charsheet', [CharsheetController::class, 'update'])
+            ->name('characters.charsheet.update')
+            ->middleware('can:update,character');
 
         Route::resource('characters', CharacterController::class)
             ->except('index')

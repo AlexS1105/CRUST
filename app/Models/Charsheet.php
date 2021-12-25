@@ -13,15 +13,19 @@ class Charsheet extends Model
 
     protected $attributes = [
         'special_stats' => [
-            'points' => 36
+            'skill_points'  => 36,
+            'vox_points'    => 0
         ],
-        'approaches' => [
-            'careful' => 0,
-            'clever' => 0,
-            'flashy' => 0,
-            'forceful' => 0,
-            'quick' => 0,
-            'sneaky' => 0
+        'skills' => [
+            'fitness'       => 0,
+            'perception'    => 0,
+            'agility'       => 0,
+            'coordination'  => 0,
+            'ingenuity'     => 0,
+            'tech'          => 0,
+            'magic'         => 0,
+            'charisma'      => 0,
+            'composure'     => 0
         ],
         'crafts' => [
             'arc' => 0,
@@ -32,7 +36,7 @@ class Charsheet extends Model
             'mnf' => 0,
             'inf' => 0,
             'chm' => 0,
-            'smt' => 0,
+            'smt' => 0
         ],
     ];
 

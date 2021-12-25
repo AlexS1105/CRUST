@@ -38,7 +38,7 @@ class CharacterController extends Controller
         
         $character->charsheet()->create();
 
-        return redirect()->route('characters.index');
+        return redirect()->route('characters.charsheet.edit', $character->login);
     }
 
     public function show(Character $character)
@@ -61,7 +61,7 @@ class CharacterController extends Controller
 
         $this->saveReference($character, $request);
 
-        return redirect()->route('characters.show', $character->login);
+        return redirect()->route('characters.charsheet.edit', $character->login);
     }
 
     public function destroy(Character $character)
