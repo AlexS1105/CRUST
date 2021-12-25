@@ -6,6 +6,8 @@
   </x-slot>
 
   <x-container class="max-w-3xl mx-auto">
+    <x-character.stages :character=$character />
+
     <form class="space-y-8" method="POST" action="{{ route('characters.update', $character->login) }}" enctype="multipart/form-data">
       @csrf
       @method('PATCH')
