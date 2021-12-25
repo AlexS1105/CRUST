@@ -7,7 +7,8 @@ return [
      * put them (manually) here.
      */
     'settings' => [
-        GeneralSettings::class
+        GeneralSettings::class,
+        CharsheetSettings::class
     ],
 
     /*

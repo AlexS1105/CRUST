@@ -4,13 +4,16 @@ namespace App\Settings;
 
 use Spatie\LaravelSettings\Settings;
 
-class GeneralSettings extends Settings
+class CharsheetSettings extends Settings
 {
-    public int $max_characters;
+    public int $skill_points;
+
+    public int $perk_points;
+
 
     public static function group(): string
     {
-        return 'general';
+        return 'charsheet';
     }
 
     public function update($properties)

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GeneralSettingsRequest extends FormRequest
+class CharsheetSettingsRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,8 @@ class GeneralSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'max_characters' => 'integer|min:0'
+            'skill_points' => 'integer|min:0',
+            'perk_points' => 'integer|min:0',
         ];
     }
 }

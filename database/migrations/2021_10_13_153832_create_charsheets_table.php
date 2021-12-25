@@ -18,7 +18,7 @@ class CreateCharsheetsTable extends Migration
             $table->id();
             $table->string('character');
             $table->json('special_stats');
-            $table->json('approaches');
+            $table->json('skills');
             $table->json('crafts');
             $table->timestamps();
 

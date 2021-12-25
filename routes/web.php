@@ -6,6 +6,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharsheetController;
+use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\MinecraftAuthController;
@@ -122,6 +123,14 @@ Route::middleware('auth')->group(function() {
 
         Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
             ->name('settings.general.update')
+            ->middleware('can:settings');
+
+        Route::get('settings/charsheet', [CharsheetSettingsController::class, 'show'])
+            ->name('settings.charsheet.show')
+            ->middleware('can:settings');
+
+        Route::patch('settings/general', [CharsheetSettingsController::class, 'update'])
+            ->name('settings.charsheet.update')
             ->middleware('can:settings');
     });
 });

@@ -6,12 +6,13 @@
   </x-slot>
   
   <x-container class="max-w-3xl">
-    <form method="POST" action="{{ route('settings.general.update') }}">
+    <form method="POST" action="{{ route('settings.charsheet.update') }}">
       @csrf
       @method('PATCH')
       
       <x-form.card>
-          <x-form.input name="max_characters" type="number" min="0" max="100" :value="old('max_characters', $settings->max_characters)"/>
+          <x-form.input name="skill_points" type="number" min="0" max="100" :value="old('skill_points', $settings->skill_points)"/>
+          <x-form.input name="perk_points" type="number" min="0" max="100" :value="old('perk_points', $settings->perk_points)"/>
 
           <x-button>
             {{ __('ui.submit') }}
