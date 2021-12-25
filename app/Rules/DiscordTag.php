@@ -14,6 +14,6 @@ class DiscordTag implements Rule
 
     public function message()
     {
-        return 'The :attribute must be valid discord tag.';
+        return __('validation.discordtag');
     }
 }
