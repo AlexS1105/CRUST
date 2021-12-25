@@ -15,12 +15,12 @@
           {{ __('charsheet.skills') }}
         </x-slot>
 
-        <div class="grid gap-2 grid-cols-4">
+        <div class="grid gap-2 grid-cols-6">
           @foreach($character->charsheet->skills as $skill => $value)
-            <div class="text-lg text-right mr-4">
+            <div class="col-span-2 text-lg text-right mr-4">
               {{ __('skill.'.$skill) }}
             </div>
-            <div class="col-span-3 space-x-4 flex">
+            <div class="col-span-4 space-x-4 flex">
               <input class="w-full" type="range" id="skills[{{ $skill }}]" name="skills[{{ $skill }}]" min="0" max="10" value="{{ $value }}" oninput="this.nextElementSibling.value = this.value"/>
               <output class="font-bold text-xl flex-none">{{ $value }}</output>
             </div>
