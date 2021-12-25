@@ -6,4 +6,7 @@ return [
     'perks' => 'Perks',
     'trait' => 'Trait',
     'fates' => 'Fates',
+    'points' => [
+        'skills' => 'Available points: '
+    ]
 ];

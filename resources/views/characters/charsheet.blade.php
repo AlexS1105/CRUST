@@ -21,10 +21,20 @@
               {{ __('skill.'.$skill) }}
             </div>
             <div class="col-span-4 space-x-4 flex">
-              <input class="w-full" type="range" id="skills[{{ $skill }}]" name="skills[{{ $skill }}]" min="0" max="10" value="{{ $value }}" oninput="this.nextElementSibling.value = this.value"/>
+              <input class="w-full" type="range" id="skills[{{ $skill }}]" name="skills[{{ $skill }}]" min="0" max="10" value="{{ $value }}" oninput="updateSkillSum(this)"/>
               <output class="font-bold text-xl flex-none">{{ $value }}</output>
             </div>
           @endforeach
+        </div>
+
+        <div class="font-bold text-lg text-right gap-4 flex justify-end">
+          {{ __('charsheet.points.skills') }}
+          <div id="skill_points">
+            {{ array_sum($character->charsheet->skills) }}
+          </div>
+          <div>
+            / {{ app(App\Settings\CharsheetSettings::class)->skill_points }}
+          </div>
         </div>
 
         @if ($errors->any())
@@ -74,5 +84,9 @@
         {{ __('ui.submit') }}
       </x-button>
     </form>
+
+    <script>
+      var maxSkills = @json(app(App\Settings\CharsheetSettings::class)->skill_points);
+    </script>
   </x-container>
 </x-app-layout>

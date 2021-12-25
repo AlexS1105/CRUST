@@ -4028,6 +4028,8 @@ __webpack_require__(/*! ./marked */ "./resources/js/marked.js");
 
 __webpack_require__(/*! ./character */ "./resources/js/character.js");
 
+__webpack_require__(/*! ./charsheet */ "./resources/js/charsheet.js");
+
 __webpack_require__(/*! ./markdown */ "./resources/js/markdown.js");
 
 __webpack_require__(/*! ./markdown-preview */ "./resources/js/markdown-preview.js");
@@ -4168,6 +4170,35 @@ window.updateLoginField = function (nameField) {
       }
     });
     loginField.value = login;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/charsheet.js":
+/*!***********************************!*\
+  !*** ./resources/js/charsheet.js ***!
+  \***********************************/
+/***/ (() => {
+
+window.updateSkillSum = function (slider) {
+  slider.nextElementSibling.value = slider.value;
+  var skillSliders = document.querySelectorAll('*[id^="skills"]');
+  var sum = 0;
+
+  for (i = 0; i < skillSliders.length; i++) {
+    slider = skillSliders[i];
+    sum += parseInt(slider.value);
+  }
+
+  var sumLabel = document.getElementById('skill_points');
+  sumLabel.innerHTML = sum;
+  var parent = sumLabel.parentElement;
+
+  if (sum > maxSkills) {
+    parent.classList.add('text-red-600');
+  } else {
+    parent.classList.remove('text-red-600');
   }
 };
 
