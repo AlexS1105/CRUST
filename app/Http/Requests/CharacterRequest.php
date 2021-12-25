@@ -35,7 +35,9 @@ class CharacterRequest extends FormRequest
             'appearance' => ['max:10000'],
             'background' => ['nullable'],
             'info_hidden' => ['boolean'],
-            'bio_hidden' => ['boolean']
+            'bio_hidden' => ['boolean'],
+            'player_only_info' => ['nullable'],
+            'gm_only_info' => ['nullable']
         ];
 
         if ($this->method() != 'PATCH') {

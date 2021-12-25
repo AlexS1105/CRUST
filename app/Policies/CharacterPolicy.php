@@ -130,4 +130,15 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-view'))
             || !$character->bio_hidden;
     }
+
+    public function seePlayerOnlyInfo(User $user, Character $character)
+    {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-view');
+    }
+
+    public function seeGmOnlyInfo(User $user, Character $character)
+    {
+        return $user->hasPermissionTo('character-view');
+    }
 }

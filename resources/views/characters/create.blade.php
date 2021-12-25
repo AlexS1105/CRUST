@@ -42,6 +42,14 @@
       
       <x-form.card>
         <x-slot name="header">
+          {{ __('characters.cards.additional_info') }}
+        </x-slot>
+
+        <x-form.textarea name="player_only_info" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.player_only_info') }}" wrap="off" />
+      </x-form.card>
+
+      <x-form.card>
+        <x-slot name="header">
           {{ __('characters.cards.registration_info') }}
         </x-slot>
 

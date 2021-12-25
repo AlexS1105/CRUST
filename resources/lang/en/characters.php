@@ -10,7 +10,8 @@ return [
         'main_info' => 'Main Info',
         'visuals' => 'Visuals',
         'biography' => 'Biography',
-        'registration_info' => 'Registration Info'
+        'registration_info' => 'Registration Info',
+        'additional_info' => 'Additional Info'
     ],
     'placeholder' => [
         'name' => 'Aeran Hyde',
@@ -19,7 +20,8 @@ return [
         'description' => 'A young hero seeking glory',
         'appearance' => 'A young man with blond hair. Dressed in typical commoner clothes.',
         'background' => 'Arean was born in a small village. After his parents died he went on an adventure.',
-        'login' => 'AeranHyde'
+        'login' => 'AeranHyde',
+        'player_only_info' => 'Hidden info that will be visible only to you and gamemasters.'
     ],
     'gender' => [
         'male' => 'Male',

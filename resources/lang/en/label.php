@@ -32,5 +32,7 @@ return [
     'start_points' => 'Start Points',
     'max_characters' => 'Max Characters Amount',
     'discord_notify' => 'Send Discord Notifications (Except those sent to registrars)',
-    'account' => 'Account'
+    'account' => 'Account',
+    'player_only_info' => 'Hidden Info',
+    'gm_only_info' => 'Gamemaster Info'
 ];

@@ -90,6 +90,30 @@
       </div>
     </div>
 
+    @if ($character->player_only_info)
+      @can('seePlayerOnlyInfo', $character)
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('label.player_only_info') }}
+          </h1>
+
+          <div class="prose markdown max-w-none">{!! $character->player_only_info !!}</div>
+        </div>
+      @endcan
+    @endif
+
+    @if ($character->gm_only_info)
+      @can('seeGmOnlyInfo', $character)
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('label.gm_only_info') }}
+          </h1>
+
+          <div class="prose markdown max-w-none">{!! $character->gm_only_info !!}</div>
+        </div>
+      @endcan
+    @endif
+
     @if ($character->background)
       @can('seeBio', $character)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">

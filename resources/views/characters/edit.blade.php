@@ -48,6 +48,22 @@
         <x-form.checkbox name="bio_hidden" value="{{ old('bio_hidden', boolval($character->bio_hidden)) }}" />
       </x-form.card>
 
+      <x-form.card>
+        <x-slot name="header">
+          {{ __('characters.cards.additional_info') }}
+        </x-slot>
+
+        <x-form.textarea name="player_only_info" onfocus="preview(this)" wrap="off">
+          {{ old('player_only_info', $character->player_only_info) }}
+        </x-form.textarea>
+
+        @can('seeGmOnlyInfo', $character)
+          <x-form.textarea name="gm_only_info" onfocus="preview(this)" wrap="off">
+            {{ old('gm_only_info', $character->gm_only_info) }}
+          </x-form.textarea>
+        @endcan
+      </x-form.card>
+
       <x-button>
         {{ __('ui.submit') }}
       </x-button>
