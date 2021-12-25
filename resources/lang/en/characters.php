@@ -35,5 +35,9 @@ return [
         'changes_requested' => 'Changes Requested',
         'approved' => 'Approved',
         'deleting' => 'Deleted'
+    ],
+    'stages' => [
+        'main' => 'Main',
+        'charsheet' => 'Charsheet'
     ]
 ];

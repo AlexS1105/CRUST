@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'edit' => 'Edit Charsheet',
     'skills' => 'Skills',
     'crafts' => 'Crafts',
     'perks' => 'Perks',

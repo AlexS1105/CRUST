@@ -35,5 +35,9 @@ return [
         'changes_requested' => 'Нужны правки',
         'approved' => 'Проверен',
         'deleting' => 'Удален'
+    ],
+    'stages' => [
+        'main' => 'Основное',
+        'charsheet' => 'Лист персонажа'
     ]
 ];
