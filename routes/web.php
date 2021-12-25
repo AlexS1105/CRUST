@@ -129,7 +129,7 @@ Route::middleware('auth')->group(function() {
             ->name('settings.charsheet.show')
             ->middleware('can:settings');
 
-        Route::patch('settings/general', [CharsheetSettingsController::class, 'update'])
+        Route::patch('settings/charsheet', [CharsheetSettingsController::class, 'update'])
             ->name('settings.charsheet.update')
             ->middleware('can:settings');
     });
