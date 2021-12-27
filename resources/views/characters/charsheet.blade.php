@@ -178,6 +178,9 @@
       var maxSkills = @json($maxSkills);
       var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
       var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
+
+      updateSkills()
+      updateCrafts()
     </script>
   </x-container>
 </x-app-layout>

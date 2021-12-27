@@ -191,6 +191,3 @@ function updateGeneralPoints() {
         parent.classList.remove('text-red-600')
     }
 }
-
-updateSkills()
-updateCrafts()

@@ -4361,9 +4361,6 @@ function updateGeneralPoints() {
   }
 }
 
-updateSkills();
-updateCrafts();
-
 /***/ }),
 
 /***/ "./resources/js/markdown-preview.js":
