@@ -60,6 +60,12 @@ final class CharacterCraft extends Enum
         return $this->tiers[$this->value];
     }
 
+    public function getType()
+    {
+        return in_array($this, $this->getMagicCrafts()) ? 'magic' : 
+            (in_array($this, $this->getTechCrafts()) ? 'tech' : 'general');
+    }
+
     public function key()
     {
         return strtolower($this->description);

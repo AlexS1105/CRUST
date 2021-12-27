@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
+use App\Rules\CraftPool;
 use App\Rules\SkillPool;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +26,18 @@ class CharsheetRequest extends FormRequest
             $skills[$skill] = intval($value);
         }
 
+        $crafts = [];
+
+        foreach (CharacterCraft::getInstances() as $instance) {
+            $craft = $instance->key();
+            $value = $this->crafts[$craft];
+
+            $crafts[$craft] = intval($value);
+        }
+
         $this->merge([
-            'skills' => $skills
+            'skills' => $skills,
+            'crafts' => $crafts
         ]);
     }
 
@@ -33,7 +45,9 @@ class CharsheetRequest extends FormRequest
     {
         return [
             'skills' => ['required', new SkillPool],
-            'skills.*' => ['numeric', 'min:0', 'max:10']
+            'skills.*' => ['numeric', 'min:0', 'max:10'],
+            'crafts' => ['required', new CraftPool($this->skills)],
+            'crafts.*' => ['numeric', 'min:0', 'max:3']
         ];
     }
 }
