@@ -17,9 +17,14 @@
         </x-slot>
 
         <div class="grid gap-2 grid-cols-6">
-          @foreach($character->charsheet->skills as $skill => $value)
+          @foreach (App\Enums\CharacterSkill::getInstances() as $instance)
+            @php
+              $skill = $instance->key();
+              $value = $character->charsheet->skills[$skill];
+            @endphp
+
             <div class="col-span-2 text-lg text-right mr-4">
-              {{ __('skill.'.$skill) }}
+              {{ $instance->localized() }}
             </div>
             <div class="col-span-4 space-x-4 flex">
               <input class="w-full" type="range" id="skills[{{ $skill }}]" name="skills[{{ $skill }}]" min="0" max="10" value="{{ $value }}" oninput="updateSkillSum(this)"/>

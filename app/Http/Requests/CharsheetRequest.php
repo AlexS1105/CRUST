@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CharacterSkill;
 use App\Rules\SkillPool;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,7 +17,10 @@ class CharsheetRequest extends FormRequest
     {
         $skills = [];
 
-        foreach ($this->skills as $skill => $value) {
+        foreach (CharacterSkill::getInstances() as $instance) {
+            $skill = $instance->key();
+            $value = $this->skills[$skill];
+
             $skills[$skill] = intval($value);
         }
 
