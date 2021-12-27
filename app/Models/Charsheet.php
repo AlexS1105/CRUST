@@ -40,6 +40,11 @@ class Charsheet extends Model
         ],
     ];
 
+    public function hasAnyCrafts()
+    {
+        return array_sum($this->crafts) > 0;
+    }
+
     public function character()
     {
         return $this->hasOne(Character::class, 'character', 'login');
