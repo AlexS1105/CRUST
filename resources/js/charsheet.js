@@ -8,7 +8,7 @@ var techPoints = 0
 var generalPoints = 0
 
 window.updateSkillSum = function(slider) {
-    var skill = slider.id.replace( /(^.*\[|\].*$)/g, '' )
+    var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
     var skillLabel = document.getElementById(skill)
     skillLabel.innerHTML = slider.value
 
@@ -27,7 +27,7 @@ function updateSkills() {
 
     for(i = 0; i < skillSliders.length; i++) {
         slider = skillSliders[i]
-        var skill = slider.id.replace( /(^.*\[|\].*$)/g, '' )
+        var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
 
         sum += value
@@ -75,7 +75,7 @@ function updateCrafts() {
     for(i = 0; i < craftSliders.length; i++) {
         slider = craftSliders[i]
         var value = parseInt(slider.value)
-        var craft = slider.id.replace( /(^.*\[|\].*$)/g, '' )
+        var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
 
         if(value == 3) {
@@ -85,7 +85,7 @@ function updateCrafts() {
 
     for(i = 0; i < craftSliders.length; i++) {
         slider = craftSliders[i]
-        var craft = slider.id.replace( /(^.*\[|\].*$)/g, '' )
+        var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
         var cost = 0
