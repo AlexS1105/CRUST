@@ -85,7 +85,7 @@
                 <div class="px-3 py-1 bg-purple-200 rounded-lg">
                   {{ $instance->localized() }}
                   <div class="flex space-x-2">
-                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="skills[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
+                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
                     <output class="font-bold flex-none">{{ $value }}</output>
                   </div>
                 </div>
@@ -115,7 +115,7 @@
                 <div class="px-3 py-1 bg-yellow-200 rounded-lg">
                   {{ $instance->localized() }}
                   <div class="flex space-x-2">
-                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="skills[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
+                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
                     <output class="font-bold flex-none">{{ $value }}</output>
                   </div>
                 </div>
@@ -141,7 +141,7 @@
                 <div class="px-3 py-1 bg-gray-200 rounded-lg">
                   {{ $instance->localized() }}
                   <div class="flex space-x-2">
-                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="skills[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
+                    <input class="w-full" type="range" id="crafts[{{ $craft }}]" name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}" oninput="updateCraftsSum(this)"/>
                     <output class="font-bold flex-none">{{ $value }}</output>
                   </div>
                 </div>

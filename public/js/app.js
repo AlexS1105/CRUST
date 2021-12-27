@@ -4252,25 +4252,14 @@ function updateCrafts() {
     slider = craftSliders[i];
     var value = parseInt(slider.value);
     var craft = slider.id.replace(/(^.*\[|\].*$)/g, '');
+    var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general';
 
     if (value == 3) {
-      if (magicCrafts.includes(craft)) {
-        maxTiers['magic']++;
-      } else if (techCrafts.includes(craft)) {
-        maxTiers['tech']++;
-      } else {
-        maxTiers['general']++;
-      }
+      maxTiers[type]++;
     }
 
     if (value == 1) {
-      if (magicCrafts.includes(craft)) {
-        firstTiers['magic']++;
-      } else if (techCrafts.includes(craft)) {
-        firstTiers['tech']++;
-      } else {
-        firstTiers['general']++;
-      }
+      firstTiers[type]++;
     }
   }
 
