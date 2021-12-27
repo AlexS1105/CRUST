@@ -4242,10 +4242,6 @@ function updateCrafts() {
   maxTiers['magic'] = 0;
   maxTiers['tech'] = 0;
   maxTiers['general'] = 0;
-  var firstTiers = [];
-  firstTiers['magic'] = 0;
-  firstTiers['tech'] = 0;
-  firstTiers['general'] = 0;
   var freeTiers = 0;
 
   for (i = 0; i < craftSliders.length; i++) {
@@ -4256,10 +4252,6 @@ function updateCrafts() {
 
     if (value == 3) {
       maxTiers[type]++;
-    }
-
-    if (value == 1) {
-      firstTiers[type]++;
     }
   }
 
