@@ -45,15 +45,7 @@
           </div>
         </div>
 
-        @if ($errors->any())
-          <div class="text-red-500">
-            <ul>
-              @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-        @endif
+        <x-form.error name="skills"/>
       </x-form.card>
 
       <x-form.card>
@@ -149,6 +141,8 @@
             </div>
           </div>
         </div>
+
+        <x-form.error name="crafts"/>
       </x-form.card>
 
       <x-form.card>
