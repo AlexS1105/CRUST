@@ -8,7 +8,9 @@ var techPoints = 0
 var generalPoints = 0
 
 window.updateSkillSum = function(slider) {
-    slider.nextElementSibling.value = slider.value
+    var skill = slider.id.replace( /(^.*\[|\].*$)/g, '' )
+    var skillLabel = document.getElementById(skill)
+    skillLabel.innerHTML = slider.value
 
     updateSkills()
 }
