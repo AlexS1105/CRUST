@@ -69,6 +69,11 @@ class Character extends Model
         return $this->hasOne(Ticket::class);
     }
 
+    public function narrativeCrafts()
+    {
+        return $this->hasMany(NarrativeCraft::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
