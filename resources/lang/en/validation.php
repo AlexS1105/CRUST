@@ -133,6 +133,7 @@ return [
         'tech' => 'Not enough tech skill points.',
         'general' => 'Not enough magic / tech skill points.'
     ],
+    'narrative_crafts' => 'Not enough skill points',
 
     /*
     |--------------------------------------------------------------------------

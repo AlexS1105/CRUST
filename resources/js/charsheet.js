@@ -1,4 +1,3 @@
-
 var maxMagic = 0
 var maxTech = 0
 var maxGeneral = 0
@@ -6,6 +5,10 @@ var maxGeneral = 0
 var magicPoints = 0
 var techPoints = 0
 var generalPoints = 0
+
+var maxNarrativeCrafts = 0
+var narrativeCrafts = []
+var id = 0
 
 window.updateSkillSum = function(slider) {
     var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
@@ -21,20 +24,118 @@ window.updateCraftsSum = function(slider) {
     updateCrafts()
 }
 
+function updateNarrativeCrafts() {
+    _narrativeCrafts.forEach(craft => {
+        addNarrativeCraftCard(craft['name'], craft['description'])
+    });
+
+    updateMaxNarrativeCrafts()
+    updateAddButton()
+}
+
+function updateMaxNarrativeCrafts() {
+    maxNarrativeCrafts = Math.floor((maxMagic + maxTech) / 2) + generalPoints
+
+    if (maxNarrativeCrafts > 0 && !document.getElementById('button_add')) {
+        displayAddNarrativeCraftButton()
+    }
+
+    var maxNarrativeCraftsLabel = document.getElementById('narrative_crafts_max')
+    maxNarrativeCraftsLabel.innerHTML = maxNarrativeCrafts - narrativeCrafts.length
+}
+
+function displayAddNarrativeCraftButton() {
+    var list = document.getElementById('narrative_crafts')
+    var button = document.createElement('button')
+    button.className = 'bg-blue-400 rounded-md px-2 py-1 text-white font-bold text-2xl leading-none text-center align-middle'
+    button.innerHTML = '+'
+    button.type = 'button'
+    button.id = 'button_add'
+    button.onclick = function() {
+        addNarrativeCraftCard()
+        list.append(button)
+        updateMaxNarrativeCrafts()
+        updateAddButton()
+    }
+
+    list.append(button)
+
+    buttonAdded = true
+}
+
+function addNarrativeCraftCard(name, description) {
+    var list = document.getElementById('narrative_crafts')
+    var card = document.createElement('div')
+    card.className = 'bg-gray-100 p-2 space-y-2 rounded'
+    card.id = id
+
+    var nameField = document.createElement('input')
+    nameField.className = 'border border-gray-200 p-2 w-full rounded'
+    nameField.type = 'text'
+    nameField.value = name || ''
+    nameField.placeholder = craftNameText
+    nameField.required
+    nameField.name = 'narrative_crafts[' + id + '][name]'
+
+    var descriptionDiv = document.createElement('div')
+    descriptionDiv.className = 'flex space-x-2'
+    
+    var descriptionField = document.createElement('input')
+    descriptionField.className = 'border border-gray-200 p-2 w-full rounded'
+    descriptionField.type = 'text'
+    descriptionField.value = description || ''
+    descriptionField.placeholder = craftDescriptionText
+    descriptionField.required
+    descriptionField.name = 'narrative_crafts[' + id + '][description]'
+
+    descriptionDiv.append(descriptionField)
+
+    var deleteButton = document.createElement('button')
+    deleteButton.type = 'button'
+    deleteButton.className = 'fas fa-trash text-red-400 text-lg'
+    deleteButton.onclick = function() {
+        narrativeCrafts = narrativeCrafts.filter(_card => _card.id != card.id)
+        card.remove()
+
+        updateMaxNarrativeCrafts()
+        updateAddButton()
+    }
+
+    descriptionDiv.append(deleteButton)
+    
+    card.append(nameField)
+    card.append(descriptionDiv)
+    list.append(card)
+
+    narrativeCrafts.push(card)
+
+    id++
+}
+
+function updateAddButton() {
+    var button = document.getElementById('button_add')
+
+    if (narrativeCrafts.length >= maxNarrativeCrafts) {
+        button.classList.add('hidden')
+    } else {
+        button.classList.remove('hidden')
+    }
+}
+
 function updateSkills() {
-    var skillSliders = document.querySelectorAll('*[id^="skills"]');
+    var skillSliders = document.querySelectorAll("*[id^='skills']");
     var sum = 0
 
-    for(i = 0; i < skillSliders.length; i++) {
-        slider = skillSliders[i]
+    for(var i = 0; i < skillSliders.length; i++) {
+        var slider = skillSliders[i]
         var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
 
         sum += value
 
-        if(skill == "magic") {
+        if(skill == 'magic') {
             maxMagic = value
-        } else if(skill == "tech") {
+        } else if(skill == 'tech') {
             maxTech = value
         }
     }
@@ -54,13 +155,11 @@ function updateSkills() {
     magicPoints = costs[0]
     techPoints = costs[1]
 
-    updateMagicPoints()
-    updateTechPoints()
-    updateGeneralPoints()
+    updateCrafts()
 }
 
 function updateCrafts() {
-    var craftSliders = document.querySelectorAll('*[id^="crafts"]');
+    var craftSliders = document.querySelectorAll("*[id^='crafts']");
     var magicSum = 0
     var techSum = 0
     var generalSum = 0
@@ -72,8 +171,8 @@ function updateCrafts() {
 
     var freeTiers = 0
 
-    for(i = 0; i < craftSliders.length; i++) {
-        slider = craftSliders[i]
+    for(var i = 0; i < craftSliders.length; i++) {
+        var slider = craftSliders[i]
         var value = parseInt(slider.value)
         var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
@@ -83,8 +182,8 @@ function updateCrafts() {
         }
     }
 
-    for(i = 0; i < craftSliders.length; i++) {
-        slider = craftSliders[i]
+    for(var i = 0; i < craftSliders.length; i++) {
+        var slider = craftSliders[i]
         var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
@@ -93,14 +192,14 @@ function updateCrafts() {
         if((maxTiers[type] > 0 || type == 'general' && (maxTiers['magic'] > 0 || maxTiers['tech'] > 0)) && freeTiers == 0 && value == 1) {
             freeTiers++
         } else {
-            for(k = 1; k <= value; k++) {
+            for(var k = 1; k <= value; k++) {
                 cost += k
             }
         }
 
-        if(type == "magic") {
+        if(type == 'magic') {
             magicSum += cost
-        } else if(type == "tech") {
+        } else if(type == 'tech') {
             techSum += cost
         } else {
             generalSum += cost
@@ -190,4 +289,10 @@ function updateGeneralPoints() {
     } else {
         parent.classList.remove('text-red-600')
     }
+}
+
+if (typeof(maxSkills) != 'undefined') {
+    updateSkills()
+    updateCrafts()
+    updateNarrativeCrafts()
 }
