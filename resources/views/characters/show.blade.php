@@ -118,25 +118,27 @@
             {{ __('charsheet.crafts') }}
           </h1>
   
-          <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-            @foreach ($character->charsheet->crafts as $craft => $value)
-              @php
-                $enum = App\Enums\CharacterCraft::fromKey(ucfirst($craft));
-              @endphp
-              @if($value > 0)
-                <div class="text-lg font-semibold text-right">
-                  {{ __('craft.'.$craft) }}
-                </div>
-                <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
-                  <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value / $enum->getMaxTier() * 100 }}%">
-                    <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
-                      {{ $value }}
+          @if($character->charsheet->hasAnyCrafts())
+            <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
+              @foreach ($character->charsheet->crafts as $craft => $value)
+                @php
+                  $enum = App\Enums\CharacterCraft::fromKey(ucfirst($craft));
+                @endphp
+                @if($value > 0)
+                  <div class="text-lg font-semibold text-right">
+                    {{ __('craft.'.$craft) }}
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
+                    <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value / $enum->getMaxTier() * 100 }}%">
+                      <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
+                        {{ $value }}
+                      </div>
                     </div>
                   </div>
-                </div>
-              @endif
-            @endforeach
-          </div>
+                @endif
+              @endforeach
+            </div>
+          @endif
 
           @if ($character->charsheet->hasAnyCrafts() && count($character->narrativeCrafts))
             <hr class="my-4">
@@ -144,10 +146,12 @@
 
           @if(count($character->narrativeCrafts))
             @foreach($character->narrativeCrafts as $craft)
-              <div class="text-lg font-semibold">
-                {{ $craft->name }}
+              <div class="my-2">
+                <div class="text-lg font-semibold">
+                  {{ $craft->name }}
+                </div>
+                {{ $craft->description }}
               </div>
-              {{ $craft->description }}
             @endforeach
           @endif
         </div>
