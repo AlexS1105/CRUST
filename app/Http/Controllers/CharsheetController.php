@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
+use App\Models\NarrativeCraft;
 use App\Settings\CharsheetSettings;
 
 class CharsheetController extends Controller
@@ -20,6 +21,16 @@ class CharsheetController extends Controller
     {
         $validated = $request->validated();
         $character->charsheet()->update($validated);
+
+        $narrativeCrafts = [];
+        
+        foreach($validated['narrative_crafts'] as $craft) {
+            $craft['character_id'] = $character->id;
+            array_push($narrativeCrafts, new NarrativeCraft($craft));
+        }
+
+        $character->narrativeCrafts()->delete();
+        $character->narrativeCrafts()->saveMany($narrativeCrafts);
         return redirect()->route('characters.show', $character->login);
     }
 }

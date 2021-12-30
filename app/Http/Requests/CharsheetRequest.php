@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
 use App\Rules\CraftPool;
+use App\Rules\NarrativeCraftsPool;
 use App\Rules\SkillPool;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -35,9 +36,16 @@ class CharsheetRequest extends FormRequest
             $crafts[$craft] = intval($value);
         }
 
+        $narrative_crafts = [];
+
+        foreach($this->narrative_crafts as $craft) {
+            array_push($narrative_crafts, $craft);
+        }
+
         $this->merge([
             'skills' => $skills,
-            'crafts' => $crafts
+            'crafts' => $crafts,
+            'narrative_crafts' => $narrative_crafts
         ]);
     }
 
@@ -47,7 +55,10 @@ class CharsheetRequest extends FormRequest
             'skills' => ['required', new SkillPool],
             'skills.*' => ['numeric', 'min:0', 'max:10'],
             'crafts' => ['required', new CraftPool($this->skills)],
-            'crafts.*' => ['numeric', 'min:0', 'max:3']
+            'crafts.*' => ['numeric', 'min:0', 'max:3'],
+            'narrative_crafts' => [new NarrativeCraftsPool($this->skills)],
+            'narrative_crafts.*.name' => ['required'],
+            'narrative_crafts.*.description' => ['required'],
         ];
     }
 }
