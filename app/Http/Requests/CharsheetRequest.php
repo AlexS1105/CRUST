@@ -38,8 +38,10 @@ class CharsheetRequest extends FormRequest
 
         $narrative_crafts = [];
 
-        foreach($this->narrative_crafts as $craft) {
-            array_push($narrative_crafts, $craft);
+        if (isset($this->narrative_crafts)) {
+            foreach($this->narrative_crafts as $craft) {
+                array_push($narrative_crafts, $craft);
+            }
         }
 
         $this->merge([

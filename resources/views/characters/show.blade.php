@@ -91,7 +91,7 @@
     </div>
 
     <div class="flex justify-center gap-8">
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full">
+      <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
         <h1 class="font-bold text-xl mb-2">
           {{ __('charsheet.skills') }}
         </h1>
@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      @if ($character->charsheet->hasAnyCrafts())
+      @if ($character->charsheet->hasAnyCrafts() || count($character->narrativeCrafts))
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
           <h1 class="font-bold text-xl mb-2">
             {{ __('charsheet.crafts') }}
@@ -137,6 +137,19 @@
               @endif
             @endforeach
           </div>
+
+          @if ($character->charsheet->hasAnyCrafts() && count($character->narrativeCrafts))
+            <hr class="my-4">
+          @endif
+
+          @if(count($character->narrativeCrafts))
+            @foreach($character->narrativeCrafts as $craft)
+              <div class="text-lg font-semibold">
+                {{ $craft->name }}
+              </div>
+              {{ $craft->description }}
+            @endforeach
+          @endif
         </div>
       @endif
     </div>

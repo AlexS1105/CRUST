@@ -22,15 +22,19 @@ class CharsheetController extends Controller
         $validated = $request->validated();
         $character->charsheet()->update($validated);
 
-        $narrativeCrafts = [];
+        $character->narrativeCrafts()->delete();
         
-        foreach($validated['narrative_crafts'] as $craft) {
-            $craft['character_id'] = $character->id;
-            array_push($narrativeCrafts, new NarrativeCraft($craft));
+        if (count($validated['narrative_crafts']) > 0) {
+            $narrativeCrafts = [];
+        
+            foreach($validated['narrative_crafts'] as $craft) {
+                $craft['character_id'] = $character->id;
+                array_push($narrativeCrafts, new NarrativeCraft($craft));
+            }
+            
+            $character->narrativeCrafts()->saveMany($narrativeCrafts);
         }
 
-        $character->narrativeCrafts()->delete();
-        $character->narrativeCrafts()->saveMany($narrativeCrafts);
         return redirect()->route('characters.show', $character->login);
     }
 }
