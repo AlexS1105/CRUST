@@ -34,11 +34,15 @@ class PerkVariantController extends Controller
 
     public function update(PerkVariantRequest $request, PerkVariant $perkVariant, Perk $perk)
     {
+        $perkVariant->update($request->validated());
+
         return redirect()->route('perks.index');
     }
 
     public function destroy(PerkVariant $perkVariant)
     {
+        $perkVariant->delete();
+        
         return redirect()->route('perks.index');
     }
 }
