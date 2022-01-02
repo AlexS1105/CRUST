@@ -17,8 +17,8 @@ class CreateCharactersPerksTable extends Migration
     {
         Schema::create('characters_perks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Character::class);
-            $table->foreignIdFor(PerkVariant::class);
+            $table->foreignIdFor(Character::class)->onDelete('cascade');
+            $table->foreignIdFor(PerkVariant::class)->onDelete('cascade');
         });
     }
 
