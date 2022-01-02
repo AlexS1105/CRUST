@@ -14,6 +14,10 @@
       <div>
         <a href="{{ route('settings.charsheet.show') }}">{{ __('settings.charsheet') }}</a>
       </div>
+
+      <div>
+        <a href="{{ route('perks.index') }}">{{ __('perks.index') }}</a>
+      </div>
     </div>
   </x-container>
 </x-app-layout>
