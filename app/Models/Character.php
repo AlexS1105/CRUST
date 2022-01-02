@@ -74,6 +74,11 @@ class Character extends Model
         return $this->hasMany(NarrativeCraft::class);
     }
 
+    public function perkVariants()
+    {
+        return $this->belongsToMany(PerkVariant::class, 'characters_perks');
+    }
+
     protected static function boot()
     {
         parent::boot();
