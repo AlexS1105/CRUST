@@ -11,7 +11,8 @@ class PerkController extends Controller
     public function index()
     {
         return view('perks.index', [
-            'perks' => Perk::with('variants')->get()
+            'perks' => Perk::with('variants')
+                ->paginate(10)
         ]);
     }
 
