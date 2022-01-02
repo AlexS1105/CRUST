@@ -10,6 +10,8 @@ use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\MinecraftAuthController;
+use App\Http\Controllers\PerkController;
+use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
@@ -113,25 +115,37 @@ Route::middleware('auth')->group(function() {
             ->except(['show', 'edit', 'update'])
             ->shallow();
 
-        Route::get('settings', SettingsController::class)
-            ->name('settings.index')
-            ->middleware('can:settings');
+        Route::middleware('can:settings')->group(function() {
+            Route::get('settings', SettingsController::class)
+                ->name('settings.index');
 
-        Route::get('settings/general', [GeneralSettingsController::class, 'show'])
-            ->name('settings.general.show')
-            ->middleware('can:settings');
+            Route::get('settings/general', [GeneralSettingsController::class, 'show'])
+                ->name('settings.general.show');
 
-        Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
-            ->name('settings.general.update')
-            ->middleware('can:settings');
+            Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
+                ->name('settings.general.update');
 
-        Route::get('settings/charsheet', [CharsheetSettingsController::class, 'show'])
-            ->name('settings.charsheet.show')
-            ->middleware('can:settings');
+            Route::get('settings/charsheet', [CharsheetSettingsController::class, 'show'])
+                ->name('settings.charsheet.show');
 
-        Route::patch('settings/charsheet', [CharsheetSettingsController::class, 'update'])
-            ->name('settings.charsheet.update')
-            ->middleware('can:settings');
+            Route::patch('settings/charsheet', [CharsheetSettingsController::class, 'update'])
+                ->name('settings.charsheet.update');
+
+            Route::resource('settings/perks', PerkController::class)
+                ->except(['show', 'destroy']);
+ 
+            Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
+                ->except(['index', 'show'])
+                ->shallow()
+                ->names([
+                    'index' => 'perks.variants.index',
+                    'store' => 'perks.variants.store',
+                    'create' => 'perks.variants.create',
+                    'update' => 'perks.variants.update',
+                    'edit' => 'perks.variants.edit',
+                    'destroy' => 'perks.variants.destroy'
+                ]);
+        });
     });
 });
 
