@@ -18,7 +18,7 @@ class CreatePerksTable extends Migration
             $table->id();
             $table->text('name');
             $table->integer('cost')->nullable();
-            $table->enum('type', PerkType::getValues())->default(PerkType::None);
+            $table->binary('type')->default(PerkType::None);
             $table->timestamps();
         });
     }
