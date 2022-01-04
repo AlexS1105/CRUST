@@ -18,8 +18,8 @@ class CharacterRequest extends FormRequest
     {
         $this->merge([
             'gender' => CharacterGender::fromKey($this->gender),
-            'info_hidden' => $this->info_hidden == 'on',
-            'bio_hidden' => $this->bio_hidden == 'on'
+            'info_hidden' => $this->info_hidden === 'on',
+            'bio_hidden' => $this->bio_hidden === 'on'
         ]);
     }
 

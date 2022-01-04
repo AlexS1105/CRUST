@@ -17,31 +17,31 @@ class PerkVariantController extends Controller
 
     public function store(PerkVariantRequest $request, Perk $perk)
     {
-        $perkVariant = $request->validated();
-        $perkVariant['perk_id'] = $perk->id;
-        Perk::create($perkVariant);
+        $variant = $request->validated();
+        $variant['perk_id'] = $perk->id;
+        PerkVariant::create($variant);
 
         return redirect()->route('perks.index');
     }
 
-    public function edit(PerkVariant $perkVariant, Perk $perk)
+    public function edit(Perk $perk, PerkVariant $variant)
     {
         return view('perks.variants.edit', [
             'perk' => $perk,
-            'perkVariant' => $perkVariant
+            'variant' => $variant
         ]);
     }
 
-    public function update(PerkVariantRequest $request, PerkVariant $perkVariant, Perk $perk)
+    public function update(PerkVariantRequest $request, Perk $perk, PerkVariant $variant)
     {
-        $perkVariant->update($request->validated());
+        $variant->update($request->validated());
 
         return redirect()->route('perks.index');
     }
 
-    public function destroy(PerkVariant $perkVariant)
+    public function destroy(Perk $perk, PerkVariant $variant)
     {
-        $perkVariant->delete();
+        $variant->delete();
         
         return redirect()->route('perks.index');
     }
