@@ -17,7 +17,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
   </head>
   <body class="font-sans antialiased bg-white">
-    <div class="p-2">
+    <div class="p-2 fixed top-0 w-full bg-white border-b">
       <x-search-field :search="$search" :route="route('perks.list')"/>
       <div class="flex space-x-2 mt-2 ml-2 text-sm">
         <div class="text-gray-500">
@@ -31,6 +31,9 @@
         <a class="text-blue-400" href="{{ route('perks.list', [ 'cost_order' => $cost_order ? 'asc' : 'desc' ]) }}">{{ __('ui.sort.cost') }} {{ $cost_order ? '↓' : '↑' }}</a>
       </div>
     </div>
+
+    <div class="mt-24"></div>
+
     <div class="p-6 space-y-4">
       @foreach ($perks as $perk)
         <div class="border border-gray-400 rounded-xl overflow-hidden">
