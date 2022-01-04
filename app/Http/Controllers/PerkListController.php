@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PerkType;
 use App\Models\Perk;
-use Illuminate\Http\Request;
-
 class PerkListController extends Controller
 {
     public function __invoke()
     {
         $search = request('search');
         $cost_order = request('cost_order');
-        $perks = Perk::with('variants')->where('perks.name', 'like', '%'.$search.'%');
+        $perks = Perk::with('variants')->where('perks.name', 'like', '%'.$search.'%')->notHasFlag('perks.type', PerkType::Unique);
 
         if (isset($cost_order)) {
             if ($cost_order == 'asc') {

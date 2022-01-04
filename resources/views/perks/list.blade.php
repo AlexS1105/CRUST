@@ -16,8 +16,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
   </head>
-  <body class="font-sans antialiased bg-gray-100">
-    <div class="p-2 bg-white">
+  <body class="font-sans antialiased bg-white">
+    <div class="p-2">
       <x-search-field :search="$search" :route="route('perks.list')"/>
       <div class="flex space-x-2 mt-2 ml-2 text-sm">
         <div class="text-gray-500">

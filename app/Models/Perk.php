@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Enums\PerkType;
+use BenSampo\Enum\Traits\QueriesFlaggedEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Perk extends Model
 {
-    use HasFactory;
+    use HasFactory, QueriesFlaggedEnums;
 
     protected $guarded = [];
 
