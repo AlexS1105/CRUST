@@ -11,6 +11,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\PerkController;
+use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
+
+Route::get('/perks', PerkListController::class)->name('perks.list');
 
 Route::middleware('auth')->group(function() {
     Route::get('/discord-invite', function() {
