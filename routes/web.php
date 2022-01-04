@@ -132,7 +132,7 @@ Route::middleware('auth')->group(function() {
                 ->name('settings.charsheet.update');
 
             Route::resource('settings/perks', PerkController::class)
-                ->except(['show', 'destroy']);
+                ->except(['show']);
  
             Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
                 ->except(['index', 'show'])
