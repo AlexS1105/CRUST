@@ -159,34 +159,46 @@
     </div>
 
     @if (count($character->perkVariants))
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl mx-auto">
-        <h1 class="font-bold text-xl mb-2">
-          {{ __('perks.index') }}
-        </h1>
-
-        <div class="space-y-4">
-          @php
-            $perks = $character->perkVariants->groupBy(function($item, $key) {
-              return $item->perk->type->isCombat() ? 'combat' : 'noncombat';
-            });
-          @endphp
-          
-          @foreach ($perks['combat'] as $perkVariant)
-            @php
-              $perk = $perkVariant->perk
-            @endphp
-
-            <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
-          @endforeach
-          <hr class="my-2">
-          @foreach ($perks['noncombat'] as $perkVariant)
-            @php
-              $perk = $perkVariant->perk
-            @endphp
-
-            <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
-          @endforeach
-        </div>
+      @php
+        $perks = $character->perkVariants->groupBy(function($item, $key) {
+          return $item->perk->type->isCombat() ? 'combat' : 'noncombat';
+        });
+      @endphp
+      <div class="flex justify-center gap-8">
+        @if (count($perks['combat']))
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('perks.combat') }}
+            </h1>
+    
+            <div class="space-y-4">
+              @foreach ($perks['combat'] as $perkVariant)
+                @php
+                  $perk = $perkVariant->perk
+                @endphp
+    
+                <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
+              @endforeach
+            </div>
+          </div>
+        @endif
+        @if (count($perks['noncombat']))
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('perks.noncombat') }}
+            </h1>
+    
+            <div class="space-y-4">
+              @foreach ($perks['noncombat'] as $perkVariant)
+                @php
+                  $perk = $perkVariant->perk
+                @endphp
+    
+                <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
+              @endforeach
+            </div>
+          </div>
+        @endif
       </div>
     @endif
 

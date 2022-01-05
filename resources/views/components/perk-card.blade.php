@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl overflow-hidden']) }}>
+<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl overflow-hidden max-w-fit']) }}>
   <div class="flex justify-between border-b bg-gray-100 border-gray-400">
     <div class="flex items-center font-bold text-lg py-2 px-3 uppercase space-x-2">
       {{ $perk->name }}

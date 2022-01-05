@@ -5,6 +5,8 @@ return [
     'create' => 'Create Perk',
     'edit' => 'Edit Perk',
     'select' => 'Not Selected - Chose Variant...',
+    'combat' => 'Combat Perks',
+    'noncombat' => 'Non-Combat Perks',
     'placeholder' => [
         'name' => 'Perk Name',
         'description' => 'Perk Effect Description',
