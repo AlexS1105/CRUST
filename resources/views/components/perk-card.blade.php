@@ -3,8 +3,12 @@
     <div class="flex items-center font-bold text-lg py-2 px-3 uppercase space-x-2">
       {{ $perk->name }}
     </div>
-    <div class="p-2 text-center font-bold text-lg border-gray-400 border-l">
+    <div class="flex p-2 text-center font-bold text-lg border-gray-400 border-l">
       {{ $perk->cost }}
+
+      @if($perkVariant->pivot->cost_offset)
+        + {{ $perkVariant->pivot->cost_offset }}
+      @endif
     </div>
   </div>
   <div class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm  ">
@@ -31,4 +35,9 @@
     @endif
   </div>
   <div class="prose markdown p-2">{!! $perkVariant->description !!}</div>
+  @if($perkVariant->pivot->note)
+    <div class="px-2 py-1 border-t bg-gray-50 italic">
+      {{ $perkVariant->pivot->note }}
+    </div>
+  @endif
 </div>
