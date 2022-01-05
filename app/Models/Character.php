@@ -76,7 +76,7 @@ class Character extends Model
 
     public function perkVariants()
     {
-        return $this->belongsToMany(PerkVariant::class, 'characters_perks');
+        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('cost_offset', 'note');
     }
 
     protected static function boot()
