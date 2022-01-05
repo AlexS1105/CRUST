@@ -14,6 +14,8 @@ return [
     'fates' => 'Судьбы',
     'points' => [
         'skills' => 'Доступно очков: ',
-        'narrative_crafts' => 'Доступно ремесел: '
+        'narrative_crafts' => 'Доступно ремесел: ',
+        'combat_perks' => 'Очков боевых перков: ',
+        'noncombat_perks' => 'Очков небоевых перков: '
     ]
 ];

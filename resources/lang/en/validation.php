@@ -134,6 +134,12 @@ return [
         'general' => 'Not enough magic / tech skill points.'
     ],
     'narrative_crafts' => 'Not enough skill points',
+    'perkpool' => [
+        'invalid' => 'Unexpected Perks Error. Try to take new ones or contact the administration.',
+        'unique' => 'You cannot take unique perks at the character creation.',
+        'not_enough_combat' => 'Not enough combat perk points.',
+        'not_enough_noncombat' => 'Not enough non-combat perk points.',
+    ],
 
     /*
     |--------------------------------------------------------------------------
