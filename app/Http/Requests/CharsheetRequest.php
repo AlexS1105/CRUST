@@ -4,8 +4,10 @@ namespace App\Http\Requests;
 
 use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
+use App\Models\PerkVariant;
 use App\Rules\CraftPool;
 use App\Rules\NarrativeCraftsPool;
+use App\Rules\PerkPool;
 use App\Rules\SkillPool;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -43,11 +45,26 @@ class CharsheetRequest extends FormRequest
                 array_push($narrative_crafts, $craft);
             }
         }
+        
+        $perks = [];
+
+        if (isset($this->perks)) {
+            foreach($this->perks as $perkId => $perkData) {
+                if ($perkData['id'] != "-1") {
+                    $perks[$perkId] = [
+                        'variant' => PerkVariant::with('perk')->find(intval($perkData['id'])),
+                        'cost_offset' => intval($perkData['cost_offset']),
+                        'note' => $perkData['note']
+                    ];
+                }
+            }
+        }
 
         $this->merge([
             'skills' => $skills,
             'crafts' => $crafts,
-            'narrative_crafts' => $narrative_crafts
+            'narrative_crafts' => $narrative_crafts,
+            'perks' => $perks
         ]);
     }
 
@@ -61,6 +78,7 @@ class CharsheetRequest extends FormRequest
             'narrative_crafts' => [new NarrativeCraftsPool($this->skills)],
             'narrative_crafts.*.name' => ['required'],
             'narrative_crafts.*.description' => ['required'],
+            'perks' => ['required', new PerkPool]
         ];
     }
 }

@@ -19,6 +19,8 @@ class CreateCharactersPerksTable extends Migration
             $table->id();
             $table->foreignIdFor(Character::class)->onDelete('cascade');
             $table->foreignIdFor(PerkVariant::class)->onDelete('cascade');
+            $table->integer('cost_offset')->nullable();
+            $table->text('note')->nullable();
         });
     }
 
