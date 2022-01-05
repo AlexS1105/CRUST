@@ -172,6 +172,9 @@
 
         <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
           @foreach ($perks as $perk)
+            @php
+              $characterPerkVariant = $character->perkVariants->firstWhere('perk_id', $perk->id);
+            @endphp
             <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
               <div class="flex justify-between border-b bg-gray-100 border-gray-400">
                 <div class="flex justify-between text-sm w-full items-center font-bold p-1 uppercase space-x-1">
@@ -204,28 +207,28 @@
               <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
                 <option value="-1" selected>{{ __('perks.select') }}</option>
                 @foreach ($perk->variants as $variant)
-                  <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id ? 'selected' : '' }}>
+                  <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id || (isset($characterPerkVariant) ? $characterPerkVariant->id == $variant->id : false) ? 'selected' : '' }}>
                     {{ $variant->description }}
                   </option>
                 @endforeach
               </select>
-              <div id="perk-data-{{$perk->id}}" class="flex space-x-2 items-center hidden">
+              <div id="perk-data-{{$perk->id}}" class="flex items-center hidden">
                 <input
-                  class="p-1 text-xs border-none focus:ring-transparent w-1/4"
+                  class="p-1 text-xs border-b-0 border-l-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-1/4"
                   name="perks[{{ $perk->id }}][cost_offset]" id="perks[{{ $perk->id }}][cost_offset]"
                   type="number"
                   min=0 max=100
                   placeholder="{{ __('perks.placeholder.cost_offset') }}"
-                  value="{{ old("perks.$perk->id.cost_offset") }}"
+                  value="{{ old("perks.$perk->id.cost_offset", isset($characterPerkVariant) && $characterPerkVariant->pivot->cost_offset != 0 ? $characterPerkVariant->pivot->cost_offset : null) }}"
                   onchange="updatePerks();"
                 >
                 <input
-                  class="p-1 text-xs border-none focus:ring-transparent w-full"
+                  class="p-1 text-xs border-b-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
                   name="perks[{{ $perk->id }}][note]"
                   id="perks[{{ $perk->id }}][note]"
                   type="text"
                   placeholder="{{ __('perks.placeholder.note') }}"
-                  value="{{ old('perks.'.$perk->id.'.note') }}"
+                  value="{{ old('perks.'.$perk->id.'.note', isset($characterPerkVariant) ? $characterPerkVariant->pivot->note : null) }}"
                 >
               </div>
             </div>
