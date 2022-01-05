@@ -90,73 +90,77 @@
       </div>
     </div>
 
-    <div class="flex justify-center gap-8">
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
-        <h1 class="font-bold text-xl mb-2">
-          {{ __('charsheet.skills') }}
-        </h1>
+    @if(isset($character->charsheet->skills) || $character->charsheet->hasAnyCrafts())
+      <div class="flex justify-center gap-8">
+        @if(isset($character->charsheet->skills) && count($character->charsheet->skills))
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('charsheet.skills') }}
+            </h1>
 
-        <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-          @foreach ($character->charsheet->skills as $skill => $value)
-            <div class="text-lg font-semibold text-right">
-              {{ __('skill.'.$skill) }}
-            </div>
-            <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
-              <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value * 10 }}%">
-                <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
-                  {{ $value }}
-                </div>
-              </div>
-            </div>
-          @endforeach
-        </div>
-      </div>
-
-      @if ($character->charsheet->hasAnyCrafts() || count($character->narrativeCrafts))
-        <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
-          <h1 class="font-bold text-xl mb-2">
-            {{ __('charsheet.crafts') }}
-          </h1>
-  
-          @if($character->charsheet->hasAnyCrafts())
             <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-              @foreach ($character->charsheet->crafts as $craft => $value)
-                @php
-                  $enum = App\Enums\CharacterCraft::fromKey(ucfirst($craft));
-                @endphp
-                @if($value > 0)
-                  <div class="text-lg font-semibold text-right">
-                    {{ __('craft.'.$craft) }}
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
-                    <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value / $enum->getMaxTier() * 100 }}%">
-                      <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
-                        {{ $value }}
-                      </div>
+              @foreach ($character->charsheet->skills as $skill => $value)
+                <div class="text-lg font-semibold text-right">
+                  {{ __('skill.'.$skill) }}
+                </div>
+                <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
+                  <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value * 10 }}%">
+                    <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
+                      {{ $value }}
                     </div>
                   </div>
-                @endif
+                </div>
               @endforeach
             </div>
-          @endif
+          </div>
+        @endif
 
-          @if ($character->charsheet->hasAnyCrafts() && count($character->narrativeCrafts))
-            <hr class="my-4">
-          @endif
-
-          @if(count($character->narrativeCrafts))
-            @foreach($character->narrativeCrafts as $craft)
-              <div class="my-2">
-                <div class="text-lg font-semibold">
-                  {{ $craft->name }}
-                </div>
-                {{ $craft->description }}
+        @if ($character->charsheet->hasAnyCrafts() || count($character->narrativeCrafts))
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('charsheet.crafts') }}
+            </h1>
+    
+            @if($character->charsheet->hasAnyCrafts())
+              <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
+                @foreach ($character->charsheet->crafts as $craft => $value)
+                  @php
+                    $enum = App\Enums\CharacterCraft::fromKey(ucfirst($craft));
+                  @endphp
+                  @if($value > 0)
+                    <div class="text-lg font-semibold text-right">
+                      {{ __('craft.'.$craft) }}
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
+                      <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value / $enum->getMaxTier() * 100 }}%">
+                        <div class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
+                          {{ $value }}
+                        </div>
+                      </div>
+                    </div>
+                  @endif
+                @endforeach
               </div>
-            @endforeach
-          @endif
-        </div>
-      @endif
-    </div>
+            @endif
+
+            @if ($character->charsheet->hasAnyCrafts() && count($character->narrativeCrafts))
+              <hr class="my-4">
+            @endif
+
+            @if(count($character->narrativeCrafts))
+              @foreach($character->narrativeCrafts as $craft)
+                <div class="my-2">
+                  <div class="text-lg font-semibold">
+                    {{ $craft->name }}
+                  </div>
+                  {{ $craft->description }}
+                </div>
+              @endforeach
+            @endif
+          </div>
+        @endif
+      </div>
+    @endif
 
     @if (count($character->perkVariants))
       @php
