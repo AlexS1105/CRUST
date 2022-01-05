@@ -170,7 +170,84 @@
           {{ __('charsheet.perks') }}
         </x-slot>
 
+        <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
+          @foreach ($perks as $perk)
+            <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
+              <div class="flex justify-between border-b bg-gray-100 border-gray-400">
+                <div class="flex justify-between text-sm w-full items-center font-bold p-1 uppercase space-x-1">
+                  <div>
+                    {{ $perk->name }}
+                  </div>
+                  <div class="space-y-0.5 text-xs">
+                    @if ($perk->type->isCombat())
+                    <div class="bg-red-200 px-1 rounded-full">
+                      {{ __('perks.types.combat') }}
+                    </div>
+                    @else
+                    <div class="bg-green-200 px-1 rounded-full">
+                      {{ __('perks.types.noncombat') }}
+                    </div>
+                    @endif
+        
+                    @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
+                      <div class="bg-purple-200 px-1 rounded-full">
+                        {{ __('perks.types.native') }}
+                      </div>
+                    @endif
+                  </div>
+                </div>
+                <div class="px-1 leading-none my-auto text-sm text-center font-bold border-gray-400 border-l">
+                  {{ $perk->cost }}
+                </div>
+              </div>
+              
+              <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
+                <option value="-1" selected>{{ __('perks.select') }}</option>
+                @foreach ($perk->variants as $variant)
+                  <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id ? 'selected' : '' }}>
+                    {{ $variant->description }}
+                  </option>
+                @endforeach
+              </select>
+              <div id="perk-data-{{$perk->id}}" class="flex space-x-2 items-center hidden">
+                <input
+                  class="p-1 text-xs border-none focus:ring-transparent w-1/4"
+                  name="perks[{{ $perk->id }}][cost_offset]" id="perks[{{ $perk->id }}][cost_offset]"
+                  type="number"
+                  min=0 max=100
+                  placeholder="{{ __('perks.placeholder.cost_offset') }}"
+                  value="{{ old("perks.$perk->id.cost_offset") }}"
+                  onchange="updatePerks();"
+                >
+                <input
+                  class="p-1 text-xs border-none focus:ring-transparent w-full"
+                  name="perks[{{ $perk->id }}][note]"
+                  id="perks[{{ $perk->id }}][note]"
+                  type="text"
+                  placeholder="{{ __('perks.placeholder.note') }}"
+                  value="{{ old('perks.'.$perk->id.'.note') }}"
+                >
+              </div>
+            </div>
+          @endforeach
+        </div>
 
+        <div class="flex justify-between text-right font-bold text-lg space-x-2">
+          <div class="flex justify-end gap-2 bg-green-100 rounded-full px-2 w-fit">
+            <div class="grow">{{ __('charsheet.points.noncombat_perks') }}</div>
+            <div id="noncombat_perk_points">
+              {{ $maxPerks }}
+            </div> / {{ $maxPerks }}
+          </div>
+          <div class="flex justify-end gap-2 bg-red-100 rounded-full px-2">
+            {{ __('charsheet.points.combat_perks') }}
+            <div id="combat_perk_points">
+              {{ $maxPerks }}
+            </div> / {{ $maxPerks }}
+          </div>
+        </div>
+
+        <x-form.error name="perks"/>
       </x-form.card>
 
       <x-form.card>
@@ -196,6 +273,7 @@
 
     <script>
       var maxSkills = @json($maxSkills);
+      var maxPerks = @json($maxPerks);
       var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
       var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
       var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) || [];
