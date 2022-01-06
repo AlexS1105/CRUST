@@ -7,6 +7,7 @@ use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\NarrativeCraft;
 use App\Models\Perk;
+use App\Models\RaceTrait;
 use App\Settings\CharsheetSettings;
 
 class CharsheetController extends Controller
@@ -18,6 +19,7 @@ class CharsheetController extends Controller
             'maxSkills' => app(CharsheetSettings::class)->skill_points,
             'perks' => Perk::with('variants')->notHasFlag('perks.type', PerkType::Unique)->get(),
             'maxPerks' => app(CharsheetSettings::class)->perk_points,
+            'traits' => RaceTrait::all()
         ]);
     }
 
@@ -45,6 +47,16 @@ class CharsheetController extends Controller
             foreach($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
                 $character->perkVariants()->attach($id, ['cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
+            }
+        }
+
+        if ($validated['trait'] || $validated['subtrait']) {
+            $character->traits()->detach();
+
+            $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
+
+            if ($validated['subtrait']) {
+                $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
             }
         }
 

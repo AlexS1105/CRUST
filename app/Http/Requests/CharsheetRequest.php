@@ -5,10 +5,13 @@ namespace App\Http\Requests;
 use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
 use App\Models\PerkVariant;
+use App\Models\RaceTrait as ModelsRaceTrait;
 use App\Rules\CraftPool;
 use App\Rules\NarrativeCraftsPool;
 use App\Rules\PerkPool;
+use App\Rules\RaceTrait;
 use App\Rules\SkillPool;
+use App\Rules\Subtrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharsheetRequest extends FormRequest
@@ -64,7 +67,9 @@ class CharsheetRequest extends FormRequest
             'skills' => $skills,
             'crafts' => $crafts,
             'narrative_crafts' => $narrative_crafts,
-            'perks' => $perks
+            'perks' => $perks,
+            'trait' => isset($this->trait) ? ModelsRaceTrait::find(intval($this->trait)) : null,
+            'subtrait' => isset($this->subtrait) ? ModelsRaceTrait::find(intval($this->subtrait)) : null
         ]);
     }
 
@@ -78,7 +83,11 @@ class CharsheetRequest extends FormRequest
             'narrative_crafts' => [new NarrativeCraftsPool($this->skills)],
             'narrative_crafts.*.name' => ['required'],
             'narrative_crafts.*.description' => ['required'],
-            'perks' => ['required', new PerkPool]
+            'perks' => ['required', new PerkPool],
+            'trait' => ['required', new RaceTrait],
+            'subtrait' => [new Subtrait],
+            'note_trait' => ['max:256'],
+            'note_subtrait' => ['max:256']
         ];
     }
 }
