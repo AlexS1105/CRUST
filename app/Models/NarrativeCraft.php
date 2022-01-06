@@ -11,7 +11,7 @@ class NarrativeCraft extends Model
 
     protected $guarded = [];
 
-    public function charsheet()
+    public function character()
     {
         return $this->belongsTo(Character::class);
     }
