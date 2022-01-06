@@ -28,7 +28,7 @@ class CharsheetController extends Controller
         $validated = $request->validated();
         $character->charsheet()->update($validated);
         
-        if (count($validated['narrative_crafts']) > 0) {
+        if (count($validated['narrative_crafts'])) {
             $character->narrativeCrafts()->delete();
             $narrativeCrafts = [];
         
@@ -40,7 +40,7 @@ class CharsheetController extends Controller
             $character->narrativeCrafts()->saveMany($narrativeCrafts);
         }
 
-        if (count($validated['perks']) > 0) {
+        if (count($validated['perks'])) {
             $character->perkVariants()->detach();
             
             foreach($validated['perks'] as $perkVariant) {
