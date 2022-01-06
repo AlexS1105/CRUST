@@ -39,5 +39,7 @@ return [
     'cost' => 'Cost',
     'combat' => 'Combat',
     'native' => 'Native',
-    'unique' => 'Unique'
+    'unique' => 'Unique',
+    'note_trait' => 'Trait Note',
+    'note_subtrait' => 'Sub-Trait Note',
 ];
