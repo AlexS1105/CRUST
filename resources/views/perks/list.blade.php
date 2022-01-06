@@ -84,7 +84,7 @@
           </div>
           <div class="divide-y divide-dashed">
             @foreach ($perk->variants as $perkVariant)
-              <div class="prose markdown p-2">{!! $perkVariant->description !!}</div>
+              <div class="prose markdown p-2 min-w-full">{!! $perkVariant->description !!}</div>
             @endforeach
           </div>
         </div>
