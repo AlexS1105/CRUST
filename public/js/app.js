@@ -4032,6 +4032,8 @@ __webpack_require__(/*! ./charsheet */ "./resources/js/charsheet.js");
 
 __webpack_require__(/*! ./perks */ "./resources/js/perks.js");
 
+__webpack_require__(/*! ./traits */ "./resources/js/traits.js");
+
 __webpack_require__(/*! ./markdown */ "./resources/js/markdown.js");
 
 __webpack_require__(/*! ./markdown-preview */ "./resources/js/markdown-preview.js");
@@ -4547,10 +4549,7 @@ marked.setOptions({
 /*!*******************************!*\
   !*** ./resources/js/perks.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
-    constant = _require.constant;
+/***/ (() => {
 
 var combatPoints = 0;
 var noncombatPoints = 0;
@@ -4566,7 +4565,6 @@ window.updatePerks = function () {
     var perkId = selector.getAttribute('data-perk-id');
     var card = document.getElementById('perk-' + perkId);
     var dataFields = document.getElementById('perk-data-' + perkId);
-    console.log(perkId, selector);
 
     if (index != -1) {
       var cost = parseInt(selector.getAttribute('data-cost'));
@@ -4616,6 +4614,72 @@ function updateLabels() {
 
 if (typeof maxPerks != 'undefined') {
   updatePerks();
+}
+
+/***/ }),
+
+/***/ "./resources/js/traits.js":
+/*!********************************!*\
+  !*** ./resources/js/traits.js ***!
+  \********************************/
+/***/ (() => {
+
+var selectedTrait = null;
+var selectedSubtrait = null;
+var traitInput = document.getElementById('trait');
+var subtraitInput = document.getElementById('subtrait');
+
+window.selectTrait = function (element) {
+  var traitId = parseInt(element.getAttribute('data-id'));
+  var subtrait = Boolean(parseInt(element.getAttribute('data-subtrait')));
+
+  if (subtrait) {
+    if (selectedSubtrait != null) {
+      setSelected(selectedSubtrait, false);
+    }
+
+    setSelected(element, true);
+    selectedSubtrait = element;
+    subtraitInput.value = traitId;
+  } else {
+    if (selectedTrait != null) {
+      setSelected(selectedTrait, false);
+    }
+
+    setSelected(element, true);
+    selectedTrait = element;
+    traitInput.value = traitId;
+  }
+};
+
+function setSelected(element, selected) {
+  if (element == null) {
+    return;
+  }
+
+  if (selected) {
+    element.classList.remove('opacity-50');
+  } else {
+    element.classList.add('opacity-50');
+  }
+}
+
+if (traitInput && traitInput.value) {
+  var traitId = traitInput.value;
+  var card = document.getElementById('trait-' + traitId);
+
+  if (card) {
+    window.selectTrait(card);
+  }
+}
+
+if (subtraitInput && subtraitInput.value) {
+  var traitId = subtraitInput.value;
+  var card = document.getElementById('trait-' + traitId);
+
+  if (card) {
+    window.selectTrait(card);
+  }
 }
 
 /***/ }),

@@ -162,6 +162,34 @@
       </div>
     @endif
 
+
+    @if (count($character->traits))
+      @php
+        $trait = $character->trait();
+        $subtrait = $character->subtrait();
+      @endphp
+      <div class="flex justify-center gap-8">
+        @if($trait)
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify my-auto">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('charsheet.trait') }}
+          </h1>
+
+          <x-trait-card class="max-w-4xl" :trait="$trait" />
+        </div>
+        @endif
+        @if($subtrait)
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify my-auto">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('traits.subtrait') }}
+          </h1>
+
+          <x-trait-card class="max-w-4xl" :trait="$subtrait" />
+        </div>
+        @endif
+      </div>
+    @endif
+
     @if (count($character->perkVariants))
       @php
         $perks = $character->perkVariants->groupBy(function($item, $key) {
@@ -169,7 +197,7 @@
         });
       @endphp
       <div class="flex justify-center gap-8">
-        @if ($perks->get('combat')))
+        @if (false && $perks->get('combat'))
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.combat') }}

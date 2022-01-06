@@ -205,7 +205,7 @@
                   </div>
                 </div>
                 
-                <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
+                <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
                   <option value="-1" selected>{{ __('perks.select') }}</option>
                   @foreach ($perk->variants as $variant)
                     <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id || (isset($characterPerkVariant) ? $characterPerkVariant->id == $variant->id : false) ? 'selected' : '' }}>
@@ -255,13 +255,53 @@
         </x-form.card>
       @endif
 
-      <x-form.card>
-        <x-slot name="header">
-          {{ __('charsheet.trait') }}
-        </x-slot>
+      @if (count($traits))
+        <x-form.card>
+          <x-slot name="header">
+            {{ __('charsheet.trait') }}
+          </x-slot>
 
+          <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
+            @php
+              $characterTrait = $character->trait();
+              $characterSubtrait = $character->subtrait();
+            @endphp
+            <input name="trait" id="trait" type="hidden" value="{{ $characterTrait ? $characterTrait->id : '' }}">
+            <input name="subtrait" id="subtrait" type="hidden" value="{{ $characterSubtrait ? $characterSubtrait->id : '' }}">
+            
+            @foreach ($traits as $trait)
+              <div
+                id="trait-{{ $trait->id }}"
+                class="border border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 rounded overflow-hidden opacity-50 cursor-pointer hover:shadow"
+                data-id="{{ $trait->id }}"
+                data-subtrait="{{ $trait->subtrait }}"
+                onclick="selectTrait(this)"
+              >
+                <div class="border-b bg-{{ $trait->subtrait ? 'blue' : 'green' }}-100 border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 px-1">
+                  <div class="font-bold uppercase">
+                    {{ $trait->name }}
+                  </div>
+                  @if($trait->subtrait)
+                    <div class="text-xs">
+                      {{ __('traits.subtrait') }}
+                    </div>
+                  @endif
+                </div>
+    
+                <div class="bg-{{ $trait->subtrait ? 'blue' : 'green' }}-50 px-1 text-sm italic border-b border-{{ $trait->subtrait ? 'blue' : 'green' }}-200">
+                  {{ __('traits.races') }}: {{ $trait->races }}
+                </div>
+                <div class="prose markdown p-1 min-w-full text-sm">{!! $trait->description !!}</div>
+              </div>
+            @endforeach
+          </div>
 
-      </x-form.card>
+          <x-form.input name="note_trait" placeholder="{{ __('traits.placeholder.note_trait') }}" :value="old('note_trait', $characterTrait->pivot->note)" />
+          <x-form.input name="note_subtrait" placeholder="{{ __('traits.placeholder.note_subtrait') }}" :value="old('note_subtrait', $characterSubtrait->pivot->note)" />
+
+          <x-form.error name="traits"/>
+        </x-form.card>
+      @endif
 
       <x-form.card>
         <x-slot name="header">

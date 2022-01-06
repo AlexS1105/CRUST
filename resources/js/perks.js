@@ -1,5 +1,3 @@
-const { constant } = require("lodash");
-
 var combatPoints = 0
 var noncombatPoints = 0
 
@@ -15,8 +13,6 @@ window.updatePerks = function() {
     var perkId = selector.getAttribute('data-perk-id')
     var card = document.getElementById('perk-' + perkId)
     var dataFields = document.getElementById('perk-data-' + perkId)
-
-    console.log(perkId, selector)
 
     if (index != -1) {
       var cost = parseInt(selector.getAttribute('data-cost'))

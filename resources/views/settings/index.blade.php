@@ -18,6 +18,10 @@
       <div>
         <a href="{{ route('perks.index') }}">{{ __('perks.index') }}</a>
       </div>
+
+      <div>
+        <a href="{{ route('traits.index') }}">{{ __('traits.index') }}</a>
+      </div>
     </div>
   </x-container>
 </x-app-layout>
