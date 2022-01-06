@@ -18,6 +18,20 @@
   </head>
   <body class="font-sans antialiased bg-white">
     <div class="p-2 fixed top-0 w-full bg-white border-b">
+      @php
+        $perkTypeInstance = isset($perkType) ? App\Enums\PerkType::fromValue($perkType) : App\Enums\PerkType::None();
+      @endphp
+      <div class="flex p-1 mb-2 space-x-2">
+        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Combat]) }}" class="bg-red-200 px-2 rounded-full {{ $perkTypeInstance->isCombat() ? '' : 'opacity-50' }}">
+          {{ __('perks.types.combat') }}
+        </a>
+        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::None]) }}" class="bg-green-200 px-2 rounded-full {{ isset($perkType) && $perkTypeInstance->value == App\Enums\PerkType::None ? '' : 'opacity-50' }}">
+          {{ __('perks.types.noncombat') }}
+        </a>
+        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Native]) }}" class="bg-purple-200 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Native) ? '' : 'opacity-50' }}">
+          {{ __('perks.types.native') }}
+        </a>
+      </div>
       <x-search-field :search="$search" :route="route('perks.list')"/>
       <div class="flex space-x-2 mt-2 ml-2 text-sm">
         <div class="text-gray-500">
@@ -32,7 +46,7 @@
       </div>
     </div>
 
-    <div class="mt-24"></div>
+    <div class="mt-32"></div>
 
     <div class="p-6 space-y-4">
       @foreach ($perks as $perk)
@@ -51,9 +65,9 @@
                 {{ __('perks.types.combat') }}
               </div>
             @else
-            <div class="bg-green-100 px-2 rounded-full">
-              {{ __('perks.types.noncombat') }}
-            </div>
+              <div class="bg-green-100 px-2 rounded-full">
+                {{ __('perks.types.noncombat') }}
+              </div>
             @endif
 
             @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
