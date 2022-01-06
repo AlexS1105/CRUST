@@ -57,7 +57,7 @@
           <div class="bg-purple-100 rounded-2xl p-2">
             <div class="mb-1 text-center font-bold bg-purple-300 rounded-full flex justify-center">
               <div class="mr-2">
-                Магия
+                {{ __('skill.magic') }}
               </div>
               <div id="magic_points_spent">
                 0
@@ -87,7 +87,7 @@
           <div class="bg-yellow-100 rounded-2xl p-2">
             <div class="mb-1 text-center font-bold bg-yellow-300 rounded-full flex justify-center">
               <div class="mr-2">
-                Техника
+                {{ __('skill.tech') }}
               </div>
               <div id="tech_points_spent">
                 0
