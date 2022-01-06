@@ -169,7 +169,7 @@
         });
       @endphp
       <div class="flex justify-center gap-8">
-        @if (count($perks['combat']))
+        @if ($perks->get('combat')))
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.combat') }}
@@ -186,7 +186,7 @@
             </div>
           </div>
         @endif
-        @if (count($perks['noncombat']))
+        @if ($perks->get('noncombat'))
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.noncombat') }}
