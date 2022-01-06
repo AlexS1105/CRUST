@@ -27,10 +27,9 @@ class CharsheetController extends Controller
     {
         $validated = $request->validated();
         $character->charsheet()->update($validated);
-
-        $character->narrativeCrafts()->delete();
         
         if (count($validated['narrative_crafts']) > 0) {
+            $character->narrativeCrafts()->delete();
             $narrativeCrafts = [];
         
             foreach($validated['narrative_crafts'] as $craft) {
