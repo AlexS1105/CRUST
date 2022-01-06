@@ -79,6 +79,21 @@ class Character extends Model
         return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('cost_offset', 'note');
     }
 
+    public function traits()
+    {
+        return $this->belongsToMany(RaceTrait::class, 'characters_race_traits')->withPivot('note');
+    }
+
+    public function trait()
+    {
+        return $this->traits->firstWhere('subtrait', false);
+    }
+
+    public function subtrait()
+    {
+        return $this->traits->firstWhere('subtrait', true);
+    }
+
     protected static function boot()
     {
         parent::boot();
