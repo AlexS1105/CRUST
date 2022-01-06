@@ -40,9 +40,10 @@ class CharsheetController extends Controller
         }
 
         if (count($validated['perks']) > 0) {
+            $character->perkVariants()->detach();
+            
             foreach($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
-                $character->perkVariants()->detach($id);
                 $character->perkVariants()->attach($id, ['cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
             }
         }
