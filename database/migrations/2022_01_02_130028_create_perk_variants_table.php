@@ -16,7 +16,7 @@ class CreatePerkVariantsTable extends Migration
     {
         Schema::create('perk_variants', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Perk::class)->onDelete('cascade');
+            $table->foreignIdFor(Perk::class)->constrained()->onDelete('cascade');
             $table->text('description');
             $table->timestamps();
         });
