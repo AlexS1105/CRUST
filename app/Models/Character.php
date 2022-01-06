@@ -94,6 +94,11 @@ class Character extends Model
         return $this->traits->firstWhere('subtrait', true);
     }
 
+    public function fates()
+    {
+        return $this->hasMany(Fate::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
