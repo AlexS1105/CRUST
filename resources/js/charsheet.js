@@ -59,8 +59,6 @@ function displayAddNarrativeCraftButton() {
     }
 
     list.append(button)
-
-    buttonAdded = true
 }
 
 function addNarrativeCraftCard(name, description) {

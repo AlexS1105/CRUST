@@ -13,6 +13,7 @@
       <x-form.card>
           <x-form.input name="skill_points" type="number" min="0" max="100" :value="old('skill_points', $settings->skill_points)"/>
           <x-form.input name="perk_points" type="number" min="0" max="100" :value="old('perk_points', $settings->perk_points)"/>
+          <x-form.input name="max_fates" type="number" min="0" max="100" :value="old('max_fates', $settings->max_fates)"/>
 
           <x-button>
             {{ __('ui.submit') }}

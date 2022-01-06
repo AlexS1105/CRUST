@@ -117,7 +117,7 @@
           <div class="bg-gray-100 rounded-2xl p-2">
             <div class="mb-1 text-center font-bold bg-gray-300 rounded-full flex justify-center">
               <div class="mr-2">
-                Общие
+                {{ __('charsheet.crafts_general') }}
               </div>
               <div id="general_points_max">
                 0
@@ -308,7 +308,22 @@
           {{ __('charsheet.fates') }}
         </x-slot>
 
+        <div class="space-y-2">
+          <div class="space-y-2" id="fates">
 
+          </div>
+  
+          <div class="font-bold text-lg text-right flex justify-end gap-2">
+            {{ __('charsheet.points.fates') }} 
+            <div id="fates_max">
+              {{ $maxFates }}
+            </div>
+          </div>
+        </div>
+
+        <x-form.error name="fates"/>
+        <x-form.error name="fates.*.text"/>
+        <x-form.error name="fates.*.type"/>
       </x-form.card>
 
       <x-button>
@@ -319,11 +334,17 @@
     <script>
       var maxSkills = @json($maxSkills);
       var maxPerks = @json($maxPerks);
+      var maxFates = @json($maxFates);
       var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
       var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
       var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) || [];
+      var _fates = @json(old('fates', $character->fates)) || [];
       var craftNameText = @json(__('charsheet.narrative_crafts.name'));
       var craftDescriptionText = @json(__('charsheet.narrative_crafts.description'));
+      var ambitionLabelText = @json(__('fates.ambition'));
+      var flawLabelText = @json(__('fates.flaw'));
+      var continiousLabelText = @json(__('fates.continious'));
+      var fateText = @json(__('fates.placeholder.text'));
     </script>
   </x-container>
 </x-app-layout>

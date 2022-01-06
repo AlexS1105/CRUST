@@ -197,7 +197,7 @@
         });
       @endphp
       <div class="flex justify-center gap-8">
-        @if (false && $perks->get('combat'))
+        @if ($perks->get('combat'))
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.combat') }}
@@ -234,6 +234,49 @@
       </div>
     @endif
 
+    @if (count($character->fates))
+      <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto">
+        <h1 class="font-bold text-xl mb-2">
+          {{ __('charsheet.fates') }}
+        </h1>
+
+        <div class="divide-y divide-dashed">
+          @foreach ($character->fates as $fate)
+            <div class="p-2">
+              <div class="flex text-sm font-semibold space-x-2 mb-2">
+                @if ($fate->type->isDual())
+                  <div class="bg-gray-200 px-2 rounded-full">
+                    {{ __('fates.dual') }}
+                  </div>
+                @elseif ($fate->type->hasFlag(App\Enums\FateType::Ambition))
+                  <div class="bg-yellow-200 px-2 rounded-full">
+                    {{ __('fates.ambition') }}
+                  </div>
+                @elseif ($fate->type->hasFlag(App\Enums\FateType::Flaw))
+                  <div class="bg-blue-200 px-2 rounded-full">
+                    {{ __('fates.flaw') }}
+                  </div>
+                @endif
+
+                @if ($fate->type->isOnetime())
+                  <div class="bg-green-200 px-2 rounded-full">
+                    {{ __('fates.onetime') }}
+                  </div>
+                @else
+                  <div class="bg-purple-200 px-2 rounded-full">
+                    {{ __('fates.continious') }}
+                  </div>
+                @endif
+              </div>
+              <div class="text-lg">
+                {{ $fate->text }}
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    @endif
+    
     @can('seePlayerOnlyInfo', $character)
       @if ($character->player_only_info)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
@@ -246,7 +289,6 @@
       @endif
     @endcan
     
-
     @if ($character->gm_only_info)
       @can('seeGmOnlyInfo', $character)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
