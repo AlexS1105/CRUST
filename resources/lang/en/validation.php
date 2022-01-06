@@ -133,15 +133,22 @@ return [
         'tech' => 'Not enough tech skill points.',
         'general' => 'Not enough magic / tech skill points.'
     ],
-    'narrative_crafts' => 'Not enough skill points',
+    'narrative_crafts' => 'Not enough skill points.',
     'perkpool' => [
         'invalid' => 'Unexpected Perks Error. Try to take new ones or contact the administration.',
         'unique' => 'You cannot take unique perks at the character creation.',
         'not_enough_combat' => 'Not enough combat perk points.',
         'not_enough_noncombat' => 'Not enough non-combat perk points.',
     ],
-    'trait' => 'Unexpected Trait Error',
-    'subtrait' => 'Unexpected Sub-Trait Error',
+    'trait' => 'Unexpected Trait Error.',
+    'subtrait' => 'Unexpected Sub-Trait Error.',
+    'fates' => [
+        'invalid' => 'Unexpected Fate Error.',
+        'dual_only' => 'You can only have one dual fate and no more.',
+        'one_dual' => 'You can have only one dual fate.',
+        'one_ambition' => 'You can have only one ambition.',
+        'one_flaw' => 'You can have only one flaw.'
+    ],
 
     /*
     |--------------------------------------------------------------------------

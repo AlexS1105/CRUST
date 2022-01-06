@@ -4,6 +4,7 @@ return [
     'edit' => 'Edit Charsheet',
     'skills' => 'Skills',
     'crafts' => 'Crafts',
+    'crafts_general' => 'General',
     'narrative_crafts' => [
         'title' => 'Narrative Crafts',
         'name' => 'Name',
@@ -16,6 +17,7 @@ return [
         'skills' => 'Available Points: ',
         'narrative_crafts' => 'Available Crafts: ',
         'combat_perks' => 'Combat Perk Points: ',
-        'noncombat_perks' => 'Non-Combat Perk Points: '
+        'noncombat_perks' => 'Non-Combat Perk Points: ',
+        'fates' => 'Fates Left: '
     ]
 ];
