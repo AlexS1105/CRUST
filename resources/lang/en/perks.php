@@ -7,6 +7,7 @@ return [
     'select' => 'Not Selected - Chose Variant...',
     'combat' => 'Combat Perks',
     'noncombat' => 'Non-Combat Perks',
+    'empty' => 'Perks Not Found',
     'placeholder' => [
         'name' => 'Perk Name',
         'description' => 'Perk Effect Description',
