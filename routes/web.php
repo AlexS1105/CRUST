@@ -13,6 +13,8 @@ use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
+use App\Http\Controllers\RaceTraitController;
+use App\Http\Controllers\TraitListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
 
 Route::get('/perks', PerkListController::class)->name('perks.list');
+Route::get('/traits', TraitListController::class)->name('traits.list');
 
 Route::middleware('auth')->group(function() {
     Route::get('/discord-invite', function() {
@@ -148,6 +151,9 @@ Route::middleware('auth')->group(function() {
                     'edit' => 'perks.variants.edit',
                     'destroy' => 'perks.variants.destroy'
                 ]);
+
+            Route::resource('settings/traits', RaceTraitController::class)
+                ->except(['show']);
         });
     });
 });
