@@ -49,7 +49,7 @@
     <div class="mt-32"></div>
 
     <div class="p-6 space-y-4">
-      @if (false && count($perks))
+      @if (count($perks))
         @foreach ($perks as $perk)
           <div class="border border-gray-400 rounded-xl overflow-hidden">
             <div class="flex justify-between border-b bg-gray-100 border-gray-400">
