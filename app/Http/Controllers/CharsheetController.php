@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\PerkType;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
+use App\Models\Fate;
 use App\Models\NarrativeCraft;
 use App\Models\Perk;
 use App\Models\RaceTrait;
@@ -19,7 +20,8 @@ class CharsheetController extends Controller
             'maxSkills' => app(CharsheetSettings::class)->skill_points,
             'perks' => Perk::with('variants')->notHasFlag('perks.type', PerkType::Unique)->get(),
             'maxPerks' => app(CharsheetSettings::class)->perk_points,
-            'traits' => RaceTrait::all()
+            'traits' => RaceTrait::all(),
+            'maxFates' =>  app(CharsheetSettings::class)->max_fates
         ]);
     }
 
@@ -51,12 +53,23 @@ class CharsheetController extends Controller
 
         if ($validated['trait'] || $validated['subtrait']) {
             $character->traits()->detach();
-
             $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
 
             if ($validated['subtrait']) {
                 $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
             }
+        }
+
+        if (count($validated['fates'])) {
+            $character->fates()->delete();
+            $fates = [];
+
+            foreach($validated['fates'] as $fate) {
+                $fate['character_id'] = $character->id;
+                array_push($fates, new Fate($fate));
+            }
+            
+            $character->fates()->saveMany($fates);
         }
 
         return redirect()->route('characters.show', $character->login);

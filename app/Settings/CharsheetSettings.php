@@ -10,6 +10,7 @@ class CharsheetSettings extends Settings
 
     public int $perk_points;
 
+    public int $max_fates;
 
     public static function group(): string
     {

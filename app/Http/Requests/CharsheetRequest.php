@@ -4,9 +4,11 @@ namespace App\Http\Requests;
 
 use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
+use App\Enums\FateType;
 use App\Models\PerkVariant;
 use App\Models\RaceTrait as ModelsRaceTrait;
 use App\Rules\CraftPool;
+use App\Rules\Fates;
 use App\Rules\NarrativeCraftsPool;
 use App\Rules\PerkPool;
 use App\Rules\RaceTrait;
@@ -63,13 +65,39 @@ class CharsheetRequest extends FormRequest
             }
         }
 
+        $fates = [];
+
+        if (isset($this->fates)) {
+            foreach($this->fates as $fate) {
+                $fateType = FateType::None();
+
+                if (isset($fate['continious']) && $fate['continious'] === 'on') {
+                    $fateType->addFlag(FateType::Continious);
+                }
+
+                if (isset($fate['ambition']) && $fate['ambition'] === 'on') {
+                    $fateType->addFlag(FateType::Ambition);
+                }
+
+                if (isset($fate['flaw']) && $fate['flaw'] === 'on') {
+                    $fateType->addFlag(FateType::Flaw);
+                }
+
+                array_push($fates, [
+                    'text' => $fate['text'],
+                    'type' => $fateType != FateType::None() ? $fateType : null
+                ]);
+            }
+        }
+
         $this->merge([
             'skills' => $skills,
             'crafts' => $crafts,
             'narrative_crafts' => $narrative_crafts,
             'perks' => $perks,
             'trait' => isset($this->trait) ? ModelsRaceTrait::find(intval($this->trait)) : null,
-            'subtrait' => isset($this->subtrait) ? ModelsRaceTrait::find(intval($this->subtrait)) : null
+            'subtrait' => isset($this->subtrait) ? ModelsRaceTrait::find(intval($this->subtrait)) : null,
+            'fates' => $fates
         ]);
     }
 
@@ -87,7 +115,10 @@ class CharsheetRequest extends FormRequest
             'trait' => ['required', new RaceTrait],
             'subtrait' => [new Subtrait],
             'note_trait' => ['max:256'],
-            'note_subtrait' => ['max:256']
+            'note_subtrait' => ['max:256'],
+            'fates' => ['required', new Fates],
+            'fates.*.text' => ['required', 'max:1024'],
+            'fates.*.type' => ['required']
         ];
     }
 }
