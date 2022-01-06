@@ -140,6 +140,8 @@ return [
         'not_enough_combat' => 'Not enough combat perk points.',
         'not_enough_noncombat' => 'Not enough non-combat perk points.',
     ],
+    'trait' => 'Unexpected Trait Error',
+    'subtrait' => 'Unexpected Sub-Trait Error',
 
     /*
     |--------------------------------------------------------------------------

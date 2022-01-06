@@ -23,6 +23,6 @@ class RaceTrait implements Rule
 
     public function message()
     {
-        return __('validation.skillpool');
+        return __('validation.trait');
     }
 }
