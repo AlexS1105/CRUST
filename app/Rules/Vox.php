@@ -15,7 +15,7 @@ class Vox implements Rule
 
     public function passes($attribute, $vox)
     {
-        return ($this->character->vox + $vox) > 0;
+        return ($this->character->vox + $vox) >= 0;
     }
 
     public function message()
