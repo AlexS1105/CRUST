@@ -240,7 +240,7 @@
                   $perk = $perkVariant->perk
                 @endphp
     
-                <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
+                <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant" />
               @endforeach
             </div>
           </div>
@@ -257,7 +257,7 @@
                   $perk = $perkVariant->perk
                 @endphp
     
-                <x-perk-card :perk="$perk" :perkVariant="$perkVariant" />
+                <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant" />
               @endforeach
             </div>
           </div>
