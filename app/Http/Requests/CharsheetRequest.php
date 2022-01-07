@@ -116,7 +116,7 @@ class CharsheetRequest extends FormRequest
         $character = $this->route('character');
 
         if (!$character->registered) {
-            array_merge($rules, [
+            $rules = array_merge($rules, [
                 'perks' => ['required', new PerkPool],
                 'trait' => ['required', new RaceTrait],
                 'subtrait' => [new Subtrait],
