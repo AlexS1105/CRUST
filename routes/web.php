@@ -16,6 +16,7 @@ use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\RaceTraitController;
 use App\Http\Controllers\TraitListController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoxController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
 
@@ -133,6 +134,9 @@ Route::middleware('auth')->group(function() {
         Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
             ->name('applications.reapproval')
             ->middleware('can:reapproval,character');
+
+        Route::resource('characters.vox', VoxController::class)
+            ->only(['index', 'create', 'store']);
 
         Route::resource('users', UserController::class)
             ->except(['create', 'store']);

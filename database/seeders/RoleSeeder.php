@@ -24,6 +24,7 @@ class RoleSeeder extends Seeder
             'character-force-delete' => [$admin],
             'character-restore' => [$admin, $registrar, $gamemaster],
             'character-create-unlimited' => [$admin],
+            'character-create-vox' => [$admin],
             
             'application-index' => [$admin, $registrar, $gamemaster],
             'application-take-for-approval' => [$admin, $registrar],

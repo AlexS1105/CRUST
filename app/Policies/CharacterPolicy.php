@@ -147,4 +147,15 @@ class CharacterPolicy
     {
         return $user->hasPermissionTo('character-view');
     }
+
+    public function voxView(User $user, Character $character)
+    {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-view');
+    }
+
+    public function voxCreate(User $user, Character $character)
+    {
+        return $user->hasPermissionTo('character-create-vox');
+    }
 }
