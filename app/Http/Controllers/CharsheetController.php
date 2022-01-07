@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\PerkType;
 use App\Http\Requests\CharsheetRequest;
+use App\Http\Requests\TraitRequest;
 use App\Models\Character;
 use App\Models\Fate;
 use App\Models\NarrativeCraft;
@@ -51,17 +52,7 @@ class CharsheetController extends Controller
             }
         }
 
-        if (isset($validated['trait']) || isset($validated['subtrait'])) {
-            $character->traits()->detach();
-
-            if (isset($validated['trait'])) {
-                $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
-            }
-
-            if (isset($validated['subtrait'])) {
-                $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
-            }
-        }
+        $this->saveTraits($character, $validated);
 
         if (isset($validated['fates']) && count($validated['fates'])) {
             $character->fates()->delete();
@@ -75,6 +66,36 @@ class CharsheetController extends Controller
             $character->fates()->saveMany($fates);
         }
 
-        return redirect()->route('characters.show', $character->login);
+        return redirect()->route('characters.show', $character);
+    }
+
+    public function editTraits(Character $character)
+    {
+        return view('characters.traits', [
+            'character' => $character,
+            'traits' => RaceTrait::all()
+        ]);
+    }
+    
+    public function updateTraits(TraitRequest $request, Character $character)
+    {
+        $this->saveTraits($character, $request->validated());
+        
+        return redirect()->route('characters.show', $character);
+    }
+
+    private function saveTraits(Character $character, $validated)
+    {
+        if (isset($validated['trait']) || isset($validated['subtrait'])) {
+            $character->traits()->detach();
+
+            if (isset($validated['trait'])) {
+                $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
+            }
+
+            if (isset($validated['subtrait'])) {
+                $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
+            }
+        }
     }
 }

@@ -190,6 +190,16 @@
       </div>
     @endif
 
+    @can('updateCharsheet', $character)
+      <div class="flex w-full justify-center">
+        <a class="text-lg bg-blue-100 text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center"
+          href="{{ route('characters.traits.edit', $character) }}"
+        >
+          {{ __('charsheet.edit.traits') }}
+        </a>
+      </div>
+    @endcan
+
     @if (count($character->perkVariants))
       @php
         $perks = $character->perkVariants->groupBy(function($item, $key) {

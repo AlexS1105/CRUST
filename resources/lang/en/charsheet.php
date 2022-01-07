@@ -1,7 +1,12 @@
 <?php
 
 return [
-    'edit' => 'Edit Charsheet',
+    'edit' => [
+        'title' => 'Edit Charsheet',
+        'traits' => 'Edit Traits',
+        'perks' => 'Edit Perks',
+        'fates' => 'Edit Fates'
+    ],
     'skills' => 'Skills',
     'crafts' => 'Crafts',
     'crafts_general' => 'General',
