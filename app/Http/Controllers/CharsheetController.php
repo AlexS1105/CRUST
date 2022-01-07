@@ -42,7 +42,7 @@ class CharsheetController extends Controller
             $character->narrativeCrafts()->saveMany($narrativeCrafts);
         }
 
-        if (count($validated['perks'])) {
+        if (isset($validated['perks']) && count($validated['perks'])) {
             $character->perkVariants()->detach();
             
             foreach($validated['perks'] as $perkVariant) {
@@ -51,16 +51,19 @@ class CharsheetController extends Controller
             }
         }
 
-        if ($validated['trait'] || $validated['subtrait']) {
+        if (isset($validated['trait']) || isset($validated['subtrait'])) {
             $character->traits()->detach();
-            $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
 
-            if ($validated['subtrait']) {
+            if (isset($validated['trait'])) {
+                $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
+            }
+
+            if (isset($validated['subtrait'])) {
                 $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
             }
         }
 
-        if (count($validated['fates'])) {
+        if (isset($validated['fates']) && count($validated['fates'])) {
             $character->fates()->delete();
             $fates = [];
 

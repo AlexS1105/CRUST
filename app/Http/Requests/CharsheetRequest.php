@@ -113,7 +113,7 @@ class CharsheetRequest extends FormRequest
             'narrative_crafts.*.description' => ['required']
         ];
 
-        $character = $this->roure('character');
+        $character = $this->route('character');
 
         if (!$character->registered) {
             array_merge($rules, [
@@ -128,6 +128,6 @@ class CharsheetRequest extends FormRequest
             ]);
         }
 
-        return ;
+        return $rules;
     }
 }
