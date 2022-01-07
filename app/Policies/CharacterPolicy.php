@@ -158,4 +158,10 @@ class CharacterPolicy
     {
         return $user->hasPermissionTo('character-create-vox');
     }
+
+    public function togglePerks(User $user, Character $character)
+    {
+        return $character->user_id === $user->id
+            || $user->hasPermissionTo('character-edit');
+    }
 }

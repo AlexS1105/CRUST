@@ -93,6 +93,10 @@ Route::middleware('auth')->group(function() {
             ->name('characters.fates.update')
             ->middleware('can:updateCharsheet,character');
 
+        Route::patch('/characters/{character:login}/perks/{perkVariant}', [CharsheetController::class, 'togglePerk'])
+            ->name('characters.perks.toggle')
+            ->middleware('can:togglePerks,character');
+
         Route::resource('characters', CharacterController::class)
             ->except('index')
             ->scoped([

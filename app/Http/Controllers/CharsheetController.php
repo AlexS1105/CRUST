@@ -11,8 +11,10 @@ use App\Models\Character;
 use App\Models\Fate;
 use App\Models\NarrativeCraft;
 use App\Models\Perk;
+use App\Models\PerkVariant;
 use App\Models\RaceTrait;
 use App\Settings\CharsheetSettings;
+use Exception;
 
 class CharsheetController extends Controller
 {
@@ -138,6 +140,19 @@ class CharsheetController extends Controller
             }
             
             $character->fates()->saveMany($fates);
+        }
+    }
+
+    public function togglePerk(Character $character, PerkVariant $perkVariant)
+    {
+        try {
+            $character->togglePerk($perkVariant);
+            
+            return back();
+        } catch (Exception $e) {
+            return back()->withErrors([
+                'vox' => __($e->getMessage())
+            ]);
         }
     }
 }

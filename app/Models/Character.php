@@ -6,6 +6,9 @@ use App\Enums\CharacterGender;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
+use App\Rules\PerkPool;
+use Exception;
+use Illuminate\Support\Facades\Validator;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -74,6 +77,46 @@ class Character extends Model
     public function takeVox($amount, $reason)
     {
         return $this->giveVox(-$amount, $reason);
+    }
+
+    public function togglePerk($perkVariant)
+    {
+        $perkVariant = $this->perkVariants->firstWhere('id', $perkVariant->id);
+        $pivot = $perkVariant->pivot;
+
+        if ($this->vox <= 0 && !$pivot->active) {
+            throw new Exception('validation.vox.not_enough');
+        }
+        
+        $perks = [];
+
+        foreach($this->perkVariants as $variant) {
+            $perks[$variant->perk_id] = [
+                'variant' => $variant,
+                'cost_offset' => $variant->pivot->cost_offset,
+                'active' => $variant->id === $perkVariant->id ? !$pivot->active : $variant->pivot->active,
+                'note' => $variant->pivot->note
+            ];
+        }
+
+        $validator = Validator::make([
+            'perks' => $perks
+        ], [
+            'perks' => new PerkPool(true)
+        ]);
+
+        if ($validator->fails()) {
+            throw new Exception($validator->errors()->first());
+        }
+
+        if (!$pivot->active) {
+            $this->takeVox(1, 'Активация перка '.$perkVariant->perk->name);
+        }
+
+        $this->perkVariants()->detach($perkVariant->id);
+        $this->perkVariants()->attach($perkVariant, ['active' => !$pivot->active, 'cost_offset' => $pivot->cost_offset, 'note' => $pivot->note]);
+
+        return back();
     }
 
     public function user()
