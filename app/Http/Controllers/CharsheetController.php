@@ -80,7 +80,7 @@ class CharsheetController extends Controller
     public function updateTraits(TraitRequest $request, Character $character)
     {
         $this->saveTraits($character, $request->validated());
-        
+
         return redirect()->route('characters.show', $character);
     }
 

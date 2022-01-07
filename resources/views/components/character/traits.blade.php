@@ -33,6 +33,7 @@
   @endforeach
 </div>
 
-<x-form.input name="note_trait" placeholder="{{ __('traits.placeholder.note_trait') }}" :value="old('note_trait', $characterTrait->pivot->note)" />
-<x-form.input name="note_subtrait" placeholder="{{ __('traits.placeholder.note_subtrait') }}" :value="old('note_subtrait', $characterSubtrait->pivot->note)" />
-<x-form.error name="traits" />
+<x-form.input name="note_trait" placeholder="{{ __('traits.placeholder.note_trait') }}" :value="old('note_trait', isset($characterTrait) ? $characterTrait->pivot->note : null)" />
+<x-form.input name="note_subtrait" placeholder="{{ __('traits.placeholder.note_subtrait') }}" :value="old('note_subtrait', isset($characterSubtrait) ? $characterSubtrait->pivot->note : null)" />
+<x-form.error name="trait" />
+<x-form.error name="subtrait" />
