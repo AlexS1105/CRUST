@@ -244,6 +244,16 @@
       </div>
     @endif
 
+    @can('updateCharsheet', $character)
+      <div class="flex w-full justify-center">
+        <a class="text-lg bg-blue-100 text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-200 focus:ring-2"
+          href="{{ route('characters.perks.edit', $character) }}"
+        >
+          {{ __('charsheet.edit.perks') }}
+        </a>
+      </div>
+    @endcan
+
     @if (count($character->fates))
       <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
         <h1 class="font-bold text-xl mb-2">

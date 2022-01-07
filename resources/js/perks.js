@@ -37,7 +37,9 @@ window.updatePerks = function() {
       dataFields.classList.add('hidden')
     }
     
-    updateLabels()
+    if (!edit) {
+      updateLabels()
+    }
   }
 }
 
