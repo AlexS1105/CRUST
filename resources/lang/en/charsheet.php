@@ -23,6 +23,8 @@ return [
         'narrative_crafts' => 'Available Crafts: ',
         'combat_perks' => 'Combat Perk Points: ',
         'noncombat_perks' => 'Non-Combat Perk Points: ',
-        'fates' => 'Fates Left: '
+        'fates' => 'Fates Left: ',
+        'active_combat_perks' => 'Active Combat Perks Left: ',
+        'active_noncombat_perks' => 'Active Non-Combat Perks Left: '
     ]
 ];

@@ -23,6 +23,8 @@ return [
         'narrative_crafts' => 'Доступно ремесел: ',
         'combat_perks' => 'Очков боевых перков: ',
         'noncombat_perks' => 'Очков небоевых перков: ',
-        'fates' => 'Осталось Судеб: '
+        'fates' => 'Осталось Судеб: ',
+        'active_combat_perks' => 'Слоты активных боевых перков: ',
+        'active_noncombat_perks' => 'Слоты активных небоевых перков: '
     ]
 ];

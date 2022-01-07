@@ -46,5 +46,7 @@ return [
     'delta' => 'Change',
     'date' => 'Date',
     'amount' => 'Amount',
-    'issued_by' => 'Issued By'
+    'issued_by' => 'Issued By',
+    'max_fates' => 'Max Fates',
+    'max_active_perks' => 'Max Active Perks'
 ];
