@@ -103,22 +103,31 @@ class CharsheetRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'skills' => ['required', new SkillPool],
             'skills.*' => ['numeric', 'min:0', 'max:10'],
             'crafts' => ['required', new CraftPool($this->skills)],
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
             'narrative_crafts' => [new NarrativeCraftsPool($this->skills)],
             'narrative_crafts.*.name' => ['required'],
-            'narrative_crafts.*.description' => ['required'],
-            'perks' => ['required', new PerkPool],
-            'trait' => ['required', new RaceTrait],
-            'subtrait' => [new Subtrait],
-            'note_trait' => ['max:256'],
-            'note_subtrait' => ['max:256'],
-            'fates' => ['required', new Fates],
-            'fates.*.text' => ['required', 'max:1024'],
-            'fates.*.type' => ['required']
+            'narrative_crafts.*.description' => ['required']
         ];
+
+        $character = $this->roure('character');
+
+        if (!$character->registered) {
+            array_merge($rules, [
+                'perks' => ['required', new PerkPool],
+                'trait' => ['required', new RaceTrait],
+                'subtrait' => [new Subtrait],
+                'note_trait' => ['max:256'],
+                'note_subtrait' => ['max:256'],
+                'fates' => ['required', new Fates],
+                'fates.*.text' => ['required', 'max:1024'],
+                'fates.*.type' => ['required']
+            ]);
+        }
+
+        return ;
     }
 }

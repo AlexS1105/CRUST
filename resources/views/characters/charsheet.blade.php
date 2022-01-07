@@ -165,166 +165,168 @@
         <x-form.error name="narrative_crafts.*.description"/>
       </x-form.card>
 
-      @if (count($perks))
-        <x-form.card>
-          <x-slot name="header">
-            {{ __('charsheet.perks') }}
-          </x-slot>
+      @if (!$character->registered)
+        @if (count($perks))
+          <x-form.card>
+            <x-slot name="header">
+              {{ __('charsheet.perks') }}
+            </x-slot>
 
-          <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
-            @foreach ($perks as $perk)
-              @php
-                $characterPerkVariant = $character->perkVariants->firstWhere('perk_id', $perk->id);
-              @endphp
-              <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
-                <div class="flex justify-between border-b bg-gray-100 border-gray-400">
-                  <div class="flex justify-between text-sm w-full items-center font-bold p-1 uppercase space-x-1">
-                    <div>
-                      {{ $perk->name }}
-                    </div>
-                    <div class="space-y-0.5 text-xs">
-                      @if ($perk->type->isCombat())
-                      <div class="bg-red-200 px-1 rounded-full">
-                        {{ __('perks.types.combat') }}
+            <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
+              @foreach ($perks as $perk)
+                @php
+                  $characterPerkVariant = $character->perkVariants->firstWhere('perk_id', $perk->id);
+                @endphp
+                <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
+                  <div class="flex justify-between border-b bg-gray-100 border-gray-400">
+                    <div class="flex justify-between text-sm w-full items-center font-bold p-1 uppercase space-x-1">
+                      <div>
+                        {{ $perk->name }}
                       </div>
-                      @else
-                      <div class="bg-green-200 px-1 rounded-full">
-                        {{ __('perks.types.noncombat') }}
-                      </div>
-                      @endif
-          
-                      @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
-                        <div class="bg-purple-200 px-1 rounded-full">
-                          {{ __('perks.types.native') }}
+                      <div class="space-y-0.5 text-xs">
+                        @if ($perk->type->isCombat())
+                        <div class="bg-red-200 px-1 rounded-full">
+                          {{ __('perks.types.combat') }}
                         </div>
-                      @endif
+                        @else
+                        <div class="bg-green-200 px-1 rounded-full">
+                          {{ __('perks.types.noncombat') }}
+                        </div>
+                        @endif
+            
+                        @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
+                          <div class="bg-purple-200 px-1 rounded-full">
+                            {{ __('perks.types.native') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="px-1 leading-none my-auto text-sm text-center font-bold border-gray-400 border-l">
+                      {{ $perk->cost }}
                     </div>
                   </div>
-                  <div class="px-1 leading-none my-auto text-sm text-center font-bold border-gray-400 border-l">
-                    {{ $perk->cost }}
+                  
+                  <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
+                    <option value="-1" selected>{{ __('perks.select') }}</option>
+                    @foreach ($perk->variants as $variant)
+                      <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id || (isset($characterPerkVariant) ? $characterPerkVariant->id == $variant->id : false) ? 'selected' : '' }}>
+                        {{ $variant->description }}
+                      </option>
+                    @endforeach
+                  </select>
+                  <div id="perk-data-{{$perk->id}}" class="flex items-center hidden">
+                    <input
+                      class="p-1 text-xs border-b-0 border-l-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-1/4"
+                      name="perks[{{ $perk->id }}][cost_offset]" id="perks[{{ $perk->id }}][cost_offset]"
+                      type="number"
+                      min=0 max=100
+                      placeholder="{{ __('perks.placeholder.cost_offset') }}"
+                      value="{{ old("perks.$perk->id.cost_offset", isset($characterPerkVariant) && $characterPerkVariant->pivot->cost_offset != 0 ? $characterPerkVariant->pivot->cost_offset : null) }}"
+                      onchange="updatePerks();"
+                    >
+                    <input
+                      class="p-1 text-xs border-b-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
+                      name="perks[{{ $perk->id }}][note]"
+                      id="perks[{{ $perk->id }}][note]"
+                      type="text"
+                      placeholder="{{ __('perks.placeholder.note') }}"
+                      value="{{ old('perks.'.$perk->id.'.note', isset($characterPerkVariant) ? $characterPerkVariant->pivot->note : null) }}"
+                    >
                   </div>
                 </div>
-                
-                <select name="perks[{{ $perk->id }}][id]" id="perks[{{ $perk->id }}][id]" class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer" value="Test" onchange="updatePerks();" data-perk-id="{{ $perk->id }}" data-cost="{{ $perk->cost }}" data-combat="{{ $perk->type->isCombat() }}">
-                  <option value="-1" selected>{{ __('perks.select') }}</option>
-                  @foreach ($perk->variants as $variant)
-                    <option class="text-ellipsis" value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id || (isset($characterPerkVariant) ? $characterPerkVariant->id == $variant->id : false) ? 'selected' : '' }}>
-                      {{ $variant->description }}
-                    </option>
-                  @endforeach
-                </select>
-                <div id="perk-data-{{$perk->id}}" class="flex items-center hidden">
-                  <input
-                    class="p-1 text-xs border-b-0 border-l-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-1/4"
-                    name="perks[{{ $perk->id }}][cost_offset]" id="perks[{{ $perk->id }}][cost_offset]"
-                    type="number"
-                    min=0 max=100
-                    placeholder="{{ __('perks.placeholder.cost_offset') }}"
-                    value="{{ old("perks.$perk->id.cost_offset", isset($characterPerkVariant) && $characterPerkVariant->pivot->cost_offset != 0 ? $characterPerkVariant->pivot->cost_offset : null) }}"
-                    onchange="updatePerks();"
-                  >
-                  <input
-                    class="p-1 text-xs border-b-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
-                    name="perks[{{ $perk->id }}][note]"
-                    id="perks[{{ $perk->id }}][note]"
-                    type="text"
-                    placeholder="{{ __('perks.placeholder.note') }}"
-                    value="{{ old('perks.'.$perk->id.'.note', isset($characterPerkVariant) ? $characterPerkVariant->pivot->note : null) }}"
-                  >
-                </div>
+              @endforeach
+            </div>
+
+            <div class="flex justify-between text-right font-bold text-lg space-x-2">
+              <div class="flex justify-end gap-2 bg-green-100 rounded-full px-2 w-fit">
+                <div class="grow">{{ __('charsheet.points.noncombat_perks') }}</div>
+                <div id="noncombat_perk_points">
+                  {{ $maxPerks }}
+                </div> / {{ $maxPerks }}
               </div>
-            @endforeach
-          </div>
-
-          <div class="flex justify-between text-right font-bold text-lg space-x-2">
-            <div class="flex justify-end gap-2 bg-green-100 rounded-full px-2 w-fit">
-              <div class="grow">{{ __('charsheet.points.noncombat_perks') }}</div>
-              <div id="noncombat_perk_points">
-                {{ $maxPerks }}
-              </div> / {{ $maxPerks }}
+              <div class="flex justify-end gap-2 bg-red-100 rounded-full px-2">
+                {{ __('charsheet.points.combat_perks') }}
+                <div id="combat_perk_points">
+                  {{ $maxPerks }}
+                </div> / {{ $maxPerks }}
+              </div>
             </div>
-            <div class="flex justify-end gap-2 bg-red-100 rounded-full px-2">
-              {{ __('charsheet.points.combat_perks') }}
-              <div id="combat_perk_points">
-                {{ $maxPerks }}
-              </div> / {{ $maxPerks }}
+
+            <x-form.error name="perks"/>
+          </x-form.card>
+        @endif
+
+        @if (count($traits))
+          <x-form.card>
+            <x-slot name="header">
+              {{ __('charsheet.trait') }}
+            </x-slot>
+
+            <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
+              @php
+                $characterTrait = $character->trait();
+                $characterSubtrait = $character->subtrait();
+              @endphp
+              <input name="trait" id="trait" type="hidden" value="{{ $characterTrait ? $characterTrait->id : '' }}">
+              <input name="subtrait" id="subtrait" type="hidden" value="{{ $characterSubtrait ? $characterSubtrait->id : '' }}">
+              
+              @foreach ($traits as $trait)
+                <div
+                  id="trait-{{ $trait->id }}"
+                  class="border border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 rounded overflow-hidden opacity-50 cursor-pointer hover:shadow"
+                  data-id="{{ $trait->id }}"
+                  data-subtrait="{{ $trait->subtrait }}"
+                  onclick="selectTrait(this)"
+                >
+                  <div class="border-b bg-{{ $trait->subtrait ? 'blue' : 'green' }}-100 border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 px-1">
+                    <div class="font-bold uppercase">
+                      {{ $trait->name }}
+                    </div>
+                    @if($trait->subtrait)
+                      <div class="text-xs">
+                        {{ __('traits.subtrait') }}
+                      </div>
+                    @endif
+                  </div>
+      
+                  <div class="bg-{{ $trait->subtrait ? 'blue' : 'green' }}-50 px-1 text-sm italic border-b border-{{ $trait->subtrait ? 'blue' : 'green' }}-200">
+                    {{ __('traits.races') }}: {{ $trait->races }}
+                  </div>
+                  <div class="prose markdown p-1 min-w-full text-sm">{!! $trait->description !!}</div>
+                </div>
+              @endforeach
             </div>
-          </div>
 
-          <x-form.error name="perks"/>
-        </x-form.card>
-      @endif
+            <x-form.input name="note_trait" placeholder="{{ __('traits.placeholder.note_trait') }}" :value="old('note_trait', $characterTrait->pivot->note)" />
+            <x-form.input name="note_subtrait" placeholder="{{ __('traits.placeholder.note_subtrait') }}" :value="old('note_subtrait', $characterSubtrait->pivot->note)" />
 
-      @if (count($traits))
+            <x-form.error name="traits"/>
+          </x-form.card>
+        @endif
+
         <x-form.card>
           <x-slot name="header">
-            {{ __('charsheet.trait') }}
+            {{ __('charsheet.fates') }}
           </x-slot>
 
-          <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
-            @php
-              $characterTrait = $character->trait();
-              $characterSubtrait = $character->subtrait();
-            @endphp
-            <input name="trait" id="trait" type="hidden" value="{{ $characterTrait ? $characterTrait->id : '' }}">
-            <input name="subtrait" id="subtrait" type="hidden" value="{{ $characterSubtrait ? $characterSubtrait->id : '' }}">
-            
-            @foreach ($traits as $trait)
-              <div
-                id="trait-{{ $trait->id }}"
-                class="border border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 rounded overflow-hidden opacity-50 cursor-pointer hover:shadow"
-                data-id="{{ $trait->id }}"
-                data-subtrait="{{ $trait->subtrait }}"
-                onclick="selectTrait(this)"
-              >
-                <div class="border-b bg-{{ $trait->subtrait ? 'blue' : 'green' }}-100 border-{{ $trait->subtrait ? 'blue' : 'green' }}-300 px-1">
-                  <div class="font-bold uppercase">
-                    {{ $trait->name }}
-                  </div>
-                  @if($trait->subtrait)
-                    <div class="text-xs">
-                      {{ __('traits.subtrait') }}
-                    </div>
-                  @endif
-                </div>
+          <div class="space-y-2">
+            <div class="space-y-2" id="fates">
+
+            </div>
     
-                <div class="bg-{{ $trait->subtrait ? 'blue' : 'green' }}-50 px-1 text-sm italic border-b border-{{ $trait->subtrait ? 'blue' : 'green' }}-200">
-                  {{ __('traits.races') }}: {{ $trait->races }}
-                </div>
-                <div class="prose markdown p-1 min-w-full text-sm">{!! $trait->description !!}</div>
+            <div class="font-bold text-lg text-right flex justify-end gap-2">
+              {{ __('charsheet.points.fates') }} 
+              <div id="fates_max">
+                {{ $maxFates }}
               </div>
-            @endforeach
-          </div>
-
-          <x-form.input name="note_trait" placeholder="{{ __('traits.placeholder.note_trait') }}" :value="old('note_trait', $characterTrait->pivot->note)" />
-          <x-form.input name="note_subtrait" placeholder="{{ __('traits.placeholder.note_subtrait') }}" :value="old('note_subtrait', $characterSubtrait->pivot->note)" />
-
-          <x-form.error name="traits"/>
-        </x-form.card>
-      @endif
-
-      <x-form.card>
-        <x-slot name="header">
-          {{ __('charsheet.fates') }}
-        </x-slot>
-
-        <div class="space-y-2">
-          <div class="space-y-2" id="fates">
-
-          </div>
-  
-          <div class="font-bold text-lg text-right flex justify-end gap-2">
-            {{ __('charsheet.points.fates') }} 
-            <div id="fates_max">
-              {{ $maxFates }}
             </div>
           </div>
-        </div>
 
-        <x-form.error name="fates"/>
-        <x-form.error name="fates.*.text"/>
-        <x-form.error name="fates.*.type"/>
-      </x-form.card>
+          <x-form.error name="fates"/>
+          <x-form.error name="fates.*.text"/>
+          <x-form.error name="fates.*.type"/>
+        </x-form.card>
+      @endif
 
       <x-button>
         {{ __('ui.submit') }}

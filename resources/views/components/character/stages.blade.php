@@ -5,10 +5,12 @@
     :disabled="!isset($character) || request()->routeIs('characters.edit') || request()->routeIs('characters.create')">
     {{ __('characters.stages.main') }}
   </x-character-stage-link>
-  <x-character-stage-link
-    href="{{ isset($character) ? route('characters.charsheet.edit', $character->login) : '#' }}"
-    :active="request()->routeIs('characters.charsheet.edit')"
-    :disabled="!isset($character) || request()->routeIs('characters.charsheet.edit')">
-    {{ __('characters.stages.charsheet') }}
-  </x-character-stage-link>
+  @can('updateCharsheet', $character)
+    <x-character-stage-link
+      href="{{ isset($character) ? route('characters.charsheet.edit', $character->login) : '#' }}"
+      :active="request()->routeIs('characters.charsheet.edit')"
+      :disabled="!isset($character) || request()->routeIs('characters.charsheet.edit')">
+      {{ __('characters.stages.charsheet') }}
+    </x-character-stage-link>
+  @endcan
 </div>

@@ -61,7 +61,11 @@ class CharacterController extends Controller
 
         $this->saveReference($character, $request);
 
-        return redirect()->route('characters.charsheet.edit', $character->login);
+        if ($request->user()->can('updateCharsheet', $character)) {
+            return redirect()->route('characters.charsheet.edit', $character);
+        } else {
+            return redirect()->route('characters.show', $character);
+        }
     }
 
     public function destroy(Character $character)

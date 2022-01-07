@@ -31,6 +31,11 @@ class Character extends Model
     public function setStatus(CharacterStatus $status) {
         $this->status = $status;
         $this->status_updated_at = now();
+
+        if (!$this->registered && $status->value === CharacterStatus::Approved) {
+            $this->registered = true;
+        }
+
         $this->save();
     }
 

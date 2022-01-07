@@ -62,11 +62,11 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/characters/{character:login}/charsheet', [CharsheetController::class, 'edit'])
             ->name('characters.charsheet.edit')
-            ->middleware('can:update,character');
+            ->middleware('can:updateCharsheet,character');
 
         Route::patch('/characters/{character:login}/charsheet', [CharsheetController::class, 'update'])
             ->name('characters.charsheet.update')
-            ->middleware('can:update,character');
+            ->middleware('can:updateCharsheet,character');
 
         Route::resource('characters', CharacterController::class)
             ->except('index')
