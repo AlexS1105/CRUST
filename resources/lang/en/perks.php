@@ -22,6 +22,8 @@ return [
         'combat' => 'Combat',
         'noncombat' => 'Non-Combat',
         'native' => 'Native',
-        'unique' => 'Unique'
+        'unique' => 'Unique',
+        'inactive' => 'Inactive',
+        'active' => 'Active'
     ]
 ];
