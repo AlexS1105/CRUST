@@ -149,6 +149,9 @@ return [
         'one_ambition' => 'You can have only one ambition.',
         'one_flaw' => 'You can have only one flaw.'
     ],
+    'vox' => [
+        'not_enough' => 'Not Enough Vox To Withdraw'
+    ],
 
     /*
     |--------------------------------------------------------------------------

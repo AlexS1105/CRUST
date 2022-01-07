@@ -113,10 +113,12 @@ function addNarrativeCraftCard(name, description) {
 function updateAddButton() {
     var button = document.getElementById('button_add')
 
-    if (narrativeCrafts.length >= maxNarrativeCrafts) {
-        button.classList.add('hidden')
-    } else {
-        button.classList.remove('hidden')
+    if (button) {
+        if (narrativeCrafts.length >= maxNarrativeCrafts) {
+            button.classList.add('hidden')
+        } else {
+            button.classList.remove('hidden')
+        }
     }
 }
 

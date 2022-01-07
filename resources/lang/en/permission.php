@@ -7,6 +7,7 @@ return [
     'character-force-delete' => 'Force Delete Characters',
     'character-restore' => 'Restore Characters',
     'character-create-unlimited' => 'Create Unlimited Amount Of Characters',
+    'character-create-vox' => 'Add Vox To Characters',
     'application-index' => 'View Applications',
     'application-take-for-approval' => 'Take Applications For Approval',
     'application-cancel-approval' => 'Cancel Applications Approval',

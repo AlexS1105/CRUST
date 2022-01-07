@@ -42,4 +42,9 @@ return [
     'unique' => 'Unique',
     'note_trait' => 'Trait Note',
     'note_subtrait' => 'Sub-Trait Note',
+    'vox' => 'Vox',
+    'delta' => 'Change',
+    'date' => 'Date',
+    'amount' => 'Amount',
+    'issued_by' => 'Issued By'
 ];

@@ -7,6 +7,7 @@ return [
     'character-force-delete' => 'Окончательно удалять персонажей',
     'character-restore' => 'Восстанавливать персонажей',
     'character-create-unlimited' => 'Создавать бесконечное количество персонажей',
+    'character-create-vox' => 'Выдавать Голос персонажам',
     'application-index' => 'Просматривать заявки',
     'application-take-for-approval' => 'Брать персонажей на проверку',
     'application-cancel-approval' => 'Снимать персонажей с проверки',
