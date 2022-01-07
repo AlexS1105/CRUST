@@ -13,7 +13,7 @@
         </a>
       @endcan
       @if(count($character->voxLogs))
-        <table class="table-auto w-full border">
+        <table class="table-auto w-full border mt-2">
           <thead class="border bg-gray-200">
             <tr>
               <th class="px-4 py-2 border border-gray-400">

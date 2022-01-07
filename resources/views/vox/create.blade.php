@@ -11,7 +11,7 @@
 
       <x-form.card>
         <x-form.input name="reason" required maxlength="256" :value="old('reason')" />
-        <x-form.input name="delta" type="number" min="-100" max="100" :value="old('delta')"/>
+        <x-form.input name="delta" required type="number" min="-100" max="100" :value="old('delta')"/>
 
         <x-button>
           {{ __('ui.submit') }}

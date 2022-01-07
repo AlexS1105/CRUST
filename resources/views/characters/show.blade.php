@@ -90,15 +90,22 @@
 
         @can('seePlayerOnlyInfo', $character)
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-max mx-auto">
-            <h1 class="font-bold text-xl mb-2 max-w-max">
+            <h1 class="font-bold text-xl mb-2 max-w-max mx-auto">
               {{ __('label.vox') }}: {{ $character->vox }}
             </h1>
 
-            @can('voxView', $character)
-              <a class="font-bold underline text-blue-600" href="{{ route('characters.vox.index', $character) }}">
-                {{ __('vox.index') }}
-              </a>
-            @endcan
+            <div class="space-x-2">
+              @can('voxView', $character)
+                <a class="font-bold underline text-blue-600" href="{{ route('characters.vox.index', $character) }}">
+                  {{ __('vox.index') }}
+                </a>
+              @endcan
+              @can('voxCreate', $character)
+                <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.vox.create', $character) }}">
+                  {{ __('vox.create') }}
+                </a>
+              @endcan
+            </div>
           </div>
         @endcan
       </div>
