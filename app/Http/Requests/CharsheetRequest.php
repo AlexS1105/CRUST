@@ -61,7 +61,7 @@ class CharsheetRequest extends FormRequest
                         'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
                         'cost_offset' => intval($perkData['cost_offset']),
                         'note' => $perkData['note'],
-                        'active' => false
+                        'active' => isset($perkData['active']) && $perkData['active'] === 'on'
                     ];
                 }
             }
@@ -119,7 +119,7 @@ class CharsheetRequest extends FormRequest
 
         if (!$character->registered) {
             $rules = array_merge($rules, [
-                'perks' => ['required', new PerkPool],
+                'perks' => ['required', new PerkPool(false)],
                 'trait' => ['required', new RaceTrait],
                 'subtrait' => [new Subtrait],
                 'note_trait' => ['max:256'],

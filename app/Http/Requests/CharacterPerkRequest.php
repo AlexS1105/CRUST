@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\PerkVariant;
+use App\Rules\PerkPool;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharacterPerkRequest extends FormRequest
@@ -38,7 +39,7 @@ class CharacterPerkRequest extends FormRequest
     public function rules()
     {
         return [
-            'perks' => ['required']
+            'perks' => ['required', new PerkPool(true)]
         ];
     }
 }

@@ -24,7 +24,8 @@ class CharsheetController extends Controller
             'perks' => Perk::with('variants')->notHasFlag('perks.type', PerkType::Unique)->get(),
             'maxPerks' => app(CharsheetSettings::class)->perk_points,
             'traits' => RaceTrait::all(),
-            'maxFates' =>  app(CharsheetSettings::class)->max_fates
+            'maxFates' =>  app(CharsheetSettings::class)->max_fates,
+            'maxActivePerks' => app(CharsheetSettings::class)->max_active_perks,
         ]);
     }
 
@@ -87,6 +88,7 @@ class CharsheetController extends Controller
         return view('characters.perks', [
             'character' => $character,
             'perks' => Perk::with('variants')->get(),
+            'maxActivePerks' => app(CharsheetSettings::class)->max_active_perks,
         ]);
     }
 
