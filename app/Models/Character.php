@@ -104,6 +104,11 @@ class Character extends Model
         return $this->hasMany(Fate::class);
     }
 
+    public function voxLogs()
+    {
+        return $this->hasMany(VoxLog::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

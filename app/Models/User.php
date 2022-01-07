@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->hasMany(Account::class);
     }
 
+    public function issuedVox()
+    {
+        return $this->hasMany(VoxLog::class, 'issued_by');
+    }
+
     protected static function boot()
     {
         parent::boot();
