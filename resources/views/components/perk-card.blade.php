@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl overflow-hidden max-w-fit']) }}>
+<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl overflow-hidden max-w-fit'.($perkVariant->pivot->active ? '' : ' opacity-50')]) }}>
   <div class="flex justify-between border-b bg-gray-100 border-gray-400">
     <div class="flex items-center font-bold text-lg py-2 px-3 uppercase space-x-2">
       {{ $perk->name }}
@@ -31,6 +31,16 @@
     @if ($perk->type->hasFlag(App\Enums\PerkType::Unique))
       <div class="bg-yellow-100 px-2 rounded-full">
         {{ __('perks.types.unique') }}
+      </div>
+    @endif
+
+    @if ($perkVariant->pivot->active)
+      <div class="bg-blue-100 px-2 rounded-full">
+        {{ __('perks.types.active') }}
+      </div>
+    @else
+      <div class="bg-gray-300 px-2 rounded-full">
+        {{ __('perks.types.inactive') }}
       </div>
     @endif
   </div>
