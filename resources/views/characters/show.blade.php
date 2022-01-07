@@ -235,7 +235,7 @@
             </h1>
     
             <div class="space-y-4">
-              @foreach ($perks['combat'] as $perkVariant)
+              @foreach ($perks->get('combat')->sortBy('perk.cost')->sortByDesc('active') as $perkVariant)
                 @php
                   $perk = $perkVariant->perk
                 @endphp
@@ -252,7 +252,7 @@
             </h1>
     
             <div class="space-y-4">
-              @foreach ($perks['noncombat'] as $perkVariant)
+              @foreach ($perks->get('noncombat')->sortBy('perk.cost')->sortByDesc('active') as $perkVariant)
                 @php
                   $perk = $perkVariant->perk
                 @endphp
@@ -264,6 +264,8 @@
         @endif
       </div>
     @endif
+
+    <x-form.error name="vox" />
 
     @can('updateCharsheet', $character)
       <div class="flex w-full justify-center">
