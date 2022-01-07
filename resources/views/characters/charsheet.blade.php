@@ -191,22 +191,7 @@
             {{ __('charsheet.fates') }}
           </x-slot>
 
-          <div class="space-y-2">
-            <div class="space-y-2" id="fates">
-
-            </div>
-    
-            <div class="font-bold text-lg text-right flex justify-end gap-2">
-              {{ __('charsheet.points.fates') }} 
-              <div id="fates_max">
-                {{ $maxFates }}
-              </div>
-            </div>
-          </div>
-
-          <x-form.error name="fates"/>
-          <x-form.error name="fates.*.text"/>
-          <x-form.error name="fates.*.type"/>
+          <x-character.fates :character="$character" :maxFates="$maxFates" />
         </x-form.card>
       @endif
 
@@ -217,17 +202,11 @@
 
     <script>
       var maxSkills = @json($maxSkills);
-      var maxFates = @json($maxFates);
       var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
       var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
       var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) || [];
-      var _fates = @json(old('fates', $character->fates)) || [];
       var craftNameText = @json(__('charsheet.narrative_crafts.name'));
       var craftDescriptionText = @json(__('charsheet.narrative_crafts.description'));
-      var ambitionLabelText = @json(__('fates.ambition'));
-      var flawLabelText = @json(__('fates.flaw'));
-      var continiousLabelText = @json(__('fates.continious'));
-      var fateText = @json(__('fates.placeholder.text'));
     </script>
   </x-container>
 </x-app-layout>

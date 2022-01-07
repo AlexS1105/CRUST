@@ -55,6 +55,7 @@ function addFateCard(fate) {
     textField.placeholder = fateText
     textField.required
     textField.name = 'fates[' + id + '][text]'
+    textField.setAttribute('onfocus', 'preview(this)')
 
     var flagsDiv = document.createElement('div')
     flagsDiv.className = 'flex space-x-2 items-center'
