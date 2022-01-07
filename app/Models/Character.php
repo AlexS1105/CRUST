@@ -81,7 +81,7 @@ class Character extends Model
 
     public function perkVariants()
     {
-        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('cost_offset', 'note');
+        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('cost_offset', 'note', 'active');
     }
 
     public function traits()
