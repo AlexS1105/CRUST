@@ -124,7 +124,7 @@ class CharsheetRequest extends FormRequest
                 'subtrait' => [new Subtrait],
                 'note_trait' => ['max:256'],
                 'note_subtrait' => ['max:256'],
-                'fates' => [new Fates],
+                'fates' => [new Fates(false)],
                 'fates.*.text' => ['required', 'max:1024'],
                 'fates.*.type' => ['required']
             ]);

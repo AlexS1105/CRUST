@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PerkType;
+use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Http\Requests\TraitRequest;
@@ -46,18 +47,7 @@ class CharsheetController extends Controller
 
         $this->savePerks($character, $validated);
         $this->saveTraits($character, $validated);
-
-        if (isset($validated['fates']) && count($validated['fates'])) {
-            $character->fates()->delete();
-            $fates = [];
-
-            foreach($validated['fates'] as $fate) {
-                $fate['character_id'] = $character->id;
-                array_push($fates, new Fate($fate));
-            }
-            
-            $character->fates()->saveMany($fates);
-        }
+        $this->saveFates($character, $validated);
 
         return redirect()->route('characters.show', $character);
     }
@@ -116,6 +106,36 @@ class CharsheetController extends Controller
                 $id = $perkVariant['variant']->id;
                 $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
             }
+        }
+    }
+
+    public function editFates(Character $character)
+    {
+        return view('characters.fates', [
+            'character' => $character,
+            'maxFates' =>  app(CharsheetSettings::class)->max_fates
+        ]);
+    }
+
+    public function updateFates(CharacterFateRequest $request, Character $character)
+    {
+        $this->saveFates($character, $request->validated());
+
+        return redirect()->route('characters.show', $character);
+    }
+
+    private function saveFates($character, $validated)
+    {
+        if (isset($validated['fates']) && count($validated['fates'])) {
+            $character->fates()->delete();
+            $fates = [];
+
+            foreach($validated['fates'] as $fate) {
+                $fate['character_id'] = $character->id;
+                array_push($fates, new Fate($fate));
+            }
+            
+            $character->fates()->saveMany($fates);
         }
     }
 }

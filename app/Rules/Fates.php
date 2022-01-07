@@ -8,6 +8,12 @@ use Illuminate\Contracts\Validation\Rule;
 class Fates implements Rule
 {
     public $message = 'validation.fates.invalid';
+    public $edit = false;
+
+    public function __construct($edit)
+    {
+        $this->edit = $edit;
+    }
 
     public function passes($attribute, $fates)
     {
@@ -29,26 +35,28 @@ class Fates implements Rule
             }
         }
 
-        if ($dualFates == 1 && ($ambitions > 0 || $flaws > 0)) {
-            $this->message = 'validation.fates.dual_only';
+        if (!$this->edit) {
+            if ($dualFates == 1 && ($ambitions > 0 || $flaws > 0)) {
+                $this->message = 'validation.fates.dual_only';
+    
+                return false;
+            }
 
-            return false;
+            if ($ambitions > 1) {
+                $this->message = 'validation.fates.one_ambition';
+    
+                return false;
+            }
+    
+            if ($flaws > 1) {
+                $this->message = 'validation.fates.one_flaw';
+    
+                return false;
+            }
         }
 
         if ($dualFates > 1) {
             $this->message = 'validation.fates.one_dual';
-
-            return false;
-        }
-
-        if ($ambitions > 1) {
-            $this->message = 'validation.fates.one_ambition';
-
-            return false;
-        }
-
-        if ($flaws > 1) {
-            $this->message = 'validation.fates.one_flaw';
 
             return false;
         }
