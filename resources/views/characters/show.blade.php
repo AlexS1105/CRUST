@@ -192,7 +192,7 @@
 
     @can('updateCharsheet', $character)
       <div class="flex w-full justify-center">
-        <a class="text-lg bg-blue-100 text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-200 focus:ring-2"
+        <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
           href="{{ route('characters.traits.edit', $character) }}"
         >
           {{ __('charsheet.edit.traits') }}
@@ -246,7 +246,7 @@
 
     @can('updateCharsheet', $character)
       <div class="flex w-full justify-center">
-        <a class="text-lg bg-blue-100 text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-200 focus:ring-2"
+        <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
           href="{{ route('characters.perks.edit', $character) }}"
         >
           {{ __('charsheet.edit.perks') }}
