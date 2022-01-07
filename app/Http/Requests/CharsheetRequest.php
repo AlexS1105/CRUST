@@ -51,15 +51,17 @@ class CharsheetRequest extends FormRequest
             }
         }
         
+        $perksCollection = PerkVariant::with('perk')->get();
         $perks = [];
 
         if (isset($this->perks)) {
             foreach($this->perks as $perkId => $perkData) {
                 if ($perkData['id'] != "-1") {
                     $perks[$perkId] = [
-                        'variant' => PerkVariant::with('perk')->find(intval($perkData['id'])),
+                        'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
                         'cost_offset' => intval($perkData['cost_offset']),
-                        'note' => $perkData['note']
+                        'note' => $perkData['note'],
+                        'active' => false
                     ];
                 }
             }

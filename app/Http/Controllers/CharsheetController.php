@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PerkType;
+use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Http\Requests\TraitRequest;
 use App\Models\Character;
@@ -43,15 +44,7 @@ class CharsheetController extends Controller
             $character->narrativeCrafts()->saveMany($narrativeCrafts);
         }
 
-        if (isset($validated['perks']) && count($validated['perks'])) {
-            $character->perkVariants()->detach();
-            
-            foreach($validated['perks'] as $perkVariant) {
-                $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach($id, ['cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
-            }
-        }
-
+        $this->savePerks($character, $validated);
         $this->saveTraits($character, $validated);
 
         if (isset($validated['fates']) && count($validated['fates'])) {
@@ -95,6 +88,33 @@ class CharsheetController extends Controller
 
             if (isset($validated['subtrait'])) {
                 $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
+            }
+        }
+    }
+
+    public function editPerks(Character $character)
+    {
+        return view('characters.perks', [
+            'character' => $character,
+            'perks' => Perk::with('variants')->get(),
+        ]);
+    }
+
+    public function updatePerks(CharacterPerkRequest $request, Character $character)
+    {
+        $this->savePerks($character, $request->validated());
+
+        return redirect()->route('characters.show', $character);
+    }
+
+    private function savePerks(Character $character, $validated)
+    {
+        if (isset($validated['perks']) && count($validated['perks'])) {
+            $character->perkVariants()->detach();
+            
+            foreach($validated['perks'] as $perkVariant) {
+                $id = $perkVariant['variant']->id;
+                $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
             }
         }
     }
