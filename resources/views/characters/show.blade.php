@@ -170,21 +170,21 @@
       @endphp
       <div class="flex justify-center gap-8">
         @if($trait)
-        <div class="bg-white p-4 rounded-xl shadow-lg text-justify my-auto">
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
           <h1 class="font-bold text-xl mb-2">
             {{ __('charsheet.trait') }}
           </h1>
 
-          <x-trait-card class="max-w-4xl" :trait="$trait" />
+          <x-trait-card :trait="$trait" />
         </div>
         @endif
         @if($subtrait)
-        <div class="bg-white p-4 rounded-xl shadow-lg text-justify my-auto">
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
           <h1 class="font-bold text-xl mb-2">
             {{ __('traits.subtrait') }}
           </h1>
 
-          <x-trait-card class="max-w-4xl" :trait="$subtrait" />
+          <x-trait-card :trait="$subtrait" />
         </div>
         @endif
       </div>
@@ -198,7 +198,7 @@
       @endphp
       <div class="flex justify-center gap-8">
         @if ($perks->get('combat'))
-          <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.combat') }}
             </h1>
@@ -215,7 +215,7 @@
           </div>
         @endif
         @if ($perks->get('noncombat'))
-          <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-4xl my-auto">
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.noncombat') }}
             </h1>
@@ -235,7 +235,7 @@
     @endif
 
     @if (count($character->fates))
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto">
+      <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
         <h1 class="font-bold text-xl mb-2">
           {{ __('charsheet.fates') }}
         </h1>
