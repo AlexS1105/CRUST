@@ -12,6 +12,8 @@ class CharsheetSettings extends Settings
 
     public int $max_fates;
 
+    public int $max_active_perks;
+
     public static function group(): string
     {
         return 'charsheet';
