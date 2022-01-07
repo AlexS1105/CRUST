@@ -29,15 +29,7 @@ class VoxController extends Controller
     {
         $this->authorize('voxCreate', $character);
         $validated = $request->validated();
-        
-        $validated['character_id'] = $character->id;
-        $validated['issued_by'] = $request->user()->id;
-        $validated['before'] = $character->vox;
-        $validated['after'] = $character->vox + $validated['delta'];
-
-        VoxLog::create($validated);
-        $character->vox += $validated['delta'];
-        $character->save();
+        $character->giveVox($validated['delta'], $validated['reason']);
 
         return redirect()->route('characters.vox.index', $character);
     }

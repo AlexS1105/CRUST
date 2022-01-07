@@ -54,6 +54,28 @@ class Character extends Model
         $this->save();
     }
 
+    public function giveVox($amount, $reason)
+    {
+        if ($amount != 0) {
+            $voxLog = [];
+            $voxLog['character_id'] = $this->id;
+            $voxLog['issued_by'] = auth()->user()->id;
+            $voxLog['before'] = $this->vox;
+            $voxLog['after'] = $this->vox + $amount;
+            $voxLog['reason'] = $reason;
+            $voxLog['delta'] = $amount;
+    
+            VoxLog::create($voxLog);
+            $this->vox += $amount;
+            $this->save();
+        }
+    }
+
+    public function takeVox($amount, $reason)
+    {
+        return $this->giveVox(-$amount, $reason);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
