@@ -76,6 +76,14 @@ Route::middleware('auth')->group(function() {
             ->name('characters.traits.update')
             ->middleware('can:updateCharsheet,character');
 
+        Route::get('/characters/{character:login}/perks', [CharsheetController::class, 'editPerks'])
+            ->name('characters.perks.edit')
+            ->middleware('can:updateCharsheet,character');
+
+        Route::patch('/characters/{character:login}/perks', [CharsheetController::class, 'updatePerks'])
+            ->name('characters.perks.update')
+            ->middleware('can:updateCharsheet,character');
+
         Route::resource('characters', CharacterController::class)
             ->except('index')
             ->scoped([
