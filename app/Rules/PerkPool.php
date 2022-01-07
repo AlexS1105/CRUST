@@ -30,7 +30,7 @@ class PerkPool implements Rule
             $perk = $perkData['variant']->perk;
             $isNative = $perk->type->hasFlag(PerkType::Native);
 
-            if ($perk->type->hasFlag(PerkType::Unique)) {
+            if ($perk->type->hasFlag(PerkType::Unique) && !$this->edit) {
                 $this->message = 'validation.perkpool.unique';
 
                 return false;
