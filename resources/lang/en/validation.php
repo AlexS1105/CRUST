@@ -139,6 +139,8 @@ return [
         'unique' => 'You cannot take unique perks at the character creation.',
         'not_enough_combat' => 'Not enough combat perk points.',
         'not_enough_noncombat' => 'Not enough non-combat perk points.',
+        'too_much_combat' => 'Not enough slots for combat perks.',
+        'too_much_noncombat' => 'Not enough slots for non-combat perks.'
     ],
     'trait' => 'Unexpected Trait Error.',
     'subtrait' => 'Unexpected Sub-Trait Error.',

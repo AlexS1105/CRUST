@@ -8,6 +8,8 @@ return [
     'combat' => 'Combat Perks',
     'noncombat' => 'Non-Combat Perks',
     'empty' => 'Perks Not Found',
+    'activate' => 'Activate',
+    'deactivate' => 'Deactivate',
     'placeholder' => [
         'name' => 'Perk Name',
         'description' => 'Perk Effect Description',
