@@ -12,10 +12,10 @@
 
       <x-form.card>
         <x-form.input name="name" required maxlength="256" placeholder="{{ __('traits.placeholder.name') }}" :value="old('name', $trait->name)" />
-        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('traits.placeholder.description') }}" wrap="off">
+        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('traits.placeholder.description') }}" wrap="on">
           {{ old('description', $trait->description) }}
         </x-form.textarea>
-        <x-form.textarea name="races" maxlength="512" required placeholder="{{ __('traits.placeholder.races') }}" wrap="off">
+        <x-form.textarea name="races" maxlength="512" required placeholder="{{ __('traits.placeholder.races') }}" wrap="on">
           {{ old('races', $trait->races) }}
         </x-form.textarea>
         <x-form.checkbox name="subtrait" value="{{ old('subtrait', false) }}" />
