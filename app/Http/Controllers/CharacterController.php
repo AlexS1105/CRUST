@@ -102,7 +102,7 @@ class CharacterController extends Controller
 
         if ($file) {
             if ($character->reference !== 'storage/characters/references/_default.png') {
-                $result = Storage::delete('characters/references/'.basename($character->reference));
+                Storage::delete('characters/references/'.basename($character->reference));
             }
 
             $character->reference = str_replace('public/', 'storage/', 
