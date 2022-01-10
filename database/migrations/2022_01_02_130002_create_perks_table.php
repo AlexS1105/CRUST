@@ -18,7 +18,7 @@ class CreatePerksTable extends Migration
             $table->id();
             $table->text('name');
             $table->integer('cost')->nullable();
-            $table->binary('type')->default(PerkType::None);
+            $table->binary('type');
             $table->timestamps();
         });
     }
