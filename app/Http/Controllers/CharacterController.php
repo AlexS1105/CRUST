@@ -7,6 +7,7 @@ use App\Events\CharacterDeleted;
 use App\Events\CharacterCompletelyDeleted;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
+use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
 {
@@ -29,10 +30,11 @@ class CharacterController extends Controller
 
     public function store(CharacterRequest $request)
     {
-        $character = $request->validated();
-        $character['user_id'] = auth()->id();
+        $validated = $request->validated();
+        $validated['user_id'] = auth()->id();
+        unset($validated['reference']);
         
-        $character = Character::create($character);
+        $character = Character::create($validated);
         
         $this->saveReference($character, $request);
         
@@ -57,7 +59,9 @@ class CharacterController extends Controller
 
     public function update(CharacterRequest $request, Character $character)
     {
-        $character->update($request->validated());
+        $validated = $request->validated();
+        unset($validated['reference']);
+        $character->update($validated);
 
         $this->saveReference($character, $request);
 
@@ -97,10 +101,12 @@ class CharacterController extends Controller
         $file = $request->file('reference');
 
         if ($file) {
-            // TODO: Existing references deleting
+            if ($character->reference !== 'storage/characters/references/_default.png') {
+                $result = Storage::delete('characters/references/'.basename($character->reference));
+            }
 
             $character->reference = str_replace('public/', 'storage/', 
-                $file->storePubliclyAs('public/characters/references', $character->login.'.'.$file->extension()));
+                $file->storePubliclyAs('characters/references', $character->login.'.'.$file->extension()));
             $character->save();
         }
     }
