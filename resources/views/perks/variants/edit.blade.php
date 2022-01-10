@@ -11,7 +11,7 @@
       @method('PATCH')
 
       <x-form.card>
-        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="on">
+        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
           {{ old('description', $variant->description) }}
         </x-form.textarea>
 
