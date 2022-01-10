@@ -4192,7 +4192,6 @@ var maxTech = 0;
 var maxGeneral = 0;
 var magicPoints = 0;
 var techPoints = 0;
-var generalPoints = 0;
 var maxNarrativeCrafts = 0;
 var narrativeCrafts = [];
 var id = 0;
@@ -4210,23 +4209,20 @@ window.updateCraftsSum = function (slider) {
 };
 
 function updateNarrativeCrafts() {
-  _narrativeCrafts.forEach(function (craft) {
-    addNarrativeCraftCard(craft['name'], craft['description']);
-  });
+  if (_narrativeCrafts.length != 0) {
+    _narrativeCrafts.forEach(function (craft) {
+      addNarrativeCraftCard(craft['name'], craft['description']);
+    });
+  }
 
   updateMaxNarrativeCrafts();
   updateAddButton();
 }
 
 function updateMaxNarrativeCrafts() {
-  maxNarrativeCrafts = Math.floor((maxMagic + maxTech) / 2) + generalPoints;
-
-  if (maxNarrativeCrafts > 0 && !document.getElementById('button_add')) {
-    displayAddNarrativeCraftButton();
-  }
-
+  maxNarrativeCrafts = Math.floor((maxMagic + maxTech) / 2);
   var maxNarrativeCraftsLabel = document.getElementById('narrative_crafts_max');
-  maxNarrativeCraftsLabel.innerHTML = maxNarrativeCrafts - narrativeCrafts.length;
+  maxNarrativeCraftsLabel.innerHTML = Math.max(0, maxNarrativeCrafts - narrativeCrafts.length);
 }
 
 function displayAddNarrativeCraftButton() {
@@ -4240,8 +4236,7 @@ function displayAddNarrativeCraftButton() {
   button.onclick = function () {
     addNarrativeCraftCard();
     list.append(button);
-    updateMaxNarrativeCrafts();
-    updateAddButton();
+    updateCrafts();
   };
 
   list.append(button);
@@ -4278,8 +4273,7 @@ function addNarrativeCraftCard(name, description) {
       return _card.id != card.id;
     });
     card.remove();
-    updateMaxNarrativeCrafts();
-    updateAddButton();
+    updateCrafts();
   };
 
   descriptionDiv.append(deleteButton);
@@ -4293,8 +4287,12 @@ function addNarrativeCraftCard(name, description) {
 function updateAddButton() {
   var button = document.getElementById('button_add');
 
+  if (!button) {
+    displayAddNarrativeCraftButton();
+  }
+
   if (button) {
-    if (narrativeCrafts.length >= maxNarrativeCrafts) {
+    if (maxNarrativeCrafts <= 0) {
       button.classList.add('hidden');
     } else {
       button.classList.remove('hidden');
@@ -4329,9 +4327,6 @@ function updateSkills() {
     parent.classList.remove('text-red-600');
   }
 
-  var costs = calculateGeneralCost(magicPoints, techPoints, generalPoints);
-  magicPoints = costs[0];
-  techPoints = costs[1];
   updateCrafts();
 }
 
@@ -4387,10 +4382,11 @@ function updateCrafts() {
   updateMagicPoints(magicSum);
   updateTechPoints(techSum);
   updateGeneralPoints();
+  updateNarrativeCrafts();
 }
 
 function calculateGeneralCost(magicSum, techSum, generalSum) {
-  var toSpent = generalSum;
+  var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor((maxMagic + maxTech) / 2));
 
   while (toSpent > 0) {
     var magicPoints = maxMagic - magicSum;

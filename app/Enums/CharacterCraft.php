@@ -66,6 +66,21 @@ final class CharacterCraft extends Enum
             (in_array($this, $this->getTechCrafts()) ? 'tech' : 'general');
     }
 
+    public function isMagic()
+    {
+        return in_array($this, $this->getMagicCrafts());
+    }
+
+    public function isTech()
+    {
+        return in_array($this, $this->getTechCrafts());
+    }
+
+    public function isGeneral()
+    {
+        return !$this->isMagic() && !$this->isTech();
+    }
+
     public function key()
     {
         return strtolower($this->description);

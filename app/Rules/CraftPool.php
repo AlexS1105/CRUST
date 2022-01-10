@@ -8,11 +8,13 @@ use Illuminate\Contracts\Validation\Rule;
 class CraftPool implements Rule
 {
     protected $skills;
+    protected $narrative_crafts;
     protected $message = 'validation.craftpool.invalid';
 
-    public function __construct($skills)
+    public function __construct($skills, $narrative_crafts)
     {
         $this->skills = $skills;
+        $this->narrative_crafts = $narrative_crafts;
     }
 
     public function passes($attribute, $crafts)
@@ -69,8 +71,15 @@ class CraftPool implements Rule
             return false;
         }
 
-        if ($generalPoints > ($techMax - $techPoints + $magicMax - $magicPoints)) {
+        $freeGeneralPoints = ($techMax - $techPoints + $magicMax - $magicPoints) - $generalPoints;
+
+        if ($freeGeneralPoints < 0) {
             $this->message = 'validation.craftpool.general';
+            return false;
+        }
+
+        if (count($this->narrative_crafts) > floor(($magicMax + $techMax) / 2) + $freeGeneralPoints) {
+            $this->message = 'validation.craftpool.narrative_crafts';
             return false;
         }
 

@@ -20,7 +20,7 @@ return [
     'fates' => 'Fates',
     'points' => [
         'skills' => 'Available Points: ',
-        'narrative_crafts' => 'Available Crafts: ',
+        'narrative_crafts' => 'Available Free Crafts: ',
         'combat_perks' => 'Combat Perk Points: ',
         'noncombat_perks' => 'Non-Combat Perk Points: ',
         'fates' => 'Fates Left: ',

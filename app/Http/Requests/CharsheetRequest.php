@@ -108,9 +108,9 @@ class CharsheetRequest extends FormRequest
         $rules = [
             'skills' => ['required', new SkillPool],
             'skills.*' => ['numeric', 'min:0', 'max:10'],
-            'crafts' => ['required', new CraftPool($this->skills)],
+            'crafts' => ['required', new CraftPool($this->skills, $this->narrative_crafts)],
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
-            'narrative_crafts' => [new NarrativeCraftsPool($this->skills)],
+            'narrative_crafts' => ['required'],
             'narrative_crafts.*.name' => ['required'],
             'narrative_crafts.*.description' => ['required']
         ];
