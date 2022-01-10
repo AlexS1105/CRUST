@@ -21,7 +21,7 @@
       @php
         $perkTypeInstance = isset($perkType) ? App\Enums\PerkType::fromValue($perkType) : App\Enums\PerkType::None();
       @endphp
-      <div class="flex p-1 mb-2 space-x-2">
+      <div class="z-10 flex p-1 mb-2 space-x-2">
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Combat]) }}" class="bg-red-200 px-2 rounded-full {{ $perkTypeInstance->isCombat() ? '' : 'opacity-50' }}">
           {{ __('perks.types.combat') }}
         </a>

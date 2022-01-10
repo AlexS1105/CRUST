@@ -17,7 +17,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
   </head>
   <body class="font-sans antialiased bg-white">
-    <div class="p-2 fixed top-0 w-full bg-white border-b">
+    <div class="z-10 p-2 fixed top-0 w-full bg-white border-b">
       <div class="p-1 mb-2 space-x-2">
         <a href="{{ route('traits.list', ['subtrait' => !$subtrait]) }}" class="bg-blue-200 px-2 rounded-full {{ $subtrait ? '' : 'opacity-50' }}">
           {{ __('traits.subtrait') }}
