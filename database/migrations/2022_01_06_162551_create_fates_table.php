@@ -19,7 +19,7 @@ class CreateFatesTable extends Migration
             $table->id();
             $table->foreignIdFor(Character::class)->constrained()->onDelete('cascade');
             $table->text('text');
-            $table->binary('type')->default(FateType::None);
+            $table->binary('type');
             $table->timestamps();
         });
     }
