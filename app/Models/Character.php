@@ -174,6 +174,11 @@ class Character extends Model
         return $this->hasMany(VoxLog::class);
     }
 
+    public function skins()
+    {
+        return $this->hasMany(Skin::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

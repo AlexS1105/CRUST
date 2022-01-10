@@ -14,6 +14,7 @@ use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\RaceTraitController;
+use App\Http\Controllers\SkinController;
 use App\Http\Controllers\TraitListController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoxController;
@@ -138,6 +139,9 @@ Route::middleware('auth')->group(function() {
         Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
             ->name('applications.reapproval')
             ->middleware('can:reapproval,character');
+
+        Route::resource('characters.skins', SkinController::class)
+            ->except(['show', 'edit', 'update']);
 
         Route::resource('characters.vox', VoxController::class)
             ->only(['index', 'create', 'store']);

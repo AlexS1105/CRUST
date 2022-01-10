@@ -41,7 +41,7 @@
           class="object-cover"
           src="{{ asset($character->reference).'?='.$character->updated_at }}"
           alt="Character Reference"
-        >
+        />
       </div>
       <div class="space-y-8 my-auto">
         @can('seeMainInfo', $character)
@@ -77,15 +77,18 @@
         @endcan
 
         @if ($character->appearance)
-          @can('seeVisuals', $character)
-            <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-              <h1 class="font-bold text-xl mb-2">
-                {{ __('label.appearance') }}
-              </h1>
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+            <h1 class="font-bold text-xl mb-2">
+              {{ __('label.appearance') }}
+            </h1>
 
-              <div class="prose markdown max-w-none">{!! $character->appearance !!}</div>
-            </div>
-          @endcan
+            <div class="prose markdown max-w-none">{!! $character->appearance !!}</div>
+            @can('seePlayerOnlyInfo', $character)
+              <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.skins.index', $character) }}">
+                {{ __('skins.index') }}
+              </a>
+            @endcan
+          </div>
         @endif
 
         @can('seePlayerOnlyInfo', $character)
@@ -182,7 +185,6 @@
         @endif
       </div>
     @endif
-
 
     @if (count($character->traits))
       @php

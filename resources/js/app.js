@@ -12,3 +12,4 @@ require('./fates');
 require('./markdown');
 require('./markdown-preview');
 require('./user');
+require('./clipboard');

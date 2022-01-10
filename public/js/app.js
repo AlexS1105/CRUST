@@ -4042,6 +4042,8 @@ __webpack_require__(/*! ./markdown-preview */ "./resources/js/markdown-preview.j
 
 __webpack_require__(/*! ./user */ "./resources/js/user.js");
 
+__webpack_require__(/*! ./clipboard */ "./resources/js/clipboard.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -4462,6 +4464,18 @@ if (typeof maxSkills != 'undefined') {
   updateCrafts();
   updateNarrativeCrafts();
 }
+
+/***/ }),
+
+/***/ "./resources/js/clipboard.js":
+/*!***********************************!*\
+  !*** ./resources/js/clipboard.js ***!
+  \***********************************/
+/***/ (() => {
+
+window.copyToClipboard = function (text) {
+  navigator.clipboard.writeText(text);
+};
 
 /***/ }),
 
