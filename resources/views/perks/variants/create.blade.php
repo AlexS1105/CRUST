@@ -10,7 +10,7 @@
       @csrf
 
       <x-form.card>
-        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
+        <x-form.textarea name="description" maxlength="5096" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
           {{ old('description') }}
         </x-form.textarea>
 

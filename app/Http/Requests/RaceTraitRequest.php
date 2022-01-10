@@ -23,8 +23,8 @@ class RaceTraitRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:256', Rule::unique('race_traits')->ignore($this->name, 'name')],
-            'description' => ['required', 'max:1024'],
-            'races' => ['required', 'max:512'],
+            'description' => ['required', 'max:5096'],
+            'races' => ['required', 'max:2048'],
             'subtrait' => ['present']
         ];
     }

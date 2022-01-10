@@ -11,7 +11,7 @@
 
       <x-form.card>
         <x-form.input name="name" required maxlength="256" placeholder="{{ __('perks.placeholder.name') }}" :value="old('name')" />
-        <x-form.textarea name="description" maxlength="1024" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
+        <x-form.textarea name="description" maxlength="5096" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
           {{ old('description') }}
         </x-form.textarea>
         <x-form.input name="cost" type="number" required value="{{ old('cost', 5) }}" min="0" max="50" placeholder="{{ __('perks.placeholder.name') }}" />
