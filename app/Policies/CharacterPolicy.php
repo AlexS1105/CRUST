@@ -39,6 +39,11 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-edit');
     }
 
+    public function updateCharsheetGm(User $user, Character $character)
+    {
+        return $user->hasPermissionTo('character-edit');
+    }
+
     public function delete(User $user, Character $character)
     {
         return $character->user_id === $user->id

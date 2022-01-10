@@ -71,27 +71,27 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/characters/{character:login}/traits', [CharsheetController::class, 'editTraits'])
             ->name('characters.traits.edit')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::patch('/characters/{character:login}/traits', [CharsheetController::class, 'updateTraits'])
             ->name('characters.traits.update')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::get('/characters/{character:login}/perks', [CharsheetController::class, 'editPerks'])
             ->name('characters.perks.edit')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::patch('/characters/{character:login}/perks', [CharsheetController::class, 'updatePerks'])
             ->name('characters.perks.update')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::get('/characters/{character:login}/fates', [CharsheetController::class, 'editFates'])
             ->name('characters.fates.edit')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::patch('/characters/{character:login}/fates', [CharsheetController::class, 'updateFates'])
             ->name('characters.fates.update')
-            ->middleware('can:updateCharsheet,character');
+            ->middleware('can:updateCharsheetGm,character');
 
         Route::patch('/characters/{character:login}/perks/{perkVariant}', [CharsheetController::class, 'togglePerk'])
             ->name('characters.perks.toggle')
