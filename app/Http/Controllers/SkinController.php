@@ -53,7 +53,7 @@ class SkinController extends Controller
         $file = $request->file('skin');
 
         if ($file) {
-            Storage::delete('characters/skins/'.basename($skin));
+            Storage::delete('characters/skins/'.basename($skin->skin));
 
             $skin->skin = str_replace('public/', 'storage/', 
                 $file->storePubliclyAs('characters/skins', (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension()));
