@@ -18,7 +18,7 @@ class TraitListController extends Controller
         }
 
         return view('traits.list', [
-            'traits' => $traits->paginate(10),
+            'traits' => $traits->paginate(20),
             'search' => $search,
             'subtrait' => $subtrait
         ]);

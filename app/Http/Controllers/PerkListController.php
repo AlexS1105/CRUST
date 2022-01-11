@@ -32,7 +32,7 @@ class PerkListController extends Controller
         }
 
         return view('perks.list', [
-            'perks' => $perks->paginate(10),
+            'perks' => $perks->paginate(20),
             'search' => $search,
             'perkType' => $perkType
         ]);
