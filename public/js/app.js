@@ -4211,12 +4211,6 @@ window.updateCraftsSum = function (slider) {
 };
 
 function updateNarrativeCrafts() {
-  if (_narrativeCrafts.length != 0) {
-    _narrativeCrafts.forEach(function (craft) {
-      addNarrativeCraftCard(craft['name'], craft['description']);
-    });
-  }
-
   updateMaxNarrativeCrafts();
   updateAddButton();
 }
@@ -4460,6 +4454,12 @@ function updateGeneralPoints() {
 }
 
 if (typeof maxSkills != 'undefined') {
+  if (_narrativeCrafts.length != 0) {
+    _narrativeCrafts.forEach(function (craft) {
+      addNarrativeCraftCard(craft['name'], craft['description']);
+    });
+  }
+
   updateSkills();
   updateCrafts();
   updateNarrativeCrafts();
