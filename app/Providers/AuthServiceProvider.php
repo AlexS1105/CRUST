@@ -45,5 +45,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('settings', function ($user) {
             return $user->hasPermissionTo('settings');
         });
+
+        Gate::define('logs', function ($user) {
+            return $user->hasPermissionTo('logs');
+        });
     }
 }

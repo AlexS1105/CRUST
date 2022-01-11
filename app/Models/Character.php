@@ -116,6 +116,12 @@ class Character extends Model
         $this->perkVariants()->detach($perkVariant->id);
         $this->perkVariants()->attach($perkVariant, ['active' => !$pivot->active, 'cost_offset' => $pivot->cost_offset, 'note' => $pivot->note]);
 
+        info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
+            'user' => auth()->user()->login,
+            'character' => $this->login,
+            'perk' => $perkVariant->perk->name
+        ]);
+
         return back();
     }
 
@@ -187,6 +193,27 @@ class Character extends Model
             if ($character->charsheet) {
                 $character->charsheet->delete();
             }
+        });
+
+        static::created(function($character) {
+            info('Character created', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);
+        });
+
+        static::updated(function($character) {
+            info('Character updated', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);
+        });
+
+        static::deleted(function($character) {
+            info('User unbanned', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);
         });
     }
 }

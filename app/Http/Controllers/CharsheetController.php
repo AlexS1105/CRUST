@@ -52,6 +52,11 @@ class CharsheetController extends Controller
         $this->saveTraits($character, $validated);
         $this->saveFates($character, $validated);
 
+        info('Charsheet updated', [
+            'user' => auth()->user()->login,
+            'character' => $character->login
+        ]);
+
         return redirect()->route('characters.show', $character);
     }
 
@@ -82,6 +87,11 @@ class CharsheetController extends Controller
             if (isset($validated['subtrait'])) {
                 $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
             }
+
+            info('Character traits updated', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);    
         }
     }
 
@@ -110,6 +120,11 @@ class CharsheetController extends Controller
                 $id = $perkVariant['variant']->id;
                 $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'cost_offset' => $perkVariant['cost_offset'], 'note' => $perkVariant['note']]);
             }
+
+            info('Character perks updated', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);
         }
     }
 
@@ -140,6 +155,11 @@ class CharsheetController extends Controller
             }
             
             $character->fates()->saveMany($fates);
+
+            info('Character fates updated', [
+                'user' => auth()->user()->login,
+                'character' => $character->login
+            ]);
         }
     }
 

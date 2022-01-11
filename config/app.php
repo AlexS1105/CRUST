@@ -179,7 +179,8 @@ return [
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        NotificationChannels\Discord\DiscordServiceProvider::class
+        NotificationChannels\Discord\DiscordServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
     ],
 
     /*

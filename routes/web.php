@@ -9,6 +9,7 @@ use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
@@ -190,6 +191,17 @@ Route::middleware('auth')->group(function() {
 
             Route::resource('settings/traits', RaceTraitController::class)
                 ->except(['show']);
+        });
+
+        Route::middleware('can:logs')->group(function() {
+            Route::get('logs', [LogController::class, 'index'])
+                ->name('logs.index');
+                
+            Route::get('logs/ingame', [LogController::class, 'ingame'])
+                ->name('logs.ingame');
+            
+            Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
+                ->name('logs.crust');
         });
     });
 });

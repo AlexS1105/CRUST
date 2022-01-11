@@ -21,4 +21,30 @@ class Perk extends Model
     {
         return $this->hasMany(PerkVariant::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($perk) {
+            info('Perk created', [
+                'user' => auth()->user()->login,
+                'perk' => $perk->name
+            ]);
+        });
+
+        static::updated(function($perk) {
+            info('Perk updated', [
+                'user' => auth()->user()->login,
+                'perk' => $perk->name
+            ]);
+        });
+
+        static::deleted(function($perk) {
+            info('Perk deleted', [
+                'user' => auth()->user()->login,
+                'perk' => $perk->name
+            ]);
+        });
+    }
 }

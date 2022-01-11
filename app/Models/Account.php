@@ -15,4 +15,23 @@ class Account extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::created(function($account) {
+            info('User account created', [
+                'user' => auth()->user()->login,
+                'account' => $account->login
+            ]);
+        });
+
+        static::deleted(function($account) {
+            info('User account deleted', [
+                'user' => auth()->user()->login,
+                'account' => $account->login
+            ]);
+        });
+    }
 }

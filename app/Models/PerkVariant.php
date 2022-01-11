@@ -20,4 +20,30 @@ class PerkVariant extends Model
     {
         return $this->belongsToMany(Character::class, 'characters_perks');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($perkVariant) {
+            info('Perk variant created', [
+                'user' => auth()->user()->login,
+                'perk' => $perkVariant->perk->name
+            ]);
+        });
+
+        static::updated(function($perkVariant) {
+            info('Perk variant updated', [
+                'user' => auth()->user()->login,
+                'perk' => $perkVariant->perk->name
+            ]);
+        });
+
+        static::deleted(function($perkVariant) {
+            info('Perk variant deleted', [
+                'user' => auth()->user()->login,
+                'perk' => $perkVariant->perk->name
+            ]);
+        });
+    }
 }

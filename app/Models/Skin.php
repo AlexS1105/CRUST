@@ -15,4 +15,25 @@ class Skin extends Model
     {
         return $this->belongsTo(Character::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($skin) {
+            info('Skin created', [
+                'user' => auth()->user()->login,
+                'character' => $skin->character->login,
+                'prefix' => $skin->prefix
+            ]);
+        });
+
+        static::deleted(function($skin) {
+            info('Skin deleted', [
+                'user' => auth()->user()->login,
+                'character' => $skin->character->login,
+                'prefix' => $skin->prefix
+            ]);
+        });
+    }
 }

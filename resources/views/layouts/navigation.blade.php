@@ -33,6 +33,11 @@
               {{ __('settings.index') }}
             </x-nav-link>
           @endcan
+          @can('logs')
+            <x-nav-link :href="route('logs.index')" :active="request()->routeIs('logs.index')">
+              {{ __('logs.index') }}
+            </x-nav-link>
+          @endcan
           <x-nav-link :href="route('wiki.index')">
             {{ __('wiki.index') }}
           </x-nav-link>
@@ -100,6 +105,11 @@
       @can('settings')
         <x-responsive-nav-link :href="route('settings.index')" :active="request()->routeIs('settings.*')">
           {{ __('settings.index') }}
+        </x-responsive-nav-link>
+      @endcan
+      @can('logs')
+        <x-responsive-nav-link :href="route('logs.index')" :active="request()->routeIs('logs.*')">
+          {{ __('logs.index') }}
         </x-responsive-nav-link>
       @endcan
       <x-responsive-nav-link :href="route('wiki.index')">

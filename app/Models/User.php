@@ -93,6 +93,26 @@ class User extends Authenticatable
                 }
             });
         });
+
+        static::created(function($user) {
+            info('User created', [
+                'user' => $user->login
+            ]);
+        });
+
+        static::updated(function($user) {
+            info('User updated', [
+                'auth_user' => auth()->user()->login,
+                'user' => $user->login
+            ]);
+        });
+
+        static::deleted(function($user) {
+            info('User deleted', [
+                'auth_user' => auth()->user()->login,
+                'user' => $user->login
+            ]);
+        });
     }
 
     public function routeNotificationForDiscord()

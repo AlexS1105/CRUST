@@ -15,6 +15,7 @@
         "laravel/framework": "^8.54",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
+        "rap2hpoutre/laravel-log-viewer": "^2.0",
         "spatie/laravel-permission": "^5.1",
         "spatie/laravel-settings": "^2.1"
     },
