@@ -44,7 +44,8 @@ class RoleSeeder extends Seeder
             'user-accounts-create' => [$admin],
             'user-accounts-delete' => [$admin],
 
-            'settings' => [$admin]
+            'settings' => [$admin],
+            'logs' => [$admin]
         ];
 
         foreach ($permissions as $permission => $roles) {
