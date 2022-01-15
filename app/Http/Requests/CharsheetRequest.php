@@ -6,14 +6,11 @@ use App\Enums\CharacterCraft;
 use App\Enums\CharacterSkill;
 use App\Enums\FateType;
 use App\Models\PerkVariant;
-use App\Models\RaceTrait as ModelsRaceTrait;
 use App\Rules\CraftPool;
 use App\Rules\Fates;
 use App\Rules\NarrativeCraftsPool;
 use App\Rules\PerkPool;
-use App\Rules\RaceTrait;
 use App\Rules\SkillPool;
-use App\Rules\Subtrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharsheetRequest extends FormRequest
@@ -97,8 +94,6 @@ class CharsheetRequest extends FormRequest
             'crafts' => $crafts,
             'narrative_crafts' => $narrative_crafts,
             'perks' => $perks,
-            'trait' => isset($this->trait) ? ModelsRaceTrait::find(intval($this->trait)) : null,
-            'subtrait' => isset($this->subtrait) ? ModelsRaceTrait::find(intval($this->subtrait)) : null,
             'fates' => $fates
         ]);
     }
@@ -120,10 +115,6 @@ class CharsheetRequest extends FormRequest
         if (!$character->registered) {
             $rules = array_merge($rules, [
                 'perks' => ['required', new PerkPool(false)],
-                'trait' => ['required', new RaceTrait],
-                'subtrait' => [new Subtrait],
-                'note_trait' => ['max:256'],
-                'note_subtrait' => ['max:256'],
                 'fates' => [new Fates(false)],
                 'fates.*.text' => ['required', 'max:1024'],
                 'fates.*.type' => ['required']

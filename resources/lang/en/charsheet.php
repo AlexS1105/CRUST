@@ -3,7 +3,6 @@
 return [
     'edit' => [
         'title' => 'Edit Charsheet',
-        'traits' => 'Edit Traits',
         'perks' => 'Edit Perks',
         'fates' => 'Edit Fates'
     ],
@@ -16,7 +15,6 @@ return [
         'description' => 'Description'
     ],
     'perks' => 'Perks',
-    'trait' => 'Trait',
     'fates' => 'Fates',
     'points' => [
         'skills' => 'Available Points: ',

@@ -142,8 +142,6 @@ return [
         'too_much_combat' => 'Not enough slots for combat perks.',
         'too_much_noncombat' => 'Not enough slots for non-combat perks.'
     ],
-    'trait' => 'Unexpected Trait Error.',
-    'subtrait' => 'Unexpected Sub-Trait Error.',
     'fates' => [
         'invalid' => 'Unexpected Fate Error.',
         'dual_only' => 'You can only have one dual fate and no more.',

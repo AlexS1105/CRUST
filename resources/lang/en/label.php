@@ -40,8 +40,6 @@ return [
     'combat' => 'Combat',
     'native' => 'Native',
     'unique' => 'Unique',
-    'note_trait' => 'Trait Note',
-    'note_subtrait' => 'Sub-Trait Note',
     'vox' => 'Vox',
     'delta' => 'Change',
     'date' => 'Date',

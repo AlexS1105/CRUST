@@ -186,43 +186,6 @@
       </div>
     @endif
 
-    @if (count($character->traits))
-      @php
-        $trait = $character->trait();
-        $subtrait = $character->subtrait();
-      @endphp
-      <div class="flex justify-center gap-8">
-        @if($trait)
-        <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
-          <h1 class="font-bold text-xl mb-2">
-            {{ __('charsheet.trait') }}
-          </h1>
-
-          <x-trait-card :trait="$trait" />
-        </div>
-        @endif
-        @if($subtrait)
-        <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
-          <h1 class="font-bold text-xl mb-2">
-            {{ __('traits.subtrait') }}
-          </h1>
-
-          <x-trait-card :trait="$subtrait" />
-        </div>
-        @endif
-      </div>
-    @endif
-
-    @can('updateCharsheet', $character)
-      <div class="flex w-full justify-center">
-        <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
-          href="{{ route('characters.traits.edit', $character) }}"
-        >
-          {{ __('charsheet.edit.traits') }}
-        </a>
-      </div>
-    @endcan
-
     @if (count($character->perkVariants))
       @php
         $perks = $character->perkVariants->groupBy(function($item, $key) {

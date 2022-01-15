@@ -6,13 +6,11 @@ use App\Enums\PerkType;
 use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharsheetRequest;
-use App\Http\Requests\TraitRequest;
 use App\Models\Character;
 use App\Models\Fate;
 use App\Models\NarrativeCraft;
 use App\Models\Perk;
 use App\Models\PerkVariant;
-use App\Models\RaceTrait;
 use App\Settings\CharsheetSettings;
 use Exception;
 
@@ -25,7 +23,6 @@ class CharsheetController extends Controller
             'maxSkills' => app(CharsheetSettings::class)->skill_points,
             'perks' => Perk::with('variants')->notHasFlag('perks.type', PerkType::Unique)->get(),
             'maxPerks' => app(CharsheetSettings::class)->perk_points,
-            'traits' => RaceTrait::all(),
             'maxFates' =>  app(CharsheetSettings::class)->max_fates,
             'maxActivePerks' => app(CharsheetSettings::class)->max_active_perks,
         ]);
@@ -49,7 +46,6 @@ class CharsheetController extends Controller
         }
 
         $this->savePerks($character, $validated);
-        $this->saveTraits($character, $validated);
         $this->saveFates($character, $validated);
 
         info('Charsheet updated', [
@@ -58,41 +54,6 @@ class CharsheetController extends Controller
         ]);
 
         return redirect()->route('characters.show', $character);
-    }
-
-    public function editTraits(Character $character)
-    {
-        return view('characters.traits', [
-            'character' => $character,
-            'traits' => RaceTrait::all()
-        ]);
-    }
-    
-    public function updateTraits(TraitRequest $request, Character $character)
-    {
-        $this->saveTraits($character, $request->validated());
-
-        return redirect()->route('characters.show', $character);
-    }
-
-    private function saveTraits(Character $character, $validated)
-    {
-        if (isset($validated['trait']) || isset($validated['subtrait'])) {
-            $character->traits()->detach();
-
-            if (isset($validated['trait'])) {
-                $character->traits()->attach($validated['trait'], ['note' => $validated['note_trait']]);
-            }
-
-            if (isset($validated['subtrait'])) {
-                $character->traits()->attach($validated['subtrait'], ['note' => $validated['note_subtrait']]);
-            }
-
-            info('Character traits updated', [
-                'user' => auth()->user()->login,
-                'character' => $character->login
-            ]);    
-        }
     }
 
     public function editPerks(Character $character)
