@@ -46,5 +46,7 @@ return [
     'amount' => 'Amount',
     'issued_by' => 'Issued By',
     'max_fates' => 'Max Fates',
-    'max_active_perks' => 'Max Active Perks'
+    'max_active_perks' => 'Max Active Perks',
+    'prefix' => 'Prefix',
+    'skin' => 'Skin',
 ];

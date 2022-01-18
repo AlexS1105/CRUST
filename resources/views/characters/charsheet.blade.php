@@ -46,6 +46,10 @@
         </div>
 
         <x-form.error name="skills"/>
+
+        <x-tip>
+          {{ __('tips.character.skills') }}
+        </x-tip>
       </x-form.card>
 
       <x-form.card>
@@ -144,6 +148,10 @@
 
         <x-form.error name="crafts"/>
 
+        <x-tip>
+          {{ __('tips.character.crafts') }}
+        </x-tip>
+
         <div class="space-y-2">
           <div class="text-lg font-bold uppercase text-gray-700">
             {{ __('charsheet.narrative_crafts.title') }}
@@ -163,6 +171,10 @@
         <x-form.error name="narrative_crafts"/>
         <x-form.error name="narrative_crafts.*.name"/>
         <x-form.error name="narrative_crafts.*.description"/>
+
+        <x-tip>
+          {{ __('tips.character.narrative_crafts') }}
+        </x-tip>
       </x-form.card>
 
       @if (!$character->registered)
@@ -173,6 +185,10 @@
             </x-slot>
 
             <x-character.perks :character="$character" :perks="$perks" :maxPerks="$maxPerks" :maxActivePerks="$maxActivePerks" :edit="false" />
+
+            <x-tip>
+              {{ __('tips.character.perks') }}
+            </x-tip>
           </x-form.card>
         @endif
 
@@ -182,6 +198,10 @@
           </x-slot>
 
           <x-character.fates :character="$character" :maxFates="$maxFates" />
+
+          <x-tip>
+            {{ __('tips.character.fates') }}
+          </x-tip>
         </x-form.card>
       @endif
 

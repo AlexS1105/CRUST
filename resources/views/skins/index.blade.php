@@ -67,6 +67,9 @@
           {{ __('skins.empty') }}
         </p>
       @endif
+      <x-tip class="mt-2">
+        {{ __('tips.skins.default') }}
+      </x-tip>
     </div>
   </x-container>
 </x-app-layout>

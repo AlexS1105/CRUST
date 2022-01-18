@@ -12,20 +12,16 @@ class Charsheet extends Model
     protected $connection = 'mongodb2';
 
     protected $attributes = [
-        'special_stats' => [
-            'skill_points'  => 36,
-            'vox_points'    => 0
-        ],
         'skills' => [
-            'fitness'       => 0,
-            'perception'    => 0,
-            'agility'       => 0,
-            'coordination'  => 0,
-            'ingenuity'     => 0,
-            'tech'          => 0,
-            'magic'         => 0,
-            'charisma'      => 0,
-            'composure'     => 0
+            'fitness'       => 3,
+            'perception'    => 3,
+            'agility'       => 3,
+            'coordination'  => 3,
+            'ingenuity'     => 3,
+            'tech'          => 1,
+            'magic'         => 1,
+            'charisma'      => 3,
+            'composure'     => 3
         ],
         'crafts' => [
             'arc' => 0,

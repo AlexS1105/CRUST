@@ -11,7 +11,13 @@
 
       <x-form.card>
         <x-form.input name="prefix" maxlength="100" :value="old('prefix')" />
+        <x-tip>
+          {{ __('tips.skins.prefix') }}
+        </x-tip>
         <x-form.input name="skin" type="file" accept="image/*" :value="old('skin')" />
+        <x-tip>
+          {{ __('tips.skins.skin') }}
+        </x-tip>
 
         <x-button>
           {{ __('ui.submit') }}
