@@ -14,6 +14,5 @@ class TicketJob extends CharacterJob
     public function __construct(Character $character)
     {
         parent::__construct($character);
-        $this->onQueue('tickets');
     }
 }
