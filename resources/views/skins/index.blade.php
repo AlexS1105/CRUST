@@ -32,10 +32,10 @@
                   {{ $skin->prefix ?? '-' }}
                 </td>
                 <td class="px-4 py-2 border">
-                  <a href="{{ asset($skin->skin) }}">
+                  <a href="{{ Storage::url($skin->skin) }}">
                     <img
                       class="object-cover"
-                      src="{{ asset($skin->skin).'?='.$skin->updated_at }}"
+                      src="{{ Storage::url($skin->skin).'?='.$skin->updated_at }}"
                       alt="Character Reference"
                     />
                   </a>
