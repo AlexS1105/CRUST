@@ -28,14 +28,12 @@ class Ticket extends Model
 
         static::created(function($ticket) {
             info('Ticket created', [
-                'user' => auth()->user()->login,
                 'character' => $ticket->character->login
             ]);
         });
 
         static::deleted(function($ticket) {
             info('Ticket deleted', [
-                'user' => auth()->user()->login,
                 'character' => $ticket->character->login
             ]);
         });
