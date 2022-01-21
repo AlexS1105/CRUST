@@ -20,7 +20,7 @@
           @foreach (App\Enums\CharacterSkill::getInstances() as $instance)
             @php
               $skill = $instance->key();
-              $value = $character->charsheet->skills[$skill];
+              $value = old('skills.'.$skill, $character->charsheet->skills[$skill]);
             @endphp
 
             <div class="text-lg text-right">
