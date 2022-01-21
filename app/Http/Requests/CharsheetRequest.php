@@ -103,9 +103,8 @@ class CharsheetRequest extends FormRequest
         $rules = [
             'skills' => ['required', new SkillPool],
             'skills.*' => ['numeric', 'min:0', 'max:10'],
-            'crafts' => ['required', new CraftPool($this->skills, $this->narrative_crafts)],
+            'crafts' => [new CraftPool($this->skills, $this->narrative_crafts)],
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
-            'narrative_crafts' => ['required'],
             'narrative_crafts.*.name' => ['required'],
             'narrative_crafts.*.description' => ['required']
         ];
@@ -114,7 +113,7 @@ class CharsheetRequest extends FormRequest
 
         if (!$character->registered) {
             $rules = array_merge($rules, [
-                'perks' => ['required', new PerkPool(false)],
+                'perks' => [new PerkPool(false)],
                 'fates' => [new Fates(false)],
                 'fates.*.text' => ['required', 'max:1024'],
                 'fates.*.type' => ['required']

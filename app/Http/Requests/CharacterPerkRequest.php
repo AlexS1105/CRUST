@@ -39,7 +39,7 @@ class CharacterPerkRequest extends FormRequest
     public function rules()
     {
         return [
-            'perks' => ['required', new PerkPool(true)]
+            'perks' => [new PerkPool(true)]
         ];
     }
 }
