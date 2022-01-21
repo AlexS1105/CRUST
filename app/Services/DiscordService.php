@@ -62,7 +62,7 @@ class DiscordService
         ])->post(config('services.discord.tickets.api_url').'/ticket', [
             'guild_id' => config('services.discord.tickets.guild_id'),
             'user_id' => $character->user->discord_id,
-            'registrar_id' => '167230144371490816',
+            'registrar_id' => $character->registrar->discord_id,
             'category_id' => config('services.discord.tickets.category_id'),
             'topic' => "Регистрация $character->name"
         ]);
