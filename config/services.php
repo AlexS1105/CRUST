@@ -54,7 +54,7 @@ return [
     'launcherurl' => env('LAUNCHER_DOWNLOAD_URL'),
     
     'minecraft' => [
-        'characters_auth' => env('MINECRAFT_CHARACTERS_AUTH'),
-        'accounts_auth' => env('MINECRAFT_ACCOUNTS_AUTH')
+        'characters_auth' => env('MINECRAFT_CHARACTERS_AUTH', true),
+        'accounts_auth' => env('MINECRAFT_ACCOUNTS_AUTH', true)
     ]
 ];
