@@ -102,7 +102,7 @@ class CharacterPolicy
 
     public function requestApproval(User $user, Character $character)
     {
-        return $character->user_id == $user->idate
+        return $character->user_id == $user->id
             && $user->hasPermissionTo('application-request-approval')
             && $character->status == CharacterStatus::ChangesRequested();
     }
