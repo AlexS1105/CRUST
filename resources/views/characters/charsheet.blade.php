@@ -75,7 +75,7 @@
               @foreach (App\Enums\CharacterCraft::getMagicCrafts() as $instance)
                 @php
                   $craft = $instance->key();
-                  $value = $character->charsheet->crafts[$craft];
+                  $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
                 <div class="px-3 py-1 bg-purple-200 rounded-lg">
@@ -105,7 +105,7 @@
               @foreach (App\Enums\CharacterCraft::getTechCrafts() as $instance)
                 @php
                   $craft = $instance->key();
-                  $value = $character->charsheet->crafts[$craft];
+                  $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
                 <div class="px-3 py-1 bg-yellow-200 rounded-lg">
@@ -131,7 +131,7 @@
               @foreach (App\Enums\CharacterCraft::getGeneralCrafts() as $instance)
                 @php
                   $craft = $instance->key();
-                  $value = $character->charsheet->crafts[$craft];
+                  $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
                 <div class="px-3 py-1 bg-gray-200 rounded-lg">
