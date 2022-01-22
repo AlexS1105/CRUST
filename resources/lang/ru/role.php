@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'registrar' => 'Регитратор',
+    'registrar' => 'Регистратор',
     'gamemaster' => 'Гейм-мастер',
     'admin' => 'Администратор',
 ];
