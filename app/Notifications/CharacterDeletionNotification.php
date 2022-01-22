@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Character;
+use Illuminate\Support\Facades\Storage;
 use NotificationChannels\Discord\DiscordMessage;
 
 class CharacterDeletionNotification extends DiscordNotification
@@ -24,7 +25,7 @@ class CharacterDeletionNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xEF4444,
             'image' => [
-                'url' => asset($character->reference)
+                'url' => Storage::url($character->reference)
             ],
             'fields' => [
                 [

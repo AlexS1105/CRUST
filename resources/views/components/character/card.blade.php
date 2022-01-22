@@ -5,7 +5,7 @@
     </div>
     <img
       class="object-cover object-top h-96 w-full"
-      src="{{ asset($character->reference).'?='.$character->updated_at }}"
+      src="{{ Storage::url($character->reference).'?='.$character->updated_at }}"
       alt="Character Reference"
     >
   </div>

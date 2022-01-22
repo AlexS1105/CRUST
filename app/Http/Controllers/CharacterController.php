@@ -108,6 +108,9 @@ class CharacterController extends Controller
             $character->reference = str_replace('public/', 'storage/', 
                 $file->storePubliclyAs('characters/references', $character->login.'.'.$file->extension()));
             $character->save();
+        } else if ($character->reference === 'storage/characters/references/_default.png') {
+            $character->reference = 'characters/references/_default.png';
+            $character->save();
         }
     }
 }

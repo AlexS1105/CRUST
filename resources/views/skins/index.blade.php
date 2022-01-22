@@ -42,7 +42,7 @@
                 </td>
                 <td class="border">
                   <div class="w-min mx-auto text-center">
-                    <a class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer" onclick="copyToClipboard('{{ asset($skin->skin) }}')">
+                    <a class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer" onclick="copyToClipboard('{{ Storage::url($skin->skin) }}')">
                       {{ __('skins.copy') }}
                     </a>
                     <form method="POST" action="{{ route('characters.skins.destroy', ['character' => $character, 'skin' => $skin]) }}">

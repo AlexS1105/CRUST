@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Character;
+use Illuminate\Support\Facades\Storage;
 use NotificationChannels\Discord\DiscordMessage;
 
 class ApplicationCanceledNotification extends DiscordNotification
@@ -26,7 +27,7 @@ class ApplicationCanceledNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => asset($character->reference)
+                'url' => Storage::url($character->reference)
             ],
             'fields' => [
                 [

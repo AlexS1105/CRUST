@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Character;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use NotificationChannels\Discord\DiscordMessage;
 
 class ApplicationReapprovalNotification extends DiscordNotification
@@ -33,7 +34,7 @@ class ApplicationReapprovalNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => asset($character->reference)
+                'url' => Storage::url($character->reference)
             ],
             'author' => [
                 'name' => $user->discord_tag,

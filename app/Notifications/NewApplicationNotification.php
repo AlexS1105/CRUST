@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Character;
+use Illuminate\Support\Facades\Storage;
 use NotificationChannels\Discord\DiscordMessage;
 
 class NewApplicationNotification extends DiscordNotification
@@ -26,7 +27,7 @@ class NewApplicationNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [
-                'url' => asset($character->reference)
+                'url' => Storage::url($character->reference)
             ],
             'author' => [
                 'name' => $user->discord_tag,
