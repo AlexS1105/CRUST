@@ -106,10 +106,10 @@ function updateAddButton() {
     }
 
     if (button) {
-        if (maxNarrativeCrafts <= 0) {
-            button.classList.add('hidden')
-        } else {
+        if (maxNarrativeCrafts > 0 || maxMagic - magicPoints > 0 || maxTech - techPoints > 0) {
             button.classList.remove('hidden')
+        } else {
+            button.classList.add('hidden')
         }
     }
 }
