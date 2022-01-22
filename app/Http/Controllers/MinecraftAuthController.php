@@ -23,6 +23,10 @@ class MinecraftAuthController extends Controller
     
                 if (isset($character)) {
                     $user = $character->user;
+
+                    if (config('services.minecraft.characters_auth')) {
+                        throw new Exception(__('minecraft.auth_characters'));
+                    }
                 } else {
                     $account = Account::with('user')
                         ->where('login', $login)
@@ -30,6 +34,10 @@ class MinecraftAuthController extends Controller
     
                     if (isset($account)) {
                         $user = $account->user;
+                    }
+
+                    if (config('services.minecraft.characters_auth')) {
+                        throw new Exception(__('minecraft.auth_accounts'));
                     }
                 }
     
