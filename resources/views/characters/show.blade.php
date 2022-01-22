@@ -317,8 +317,8 @@
       @endcan
     @endif
 
-    @if ($character->background)
-      @can('seeBio', $character)
+    @can('seeBio', $character)
+      @if ($character->personality)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
           <h1 class="font-bold text-xl mb-2">
             {{ __('label.personality') }}
@@ -326,6 +326,8 @@
 
           <div class="prose markdown max-w-none">{!! $character->personality !!}</div>
         </div>
+      @endif
+      @if ($character->background)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
           <h1 class="font-bold text-xl mb-2">
             {{ __('label.background') }}
@@ -333,7 +335,7 @@
 
           <div class="prose markdown max-w-none">{!! $character->background !!}</div>
         </div>
-      @endcan
-    @endif
+      @endif
+    @endcan
   </x-container>
 </x-app-layout>
