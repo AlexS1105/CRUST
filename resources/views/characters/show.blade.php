@@ -321,6 +321,13 @@
       @can('seeBio', $character)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
           <h1 class="font-bold text-xl mb-2">
+            {{ __('label.personality') }}
+          </h1>
+
+          <div class="prose markdown max-w-none">{!! $character->personality !!}</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
+          <h1 class="font-bold text-xl mb-2">
             {{ __('label.background') }}
           </h1>
 

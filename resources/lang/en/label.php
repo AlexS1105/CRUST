@@ -17,6 +17,7 @@ return [
     'info_hidden' => 'Hide \'Main Info\' section from other players (except for name)',
     'reference' => 'Reference Image',
     'appearance' => 'Appearance',
+    'personality' => 'Personality',
     'background' => 'Background',
     'bio_hidden' => 'Hide \'Biography\' section from other players',
     'preview' => 'Preview',

@@ -68,6 +68,12 @@
           {{ __('characters.cards.biography') }}
         </x-slot>
 
+        <x-form.textarea name="personality" onfocus="preview(this)" wrap="off">
+          {{ old('personality', $character->personality) }}
+        </x-form.textarea>
+        <x-tip>
+          {{ __('tips.character.personality') }}
+        </x-tip>
         <x-form.textarea name="background" onfocus="preview(this)" wrap="off">
           {{ old('background', $character->background) }}
         </x-form.textarea>

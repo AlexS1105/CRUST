@@ -33,6 +33,7 @@ class CharacterRequest extends FormRequest
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
             'appearance' => ['max:10000'],
+            'personality' => ['nullable'],
             'background' => ['nullable'],
             'info_hidden' => ['boolean'],
             'bio_hidden' => ['boolean'],

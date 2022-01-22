@@ -61,7 +61,11 @@
         <x-slot name="header">
           {{ __('characters.cards.biography') }}
         </x-slot>
-
+        
+        <x-form.textarea name="personality" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.personality') }}" wrap="off" />
+        <x-tip>
+          {{ __('tips.character.personality') }}
+        </x-tip>
         <x-form.textarea name="background" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.background') }}" wrap="off" />
         <x-tip>
           {{ __('tips.character.background') }}

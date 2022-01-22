@@ -19,7 +19,8 @@ return [
         'age' => '25 Y.O.',
         'description' => 'A young hero seeking glory',
         'appearance' => 'A young man with blond hair. Dressed in typical commoner clothes.',
-        'background' => 'Arean was born in a small village. After his parents died he went on an adventure.',
+        'personality' => 'A brave young man with many ambitions.',
+        'background' => 'Aeran was born in a small village. After his parents died he went on an adventure.',
         'login' => 'AeranHyde',
         'player_only_info' => 'Hidden info that will be visible only to you and gamemasters.'
     ],
