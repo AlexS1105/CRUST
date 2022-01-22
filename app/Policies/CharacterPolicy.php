@@ -102,9 +102,9 @@ class CharacterPolicy
 
     public function requestApproval(User $user, Character $character)
     {
-        return $character->user_id == $user->id
-            && $user->hasPermissionTo('application-request-approval')
-            && $character->status == CharacterStatus::ChangesRequested();
+        return $character->user_id === $user->id
+            && $character->status == CharacterStatus::ChangesRequested()
+            || $user->hasPermissionTo('application-request-approval');
     }
     
     public function approve(User $user, Character $character)
