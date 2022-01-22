@@ -131,7 +131,8 @@ return [
         'maxtiers' => 'Character can only have one 3 tier craft.',
         'magic' => 'Not enough magic skill points.',
         'tech' => 'Not enough tech skill points.',
-        'general' => 'Not enough magic / tech skill points.'
+        'general' => 'Not enough magic / tech skill points.',
+        'narrative_crafts' => 'Not enough points for narrative crafts.'
     ],
     'narrative_crafts' => 'Not enough skill points.',
     'perkpool' => [
