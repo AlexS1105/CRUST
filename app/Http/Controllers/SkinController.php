@@ -33,7 +33,8 @@ class SkinController extends Controller
         $validated = $request->validated();
         $validated['character_id'] = $character->id;
         $skin = Skin::firstOrCreate([
-            'prefix' => $validated['prefix']
+            'prefix' => $validated['prefix'],
+            'character_id' => $character->id
         ], $validated);
         $this->saveSkin($request, $skin);
 
