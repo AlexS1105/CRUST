@@ -96,20 +96,20 @@ class User extends Authenticatable
 
         static::created(function($user) {
             info('User created', [
-                'user' => $user->login
+                'auth_user' => auth()->user() !== null ? auth()->user()->login : 'null',
             ]);
         });
 
         static::updated(function($user) {
             info('User updated', [
-                'auth_user' => auth()->user()->login,
+                'auth_user' => auth()->user() !== null ? auth()->user()->login : 'null',
                 'user' => $user->login
             ]);
         });
 
         static::deleted(function($user) {
             info('User deleted', [
-                'auth_user' => auth()->user()->login,
+                'auth_user' => auth()->user() !== null ? auth()->user()->login : 'null',
                 'user' => $user->login
             ]);
         });
