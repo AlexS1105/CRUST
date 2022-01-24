@@ -32,7 +32,7 @@ class PerkRequest extends FormRequest
         ];
 
         if ($this->method() != 'PATCH') {
-            $rules['description'] = ['required', 'max:1024'];
+            $rules['description'] = ['required', 'max:5096'];
         }
 
         return $rules;
