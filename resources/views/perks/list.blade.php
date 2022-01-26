@@ -31,6 +31,9 @@
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Native]) }}" class="bg-purple-200 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Native) ? '' : 'opacity-50' }}">
           {{ __('perks.types.native') }}
         </a>
+        <a href="{{ route('perks.list') }}" class="bg-gray-200 px-2 rounded-full">
+          ✕
+        </a>
       </div>
       <x-search-field :search="$search" :route="route('perks.list')"/>
       <div class="flex space-x-2 mt-2 ml-2 text-sm">
@@ -95,7 +98,7 @@
           {{ __('perks.empty') }}
         </p>
       @endif
-      {{ $perks->links() }}
+      {{ $perks->appends(request()->query())->links() }}
     </div>
   </body>
 </html>
