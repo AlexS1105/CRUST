@@ -28,21 +28,21 @@ class Perk extends Model
 
         static::created(function($perk) {
             info('Perk created', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
                 'perk' => $perk->name
             ]);
         });
 
         static::updated(function($perk) {
             info('Perk updated', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
                 'perk' => $perk->name
             ]);
         });
 
         static::deleted(function($perk) {
             info('Perk deleted', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
                 'perk' => $perk->name
             ]);
         });
