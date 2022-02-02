@@ -19,7 +19,7 @@ final class CharacterCraft extends Enum
     protected $tiers = [
         CharacterCraft::Arc => 3,
         CharacterCraft::Mys => 3,
-        CharacterCraft::Enc => 2,
+        CharacterCraft::Enc => 1,
         CharacterCraft::Alc => 1,
         CharacterCraft::Eng => 3,
         CharacterCraft::Mnf => 3,
