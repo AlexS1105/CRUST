@@ -9,7 +9,7 @@ class DiscordTag implements Rule
 
     public function passes($attribute, $value)
     {
-        return preg_match('/^.{3,32}#[0-9]{4}$/', $value);
+        return preg_match('/^.*#[0-9]{4}$/', $value);
     }
 
     public function message()
