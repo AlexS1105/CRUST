@@ -232,7 +232,7 @@
 
     <x-form.error name="vox" />
 
-    @can('updateCharsheet', $character)
+    @can('updateCharsheetGm', $character)
       <div class="flex w-full justify-center">
         <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
           href="{{ route('characters.perks.edit', $character) }}"
@@ -242,48 +242,50 @@
       </div>
     @endcan
 
-    @if (count($character->fates))
-      <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
-        <h1 class="font-bold text-xl mb-2">
-          {{ __('charsheet.fates') }}
-        </h1>
+    @can('seePlayerOnlyInfo', $character)
+      @if (count($character->fates))
+        <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
+          <h1 class="font-bold text-xl mb-2">
+            {{ __('charsheet.fates') }}
+          </h1>
 
-        <div class="divide-y divide-dashed">
-          @foreach ($character->fates as $fate)
-            <div class="p-2">
-              <div class="flex text-sm font-semibold space-x-2 mb-2">
-                @if ($fate->type->isDual())
-                  <div class="bg-gray-200 px-2 rounded-full">
-                    {{ __('fates.dual') }}
-                  </div>
-                @elseif ($fate->type->hasFlag(App\Enums\FateType::Ambition))
-                  <div class="bg-yellow-200 px-2 rounded-full">
-                    {{ __('fates.ambition') }}
-                  </div>
-                @elseif ($fate->type->hasFlag(App\Enums\FateType::Flaw))
-                  <div class="bg-blue-200 px-2 rounded-full">
-                    {{ __('fates.flaw') }}
-                  </div>
-                @endif
+          <div class="divide-y divide-dashed">
+            @foreach ($character->fates as $fate)
+              <div class="p-2">
+                <div class="flex text-sm font-semibold space-x-2 mb-2">
+                  @if ($fate->type->isDual())
+                    <div class="bg-gray-200 px-2 rounded-full">
+                      {{ __('fates.dual') }}
+                    </div>
+                  @elseif ($fate->type->hasFlag(App\Enums\FateType::Ambition))
+                    <div class="bg-yellow-200 px-2 rounded-full">
+                      {{ __('fates.ambition') }}
+                    </div>
+                  @elseif ($fate->type->hasFlag(App\Enums\FateType::Flaw))
+                    <div class="bg-blue-200 px-2 rounded-full">
+                      {{ __('fates.flaw') }}
+                    </div>
+                  @endif
 
-                @if ($fate->type->isOnetime())
-                  <div class="bg-green-200 px-2 rounded-full">
-                    {{ __('fates.onetime') }}
-                  </div>
-                @else
-                  <div class="bg-purple-200 px-2 rounded-full">
-                    {{ __('fates.continious') }}
-                  </div>
-                @endif
+                  @if ($fate->type->isOnetime())
+                    <div class="bg-green-200 px-2 rounded-full">
+                      {{ __('fates.onetime') }}
+                    </div>
+                  @else
+                    <div class="bg-purple-200 px-2 rounded-full">
+                      {{ __('fates.continious') }}
+                    </div>
+                  @endif
+                </div>
+                <div class="prose markdown text-lg min-w-full">{!! $fate->text !!}</div>
               </div>
-              <div class="prose markdown text-lg min-w-full">{!! $fate->text !!}</div>
-            </div>
-          @endforeach
+            @endforeach
+          </div>
         </div>
-      </div>
-    @endif
+      @endif
+    @endcan
     
-    @can('updateCharsheet', $character)
+    @can('updateCharsheetGm', $character)
       <div class="flex w-full justify-center">
         <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
           href="{{ route('characters.fates.edit', $character) }}"
