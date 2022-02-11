@@ -29,14 +29,14 @@ class Ban extends Model
         static::created(function($ban) {
             info('User banned', [
                 'by' => auth()->user()->login,
-                'user' => $ban->user()->login
+                'user' => $ban->user->login
             ]);
         });
 
         static::deleted(function($ban) {
             info('User unbanned', [
                 'by' => auth()->user()->login,
-                'user' => $ban->user()->login
+                'user' => $ban->user->login
             ]);
         });
     }
