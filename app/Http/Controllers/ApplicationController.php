@@ -32,7 +32,7 @@ class ApplicationController extends Controller
             'search' => $search,
             'characters' => $characters->sortable()
                                         ->oldest('status_updated_at')
-                                        ->paginate(10)
+                                        ->paginate(20)
         ]);
     }
 

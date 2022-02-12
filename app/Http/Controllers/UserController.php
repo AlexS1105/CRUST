@@ -23,7 +23,7 @@ class UserController extends Controller
             'users' => User::where('users.login', 'like', '%'.$search.'%')
                             ->latest('created_at')
                             ->sortable()
-                            ->paginate(10)
+                            ->paginate(20)
         ]);
     }
 

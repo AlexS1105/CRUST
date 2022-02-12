@@ -33,7 +33,7 @@ class AllCharactersController extends Controller
         
         return view('characters.all', [
             'search' => $search,
-            'characters' => $characters->paginate(12)
+            'characters' => $characters->paginate(48)
         ]);
     }
 }

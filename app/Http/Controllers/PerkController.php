@@ -13,7 +13,7 @@ class PerkController extends Controller
     {
         return view('perks.index', [
             'perks' => Perk::with('variants')
-                ->paginate(10)
+                ->paginate(30)
         ]);
     }
 
