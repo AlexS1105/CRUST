@@ -21,7 +21,7 @@ class MinecraftAuthController extends Controller
                     ->where('login', $login)
                     ->first();
     
-                if (isset($character)) {
+                if (isset($character) && $character->registered) {
                     $user = $character->user;
 
                     if (!config('services.minecraft.characters_auth')) {
