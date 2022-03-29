@@ -107,6 +107,19 @@
         @endcan
       </x-form.card>
 
+      @if(!$character->registered || auth()->user()->can('updateCharsheetGm', $character))
+        <x-form.card>
+          <x-slot name="header">
+            {{ __('characters.cards.registration_info') }}
+          </x-slot>
+
+          <x-form.input name="login" required maxlength="16" pattern="[A-Za-z0-9-_]+" placeholder="{{ __('characters.placeholder.login') }}" :value="old('login', $character->login)"/>
+          <x-tip>
+            {{ __('tips.character.login') }}
+          </x-tip>
+        </x-form.card>
+      @endif
+
       <x-button>
         {{ __('ui.submit') }}
       </x-button>

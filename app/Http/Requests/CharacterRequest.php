@@ -40,8 +40,10 @@ class CharacterRequest extends FormRequest
             'player_only_info' => ['nullable'],
             'gm_only_info' => ['nullable']
         ];
+        
+        $character = $this->route('character');
 
-        if ($this->method() != 'PATCH') {
+        if (!$character->registered) {
             $rules['login'] = ['required', 'unique:characters,login', 'max:16'];
         }
 

@@ -59,9 +59,15 @@ class CharacterController extends Controller
 
     public function update(CharacterRequest $request, Character $character)
     {
+        $charsheet = $character->charsheet;
         $validated = $request->validated();
         unset($validated['reference']);
         $character->update($validated);
+
+        if ($charsheet->character != $character->login) {
+            $charsheet->character = $character->login;
+            $charsheet->save();
+        }
 
         $this->saveReference($character, $request);
 
