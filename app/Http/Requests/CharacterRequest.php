@@ -43,7 +43,7 @@ class CharacterRequest extends FormRequest
         
         $character = $this->route('character');
 
-        if (!$character->registered) {
+        if ($this->method() == 'POST' || !$character->registered) {
             $rules['login'] = ['required', 'unique:characters,login', 'max:16'];
         }
 
