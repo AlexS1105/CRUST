@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\CharacterGender;
 use Illuminate\Foundation\Http\FormRequest;
 use BenSampo\Enum\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 class CharacterRequest extends FormRequest
 {
@@ -44,7 +45,7 @@ class CharacterRequest extends FormRequest
         $character = $this->route('character');
 
         if ($this->method() == 'POST' || !$character->registered) {
-            $rules['login'] = ['required', 'unique:characters,login', 'max:16'];
+            $rules['login'] = ['required', Rule::unique('characters')->ignore($character->login, 'login'), 'max:16'];
         }
 
         return $rules;
