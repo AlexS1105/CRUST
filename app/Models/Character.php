@@ -182,7 +182,7 @@ class Character extends Model
 
         static::created(function($character) {
             info('Character created', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user() != null ? auth()->user()->login : null,
                 'character' => $character->login
             ]);
         });
