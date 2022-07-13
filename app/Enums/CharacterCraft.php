@@ -8,24 +8,26 @@ final class CharacterCraft extends Enum
 {
     const Arc = 0;
     const Mys = 1;
-    const Enc = 2;
-    const Alc = 3;
+    const Wiz = 2;
+    const Mnf = 3;
     const Eng = 4;
-    const Mnf = 5;
-    const Inf = 6;
-    const Chm = 7;
-    const Smt = 8;  
+    const Gun = 5;
+    const Chm = 6;
+    const Smt = 7;
+    const Bld = 8;
+    const Med = 9;
 
     protected $tiers = [
         CharacterCraft::Arc => 3,
-        CharacterCraft::Mys => 3,
-        CharacterCraft::Enc => 1,
-        CharacterCraft::Alc => 1,
-        CharacterCraft::Eng => 3,
+        CharacterCraft::Mys => 2,
+        CharacterCraft::Wiz => 2,
         CharacterCraft::Mnf => 3,
-        CharacterCraft::Inf => 1,
-        CharacterCraft::Chm => 1,
-        CharacterCraft::Smt => 1
+        CharacterCraft::Eng => 2,
+        CharacterCraft::Gun => 2,
+        CharacterCraft::Chm => 2,
+        CharacterCraft::Smt => 2,
+        CharacterCraft::Bld => 1,
+        CharacterCraft::Med => 1
     ];
 
     static public function getMagicCrafts()
@@ -33,25 +35,26 @@ final class CharacterCraft extends Enum
         return [
             CharacterCraft::Arc(),
             CharacterCraft::Mys(),
-            CharacterCraft::Enc(),
-            CharacterCraft::Alc()
+            CharacterCraft::Wiz()
         ];
     }
 
     static public function getTechCrafts()
     {
         return [
-            CharacterCraft::Eng(),
             CharacterCraft::Mnf(),
-            CharacterCraft::Inf(),
-            CharacterCraft::Chm()
+            CharacterCraft::Eng(),
+            CharacterCraft::Gun()
         ];
     }
 
     static public function getGeneralCrafts()
     {
         return [
-            CharacterCraft::Smt()
+            CharacterCraft::Chm(),
+            CharacterCraft::Smt(),
+            CharacterCraft::Bld(),
+            CharacterCraft::Med(),
         ];
     }
 

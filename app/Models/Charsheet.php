@@ -9,6 +9,8 @@ class Charsheet extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $connection = 'mongodb2';
 
     protected $attributes = [
@@ -26,13 +28,14 @@ class Charsheet extends Model
         'crafts' => [
             'arc' => 0,
             'mys' => 0,
-            'enc' => 0,
-            'alc' => 0,
-            'eng' => 0,
+            'wiz' => 0,
             'mnf' => 0,
-            'inf' => 0,
+            'eng' => 0,
+            'gun' => 0,
             'chm' => 0,
-            'smt' => 0
+            'smt' => 0,
+            'bld' => 0,
+            'med' => 0
         ],
     ];
 

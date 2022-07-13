@@ -3,11 +3,12 @@
 return [
     'arc' => "Arcane",
     'mys' => "Mystic",
-    'enc' => "Echanting",
-    'alc' => "Alchemy",
+    'wiz' => "Wizardry",
     'eng' => "Engineering",
     'mnf' => "Manufacturing",
-    'inf' => "Informatics",
+    'gun' => "Gunsmithing",
     'chm' => "Chemistry",
-    'smt' => "Smithing"
+    'smt' => "Smithing",
+    'bld' => "Building",
+    'med' => "Medicine"
 ];
