@@ -24,29 +24,30 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'character' => Character::factory()->create(['status' => CharacterStatus::Pending(), 'registrar_id' => null])->login,
-            'special_stats' => [
-                'points' => $this->faker->randomNumber(2)
-            ],
-            'approaches' => [
-                'careful' => $this->faker->numberBetween(1, 4),
-                'clever' => $this->faker->numberBetween(1, 4),
-                'flashy' => $this->faker->numberBetween(1, 4),
-                'forceful' => $this->faker->numberBetween(1, 4),
-                'quick' => $this->faker->numberBetween(1, 4),
-                'sneaky' => $this->faker->numberBetween(1, 4)
+            'character' => Character::factory()->create(['registrar_id' => null])->login,
+            'skills' => [
+                'fitness'       => $this->faker->numberBetween(0, 10),
+                'perception'    => $this->faker->numberBetween(0, 10),
+                'agility'       => $this->faker->numberBetween(0, 10),
+                'coordination'  => $this->faker->numberBetween(0, 10),
+                'ingenuity'     => $this->faker->numberBetween(0, 10),
+                'tech'          => $this->faker->numberBetween(0, 10),
+                'magic'         => $this->faker->numberBetween(0, 10),
+                'charisma'      => $this->faker->numberBetween(0, 10),
+                'composure'     => $this->faker->numberBetween(0, 10)
             ],
             'crafts' => [
                 'arc' => $this->faker->numberBetween(0, 3),
-                'mys' => $this->faker->numberBetween(0, 3),
-                'enc' => $this->faker->numberBetween(0, 3),
-                'alc' => $this->faker->numberBetween(0, 3),
-                'eng' => $this->faker->numberBetween(0, 3),
+                'mys' => $this->faker->numberBetween(0, 2),
+                'wiz' => $this->faker->numberBetween(0, 2),
                 'mnf' => $this->faker->numberBetween(0, 3),
-                'inf' => $this->faker->numberBetween(0, 3),
-                'chm' => $this->faker->numberBetween(0, 3),
-                'smt' => $this->faker->numberBetween(0, 3),
-            ],
+                'eng' => $this->faker->numberBetween(0, 2),
+                'gun' => $this->faker->numberBetween(0, 2),
+                'chm' => $this->faker->numberBetween(0, 2),
+                'smt' => $this->faker->numberBetween(0, 2),
+                'bld' => $this->faker->numberBetween(0, 1),
+                'med' => $this->faker->numberBetween(0, 1)
+            ]
         ];
     }
 }
