@@ -55,7 +55,7 @@
     @endif
 
     <div class="mt-4 mb-8">
-      {{ $characters->links() }}
+      {{ $characters->appends(request()->query())->links() }}
     </div>
   </div>
 </x-app-layout>

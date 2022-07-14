@@ -10,18 +10,10 @@ class AllCharactersController extends Controller
     public function __invoke()
     {
         $search = request('search');
-        $created_at = request('created_at');
+        $created_at = request('created_at', 'asc');
         $updated_at = request('updated_at');
         $characters = Character::where('characters.name', 'like', '%'.$search.'%')
             ->where('characters.status', CharacterStatus::Approved);
-
-        if (isset($created_at)) {
-            if ($created_at == 'asc') {
-                $characters->latest('created_at');
-            } else {
-                $characters->oldest('created_at');
-            }
-        }
 
         if (isset($updated_at)) {
             if ($updated_at == 'asc') {
@@ -29,11 +21,16 @@ class AllCharactersController extends Controller
             } else {
                 $characters->oldest('updated_at');
             }
+        } else {
+            if ($created_at == 'asc') {
+                $characters->latest('created_at');
+            } else {
+                $characters->oldest('created_at');
+            }
         }
-        
         return view('characters.all', [
             'search' => $search,
-            'characters' => $characters->paginate(48)
+            'characters' => $characters->paginate(3)
         ]);
     }
 }
