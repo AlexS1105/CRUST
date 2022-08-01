@@ -36,20 +36,9 @@
         </a>
       </div>
       <x-search-field :search="$search" :route="route('perks.list')"/>
-      <div class="flex space-x-2 mt-2 ml-2 text-sm">
-        <div class="text-gray-500">
-          {{ __('ui.sort.title') }}:
-        </div>
-  
-        @php
-          $cost_order = app('request')->input('cost_order') == 'desc';
-        @endphp
-  
-        <a class="text-blue-400" href="{{ route('perks.list', [ 'cost_order' => $cost_order ? 'asc' : 'desc' ]) }}">{{ __('ui.sort.cost') }} {{ $cost_order ? '↓' : '↑' }}</a>
-      </div>
     </div>
 
-    <div class="mt-32"></div>
+    <div class="mt-24"></div>
 
     <div class="p-6 space-y-4">
       @if (count($perks))
@@ -58,9 +47,6 @@
             <div class="flex justify-between border-b bg-gray-100 border-gray-400">
               <div class="flex items-center font-bold text-lg py-2 px-3 uppercase space-x-2">
                 {{ $perk->name }}
-              </div>
-              <div class="p-2 text-center font-bold text-lg border-gray-400 border-l">
-                {{ $perk->cost }}
               </div>
             </div>
             <div class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm  ">

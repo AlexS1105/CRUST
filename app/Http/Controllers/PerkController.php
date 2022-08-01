@@ -29,10 +29,10 @@ class PerkController extends Controller
 
         $perk = Perk::create([
             'name' => $validated['name'],
-            'cost' => $validated['cost'],
             'type' => $validated['type']
         ]);
-        $perkVariant = PerkVariant::create(['perk_id' => $perk->id, 'description' => $validated['description']]);
+        
+        PerkVariant::create(['perk_id' => $perk->id, 'description' => $validated['description']]);
 
         return redirect()->route('perks.index');
     }

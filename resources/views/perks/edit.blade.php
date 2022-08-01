@@ -12,7 +12,6 @@
 
       <x-form.card>
         <x-form.input name="name" required maxlength="256" placeholder="{{ __('perks.placeholder.name') }}" :value="old('name', $perk->name)"/>
-        <x-form.input name="cost" type="number" required value="{{ old('cost', $perk->cost) }}" min="0" max="50" placeholder="{{ __('perks.placeholder.name') }}" />
         <x-form.checkbox name="combat" value="{{ old('combat', $perk->type->hasFlag(App\Enums\PerkType::Combat)) }}" />
         <x-form.checkbox name="native" value="{{ old('native', $perk->type->hasFlag(App\Enums\PerkType::Native)) }}" />
         <x-form.checkbox name="unique" value="{{ old('unique', $perk->type->hasFlag(App\Enums\PerkType::Unique)) }}" />

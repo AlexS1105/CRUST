@@ -10,7 +10,6 @@ return [
     'sort' => [
         'title' => 'Sorting',
         'created_at' => 'By Creation Date',
-        'updated_at' => 'By Latest Activity',
-        'cost' => 'By Cost'
+        'updated_at' => 'By Latest Activity'
     ]
 ];

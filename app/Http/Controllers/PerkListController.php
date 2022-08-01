@@ -10,7 +10,6 @@ class PerkListController extends Controller
     {
         $perkType = request('perk_type');
         $search = request('search');
-        $costOrder = request('cost_order');
         $perks = Perk::with('variants')->where('perks.name', 'like', '%'.$search.'%')->notHasFlag('perks.type', PerkType::Unique);
 
         if (isset($perkType)) {
@@ -20,14 +19,6 @@ class PerkListController extends Controller
                 $perks->notHasFlag('perks.type', PerkType::Combat);
             } else {
                 $perks->hasFlag('perks.type', $perkType);
-            }
-        }
-
-        if (isset($costOrder)) {
-            if ($costOrder == 'asc') {
-                $perks->orderBy('cost');
-            } else {
-                $perks->orderBy('cost', 'desc');
             }
         }
 

@@ -37,7 +37,6 @@ return [
     'gm_only_info' => 'Gamemaster Info',
     'skill_points' => 'Start Skill Points',
     'perk_points' => 'Start Perk Points',
-    'cost' => 'Cost',
     'combat' => 'Combat',
     'native' => 'Native',
     'unique' => 'Unique',

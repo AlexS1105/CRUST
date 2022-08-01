@@ -30,9 +30,6 @@
                   <a class="fas fa-trash cursor-pointer text-xl text-gray-600" onclick="event.preventDefault();this.closest('form').submit();"></a>
                 </form>
               </div>
-              <div class="p-2 text-center font-bold text-lg border-gray-400 border-l">
-                {{ $perk->cost }}
-              </div>
             </div>
             <div class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm  ">
               @if ($perk->type->isCombat())

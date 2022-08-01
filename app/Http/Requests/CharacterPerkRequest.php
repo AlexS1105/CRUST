@@ -23,7 +23,6 @@ class CharacterPerkRequest extends FormRequest
                 if ($perkData['id'] != "-1") {
                     $perks[$perkId] = [
                         'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
-                        'cost_offset' => intval($perkData['cost_offset']),
                         'active' => isset($perkData['active']) ? $perkData['active'] === 'on' : false,
                         'note' => $perkData['note']
                     ];

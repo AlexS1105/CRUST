@@ -14,7 +14,6 @@
         <x-form.textarea name="description" maxlength="5096" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
           {{ old('description') }}
         </x-form.textarea>
-        <x-form.input name="cost" type="number" required value="{{ old('cost', 5) }}" min="0" max="50" placeholder="{{ __('perks.placeholder.name') }}" />
         <x-form.checkbox name="combat" value="{{ old('combat', false) }}" />
         <x-form.checkbox name="native" value="{{ old('native', false) }}" />
         <x-form.checkbox name="unique" value="{{ old('unique', false) }}" />

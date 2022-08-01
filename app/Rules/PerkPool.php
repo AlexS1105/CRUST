@@ -18,10 +18,7 @@ class PerkPool implements Rule
 
     public function passes($attribute, $value)
     {
-        $maxPerks = app(CharsheetSettings::class)->perk_points;
         $maxActivePerks = app(CharsheetSettings::class)->max_active_perks;
-        $combatPerkPoints = 0;
-        $noncombatPerkPoints = 0;
 
         $combatPerks = 0;
         $noncombatPerks = 0;
@@ -36,37 +33,10 @@ class PerkPool implements Rule
                 return false;
             }
 
-            $cost = $perk->cost;
-            $costOffset = $perkData['cost_offset'] ?? 0;
-
-            $cost += $costOffset;
-
-            if ($perk->type->isCombat()) {
-                $combatPerkPoints += $cost;
-
-                if ($perkData['active'] && !$isNative) {
-                    $combatPerks += 1;
-                }
+            if ($perk->type->isCombat() && $perkData['active'] && !$isNative) {
+                $combatPerks += 1;
             } else {
-                $noncombatPerkPoints += $cost;
-
-                if ($perkData['active'] && !$isNative) {
-                    $noncombatPerks += 1;
-                }
-            }
-        }
-
-        if (!$this->edit) {
-            if ($combatPerkPoints > $maxPerks) {
-                $this->message = 'validation.perkpool.not_enough_combat';
-    
-                return false;
-            }
-    
-            if ($noncombatPerkPoints > $maxPerks) {
-                $this->message = 'validation.perkpool.not_enough_noncombat';
-    
-                return false;
+                $noncombatPerks += 1;
             }
         }
 

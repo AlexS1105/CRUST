@@ -30,15 +30,8 @@
         @endif
       @endcan
     </div>
-    <div class="flex p-2 text-center font-bold text-lg border-gray-400 border-l">
-      {{ $perk->cost }}
-
-      @if($perkVariant->pivot->cost_offset)
-        + {{ $perkVariant->pivot->cost_offset }}
-      @endif
-    </div>
   </div>
-  <div class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm  ">
+  <div class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm">
     @if ($perk->type->isCombat())
       <div class="bg-red-100 px-2 rounded-full">
         {{ __('perks.types.combat') }}

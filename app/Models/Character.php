@@ -93,7 +93,6 @@ class Character extends Model
         foreach($this->perkVariants as $variant) {
             $perks[$variant->perk_id] = [
                 'variant' => $variant,
-                'cost_offset' => $variant->pivot->cost_offset,
                 'active' => $variant->id === $perkVariant->id ? !$pivot->active : $variant->pivot->active,
                 'note' => $variant->pivot->note
             ];
@@ -114,7 +113,7 @@ class Character extends Model
         }
 
         $this->perkVariants()->detach($perkVariant->id);
-        $this->perkVariants()->attach($perkVariant, ['active' => !$pivot->active, 'cost_offset' => $pivot->cost_offset, 'note' => $pivot->note]);
+        $this->perkVariants()->attach($perkVariant, ['active' => !$pivot->active, 'note' => $pivot->note]);
 
         info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
             'user' => auth()->user()->login,
@@ -152,7 +151,7 @@ class Character extends Model
 
     public function perkVariants()
     {
-        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('cost_offset', 'note', 'active');
+        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('note', 'active');
     }
 
     public function fates()

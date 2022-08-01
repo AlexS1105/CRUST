@@ -56,7 +56,6 @@ class CharsheetRequest extends FormRequest
                 if ($perkData['id'] != "-1") {
                     $perks[$perkId] = [
                         'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
-                        'cost_offset' => intval($perkData['cost_offset']),
                         'note' => $perkData['note'],
                         'active' => isset($perkData['active']) && $perkData['active'] === 'on'
                     ];

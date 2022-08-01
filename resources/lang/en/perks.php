@@ -13,7 +13,6 @@ return [
     'placeholder' => [
         'name' => 'Perk Name',
         'description' => 'Perk Effect Description',
-        'cost_offset' => 'Cost Offset',
         'note' => 'Note'
     ],
     'variants' => [

@@ -13,7 +13,6 @@ return [
     'placeholder' => [
         'name' => 'Название перка',
         'description' => 'Описание эффекта перка',
-        'cost_offset' => 'Доп. цена',
         'note' => 'Примечание'
     ],
     'variants' => [
