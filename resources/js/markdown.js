@@ -1,7 +1,6 @@
-
-import DOMPurify from 'dompurify';
-import marked from 'marked';
+window.DOMPurify = require('dompurify');
+window.marked = require('marked');
 
 document.querySelectorAll('div.markdown').forEach(function(div) {
-  div.innerHTML = marked(DOMPurify.sanitize(div.innerHTML))
+  div.innerHTML = window.marked.marked(window.DOMPurify.sanitize(div.innerHTML))
 });

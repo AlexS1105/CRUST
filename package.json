@@ -28,7 +28,7 @@
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@tailwindcss/line-clamp": "^0.2.2",
         "@tailwindcss/typography": "^0.4.1",
-        "dompurify": "^2.3.3",
-        "marked": "^4.0.10"
+        "dompurify": "^2.3.10",
+        "marked": "^4.0.18"
     }
 }
