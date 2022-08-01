@@ -77,7 +77,7 @@
             </div>
             <div class="divide-y divide-dashed">
               @if (isset($perk->general_description))
-                <div class="prose markdown p-2 min-w-full">{!! $perk->general_description !!}</div>
+                <div class="prose markdown p-2 min-w-full border-b">{!! $perk->general_description !!}</div>
               @endif
               @foreach ($perk->variants as $perkVariant)
                 <div class="prose markdown p-2 min-w-full {{isset($perk->general_description) ? "bg-gray-50" : ""}}">{!! $perkVariant->description !!}</div>

@@ -57,7 +57,7 @@
             <div class="divide-y divide-dashed">
               @if (isset($perk->general_description))
                 <div class="flex items-center p-2 space-x-2 justify-between">
-                  <div class="prose markdown">{!! $perk->general_description !!}</div>
+                  <div class="prose markdown border-b">{!! $perk->general_description !!}</div>
                 </div>
               @endif
               @foreach ($perk->variants as $perkVariant)

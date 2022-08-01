@@ -36,7 +36,7 @@
       </div>
       
       @if (isset($perk->general_description))
-        <div class="prose markdown p-1 min-w-full">{!! $perk->general_description !!}</div>
+        <div class="prose markdown p-1 min-w-full border-b">{!! $perk->general_description !!}</div>
       @endif
 
       <select
