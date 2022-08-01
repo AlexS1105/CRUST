@@ -35,10 +35,14 @@
         </div>
       </div>
       
+      @if (isset($perk->general_description))
+        <div class="prose markdown p-1 min-w-full">{!! $perk->general_description !!}</div>
+      @endif
+
       <select
         name="perks[{{ $perk->id }}][id]"
         id="perks[{{ $perk->id }}][id]"
-        class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer" onchange="updatePerks();"
+        class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer {{isset($perk->general_description) ? "bg-gray-50" : ""}}" onchange="updatePerks();"
         data-perk-id="{{ $perk->id }}"
         data-combat="{{ $perk->type->isCombat() }}"
         data-attack="{{ $perk->type->hasFlag(App\Enums\PerkType::Attack) }}"

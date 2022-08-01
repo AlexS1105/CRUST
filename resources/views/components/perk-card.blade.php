@@ -64,7 +64,10 @@
       </div>
     @endif
   </div>
-  <div class="prose markdown p-2 min-w-full">{!! $perkVariant->description !!}</div>
+  @if (isset($perk->general_description))
+    <div class="prose markdown p-2 min-w-full">{!! $perk->general_description !!}</div>
+  @endif
+  <div class="prose markdown p-2 min-w-full {{isset($perk->general_description) ? "bg-gray-50" : ""}}">{!! $perkVariant->description !!}</div>
   @if($perkVariant->pivot->note)
     <div class="px-2 py-1 border-t bg-gray-50 italic">
       {{ $perkVariant->pivot->note }}

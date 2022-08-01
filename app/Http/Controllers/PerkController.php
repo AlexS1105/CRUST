@@ -29,6 +29,7 @@ class PerkController extends Controller
 
         $perk = Perk::create([
             'name' => $validated['name'],
+            'general_description' => $validated['general_description'],
             'type' => $validated['type']
         ]);
         

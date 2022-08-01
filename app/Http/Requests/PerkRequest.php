@@ -25,6 +25,7 @@ class PerkRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'max:256', Rule::unique('perks')->ignore($this->name, 'name')],
+            'general_description' => ['max:5096'],
             'combat' => ['present'],
             'attack' => ['present'],
             'defence' => ['present']

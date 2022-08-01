@@ -55,8 +55,13 @@
               @endif
             </div>
             <div class="divide-y divide-dashed">
-              @foreach ($perk->variants as $perkVariant)
+              @if (isset($perk->general_description))
                 <div class="flex items-center p-2 space-x-2 justify-between">
+                  <div class="prose markdown">{!! $perk->general_description !!}</div>
+                </div>
+              @endif
+              @foreach ($perk->variants as $perkVariant)
+                <div class="flex items-center p-2 space-x-2 justify-between {{isset($perk->general_description) ? "bg-gray-50" : ""}}">
                   <div class="prose markdown">{!! $perkVariant->description !!}</div>
                   <div class="flex space-x-2">
                     <a class="fas fa-edit text-xl text-gray-600" href="{{ route('perks.variants.edit', ['variant' => $perkVariant->id, 'perk' => $perk]) }}"></a>
