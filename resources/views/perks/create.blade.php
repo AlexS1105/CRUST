@@ -15,8 +15,8 @@
           {{ old('description') }}
         </x-form.textarea>
         <x-form.checkbox name="combat" value="{{ old('combat', false) }}" />
-        <x-form.checkbox name="native" value="{{ old('native', false) }}" />
-        <x-form.checkbox name="unique" value="{{ old('unique', false) }}" />
+        <x-form.checkbox name="attack" value="{{ old('attack', false) }}" />
+        <x-form.checkbox name="defence" value="{{ old('defence', false) }}" />
 
         <x-button>
           {{ __('ui.submit') }}

@@ -184,7 +184,7 @@
               {{ __('charsheet.perks') }}
             </x-slot>
 
-            <x-character.perks :character="$character" :perks="$perks" :maxPerks="$maxPerks" :maxActivePerks="$maxActivePerks" :edit="false" />
+            <x-character.perks :character="$character" :perks="$perks" :maxActivePerks="$maxActivePerks" :edit="false" />
 
             <x-tip>
               {{ __('tips.character.perks') }}

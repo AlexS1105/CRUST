@@ -15,9 +15,9 @@ class PerkRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'combat' => $this->combat === 'on',
-            'native' => $this->native === 'on',
-            'unique' => $this->unique === 'on'
+            'combat' => $this->combat === 'on' || $this->attack === 'on' || $this->defence === 'on',
+            'attack' => $this->attack === 'on',
+            'defence' => $this->defence === 'on'
         ]);
     }
 
@@ -26,8 +26,8 @@ class PerkRequest extends FormRequest
         $rules = [
             'name' => ['required', 'max:256', Rule::unique('perks')->ignore($this->name, 'name')],
             'combat' => ['present'],
-            'native' => ['present'],
-            'unique' => ['present']
+            'attack' => ['present'],
+            'defence' => ['present']
         ];
 
         if ($this->method() != 'PATCH') {

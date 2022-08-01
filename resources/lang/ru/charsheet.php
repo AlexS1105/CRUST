@@ -22,7 +22,9 @@ return [
         'combat_perks' => 'Очков боевых перков: ',
         'noncombat_perks' => 'Очков небоевых перков: ',
         'fates' => 'Осталось Судеб: ',
-        'active_combat_perks' => 'Слоты активных боевых перков: ',
-        'active_noncombat_perks' => 'Слоты активных небоевых перков: '
+        'active_combat_perks' => 'Боевых перков: ',
+        'active_noncombat_perks' => 'Небоевых перков: ',
+        'combat_perk_attack' => 'Атакующий перк: ',
+        'combat_perk_defence' => 'Защитный перк: '
     ]
 ];

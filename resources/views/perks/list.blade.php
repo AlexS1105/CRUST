@@ -28,8 +28,11 @@
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::None]) }}" class="bg-green-200 px-2 rounded-full {{ isset($perkType) && $perkTypeInstance->value == App\Enums\PerkType::None ? '' : 'opacity-50' }}">
           {{ __('perks.types.noncombat') }}
         </a>
-        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Native]) }}" class="bg-purple-200 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Native) ? '' : 'opacity-50' }}">
-          {{ __('perks.types.native') }}
+        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Attack]) }}" class="bg-orange-200 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Attack) ? '' : 'opacity-50' }}">
+          {{ __('perks.types.attack') }}
+        </a>
+        <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Defence]) }}" class="bg-blue-300 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Defence) ? '' : 'opacity-50' }}">
+          {{ __('perks.types.defence') }}
         </a>
         <a href="{{ route('perks.list') }}" class="bg-gray-200 px-2 rounded-full">
           ✕
@@ -60,15 +63,15 @@
                 </div>
               @endif
 
-              @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
-                <div class="bg-purple-100 px-2 rounded-full">
-                  {{ __('perks.types.native') }}
+              @if ($perk->type->hasFlag(App\Enums\PerkType::Attack))
+                <div class="bg-orange-100 px-2 rounded-full">
+                  {{ __('perks.types.attack') }}
                 </div>
               @endif
 
-              @if ($perk->type->hasFlag(App\Enums\PerkType::Unique))
-                <div class="bg-yellow-100 px-2 rounded-full">
-                  {{ __('perks.types.unique') }}
+              @if ($perk->type->hasFlag(App\Enums\PerkType::Defence))
+                <div class="bg-blue-200 px-2 rounded-full">
+                  {{ __('perks.types.defence') }}
                 </div>
               @endif
             </div>

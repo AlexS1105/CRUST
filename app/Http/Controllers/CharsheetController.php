@@ -21,8 +21,7 @@ class CharsheetController extends Controller
         return view('characters.charsheet', [
             'character' => $character,
             'maxSkills' => app(CharsheetSettings::class)->skill_points,
-            'perks' => Perk::with('variants')->notHasFlag('perks.type', PerkType::Unique)->get(),
-            'maxPerks' => app(CharsheetSettings::class)->perk_points,
+            'perks' => Perk::with('variants')->get(),
             'maxFates' =>  app(CharsheetSettings::class)->max_fates,
             'maxActivePerks' => app(CharsheetSettings::class)->max_active_perks,
         ]);
@@ -79,7 +78,7 @@ class CharsheetController extends Controller
             
             foreach($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'note' => $perkVariant['note']]);
+                $character->perkVariants()->attach($id, ['active' => true, 'note' => $perkVariant['note']]);
             }
 
             info('Character perks updated', [

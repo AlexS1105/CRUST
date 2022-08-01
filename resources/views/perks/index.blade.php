@@ -42,15 +42,15 @@
               </div>
               @endif
 
-              @if ($perk->type->hasFlag(App\Enums\PerkType::Native))
-                <div class="bg-purple-100 px-2 rounded-full">
-                  {{ __('perks.types.native') }}
+              @if ($perk->type->hasFlag(App\Enums\PerkType::Attack))
+                <div class="bg-orange-100 px-2 rounded-full">
+                  {{ __('perks.types.attack') }}
                 </div>
               @endif
 
-              @if ($perk->type->hasFlag(App\Enums\PerkType::Unique))
-                <div class="bg-yellow-100 px-2 rounded-full">
-                  {{ __('perks.types.unique') }}
+              @if ($perk->type->hasFlag(App\Enums\PerkType::Defence))
+                <div class="bg-blue-200 px-2 rounded-full">
+                  {{ __('perks.types.defence') }}
                 </div>
               @endif
             </div>

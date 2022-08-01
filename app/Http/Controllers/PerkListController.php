@@ -10,13 +10,15 @@ class PerkListController extends Controller
     {
         $perkType = request('perk_type');
         $search = request('search');
-        $perks = Perk::with('variants')->where('perks.name', 'like', '%'.$search.'%')->notHasFlag('perks.type', PerkType::Unique);
+        $perks = Perk::with('variants')->where('perks.name', 'like', '%'.$search.'%');
 
         if (isset($perkType)) {
             $perkType = PerkType::fromValue(intval($perkType));
 
             if ($perkType->value == PerkType::None) {
-                $perks->notHasFlag('perks.type', PerkType::Combat);
+                $perks->notHasFlag('perks.type', PerkType::Combat)
+                    ->notHasFlag('perks.type', PerkType::Attack)
+                    ->notHasFlag('perks.type', PerkType::Defence);
             } else {
                 $perks->hasFlag('perks.type', $perkType);
             }

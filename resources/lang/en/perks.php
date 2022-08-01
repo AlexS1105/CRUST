@@ -22,8 +22,8 @@ return [
     'types' => [
         'combat' => 'Combat',
         'noncombat' => 'Non-Combat',
-        'native' => 'Native',
-        'unique' => 'Unique',
+        'attack' => 'Attack',
+        'defence' => 'Defence',
         'inactive' => 'Inactive',
         'active' => 'Active'
     ]

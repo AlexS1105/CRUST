@@ -13,8 +13,8 @@
       <x-form.card>
         <x-form.input name="name" required maxlength="256" placeholder="{{ __('perks.placeholder.name') }}" :value="old('name', $perk->name)"/>
         <x-form.checkbox name="combat" value="{{ old('combat', $perk->type->hasFlag(App\Enums\PerkType::Combat)) }}" />
-        <x-form.checkbox name="native" value="{{ old('native', $perk->type->hasFlag(App\Enums\PerkType::Native)) }}" />
-        <x-form.checkbox name="unique" value="{{ old('unique', $perk->type->hasFlag(App\Enums\PerkType::Unique)) }}" />
+        <x-form.checkbox name="attack" value="{{ old('attack', $perk->type->hasFlag(App\Enums\PerkType::Attack)) }}" />
+        <x-form.checkbox name="defence" value="{{ old('defence', $perk->type->hasFlag(App\Enums\PerkType::Defence)) }}" />
 
         <x-button>
           {{ __('ui.submit') }}

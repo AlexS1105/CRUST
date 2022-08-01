@@ -17,14 +17,14 @@ class PerkSeeder extends Seeder
 
             if (rand(1, 2) === 1) {
                 $perk->type->addFlag(PerkType::Combat);
-            }
 
-            if (rand(1, 3) === 1) {
-                $perk->type->addFlag(PerkType::Unique);
-            }
-
-            if (rand(1, 4) === 1) {
-                $perk->type->addFlag(PerkType::Native);
+                if (rand(1, 3) === 1) {
+                    $perk->type->addFlag(PerkType::Attack);
+                }
+    
+                if (rand(1, 4) === 1) {
+                    $perk->type->addFlag(PerkType::Defence);
+                }
             }
 
             $perk->save();

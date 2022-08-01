@@ -22,19 +22,20 @@ class PerkPool implements Rule
 
         $combatPerks = 0;
         $noncombatPerks = 0;
+        $attackPerks = 0;
+        $defencePerks = 0;
 
         foreach($value as $perkData) {
             $perk = $perkData['variant']->perk;
-            $isNative = $perk->type->hasFlag(PerkType::Native);
 
-            if ($perk->type->hasFlag(PerkType::Unique) && !$this->edit) {
-                $this->message = 'validation.perkpool.unique';
-
-                return false;
-            }
-
-            if ($perk->type->isCombat() && $perkData['active'] && !$isNative) {
+            if ($perk->type->isCombat()) {
                 $combatPerks += 1;
+
+                if ($perk->type->hasFlag(PerkType::Attack)) {
+                    $attackPerks += 1;
+                } elseif ($perk->type->hasFlag(PerkType::Defence)) {
+                    $defencePerks += 1;
+                }
             } else {
                 $noncombatPerks += 1;
             }
@@ -49,6 +50,18 @@ class PerkPool implements Rule
         if ($noncombatPerks > $maxActivePerks) {
             $this->message = 'validation.perkpool.too_much_noncombat';
 
+            return false;
+        }
+
+        if ($attackPerks > 1) {
+            $this->message = 'validation.perkpool.only_one_attack';
+
+            return false;
+        }
+
+        if ($defencePerks > 1) {
+            $this->message = 'validation.perkpool.only_one_defence';
+            
             return false;
         }
         

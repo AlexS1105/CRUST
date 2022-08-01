@@ -1,10 +1,14 @@
 var combatPerks = 0
 var noncombatPerks = 0
+var attackPerks = 0
+var defencePerks = 0
 
 window.updatePerks = function() {
   var perkSelectors = document.querySelectorAll("*[id^='perks'][id$='[id]']");
 
   combatPerks = 0
+  attackPerks = 0
+  defencePerks = 0
   noncombatPerks = 0
 
   for(var i = 0; i < perkSelectors.length; i++) {
@@ -16,16 +20,18 @@ window.updatePerks = function() {
 
     if (index != -1) {
       var isCombat = selector.getAttribute('data-combat')
-      var isNative = selector.getAttribute('data-native')
-      var active = false
+      var isAttack = selector.getAttribute('data-attack')
+      var isDefence = selector.getAttribute('data-defence')
 
-      if (dataFields != null && dataFields.hasChildNodes()) {
-        active = dataFields.children[0].children[0].checked
-      }
-
-      if (isCombat && active && !isNative) {
+      if (isCombat) {
         combatPerks++
-      } else if (active && !isNative) {
+
+        if (isAttack) {
+          attackPerks++
+        } else if (isDefence) {
+          defencePerks++
+        }
+      } else {
         noncombatPerks++
       }
 
@@ -42,7 +48,7 @@ window.updatePerks = function() {
 
 function updateLabels() {
   var combatPerksLabel = document.getElementById('combat_perk_count')
-  combatPerksLabel.innerHTML = maxActivePerks - combatPerks
+  combatPerksLabel.innerHTML = combatPerks
 
   if (combatPerks > maxActivePerks) {
     combatPerksLabel.parentElement.classList.add('text-red-500')
@@ -50,8 +56,26 @@ function updateLabels() {
     combatPerksLabel.parentElement.classList.remove('text-red-500')
   }
 
+  var attackPerkLabel = document.getElementById('combat_perk_attack')
+  attackPerkLabel.innerHTML = attackPerks
+
+  if (attackPerks > 1) {
+    attackPerkLabel.parentElement.classList.add('text-red-500')
+  } else {
+    attackPerkLabel.parentElement.classList.remove('text-red-500')
+  }
+
+  var defencePerkLabel = document.getElementById('combat_perk_defence')
+  defencePerkLabel.innerHTML = defencePerks
+
+  if (defencePerks > 1) {
+    defencePerkLabel.parentElement.classList.add('text-red-500')
+  } else {
+    defencePerkLabel.parentElement.classList.remove('text-red-500')
+  }
+
   var noncombatPerksLabel = document.getElementById('noncombat_perk_count')
-  noncombatPerksLabel.innerHTML = maxActivePerks - noncombatPerks
+  noncombatPerksLabel.innerHTML = noncombatPerks
 
   if (noncombatPerks > maxActivePerks) {
     noncombatPerksLabel.parentElement.classList.add('text-red-500')
@@ -60,6 +84,6 @@ function updateLabels() {
   }
 }
 
-if (typeof(maxPerks) != 'undefined') {
+if (typeof(maxActivePerks) != 'undefined') {
   updatePerks()
 }

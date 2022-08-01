@@ -22,8 +22,8 @@ return [
     'types' => [
         'combat' => 'Боевой',
         'noncombat' => 'Небоевой',
-        'native' => 'Врождённый',
-        'unique' => 'Уникальный',
+        'attack' => 'Атакующий',
+        'defence' => 'Защитный',
         'inactive' => 'Неактивен',
         'active' => 'Активен'
     ]

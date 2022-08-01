@@ -8,8 +8,6 @@ class CharsheetSettings extends Settings
 {
     public int $skill_points;
 
-    public int $perk_points;
-
     public int $max_fates;
 
     public int $max_active_perks;

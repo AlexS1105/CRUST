@@ -7,16 +7,16 @@ use BenSampo\Enum\FlaggedEnum;
 final class PerkType extends FlaggedEnum
 {
     const Combat = 1 << 0;
-    const Native = 1 << 1;
-    const Unique  = 1 << 2;
+    const Attack = 1 << 1;
+    const Defence = 1 << 2;
 
     public function isCombat()
     {
-        return $this->hasFlag(PerkType::Combat);
+        return !$this->isNonCombat();
     }
 
     public function isNonCombat()
     {
-        return $this->notHasFlag(PerkType::Combat);
+        return $this->notHasFlags([PerkType::Combat, PerkType::Attack, PerkType::Defence]);
     }
 }

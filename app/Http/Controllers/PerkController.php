@@ -70,17 +70,17 @@ class PerkController extends Controller
 
         unset($validated['combat']);
 
-        if ($validated['native']) {
-            $validated['type']->addFlag(PerkType::Native);
+        if ($validated['attack']) {
+            $validated['type']->addFlag(PerkType::Attack);
         }
 
-        unset($validated['native']);
+        unset($validated['attack']);
 
-        if ($validated['unique']) {
-            $validated['type']->addFlag(PerkType::Unique);
+        if ($validated['defence']) {
+            $validated['type']->addFlag(PerkType::Defence);
         }
         
-        unset($validated['unique']);
+        unset($validated['defence']);
 
         return $validated;
     }
