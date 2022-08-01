@@ -172,15 +172,15 @@
             @endif
 
             @if(count($character->narrativeCrafts))
-              <div id="accordion-open" data-accordion="open">
+              <div id="narrative-craft-open" data-accordion="open">
               @foreach($character->narrativeCrafts as $craft)
-                <h2 id="accordion-open-heading-{{$loop->iteration}}">
-                  <button type="button" class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 {{$loop->last ? "" : "border-b-0"}}" data-accordion-target="#accordion-open-body-{{$loop->iteration}}" aria-expanded="false" aria-controls="accordion-open-body-{{$loop->iteration}}">
+                <h2 id="narrative-craft-open-heading-{{$loop->iteration}}">
+                  <button type="button" class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 {{$loop->last ? "" : "border-b-0"}}" data-accordion-target="#narrative-craft-open-body-{{$loop->iteration}}" aria-expanded="false" aria-controls="narrative-craft-open-body-{{$loop->iteration}}">
                     <span>{{ $craft->name }}</span>
                     <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                   </button>
                 </h2>
-                <div id="accordion-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="accordion-open-heading-{{$loop->iteration}}">
+                <div id="narrative-craft-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="narrative-craft-open-heading-{{$loop->iteration}}">
                   <div class="p-2 font-light border {{$loop->last ? "border-t-0" : "border-b-0"}} border-gray-200">
                     <p class="mb-2 text-gray-500">{{ $craft->description }}</p>
                   </div>
