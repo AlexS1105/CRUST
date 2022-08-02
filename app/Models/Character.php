@@ -169,6 +169,16 @@ class Character extends Model
         return $this->hasMany(Skin::class);
     }
 
+    public function ideas()
+    {
+        return $this->hasMany(Idea::class);
+    }
+
+    public function spheres()
+    {
+        return $this->hasMany(Sphere::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

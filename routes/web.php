@@ -9,12 +9,14 @@ use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
+use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\SkinController;
+use App\Http\Controllers\SphereController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoxController;
 use App\Http\Controllers\WikiController;
@@ -90,9 +92,7 @@ Route::middleware('auth')->group(function() {
 
         Route::resource('characters', CharacterController::class)
             ->except('index')
-            ->scoped([
-                'character' => 'login'
-            ]);
+            ->scoped(['character' => 'login']);
 
         Route::get('/applications', [ApplicationController::class, 'index'])
             ->middleware('can:viewApplications,App\Models\Character')
@@ -131,10 +131,44 @@ Route::middleware('auth')->group(function() {
             ->middleware('can:reapproval,character');
 
         Route::resource('characters.skins', SkinController::class)
+            ->scoped(['character' => 'login'])
             ->except(['show', 'edit', 'update']);
 
         Route::resource('characters.vox', VoxController::class)
+            ->scoped(['character' => 'login'])
             ->only(['index', 'create', 'store']);
+
+        Route::get('/characters/{character:login}/ideas/{idea}/sphere', [IdeaController::class, 'sphereView'])
+            ->name('characters.ideas.sphereView');
+
+        Route::patch('/characters/{character:login}/ideas/{idea}/sphere', [IdeaController::class, 'sphere'])
+            ->name('characters.ideas.sphere');
+
+        Route::resource('characters.ideas', IdeaController::class)
+            ->scoped(['character' => 'login'])
+            ->except(['show', 'index']);
+
+        Route::get('/characters/{character:login}/spheres/{sphere}/spend', [SphereController::class, 'spendView'])
+            ->name('characters.spheres.spendView');
+
+        Route::patch('/characters/{character:login}/spheres/{sphere}/spend', [SphereController::class, 'spend'])
+            ->name('characters.spheres.spend');
+
+        Route::get('/characters/{character:login}/spheres/{sphere}/add', [SphereController::class, 'addView'])
+            ->name('characters.spheres.addView');
+
+        Route::patch('/characters/{character:login}/spheres/{sphere}/add', [SphereController::class, 'add'])
+            ->name('characters.spheres.add');
+
+        Route::get('/characters/{character:login}/spheres/{sphere}/experience', [SphereController::class, 'experienceView'])
+            ->name('characters.spheres.experienceView');
+
+        Route::patch('/characters/{character:login}/spheres/{sphere}/experience', [SphereController::class, 'experience'])
+            ->name('characters.spheres.experience');
+
+        Route::resource('characters.spheres', SphereController::class)
+            ->scoped(['character' => 'login'])
+            ->except(['show', 'index']);
 
         Route::resource('users', UserController::class)
             ->except(['create', 'store']);

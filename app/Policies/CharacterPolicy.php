@@ -169,4 +169,31 @@ class CharacterPolicy
         return $user->owns($character)
             || $user->hasPermissionTo('character-edit');
     }
+
+    public function addSphere(User $user, Character $character)
+    {
+        return count($character->spheres) < 3
+            && (($user->owns($character) && $character->registered) || $user->hasPermissionTo('character-edit'));
+    }
+
+    public function addIdea(User $user, Character $character)
+    {
+        return count($character->ideas) < 3
+            && (($user->owns($character) && $character->registered) || $user->hasPermissionTo('character-edit'));
+    }
+
+    public function ideaToSphere(User $user, Character $character)
+    {
+        return count($character->spheres) > 0 && $user->hasPermissionTo('character-edit');
+    }
+
+    public function manageIdeas(User $user, Character $character)
+    {
+        return ($user->owns($character) && $character->registered) || $user->hasPermissionTo('character-edit');
+    }
+
+    public function manageIdeasGm(User $user, Character $character)
+    {
+        return $user->hasPermissionTo('character-edit');
+    }
 }

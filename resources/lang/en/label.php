@@ -50,4 +50,6 @@ return [
     'max_active_perks' => 'Max Active Perks',
     'prefix' => 'Prefix',
     'skin' => 'Skin',
+    'sphere' => 'Sphere',
+    'value' => 'Value'
 ];
