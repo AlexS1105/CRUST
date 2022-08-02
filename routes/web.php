@@ -13,6 +13,7 @@ use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
+use App\Http\Controllers\NarrativeCraftController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
@@ -168,6 +169,10 @@ Route::middleware('auth')->group(function() {
             ->name('characters.spheres.experience');
 
         Route::resource('characters.spheres', SphereController::class)
+            ->scoped(['character' => 'login'])
+            ->except(['show', 'index']);
+
+        Route::resource('characters.narrativeCrafts', NarrativeCraftController::class)
             ->scoped(['character' => 'login'])
             ->except(['show', 'index']);
 

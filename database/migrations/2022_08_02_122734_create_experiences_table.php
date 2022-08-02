@@ -15,6 +15,7 @@ class CreateExperiencesTable extends Migration
             $table->text('description')->nullable();
             $table->integer('level')->default(1);
             $table->foreignIdFor(Character::class)->constrained()->onDelete('cascade');
+            $table->boolean('native')->default(false);
             $table->timestamps();
         });
     }
