@@ -201,4 +201,8 @@ class CharacterPolicy
     {
         return count($character->experiences) > 0 && $user->hasPermissionTo('character-edit');
     }
+
+    public function queryCharacters(User $user) {
+        return $user->hasPermissionTo('character-view');
+    }
 }

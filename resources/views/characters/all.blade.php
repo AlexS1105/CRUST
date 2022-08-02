@@ -8,7 +8,7 @@
   <div class="max-w-7xl mx-auto">
     <div class="mt-6 bg-white mx-auto shadow-lg p-4 rounded-xl">
       <x-search-field :search="$search" :route="route('characters.all')"/>
-      <div class="flex space-x-2 mt-2 ml-2 text-sm">
+      <div class="flex space-x-2 mt-2 ml-2 text-sm items-center">
         <div class="text-gray-500">
           {{ __('ui.sort.title') }}:
         </div>
@@ -20,6 +20,18 @@
 
         <a class="text-blue-400" href="{{ route('characters.all', [ 'created_at' => $created_at_order ? 'asc' : 'desc' ]) }}">{{ __('ui.sort.created_at') }} {{ $created_at_order ? '↓' : '↑' }}</a>
         <a class="text-blue-400" href="{{ route('characters.all', [ 'updated_at' => $updated_at_order ? 'asc' : 'desc' ]) }}">{{ __('ui.sort.updated_at') }} {{ $updated_at_order ? '↓' : '↑' }}</a>
+        @can('queryCharacters', App\Models\Character::class)
+          <form method="GET" action="{{ route('characters.all') }}">
+            <select name="perk" id="perk" class="form-select block w-auto mt-1 border-0 rounded-full text-sm p-0 px-2 text-gray-500" onchange="this.form.submit()">
+              @if (!isset($perk))
+                <option>{{ __('ui.sort.perk') }}</option>
+              @endif
+              @foreach ($perks as $perkValue)
+                <option {{ $perk === strval($perkValue->id) ? 'selected' : ''}} value="{{ $perkValue->id }}" >{{ $perkValue->name }}</option>
+              @endforeach
+            </select>
+          </form>
+        @endcan
       </div>
     </div>
 
