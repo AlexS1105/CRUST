@@ -223,7 +223,7 @@
                       </div>
                     @endif
                     <div class="inline-flex flex-wrap" role="group">
-                      @can('updateCharsheet', $character)
+                      @can('update', $character)
                         <form method="GET" action="{{ route('characters.experiences.edit', ['character' => $character, 'experience' => $experience]) }}">
                           @csrf
                           <button type="submit" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
@@ -241,7 +241,7 @@
                           </button>
                         </form>
                       @endcan
-                      @can('updateCharsheet', $character)
+                      @can('update', $character)
                         <form method="POST" action="{{ route('characters.experiences.destroy', ['character' => $character, 'experience' => $experience]) }}">
                           @csrf
                           @method('DELETE')
