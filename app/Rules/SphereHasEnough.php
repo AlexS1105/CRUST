@@ -20,6 +20,6 @@ class SphereHasEnough implements Rule
 
     public function message()
     {
-        return __('validation.sphere_not_enough');
+        return __('validation.sphere.not_enough');
     }
 }

@@ -20,6 +20,6 @@ class IdeaToSphere implements Rule
 
     public function message()
     {
-        return __('validation.sphere_not_belongs');
+        return __('validation.sphere.not_belongs');
     }
 }
