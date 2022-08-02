@@ -196,4 +196,9 @@ class CharacterPolicy
     {
         return $user->hasPermissionTo('character-edit');
     }
+
+    public function sphereToExperience(User $user, Character $character)
+    {
+        return count($character->experiences) > 0 && $user->hasPermissionTo('character-edit');
+    }
 }

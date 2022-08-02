@@ -7,6 +7,7 @@ use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\IdeaController;
@@ -167,6 +168,16 @@ Route::middleware('auth')->group(function() {
             ->name('characters.spheres.experience');
 
         Route::resource('characters.spheres', SphereController::class)
+            ->scoped(['character' => 'login'])
+            ->except(['show', 'index']);
+
+        Route::get('/characters/{character:login}/experiences/{experience}/set', [ExperienceController::class, 'setView'])
+            ->name('characters.experiences.setView');
+
+        Route::patch('/characters/{character:login}/experiences/{experience}/set', [ExperienceController::class, 'set'])
+            ->name('characters.experiences.set');
+
+        Route::resource('characters.experiences', ExperienceController::class)
             ->scoped(['character' => 'login'])
             ->except(['show', 'index']);
 

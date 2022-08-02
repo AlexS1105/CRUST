@@ -139,7 +139,7 @@
           </div>
         @endif
 
-        @if ($character->charsheet->hasAnyCrafts() || count($character->narrativeCrafts))
+        @if ($character->charsheet->hasAnyCrafts())
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
             <h1 class="font-bold text-xl mb-2">
               {{ __('charsheet.crafts') }}
@@ -151,7 +151,7 @@
                   @php
                     $enum = App\Enums\CharacterCraft::fromKey(ucfirst($craft));
                   @endphp
-                  @if($value > 0)
+                  @if($value)
                     <div class="text-lg font-semibold text-right">
                       {{ __('craft.'.$craft) }}
                     </div>
@@ -166,28 +166,6 @@
                 @endforeach
               </div>
             @endif
-
-            @if ($character->charsheet->hasAnyCrafts() && count($character->narrativeCrafts))
-              <hr class="my-4">
-            @endif
-
-            @if(count($character->narrativeCrafts))
-              <div id="narrative-craft-open" data-accordion="open">
-              @foreach($character->narrativeCrafts as $craft)
-                <h2 class="mt-2" id="narrative-craft-open-heading-{{$loop->iteration}}">
-                  <button type="button" class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#narrative-craft-open-body-{{$loop->iteration}}" aria-expanded="false" aria-controls="narrative-craft-open-body-{{$loop->iteration}}">
-                    <span>{{ $craft->name }}</span>
-                    <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                  </button>
-                </h2>
-                <div id="narrative-craft-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="narrative-craft-open-heading-{{$loop->iteration}}">
-                  <div class="p-2 font-light border border-t-0 border-gray-200">
-                    <p class="mb-2 text-gray-500">{{ $craft->description }}</p>
-                  </div>
-                </div>
-              @endforeach
-              </div>
-            @endif
           </div>
         @endif
       </div>
@@ -195,8 +173,115 @@
 
     @can('seePlayerOnlyInfo', $character)
       @php
-        $spheresVisible = Auth::user()->can('addSphere', $character) || count($character->spheres) > 0;
-        $ideasVisible = Auth::user()->can('addIdea', $character) || count($character->ideas) > 0;
+        $narrativeCraftsVisible = count($character->narrativeCrafts);
+        $experiencesVisible = Auth::user()->can('updateCharsheetGm', $character) || count($character->experiences);
+      @endphp
+      @if ($narrativeCraftsVisible || $experiencesVisible)
+        <div class="flex justify-center gap-8">
+          <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
+            @if($narrativeCraftsVisible)
+              <h1 class="font-bold text-xl mb-2">
+                {{ __('charsheet.narrative_crafts.title') }}
+              </h1>
+              <div id="narrative-craft-open" data-accordion="open">
+                @foreach($character->narrativeCrafts as $craft)
+                  <h2 class="mt-2" id="narrative-craft-open-heading-{{$loop->iteration}}">
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#narrative-craft-open-body-{{$loop->iteration}}" aria-expanded="false" aria-controls="narrative-craft-open-body-{{$loop->iteration}}">
+                      <span>{{ $craft->name }}</span>
+                      <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                  </h2>
+                  <div id="narrative-craft-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="narrative-craft-open-heading-{{$loop->iteration}}">
+                    <div class="p-2 font-light border border-t-0 border-gray-200">
+                      <p class="mb-2 text-gray-500">{{ $craft->description }}</p>
+                    </div>
+                  </div>
+                @endforeach
+              </div>
+            @endif
+
+            @if ($narrativeCraftsVisible && $experiencesVisible)
+              <hr class="my-4">
+            @endif
+
+            @if ($experiencesVisible)
+              <h1 class="font-bold text-xl mb-2">
+                {{ __('experiences.index') }}
+              </h1>
+              <div id="experience-open" data-accordion="open">
+                @foreach($character->experiences as $experience)
+                  <h2 class="mt-2" id="experiences-open-heading-{{$loop->iteration}}">
+                    <button type="button" class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#experience-open-body-{{$loop->iteration}}" aria-expanded="false" aria-controls="experience-open-body-{{$loop->iteration}}">
+                      <span>{{ $experience->name }} ({{ $experience->level }})</span>
+                      <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                  </h2>
+                  <div id="experience-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="experience-open-heading-{{$loop->iteration}}">
+                    @if (isset($experience->description))
+                      <div class="p-2 font-light border border-t-0 border-gray-200">
+                        <p class="mb-2 text-gray-500">{{ $experience->description }}</p>
+                      </div>
+                    @endif
+                    <div class="inline-flex flex-wrap" role="group">
+                      @can('updateCharsheet', $character)
+                        <form method="GET" action="{{ route('characters.experiences.edit', ['character' => $character, 'experience' => $experience]) }}">
+                          @csrf
+                          <button type="submit" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            {{ __('experiences.edit') }}
+                          </button>
+                        </form>
+                      @endcan
+                      @can('updateCharsheetGm', $character)
+                        <form method="GET" action="{{ route('characters.experiences.setView', ['character' => $character, 'experience' => $experience]) }}">
+                          @csrf
+                          <button type="submit" class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            {{ __('experiences.set') }}
+                          </button>
+                        </form>
+                      @endcan
+                      @can('updateCharsheet', $character)
+                        <form method="POST" action="{{ route('characters.experiences.destroy', ['character' => $character, 'experience' => $experience]) }}">
+                          @csrf
+                          @method('DELETE')
+                          <button
+                            type="submit"
+                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100"
+                            onclick="if (!confirm('{{ __('ui.confirm', ['tip' => '']) }}')) {
+                              event.preventDefault();
+                            }"
+                          >
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            {{ __('experiences.delete') }}
+                          </button>
+                        </form>
+                      @endcan
+                    </div>
+                  </div>
+                @endforeach
+                @can('updateCharsheetGm', $character)
+                  <form method="GET" action="{{ route('characters.experiences.create', ['character' => $character]) }}">
+                    @csrf
+                    <button type="submit" class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                      {{ __('experiences.create') }}
+                    </button>
+                  </form>
+                @endcan
+              </div>
+            @endif
+
+            <x-form.error name="ideas" />
+          </div>
+        </div>
+      @endif
+    @endcan
+
+    @can('seePlayerOnlyInfo', $character)
+      @php
+        $spheresVisible = Auth::user()->can('addSphere', $character) || count($character->spheres);
+        $ideasVisible = Auth::user()->can('addIdea', $character) || count($character->ideas);
       @endphp
       @if ($spheresVisible || $ideasVisible)
         <div class="flex justify-center gap-8">

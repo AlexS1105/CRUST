@@ -179,6 +179,11 @@ class Character extends Model
         return $this->hasMany(Sphere::class);
     }
 
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
