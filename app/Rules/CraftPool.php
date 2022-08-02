@@ -22,41 +22,34 @@ class CraftPool implements Rule
         $skills = $this->skills;
         $magicMax = $skills['magic'];
         $techMax = $skills['tech'];
+        $ingenuityPoints = $skills['ingenuity'];
         $magicPoints = 0;
         $techPoints = 0;
         $generalPoints = 0;
-        $maxTiers = [
+        $tiers = [
             'magic' => 0,
             'tech' => 0,
             'general' => 0
         ];
 
-        $freeTiers = 0;
-
         foreach($crafts as $craft => $value) {
             $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
 
-            if ($value === 3) {
-                $maxTiers[$type] += 1;
+            if ($value > 0) {
+                $tiers[$type] += 1;
             }
         }
 
-        if (array_sum($maxTiers) > 1) {
-            $this->message = 'validation.craftpool.maxtiers';
-            return false;
+        foreach($tiers as $value) {
+            if ($value > 2) {
+                $this->message = 'validation.craftpool.maxtiers';
+                return false;
+            }
         }
 
         foreach($crafts as $craft => $value) {
             $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
-            $cost = 0;
-
-            if (($maxTiers[$type] > 0 || $type == 'general' && ($maxTiers['magic'] > 0 || $maxTiers['tech'] > 0)) && $freeTiers == 0 && $value == 1) {
-                $freeTiers += 1;
-            } else {
-                for ($i=1; $i <= $value; $i++) { 
-                    $cost += $i;
-                }
-            }
+            $cost = $value;
 
             ${$type."Points"} += $cost;
         }
@@ -71,14 +64,14 @@ class CraftPool implements Rule
             return false;
         }
 
-        $freeGeneralPoints = ($techMax - $techPoints + $magicMax - $magicPoints) - $generalPoints;
+        $freeGeneralPoints = $techMax - $techPoints + $magicMax - $magicPoints - $generalPoints + $ingenuityPoints;
 
         if ($freeGeneralPoints < 0) {
             $this->message = 'validation.craftpool.general';
             return false;
         }
 
-        if (count($this->narrative_crafts) > floor(($magicMax + $techMax) / 2) + $freeGeneralPoints) {
+        if (count($this->narrative_crafts) > floor(($magicMax + $techMax + $ingenuityPoints) / 2) + $freeGeneralPoints) {
             $this->message = 'validation.craftpool.narrative_crafts';
             return false;
         }

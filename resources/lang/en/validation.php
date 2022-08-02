@@ -128,7 +128,7 @@ return [
     'discordtag' => 'The :attribute must be valid discord tag.',
     'skillpool' => 'The allowed amount of skill levels has been exceeded.',
     'craftpool' => [
-        'maxtiers' => 'Character can only have one 3 tier craft.',
+        'maxtiers' => 'Character can only have 2 crafts per category.',
         'magic' => 'Not enough magic skill points.',
         'tech' => 'Not enough tech skill points.',
         'general' => 'Not enough magic / tech skill points.',

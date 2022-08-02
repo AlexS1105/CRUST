@@ -1,9 +1,12 @@
 var maxMagic = 0
 var maxTech = 0
 var maxGeneral = 0
+var ingenuityPoints = 0
 
 var magicPoints = 0
 var techPoints = 0
+
+var tiers = []
 
 var maxNarrativeCrafts = 0
 var narrativeCrafts = []
@@ -129,6 +132,8 @@ function updateSkills() {
             maxMagic = value
         } else if(skill == 'tech') {
             maxTech = value
+        } else if(skill == 'ingenuity') {
+            ingenuityPoints = value
         }
     }
 
@@ -152,12 +157,9 @@ function updateCrafts() {
     var techSum = 0
     var generalSum = 0
 
-    var maxTiers = []
-    maxTiers['magic'] = 0
-    maxTiers['tech'] = 0
-    maxTiers['general'] = 0
-
-    var freeTiers = 0
+    tiers['magic'] = 0
+    tiers['tech'] = 0
+    tiers['general'] = 0
 
     for(var i = 0; i < craftSliders.length; i++) {
         var slider = craftSliders[i]
@@ -165,8 +167,8 @@ function updateCrafts() {
         var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
 
-        if(value == 3) {
-            maxTiers[type]++
+        if(value > 0) {
+            tiers[type]++
         }
     }
 
@@ -175,15 +177,7 @@ function updateCrafts() {
         var craft = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
         var type = magicCrafts.includes(craft) ? 'magic' : techCrafts.includes(craft) ? 'tech' : 'general'
-        var cost = 0
-
-        if((maxTiers[type] > 0 || type == 'general' && (maxTiers['magic'] > 0 || maxTiers['tech'] > 0)) && freeTiers == 0 && value == 1) {
-            freeTiers++
-        } else {
-            for(var k = 1; k <= value; k++) {
-                cost += k
-            }
-        }
+        var cost = value
 
         if(type == 'magic') {
             magicSum += cost
@@ -205,7 +199,7 @@ function updateCrafts() {
 }
 
 function calculateGeneralCost(magicSum, techSum, generalSum) {
-    var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor((maxMagic + maxTech) / 2))
+    var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor((maxMagic + maxTech + ingenuityPoints) / 2)) - ingenuityPoints
 
     while(toSpent > 0) {
         var magicPoints = maxMagic - magicSum
@@ -238,7 +232,7 @@ function updateMagicPoints(value) {
 
     var parent = magicSumLabel.parentElement
 
-    if(magicPoints > maxMagic) {
+    if(magicPoints > maxMagic || tiers['magic'] > 2) {
         parent.classList.add('text-red-600')
     } else {
         parent.classList.remove('text-red-600')
@@ -266,7 +260,7 @@ function updateTechPoints(value) {
 }
 
 function updateGeneralPoints() {
-    maxGeneral = maxMagic - magicPoints + maxTech - techPoints
+    maxGeneral = maxMagic - magicPoints + maxTech - techPoints + ingenuityPoints
 
     var generalMaxLabel = document.getElementById('general_points_max')
     generalMaxLabel.innerHTML = maxGeneral
