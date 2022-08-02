@@ -18,8 +18,6 @@ class Fates implements Rule
     public function passes($attribute, $fates)
     {
         $dualFates = 0;
-        $ambitions = 0;
-        $flaws = 0;
 
         foreach($fates as $fate) {
             if ($fate['type'] === null) {
@@ -28,30 +26,6 @@ class Fates implements Rule
 
             if ($fate['type']->isDual()) {
                 $dualFates += 1;
-            } elseif ($fate['type']->hasFlag(FateType::Ambition)) {
-                $ambitions += 1;
-            } elseif ($fate['type']->hasFlag(FateType::Flaw)) {
-                $flaws += 1;
-            }
-        }
-
-        if (!$this->edit) {
-            if ($dualFates == 1 && ($ambitions > 0 || $flaws > 0)) {
-                $this->message = 'validation.fates.dual_only';
-    
-                return false;
-            }
-
-            if ($ambitions > 1) {
-                $this->message = 'validation.fates.one_ambition';
-    
-                return false;
-            }
-    
-            if ($flaws > 1) {
-                $this->message = 'validation.fates.one_flaw';
-    
-                return false;
             }
         }
 
