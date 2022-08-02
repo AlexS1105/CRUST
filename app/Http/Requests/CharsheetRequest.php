@@ -104,8 +104,8 @@ class CharsheetRequest extends FormRequest
             'skills.*' => ['numeric', 'min:0', 'max:10'],
             'crafts' => [new CraftPool($this->skills, $this->narrative_crafts)],
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
-            'narrative_crafts.*.name' => ['required'],
-            'narrative_crafts.*.description' => ['required']
+            'narrative_crafts.*.name' => ['required', 'max:256'],
+            'narrative_crafts.*.description' => ['required', 'max:1024']
         ];
 
         $character = $this->route('character');
