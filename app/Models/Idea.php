@@ -15,9 +15,4 @@ class Idea extends Model
     {
         return $this->belongsTo(Character::class);
     }
-
-    public function sphere()
-    {
-        return $this->belongsTo(Sphere::class);
-    }
 }

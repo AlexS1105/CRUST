@@ -11,8 +11,8 @@ class CreateSpheresTable extends Migration
     {
         Schema::create('spheres', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('name');
+            $table->text('description')->nullable();
             $table->integer('value')->default(0);
             $table->foreignIdFor(Character::class)->constrained()->onDelete('cascade');
             $table->timestamps();
