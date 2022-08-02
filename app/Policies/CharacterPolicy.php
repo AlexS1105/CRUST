@@ -179,7 +179,7 @@ class CharacterPolicy
     public function addIdea(User $user, Character $character)
     {
         return count($character->ideas) < 3
-            && (($user->owns($character) && $character->registered) || $user->hasPermissionTo('character-edit'));
+            && (($user->owns($character) && $character->registered && $character->hasFreeIdea()) || $user->hasPermissionTo('character-edit'));
     }
 
     public function ideaToSphere(User $user, Character $character)

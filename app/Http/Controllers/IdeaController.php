@@ -23,6 +23,12 @@ class IdeaController extends Controller
         $this->authorize('addIdea', $character);
         $validated = $request->validated();
         $character->ideas()->create($validated);
+        $user = $request->user();
+
+        if (isset($user) && !$user->can('manageIdeasGm', $character)) {
+            $character->last_idea = now();
+            $character->save();
+        }
 
         return redirect()->route('characters.show', $character);
     }

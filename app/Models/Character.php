@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
 use App\Rules\PerkPool;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
@@ -122,6 +123,11 @@ class Character extends Model
         ]);
 
         return back();
+    }
+
+    public function hasFreeIdea()
+    {
+        return !isset($this->last_idea) || Carbon::now()->startOfWeek()->greaterThan(Carbon::createFromTimeString($this->last_idea));
     }
 
     public function user()
