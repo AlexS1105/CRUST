@@ -10,7 +10,7 @@ return [
     'crafts' => 'Ремесла',
     'crafts_general' => 'Общие',
     'narrative_crafts' => [
-        'title' => 'Нарративные ремесла',
+        'title' => 'Умения',
         'name' => 'Название',
         'description' => 'Описание'
     ],
@@ -18,7 +18,7 @@ return [
     'fates' => 'Судьбы',
     'points' => [
         'skills' => 'Доступно очков: ',
-        'narrative_crafts' => 'Доступно бесплатных ремесел: ',
+        'narrative_crafts' => 'Бесплатных умений: ',
         'combat_perks' => 'Очков боевых перков: ',
         'noncombat_perks' => 'Очков небоевых перков: ',
         'fates' => 'Осталось Судеб: ',
