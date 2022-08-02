@@ -14,11 +14,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Sortable, HasRoles, CanResetPassword;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
         'login',
         'discord_tag',
@@ -28,11 +23,6 @@ class User extends Authenticatable
         'discord_notify'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -51,6 +41,11 @@ class User extends Authenticatable
     ];
 
     protected $with = ['ban'];
+
+    public function owns(Character $character)
+    {
+        return $this->id === $character->user->id;
+    }
 
     public function characters()
     {

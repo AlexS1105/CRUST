@@ -22,20 +22,20 @@ class CharacterPolicy
 
     public function view(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $character->status == CharacterStatus::Approved()
             || $user->hasPermissionTo('character-view');
     }
 
     public function update(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-edit');
     }
 
     public function updateCharsheet(User $user, Character $character)
     {
-        return (!$character->registered && $character->user_id === $user->id)
+        return (!$character->registered && $user->owns($character))
             || $user->hasPermissionTo('character-edit');
     }
 
@@ -46,7 +46,7 @@ class CharacterPolicy
 
     public function delete(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-delete');
     }
 
@@ -57,7 +57,7 @@ class CharacterPolicy
 
     public function restore(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-restore');
     }
 
@@ -68,13 +68,13 @@ class CharacterPolicy
 
     public function send(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             && $character->status == CharacterStatus::Blank();
     }
 
     public function cancel(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             && $character->status == CharacterStatus::Pending();
     }
 
@@ -102,7 +102,7 @@ class CharacterPolicy
 
     public function requestApproval(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             && $character->status == CharacterStatus::ChangesRequested()
             || $user->hasPermissionTo('application-request-approval');
     }
@@ -116,7 +116,7 @@ class CharacterPolicy
 
     public function reapproval(User $user, Character $character)
     {
-        return ($character->user_id === $user->id
+        return ($user->owns($character)
             || $user->hasPermissionTo('application-reapproval'))
             && $character->status == CharacterStatus::Approved();
     }
@@ -124,7 +124,7 @@ class CharacterPolicy
     public function seeMainInfo(User $user, Character $character)
     {
         return $character->info_hidden
-            && ($character->user_id === $user->id
+            && ($user->owns($character)
             || $user->hasPermissionTo('character-view'))
             || !$character->info_hidden;
     }
@@ -137,14 +137,14 @@ class CharacterPolicy
     public function seeBio(User $user, Character $character)
     {
         return $character->bio_hidden
-            && ($character->user_id === $user->id
+            && ($user->owns($character)
             || $user->hasPermissionTo('character-view'))
             || !$character->bio_hidden;
     }
 
     public function seePlayerOnlyInfo(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-view');
     }
 
@@ -155,7 +155,7 @@ class CharacterPolicy
 
     public function voxView(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-view');
     }
 
@@ -166,7 +166,7 @@ class CharacterPolicy
 
     public function togglePerks(User $user, Character $character)
     {
-        return $character->user_id === $user->id
+        return $user->owns($character)
             || $user->hasPermissionTo('character-edit');
     }
 }
