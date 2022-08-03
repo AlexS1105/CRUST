@@ -12,7 +12,7 @@
 
       <x-form.card>
         <x-form.input name="name" required maxlength="256" placeholder="{{ __('perks.placeholder.name') }}" :value="old('name', $perk->name)"/>
-          <x-form.textarea name="general_description" maxlength="5096" required onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
+          <x-form.textarea name="general_description" maxlength="5096" onfocus="preview(this)" placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
             {{ old('general_description') }}
           </x-form.textarea>
         <x-form.checkbox name="combat" value="{{ old('combat', $perk->type->hasFlag(App\Enums\PerkType::Combat)) }}" />
