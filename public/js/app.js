@@ -4193,6 +4193,7 @@ var maxGeneral = 0;
 var ingenuityPoints = 0;
 var magicPoints = 0;
 var techPoints = 0;
+var generalPoints = 0;
 var tiers = [];
 var maxNarrativeCrafts = 0;
 var narrativeCrafts = [];
@@ -4376,18 +4377,22 @@ function updateCrafts() {
 function calculateGeneralCost(magicSum, techSum, generalSum) {
   var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor((maxMagic + maxTech + ingenuityPoints) / 2)) - ingenuityPoints;
 
-  while (toSpent > 0) {
-    var magicPoints = maxMagic - magicSum;
-    var techPoints = maxTech - techSum;
+  if (toSpent <= 0) {
+    generalPoints = -toSpent;
+  } else {
+    while (toSpent > 0) {
+      var magicPoints = maxMagic - magicSum;
+      var techPoints = maxTech - techSum;
 
-    if (magicPoints > 0 && (magicPoints < techPoints || techPoints <= 0)) {
-      var cost = magicPoints > 0 ? Math.min(magicPoints, toSpent) : toSpent;
-      magicSum += cost;
-      toSpent -= cost;
-    } else {
-      var cost = techPoints > 0 ? Math.min(techPoints, toSpent) : toSpent;
-      techSum += cost;
-      toSpent -= cost;
+      if (magicPoints > 0 && (magicPoints < techPoints || techPoints <= 0)) {
+        var cost = magicPoints > 0 ? Math.min(magicPoints, toSpent) : toSpent;
+        magicSum += cost;
+        toSpent -= cost;
+      } else {
+        var cost = techPoints > 0 ? Math.min(techPoints, toSpent) : toSpent;
+        techSum += cost;
+        toSpent -= cost;
+      }
     }
   }
 
@@ -4425,7 +4430,7 @@ function updateTechPoints(value) {
   techSumLabel.innerHTML = maxTech - techPoints;
   var parent = techSumLabel.parentElement.parentElement;
 
-  if (techPoints > maxTech) {
+  if (techPoints > maxTech || tiers['tech'] > 2) {
     parent.classList.add('text-red-600');
   } else {
     parent.classList.remove('text-red-600');
@@ -4433,12 +4438,12 @@ function updateTechPoints(value) {
 }
 
 function updateGeneralPoints() {
-  maxGeneral = maxMagic - magicPoints + maxTech - techPoints + ingenuityPoints;
+  maxGeneral = maxMagic - magicPoints + maxTech - techPoints + generalPoints;
   var generalMaxLabel = document.getElementById('general_points_max');
   generalMaxLabel.innerHTML = maxGeneral;
   var parent = generalMaxLabel.parentElement.parentElement;
 
-  if (maxGeneral < 0) {
+  if (maxGeneral < 0 || tiers['general'] > 2) {
     parent.classList.add('text-red-600');
   } else {
     parent.classList.remove('text-red-600');
