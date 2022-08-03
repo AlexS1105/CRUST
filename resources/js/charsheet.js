@@ -33,7 +33,7 @@ function updateNarrativeCrafts() {
 }
 
 function updateMaxNarrativeCrafts() {
-    maxNarrativeCrafts = Math.floor((maxMagic + maxTech) / 2)
+    maxNarrativeCrafts = Math.floor(maxMagic / 2) + Math.floor(maxTech / 2) + Math.floor(ingenuityPoints / 2)
 
     var maxNarrativeCraftsLabel = document.getElementById('narrative_crafts_max')
     maxNarrativeCraftsLabel.innerHTML = Math.max(0, maxNarrativeCrafts - narrativeCrafts.length)
@@ -200,7 +200,7 @@ function updateCrafts() {
 }
 
 function calculateGeneralCost(magicSum, techSum, generalSum) {
-    var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor((maxMagic + maxTech + ingenuityPoints) / 2)) - ingenuityPoints
+    var toSpent = generalSum + Math.max(0, narrativeCrafts.length - Math.floor(maxMagic / 2) - Math.floor(maxTech / 2) - Math.floor(ingenuityPoints / 2)) - ingenuityPoints
 
     if (toSpent <= 0) {
         generalPoints = -toSpent;

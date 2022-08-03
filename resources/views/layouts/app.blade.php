@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css?v=1') }}">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js?v=2') }}" defer></script>
+    <script src="{{ asset('js/app.js?v=3') }}" defer></script>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   </head>
   <body class="font-sans antialiased bg-gray-100">
