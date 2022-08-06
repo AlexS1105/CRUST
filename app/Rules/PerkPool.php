@@ -65,6 +65,18 @@ class PerkPool implements Rule
             return false;
         }
         
+        if ($attackPerks == 0) {
+            $this->message = 'validation.perkpool.one_attack';
+
+            return false;
+        }
+
+        if ($defencePerks == 0) {
+            $this->message = 'validation.perkpool.one_defence';
+            
+            return false;
+        }
+
         return true;
     }
 
