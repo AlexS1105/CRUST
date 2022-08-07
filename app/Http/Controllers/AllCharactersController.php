@@ -11,8 +11,8 @@ class AllCharactersController extends Controller
     public function __invoke()
     {
         $search = request('search');
-        $created_at = request('created_at', 'asc');
-        $updated_at = request('updated_at');
+        $created_at = request('created_at');
+        $updated_at = request('updated_at', 'asc');
         $perk = request('perk');
         $characters = Character::where('characters.name', 'like', '%'.$search.'%')
             ->where('characters.status', CharacterStatus::Approved);
