@@ -90,7 +90,7 @@ class DiscordService
         ])->delete(config('services.discord.tickets.api_url').'/ticket', [
             'ticket_id' => $character->ticket->id,
             'category_id' => config('services.discord.tickets.category_id'),
-            'registrar_id' => $character->registrar->discord_id
+            'user_id' =>  $character->user->discord_id
         ]);
         $response->throw();
 
