@@ -75,7 +75,7 @@ class IdeaController extends Controller
             'sphere' => ['required', 'exists:spheres,id', new IdeaToSphere($character)]
         ]);
 
-        $sphere = $character->spheres->get($validated['sphere']);
+        $sphere = $character->spheres->find($validated['sphere']);
         $sphere->value += 1;
         $sphere->save();
 
