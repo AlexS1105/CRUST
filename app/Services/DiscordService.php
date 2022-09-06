@@ -88,9 +88,7 @@ class DiscordService
         $response = Http::withHeaders([
             'Authenticate' => config('services.discord.token')
         ])->delete(config('services.discord.tickets.api_url').'/ticket', [
-            'ticket_id' => $character->ticket->id,
-            'category_id' => config('services.discord.tickets.category_id'),
-            'user_id' =>  $character->user->discord_id
+            'ticket_id' => strval($character->ticket->id)
         ]);
         $response->throw();
 
