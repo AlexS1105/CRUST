@@ -50,7 +50,6 @@ function addFateCard(fate) {
 
     var textField = document.createElement('textarea')
     textField.className = 'border border-gray-200 p-2 w-full rounded'
-    textField.type = 'text'
     textField.value = fate && fate['text'] || ''
     textField.placeholder = fateText
     textField.required
@@ -59,7 +58,7 @@ function addFateCard(fate) {
 
     var flagsDiv = document.createElement('div')
     flagsDiv.className = 'flex space-x-2 items-center'
-    
+
     var checkboxAmbition = document.createElement('input')
     checkboxAmbition.type = 'checkbox'
     checkboxAmbition.checked = fate && fate['ambition'] == 'on' || null
@@ -111,7 +110,7 @@ function addFateCard(fate) {
     }
 
     flagsDiv.append(deleteButton)
-    
+
     card.append(textField)
     card.append(flagsDiv)
     list.append(card)

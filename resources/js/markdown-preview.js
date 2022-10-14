@@ -27,7 +27,7 @@ window.preview = function(element) {
 }
 
 function update(event) {
-  event.target.previewWindow.text.innerHTML = marked.prase(DOMPurify.sanitize(event.target.value));
+  event.target.previewWindow.text.innerHTML = marked.parse(DOMPurify.sanitize(event.target.value));
 }
 
 function hidePreview(element) {
