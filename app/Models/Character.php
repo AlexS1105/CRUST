@@ -8,6 +8,7 @@ use App\Rules\PerkPool;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
@@ -32,34 +33,6 @@ class Character extends Model
         'info_hidden' => 'boolean',
         'bio_hidden' => 'boolean',
     ];
-
-    public function setStatus(CharacterStatus $status)
-    {
-        $this->status = $status;
-        $this->status_updated_at = now();
-
-        if (! $this->registered && $status->value === CharacterStatus::Approved) {
-            $this->registered = true;
-        }
-
-        $this->save();
-    }
-
-    public function takeForApproval()
-    {
-        $this->status = CharacterStatus::Approval;
-        $this->status_updated_at = now();
-        $this->registrar_id = auth()->id();
-        $this->save();
-    }
-
-    public function cancelApproval()
-    {
-        $this->status = CharacterStatus::Pending;
-        $this->status_updated_at = now();
-        $this->registrar_id = null;
-        $this->save();
-    }
 
     public function giveVox($amount, $reason)
     {
@@ -207,6 +180,22 @@ class Character extends Model
         $query->whereHas('perkVariants', function ($query) use ($perkId) {
             $query->where('perk_id', $perkId);
         });
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        $query->where('status', $status);
+    }
+
+    public function status(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                $this->status_updated_at = now();
+
+                return $value;
+            }
+        );
     }
 
     protected static function boot()

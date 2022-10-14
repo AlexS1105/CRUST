@@ -30,7 +30,7 @@ class CharacterController extends Controller
         $this->authorize('view-any', Character::class);
 
         $characters = Character::filter($request)
-            ->where('status', CharacterStatus::Approved)
+            ->status(CharacterStatus::Approved)
             ->sortable()
             ->paginate(48);
         $search = request('search');
