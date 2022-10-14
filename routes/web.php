@@ -52,7 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [CharacterController::class, 'index'])
             ->name('characters.index');
 
-        Route::get('/characters', AllCharactersController::class)->name('characters.all');
+        Route::get('/characters', [CharacterController::class, 'all'])
+            ->name('characters.all');
 
         Route::get('/wikiauth', WikiController::class)->name('wiki.index');
 

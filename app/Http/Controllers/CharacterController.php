@@ -7,6 +7,8 @@ use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterDeleted;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
+use App\Models\Perk;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
@@ -21,6 +23,21 @@ class CharacterController extends Controller
         return view('characters.index', [
             'characters' => auth()->user()->characters,
         ]);
+    }
+
+    public function all(Request $request)
+    {
+        $this->authorize('view-any', Character::class);
+
+        $characters = Character::filter($request)
+            ->where('status', CharacterStatus::Approved)
+            ->sortable()
+            ->paginate(48);
+        $search = request('search');
+        $perks = Perk::all();
+        $perk = request('perk');
+
+        return view('characters.all', compact('characters', 'search', 'perks', 'perk'));
     }
 
     public function create()

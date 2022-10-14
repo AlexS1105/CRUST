@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CharacterGender;
 use App\Enums\CharacterStatus;
 use App\Rules\PerkPool;
+use App\Traits\Searchable;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Kyslik\ColumnSortable\Sortable;
 
 class Character extends Model
 {
-    use HasFactory, HybridRelations, Sortable;
+    use HasFactory, HybridRelations, Sortable, Searchable;
 
     public $sortable = [
         'name',
@@ -190,6 +191,22 @@ class Character extends Model
     public function experiences()
     {
         return $this->hasMany(Experience::class);
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        $query->search($request->search);
+
+        if ($request->has('perk')) {
+            $query->hasPerk($request->perk);
+        }
+    }
+
+    public function scopeHasPerk($query, $perkId)
+    {
+        $query->whereHas('perkVariants', function ($query) use ($perkId) {
+            $query->where('perk_id', $perkId);
+        });
     }
 
     protected static function boot()
