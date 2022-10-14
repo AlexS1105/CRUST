@@ -41,8 +41,6 @@ class User extends Authenticatable
         'discord_private_channel_id' => 'string',
     ];
 
-    protected $with = ['ban'];
-
     public function owns(Character $character)
     {
         return $this->id === $character->user->id;
