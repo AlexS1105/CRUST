@@ -13,4 +13,5 @@ return [
         'updated_at' => 'By Latest Activity',
         'perk' => 'With Perk...',
     ],
+    'never' => 'Never',
 ];
