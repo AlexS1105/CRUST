@@ -1,5 +1,5 @@
-window.DOMPurify = require('dompurify');
-window.marked = require('marked');
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
 
 var currentElement;
 
@@ -19,7 +19,7 @@ window.preview = function(element) {
 
     element.previewWindow.text = element.previewWindow.appendChild(document.createElement('div'));
 
-    element.previewWindow.text.innerHTML = window.marked.marked(window.DOMPurify.sanitize(element.value));
+    element.previewWindow.text.innerHTML = marked.parse(DOMPurify.sanitize(element.value));
     element.addEventListener('input', update);
 
     currentElement = element;
@@ -27,7 +27,7 @@ window.preview = function(element) {
 }
 
 function update(event) {
-  event.target.previewWindow.text.innerHTML = window.marked.marked(window.DOMPurify.sanitize(event.target.value));
+  event.target.previewWindow.text.innerHTML = marked.prase(DOMPurify.sanitize(event.target.value));
 }
 
 function hidePreview(element) {

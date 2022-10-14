@@ -1,14 +1,19 @@
-require('./bootstrap');
+import './bootstrap';
 
-require('alpinejs');
-require('dompurify');
+import Alpine from 'alpinejs';
 
-require('./marked');
-require('./character');
-require('./charsheet');
-require('./perks');
-require('./fates');
-require('./markdown');
-require('./markdown-preview');
-require('./user');
-require('./clipboard');
+window.Alpine = Alpine;
+
+Alpine.start();
+
+import 'dompurify';
+
+import './marked';
+import './character';
+import './charsheet';
+import './perks';
+import './fates';
+import './markdown';
+import './markdown-preview';
+import './user';
+import './clipboard';

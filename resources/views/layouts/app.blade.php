@@ -12,11 +12,8 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css?v=4') }}">
-
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js?v=4') }}" defer></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   </head>
   <body class="font-sans antialiased bg-gray-100">
