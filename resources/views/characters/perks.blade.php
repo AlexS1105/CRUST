@@ -16,7 +16,7 @@
             {{ __('charsheet.perks') }}
           </x-slot>
 
-          <x-character.perks :character="$character" :perks="$perks" :maxActivePerks="$maxActivePerks" :edit="true" />
+          <x-character.perks :character="$character" :perks="$perks" :maxActivePerks="$settings->max_active_perks" :edit="true" />
         </x-form.card>
       @endif
 

@@ -38,10 +38,10 @@
             {{ __('charsheet.points.skills') }}
           </div>
           <div class="mr-2" id="skill_points">
-            {{ $maxSkills - array_sum($character->charsheet->skills) }}
+            {{ $settings->skill_points - array_sum($character->charsheet->skills) }}
           </div>
           <div>
-            / {{ $maxSkills }}
+            / {{ $settings->skill_points }}
           </div>
         </div>
 
@@ -159,9 +159,9 @@
           <div class="space-y-2" id="narrative_crafts">
 
           </div>
-  
+
           <div class="font-bold text-lg text-right flex justify-end gap-2">
-            {{ __('charsheet.points.narrative_crafts') }} 
+            {{ __('charsheet.points.narrative_crafts') }}
             <div id="narrative_crafts_max">
               0
             </div>
@@ -184,7 +184,7 @@
               {{ __('charsheet.perks') }}
             </x-slot>
 
-            <x-character.perks :character="$character" :perks="$perks" :maxActivePerks="$maxActivePerks" :edit="false" />
+            <x-character.perks :character="$character" :perks="$perks" :maxActivePerks="$settings->max_active_perks" :edit="false" />
 
             <x-tip>
               {{ __('tips.character.perks') }}
@@ -197,7 +197,7 @@
             {{ __('charsheet.fates') }}
           </x-slot>
 
-          <x-character.fates :character="$character" :maxFates="$maxFates" />
+          <x-character.fates :character="$character" :maxFates="$settings->max_fates" />
 
           <x-tip>
             {{ __('tips.character.fates') }}
@@ -211,7 +211,7 @@
     </form>
 
     <script>
-      var maxSkills = @json($maxSkills);
+      var maxSkills = @json($settings->skill_points);
       var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
       var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
       var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) || [];

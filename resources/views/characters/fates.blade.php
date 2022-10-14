@@ -15,7 +15,7 @@
           {{ __('charsheet.fates') }}
         </x-slot>
 
-        <x-character.fates :character="$character" :maxFates="$maxFates" />
+        <x-character.fates :character="$character" :maxFates="$settings->max_fates" />
       </x-form.card>
 
       <x-button>

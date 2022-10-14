@@ -53,50 +53,11 @@ class Character extends Model
 
     public function takeVox($amount, $reason)
     {
-        return $this->giveVox(-$amount, $reason);
+        $this->giveVox(-$amount, $reason);
     }
 
     public function togglePerk($perkVariant)
     {
-        $perkVariant = $this->perkVariants->firstWhere('id', $perkVariant->id);
-        $pivot = $perkVariant->pivot;
-
-        if ($this->vox <= 0 && ! $pivot->active) {
-            throw new Exception('validation.vox.not_enough');
-        }
-
-        $perks = [];
-
-        foreach ($this->perkVariants as $variant) {
-            $perks[$variant->perk_id] = [
-                'variant' => $variant,
-                'active' => $variant->id === $perkVariant->id ? ! $pivot->active : $variant->pivot->active,
-                'note' => $variant->pivot->note,
-            ];
-        }
-
-        $validator = Validator::make([
-            'perks' => $perks,
-        ], [
-            'perks' => new PerkPool(true),
-        ]);
-
-        if ($validator->fails()) {
-            throw new Exception($validator->errors()->first());
-        }
-
-        if (! $pivot->active) {
-            $this->takeVox(1, 'Активация перка '.$perkVariant->perk->name);
-        }
-
-        $this->perkVariants()->detach($perkVariant->id);
-        $this->perkVariants()->attach($perkVariant, ['active' => ! $pivot->active, 'note' => $pivot->note]);
-
-        info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
-            'user' => auth()->user()->login,
-            'character' => $this->login,
-            'perk' => $perkVariant->perk->name,
-        ]);
 
         return back();
     }
