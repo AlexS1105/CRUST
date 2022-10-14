@@ -56,12 +56,6 @@ class Character extends Model
         $this->giveVox(-$amount, $reason);
     }
 
-    public function togglePerk($perkVariant)
-    {
-
-        return back();
-    }
-
     public function hasFreeIdea()
     {
         return ! isset($this->last_idea) || Carbon::now()->startOfWeek()->greaterThan(Carbon::createFromTimeString($this->last_idea));
