@@ -21,6 +21,7 @@ class CharsheetRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        // TODO: rewrite perks input
         $perksCollection = PerkVariant::with('perk')->get();
         $perks = [];
 

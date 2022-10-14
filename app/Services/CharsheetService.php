@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Character;
 use App\Models\Fate;
-use App\Models\NarrativeCraft;
 use App\Models\PerkVariant;
 use App\Rules\PerkPool;
 use Exception;
