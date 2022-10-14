@@ -18,11 +18,6 @@ class PasswordResetLinkController extends Controller
         $this->discordService = $discordService;
     }
 
-    /**
-     * Display the password reset link request view.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
         return view('auth.forgot-password');
