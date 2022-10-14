@@ -15,17 +15,11 @@ class CharsheetService
     function update($character, $validated)
     {
         $character->charsheet()->update($validated);
+
         $character->narrativeCrafts()->delete();
 
         if (isset($validated['narrative_crafts'])) {
-            $narrativeCrafts = [];
-
-            foreach ($validated['narrative_crafts'] as $craft) {
-                $craft['character_id'] = $character->id;
-                array_push($narrativeCrafts, new NarrativeCraft($craft));
-            }
-
-            $character->narrativeCrafts()->saveMany($narrativeCrafts);
+            $character->narrativeCrafts()->createMany($validated['narrative_crafts']);
         }
 
         $this->savePerks($character, $validated);

@@ -21,32 +21,6 @@ class CharsheetRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $skills = [];
-
-        foreach (CharacterSkill::getInstances() as $instance) {
-            $skill = $instance->key();
-            $value = $this->skills[$skill];
-
-            $skills[$skill] = intval($value);
-        }
-
-        $crafts = [];
-
-        foreach (CharacterCraft::getInstances() as $instance) {
-            $craft = $instance->key();
-            $value = $this->crafts[$craft];
-
-            $crafts[$craft] = intval($value);
-        }
-
-        $narrative_crafts = [];
-
-        if (isset($this->narrative_crafts)) {
-            foreach ($this->narrative_crafts as $craft) {
-                array_push($narrative_crafts, $craft);
-            }
-        }
-
         $perksCollection = PerkVariant::with('perk')->get();
         $perks = [];
 
@@ -88,9 +62,6 @@ class CharsheetRequest extends FormRequest
         }
 
         $this->merge([
-            'skills' => $skills,
-            'crafts' => $crafts,
-            'narrative_crafts' => $narrative_crafts,
             'perks' => $perks,
             'fates' => $fates,
         ]);
