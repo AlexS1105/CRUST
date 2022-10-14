@@ -12,9 +12,7 @@ class ExperienceController extends Controller
     public function create(Character $character)
     {
         $this->authorize('updateCharsheetGm', $character);
-        return view('experiences.create', [
-            'character' => $character,
-        ]);
+        return view('experiences.create', compact('character'));
     }
 
     public function store(ExperienceRequest $request, Character $character)

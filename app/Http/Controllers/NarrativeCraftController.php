@@ -11,9 +11,7 @@ class NarrativeCraftController extends Controller
     public function create(Character $character)
     {
         $this->authorize('updateCharsheetGm', $character);
-        return view('crafts.create', [
-            'character' => $character,
-        ]);
+        return view('crafts.create', compact('character'));
     }
 
     public function store(NarrativeCraftRequest $request, Character $character)

@@ -13,9 +13,7 @@ class IdeaController extends Controller
     public function create(Character $character)
     {
         $this->authorize('addIdea', $character);
-        return view('ideas.create', [
-            'character' => $character,
-        ]);
+        return view('ideas.create', compact('character'));
     }
 
     public function store(IdeaRequest $request, Character $character)

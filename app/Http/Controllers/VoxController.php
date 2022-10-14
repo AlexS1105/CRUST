@@ -11,17 +11,13 @@ class VoxController extends Controller
     {
         $this->authorize('voxView', $character);
 
-        return view('vox.index', [
-            'character' => $character,
-        ]);
+        return view('vox.index', compact('character'));
     }
 
     public function create(Character $character)
     {
         $this->authorize('voxCreate', $character);
-        return view('vox.create', [
-            'character' => $character,
-        ]);
+        return view('vox.create', compact('character'));
     }
 
     public function store(VoxRequest $request, Character $character)

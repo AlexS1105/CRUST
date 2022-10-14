@@ -20,9 +20,9 @@ class CharacterController extends Controller
 
     public function index()
     {
-        return view('characters.index', [
-            'characters' => auth()->user()->characters,
-        ]);
+        $characters = auth()->user()->characters;
+
+        return view('characters.index', compact('characters'));
     }
 
     public function all(Request $request)
@@ -62,16 +62,12 @@ class CharacterController extends Controller
 
     public function show(Character $character)
     {
-        return view('characters.show', [
-            'character' => $character,
-        ]);
+        return view('characters.show', compact('character'));
     }
 
     public function edit(Character $character)
     {
-        return view('characters.edit', [
-            'character' => $character,
-        ]);
+        return view('characters.edit', compact('character'));
     }
 
     public function update(CharacterRequest $request, Character $character)

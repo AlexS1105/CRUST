@@ -15,9 +15,7 @@ class SphereController extends Controller
     {
         $this->authorize('addSphere', $character);
 
-        return view('spheres.create', [
-            'character' => $character,
-        ]);
+        return view('spheres.create', compact('character'));
     }
 
     public function store(SphereRequest $request, Character $character)

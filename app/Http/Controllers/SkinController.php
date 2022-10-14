@@ -13,18 +13,14 @@ class SkinController extends Controller
     {
         $this->authorize('seePlayerOnlyInfo', $character);
 
-        return view('skins.index', [
-            'character' => $character,
-        ]);
+        return view('skins.index', compact('character'));
     }
 
     public function create(Character $character)
     {
         $this->authorize('update', $character);
 
-        return view('skins.create', [
-            'character' => $character,
-        ]);
+        return view('skins.create', compact('character'));
     }
 
     public function store(SkinRequest $request, Character $character)
