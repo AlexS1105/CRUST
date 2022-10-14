@@ -14,7 +14,7 @@ class Perk extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'type' => PerkType::class
+        'type' => PerkType::class,
     ];
 
     public function variants()
@@ -26,24 +26,24 @@ class Perk extends Model
     {
         parent::boot();
 
-        static::created(function($perk) {
+        static::created(function ($perk) {
             info('Perk created', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perk->name
+                'perk' => $perk->name,
             ]);
         });
 
-        static::updated(function($perk) {
+        static::updated(function ($perk) {
             info('Perk updated', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perk->name
+                'perk' => $perk->name,
             ]);
         });
 
-        static::deleted(function($perk) {
+        static::deleted(function ($perk) {
             info('Perk deleted', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perk->name
+                'perk' => $perk->name,
             ]);
         });
     }

@@ -6,9 +6,9 @@ use BenSampo\Enum\FlaggedEnum;
 
 final class FateType extends FlaggedEnum
 {
-    const Ambition = 1 << 0;
-    const Flaw = 1 << 1;
-    const Continious  = 1 << 2;
+    public const Ambition = 1 << 0;
+    public const Flaw = 1 << 1;
+    public const Continious = 1 << 2;
 
     public function isDual()
     {

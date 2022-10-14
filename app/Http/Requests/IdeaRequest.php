@@ -15,7 +15,7 @@ class IdeaRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:256'],
-            'description' => ['max:512']
+            'description' => ['max:512'],
         ];
     }
 }

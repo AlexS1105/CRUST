@@ -14,7 +14,7 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|max:16|unique:accounts,login,except,login'
+            'login' => 'required|max:16|unique:accounts,login,except,login',
         ];
     }
 }

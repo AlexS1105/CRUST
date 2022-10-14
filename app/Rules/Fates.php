@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Enums\FateType;
 use Illuminate\Contracts\Validation\Rule;
 
 class Fates implements Rule
@@ -19,7 +18,7 @@ class Fates implements Rule
     {
         $dualFates = 0;
 
-        foreach($fates as $fate) {
+        foreach ($fates as $fate) {
             if ($fate['type'] === null) {
                 continue;
             }

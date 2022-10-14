@@ -14,7 +14,7 @@ class SkinController extends Controller
         $this->authorize('seePlayerOnlyInfo', $character);
 
         return view('skins.index', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -23,7 +23,7 @@ class SkinController extends Controller
         $this->authorize('update', $character);
 
         return view('skins.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -34,7 +34,7 @@ class SkinController extends Controller
         $validated['character_id'] = $character->id;
         $skin = Skin::firstOrCreate([
             'prefix' => $validated['prefix'],
-            'character_id' => $character->id
+            'character_id' => $character->id,
         ], $validated);
         $this->saveSkin($request, $skin);
 
@@ -56,8 +56,11 @@ class SkinController extends Controller
         if ($file) {
             Storage::delete('characters/skins/'.basename($skin->skin));
 
-            $skin->skin = str_replace('public/', 'storage/', 
-                $file->storePubliclyAs('characters/skins', (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension()));
+            $skin->skin = str_replace(
+                'public/',
+                'storage/',
+                $file->storePubliclyAs('characters/skins', (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension())
+            );
             $skin->save();
         }
     }

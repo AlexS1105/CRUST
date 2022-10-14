@@ -8,7 +8,6 @@ use App\Enums\FateType;
 use App\Models\PerkVariant;
 use App\Rules\CraftPool;
 use App\Rules\Fates;
-use App\Rules\NarrativeCraftsPool;
 use App\Rules\PerkPool;
 use App\Rules\SkillPool;
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,21 +42,21 @@ class CharsheetRequest extends FormRequest
         $narrative_crafts = [];
 
         if (isset($this->narrative_crafts)) {
-            foreach($this->narrative_crafts as $craft) {
+            foreach ($this->narrative_crafts as $craft) {
                 array_push($narrative_crafts, $craft);
             }
         }
-        
+
         $perksCollection = PerkVariant::with('perk')->get();
         $perks = [];
 
         if (isset($this->perks)) {
-            foreach($this->perks as $perkId => $perkData) {
-                if ($perkData['id'] != "-1") {
+            foreach ($this->perks as $perkId => $perkData) {
+                if ($perkData['id'] !== '-1') {
                     $perks[$perkId] = [
                         'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
                         'note' => $perkData['note'],
-                        'active' => isset($perkData['active']) && $perkData['active'] === 'on'
+                        'active' => isset($perkData['active']) && $perkData['active'] === 'on',
                     ];
                 }
             }
@@ -66,7 +65,7 @@ class CharsheetRequest extends FormRequest
         $fates = [];
 
         if (isset($this->fates)) {
-            foreach($this->fates as $fate) {
+            foreach ($this->fates as $fate) {
                 $fateType = FateType::None();
 
                 if (isset($fate['continious']) && $fate['continious'] === 'on') {
@@ -83,7 +82,7 @@ class CharsheetRequest extends FormRequest
 
                 array_push($fates, [
                     'text' => $fate['text'],
-                    'type' => $fateType != FateType::None() ? $fateType : null
+                    'type' => $fateType !== FateType::None() ? $fateType : null,
                 ]);
             }
         }
@@ -93,29 +92,29 @@ class CharsheetRequest extends FormRequest
             'crafts' => $crafts,
             'narrative_crafts' => $narrative_crafts,
             'perks' => $perks,
-            'fates' => $fates
+            'fates' => $fates,
         ]);
     }
 
     public function rules()
     {
         $rules = [
-            'skills' => ['required', new SkillPool],
+            'skills' => ['required', new SkillPool()],
             'skills.*' => ['numeric', 'min:0', 'max:10'],
             'crafts' => [new CraftPool($this->skills, $this->narrative_crafts)],
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
             'narrative_crafts.*.name' => ['required', 'max:256'],
-            'narrative_crafts.*.description' => ['required', 'max:1024']
+            'narrative_crafts.*.description' => ['required', 'max:1024'],
         ];
 
         $character = $this->route('character');
 
-        if (!$character->registered) {
+        if (! $character->registered) {
             $rules = array_merge($rules, [
                 'perks' => [new PerkPool(false)],
                 'fates' => [new Fates(false)],
                 'fates.*.text' => ['required', 'max:1024'],
-                'fates.*.type' => ['required']
+                'fates.*.type' => ['required'],
             ]);
         }
 

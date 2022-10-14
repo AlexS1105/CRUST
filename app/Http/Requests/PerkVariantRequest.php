@@ -14,7 +14,7 @@ class PerkVariantRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['required', 'max:5096']
+            'description' => ['required', 'max:5096'],
         ];
     }
 }

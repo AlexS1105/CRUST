@@ -8,6 +8,5 @@ class DiscordServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
     }
 }

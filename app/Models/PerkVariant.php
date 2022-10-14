@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PerkVariant extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function perk()
@@ -25,24 +25,24 @@ class PerkVariant extends Model
     {
         parent::boot();
 
-        static::created(function($perkVariant) {
+        static::created(function ($perkVariant) {
             info('Perk variant created', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perkVariant->perk->name
+                'perk' => $perkVariant->perk->name,
             ]);
         });
 
-        static::updated(function($perkVariant) {
+        static::updated(function ($perkVariant) {
             info('Perk variant updated', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perkVariant->perk->name
+                'perk' => $perkVariant->perk->name,
             ]);
         });
 
-        static::deleted(function($perkVariant) {
+        static::deleted(function ($perkVariant) {
             info('Perk variant deleted', [
                 'user' => auth()->user() !== null ? auth()->user()->login : 'CRUST',
-                'perk' => $perkVariant->perk->name
+                'perk' => $perkVariant->perk->name,
             ]);
         });
     }

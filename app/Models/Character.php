@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Enums\CharacterGender;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Enums\CharacterStatus;
 use App\Rules\PerkPool;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Kyslik\ColumnSortable\Sortable;
@@ -17,33 +17,35 @@ class Character extends Model
 {
     use HasFactory, HybridRelations, Sortable;
 
+    public $sortable = [
+        'name',
+        'status_updated_at',
+        'status',
+    ];
+
     protected $guarded = [];
 
     protected $casts = [
         'status' => CharacterStatus::class,
         'gender' => CharacterGender::class,
         'info_hidden' => 'boolean',
-        'bio_hidden' => 'boolean'
+        'bio_hidden' => 'boolean',
     ];
 
-    public $sortable = [
-        'name',
-        'status_updated_at',
-        'status'
-    ];
-
-    public function setStatus(CharacterStatus $status) {
+    public function setStatus(CharacterStatus $status)
+    {
         $this->status = $status;
         $this->status_updated_at = now();
 
-        if (!$this->registered && $status->value === CharacterStatus::Approved) {
+        if (! $this->registered && $status->value === CharacterStatus::Approved) {
             $this->registered = true;
         }
 
         $this->save();
     }
 
-    public function takeForApproval() {
+    public function takeForApproval()
+    {
         $this->status = CharacterStatus::Approval;
         $this->status_updated_at = now();
         $this->registrar_id = auth()->id();
@@ -60,7 +62,7 @@ class Character extends Model
 
     public function giveVox($amount, $reason)
     {
-        if ($amount != 0) {
+        if ($amount !== 0) {
             $voxLog = [];
             $voxLog['character_id'] = $this->id;
             $voxLog['issued_by'] = auth()->user()->id;
@@ -68,7 +70,7 @@ class Character extends Model
             $voxLog['after'] = $this->vox + $amount;
             $voxLog['reason'] = $reason;
             $voxLog['delta'] = $amount;
-    
+
             VoxLog::create($voxLog);
             $this->vox += $amount;
             $this->save();
@@ -85,41 +87,41 @@ class Character extends Model
         $perkVariant = $this->perkVariants->firstWhere('id', $perkVariant->id);
         $pivot = $perkVariant->pivot;
 
-        if ($this->vox <= 0 && !$pivot->active) {
+        if ($this->vox <= 0 && ! $pivot->active) {
             throw new Exception('validation.vox.not_enough');
         }
-        
+
         $perks = [];
 
-        foreach($this->perkVariants as $variant) {
+        foreach ($this->perkVariants as $variant) {
             $perks[$variant->perk_id] = [
                 'variant' => $variant,
-                'active' => $variant->id === $perkVariant->id ? !$pivot->active : $variant->pivot->active,
-                'note' => $variant->pivot->note
+                'active' => $variant->id === $perkVariant->id ? ! $pivot->active : $variant->pivot->active,
+                'note' => $variant->pivot->note,
             ];
         }
 
         $validator = Validator::make([
-            'perks' => $perks
+            'perks' => $perks,
         ], [
-            'perks' => new PerkPool(true)
+            'perks' => new PerkPool(true),
         ]);
 
         if ($validator->fails()) {
             throw new Exception($validator->errors()->first());
         }
 
-        if (!$pivot->active) {
+        if (! $pivot->active) {
             $this->takeVox(1, 'Активация перка '.$perkVariant->perk->name);
         }
 
         $this->perkVariants()->detach($perkVariant->id);
-        $this->perkVariants()->attach($perkVariant, ['active' => !$pivot->active, 'note' => $pivot->note]);
+        $this->perkVariants()->attach($perkVariant, ['active' => ! $pivot->active, 'note' => $pivot->note]);
 
         info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
             'user' => auth()->user()->login,
             'character' => $this->login,
-            'perk' => $perkVariant->perk->name
+            'perk' => $perkVariant->perk->name,
         ]);
 
         return back();
@@ -127,7 +129,7 @@ class Character extends Model
 
     public function hasFreeIdea()
     {
-        return !isset($this->last_idea) || Carbon::now()->startOfWeek()->greaterThan(Carbon::createFromTimeString($this->last_idea));
+        return ! isset($this->last_idea) || Carbon::now()->startOfWeek()->greaterThan(Carbon::createFromTimeString($this->last_idea));
     }
 
     public function user()
@@ -194,30 +196,30 @@ class Character extends Model
     {
         parent::boot();
 
-        static::deleting(function(Character $character) {
+        static::deleting(function (Character $character) {
             if ($character->charsheet) {
                 $character->charsheet->delete();
             }
         });
 
-        static::created(function($character) {
+        static::created(function ($character) {
             info('Character created', [
-                'user' => auth()->user() != null ? auth()->user()->login : null,
-                'character' => $character->login
+                'user' => auth()->user() !== null ? auth()->user()->login : null,
+                'character' => $character->login,
             ]);
         });
 
-        static::updated(function($character) {
+        static::updated(function ($character) {
             info('Character updated', [
                 'user' => auth()->user()->login,
-                'character' => $character->login
+                'character' => $character->login,
             ]);
         });
 
-        static::deleted(function($character) {
+        static::deleted(function ($character) {
             info('User unbanned', [
                 'user' => auth()->user()->login,
-                'character' => $character->login
+                'character' => $character->login,
             ]);
         });
     }

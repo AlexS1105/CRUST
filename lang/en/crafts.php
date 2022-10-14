@@ -3,5 +3,5 @@
 return [
     'edit' => 'Edit',
     'delete' => 'Delete',
-    'create' => 'Create Craft'
+    'create' => 'Create Craft',
 ];

@@ -14,7 +14,7 @@ class GeneralSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'max_characters' => 'integer|min:0'
+            'max_characters' => 'integer|min:0',
         ];
     }
 }

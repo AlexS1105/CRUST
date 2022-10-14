@@ -29,10 +29,10 @@ class CraftPool implements Rule
         $tiers = [
             'magic' => 0,
             'tech' => 0,
-            'general' => 0
+            'general' => 0,
         ];
 
-        foreach($crafts as $craft => $value) {
+        foreach ($crafts as $craft => $value) {
             $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
 
             if ($value > 0) {
@@ -40,18 +40,18 @@ class CraftPool implements Rule
             }
         }
 
-        foreach($tiers as $value) {
+        foreach ($tiers as $value) {
             if ($value > 2) {
                 $this->message = 'validation.craftpool.maxtiers';
                 return false;
             }
         }
 
-        foreach($crafts as $craft => $value) {
+        foreach ($crafts as $craft => $value) {
             $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
             $cost = $value;
 
-            ${$type."Points"} += $cost;
+            ${$type.'Points'} += $cost;
         }
 
         if ($magicPoints > $magicMax) {

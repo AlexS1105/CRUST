@@ -3,13 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Enums\CharacterGender;
-use Illuminate\Foundation\Http\FormRequest;
 use BenSampo\Enum\Rules\Enum;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class CharacterRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;
@@ -20,7 +19,7 @@ class CharacterRequest extends FormRequest
         $this->merge([
             'gender' => CharacterGender::fromKey($this->gender),
             'info_hidden' => $this->info_hidden === 'on',
-            'bio_hidden' => $this->bio_hidden === 'on'
+            'bio_hidden' => $this->bio_hidden === 'on',
         ]);
     }
 
@@ -39,13 +38,13 @@ class CharacterRequest extends FormRequest
             'info_hidden' => ['boolean'],
             'bio_hidden' => ['boolean'],
             'player_only_info' => ['nullable'],
-            'gm_only_info' => ['nullable']
+            'gm_only_info' => ['nullable'],
         ];
-        
+
         $character = $this->route('character');
 
-        if ($this->method() == 'POST' || !$character->registered) {
-            $rules['login'] = ['required', $this->method() != 'PATCH' ? Rule::unique('characters') : Rule::unique('characters')->ignore($this->login, 'login'), 'max:16'];
+        if ($this->method() === 'POST' || ! $character->registered) {
+            $rules['login'] = ['required', $this->method() !== 'PATCH' ? Rule::unique('characters') : Rule::unique('characters')->ignore($this->login, 'login'), 'max:16'];
         }
 
         return $rules;

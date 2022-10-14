@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 class IdeaToSphere implements Rule
 {
     public $character;
-    
+
     public function __construct($character)
     {
         $this->character = $character;

@@ -85,6 +85,7 @@ return [
         PropertyTypeHintSniff::class,
         ReturnTypeHintSniff::class,
         UselessFunctionDocCommentSniff::class,
+        DisallowEqualOperatorsSniff::class,
     ],
 
     'config' => [

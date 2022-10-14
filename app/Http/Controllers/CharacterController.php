@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CharacterStatus;
-use App\Events\CharacterDeleted;
 use App\Events\CharacterCompletelyDeleted;
+use App\Events\CharacterDeleted;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +19,7 @@ class CharacterController extends Controller
     public function index()
     {
         return view('characters.index', [
-            'characters' => auth()->user()->characters
+            'characters' => auth()->user()->characters,
         ]);
     }
 
@@ -33,11 +33,11 @@ class CharacterController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = auth()->id();
         unset($validated['reference']);
-        
+
         $character = Character::create($validated);
-        
+
         $this->saveReference($character, $request);
-        
+
         $character->charsheet()->create();
 
         return redirect()->route('characters.charsheet.edit', $character->login);
@@ -46,14 +46,14 @@ class CharacterController extends Controller
     public function show(Character $character)
     {
         return view('characters.show', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
     public function edit(Character $character)
     {
         return view('characters.edit', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -64,7 +64,7 @@ class CharacterController extends Controller
         unset($validated['reference']);
         $character->update($validated);
 
-        if ($charsheet->character != $character->login) {
+        if ($charsheet->character !== $character->login) {
             $charsheet->character = $character->login;
             $charsheet->save();
         }
@@ -73,9 +73,8 @@ class CharacterController extends Controller
 
         if ($request->user()->can('updateCharsheet', $character)) {
             return redirect()->route('characters.charsheet.edit', $character);
-        } else {
-            return redirect()->route('characters.show', $character);
         }
+        return redirect()->route('characters.show', $character);
     }
 
     public function destroy(Character $character)
@@ -96,7 +95,7 @@ class CharacterController extends Controller
     public function forceDestroy(Character $character)
     {
         event(new CharacterCompletelyDeleted($character));
-        
+
         $character->delete();
 
         return redirect()->route('characters.index');
@@ -111,10 +110,13 @@ class CharacterController extends Controller
                 Storage::delete('characters/references/'.basename($character->reference));
             }
 
-            $character->reference = str_replace('public/', 'storage/', 
-                $file->storePubliclyAs('characters/references', $character->login.'.'.$file->extension()));
+            $character->reference = str_replace(
+                'public/',
+                'storage/',
+                $file->storePubliclyAs('characters/references', $character->login.'.'.$file->extension())
+            );
             $character->save();
-        } else if ($character->reference === 'storage/characters/references/_default.png') {
+        } elseif ($character->reference === 'storage/characters/references/_default.png') {
             $character->reference = 'characters/references/_default.png';
             $character->save();
         }

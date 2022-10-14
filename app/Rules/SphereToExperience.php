@@ -11,7 +11,7 @@ class SphereToExperience implements Rule
     public $inc;
 
     public $message = 'validation.sphere_not_enough';
-    
+
     public function __construct($sphere, $inc)
     {
         $this->sphere = $sphere;
@@ -22,7 +22,7 @@ class SphereToExperience implements Rule
     {
         $experience = Experience::find($value);
 
-        if (!isset($experience)) {
+        if (! isset($experience)) {
             $this->message = 'validation.sphere.invalid';
 
             return false;

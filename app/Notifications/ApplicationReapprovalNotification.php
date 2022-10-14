@@ -27,14 +27,14 @@ class ApplicationReapprovalNotification extends DiscordNotification
         $registrar = $character->registrar;
         $ticketLink = $character->ticket->link();
         $embed = [
-            'title' => ($notifiable->is($character->user) ? "Ваш" : "Проверенный Вами")." персонаж '$character->name' отправлен на перепроверку",
-            'description' => "$user->discord_tag что-то не понравилось.
+            'title' => ($notifiable->is($character->user) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
+            'description' => "{$user->discord_tag} что-то не понравилось.
             
-            Игровой аккаунт отключен до повторной проверки регистратором $registrar->discord_tag.",
+            Игровой аккаунт отключен до повторной проверки регистратором {$registrar->discord_tag}.",
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'author' => [
                 'name' => $user->discord_tag,
@@ -43,26 +43,26 @@ class ApplicationReapprovalNotification extends DiscordNotification
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
 
-                    [**Страница персонажа**]($url)
-                    [**Тикет для обсуждения**]($ticketLink)"
-                ]
-            ]
+                    [**Страница персонажа**]({$url})
+                    [**Тикет для обсуждения**]({$ticketLink})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));

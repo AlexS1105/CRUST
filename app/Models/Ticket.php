@@ -19,22 +19,22 @@ class Ticket extends Model
     public function link()
     {
         $guildId = config('services.discord.tickets.guild_id');
-        return "https://discord.com/channels/$guildId/$this->id/";
+        return "https://discord.com/channels/{$guildId}/{$this->id}/";
     }
 
     protected static function boot()
     {
         parent::boot();
 
-        static::created(function($ticket) {
+        static::created(function ($ticket) {
             info('Ticket created', [
-                'character' => $ticket->character->login
+                'character' => $ticket->character->login,
             ]);
         });
 
-        static::deleted(function($ticket) {
+        static::deleted(function ($ticket) {
             info('Ticket deleted', [
-                'character' => $ticket->character->login
+                'character' => $ticket->character->login,
             ]);
         });
     }

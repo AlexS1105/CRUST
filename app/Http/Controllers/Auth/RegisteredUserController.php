@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\DiscordService;
 use App\Providers\RouteServiceProvider;
 use App\Rules\DiscordTag;
+use App\Services\DiscordService;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -27,26 +27,24 @@ class RegisteredUserController extends Controller
 
     public function create(Request $request)
     {
-        try
-        {
+        try {
             $userData = $this->discordService->getUserData($request->input('code'), config('services.discord.redirecturi.login'));
 
             $user = User::where('discord_id', $userData['id'])->first();
 
             if ($user) {
                 return redirect()->route('login')->withErrors([
-                    'discord' => $request->input('error_description', __('auth.already_registered'))
+                    'discord' => $request->input('error_description', __('auth.already_registered')),
                 ]);
             }
 
             return view('auth.register', [
-                'discord_data' => $userData
+                'discord_data' => $userData,
             ]);
-        } catch (Exception $e)
-        {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('login')->withErrors([
-                'discord' => $request->input('error_description', __('auth.discord_error'))
+                'discord' => $request->input('error_description', __('auth.discord_error')),
             ]);
         }
     }
@@ -55,11 +53,11 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'login' => ['required', 'string', 'max:255', 'unique:users'],
-            'discord_tag' => ['required', new DiscordTag, 'unique:users'],
+            'discord_tag' => ['required', new DiscordTag(), 'unique:users'],
             'discord_id' => ['required', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'age_confirmation' => ['accepted'],
-            'rules_confirmation' => ['accepted']
+            'rules_confirmation' => ['accepted'],
         ]);
 
         $discordId = $request->discord_id;

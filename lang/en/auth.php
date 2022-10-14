@@ -17,6 +17,6 @@ return [
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'already_registered' => 'You already registered.',
-    'discord_error' => 'Unable to authorize into Discord.'
+    'discord_error' => 'Unable to authorize into Discord.',
 
 ];

@@ -132,7 +132,7 @@ return [
         'magic' => 'Not enough magic skill points.',
         'tech' => 'Not enough tech skill points.',
         'general' => 'Not enough magic / tech skill points.',
-        'narrative_crafts' => 'Not enough points for narrative crafts.'
+        'narrative_crafts' => 'Not enough points for narrative crafts.',
     ],
     'narrative_crafts' => 'Not enough skill points.',
     'perkpool' => [
@@ -141,17 +141,17 @@ return [
         'not_enough_combat' => 'Not enough combat perk points.',
         'not_enough_noncombat' => 'Not enough non-combat perk points.',
         'too_much_combat' => 'Not enough slots for combat perks.',
-        'too_much_noncombat' => 'Not enough slots for non-combat perks.'
+        'too_much_noncombat' => 'Not enough slots for non-combat perks.',
     ],
     'fates' => [
         'invalid' => 'Unexpected Fate Error.',
         'dual_only' => 'You can only have one dual fate and no more.',
         'one_dual' => 'You can have only one dual fate.',
         'one_ambition' => 'You can have only one ambition.',
-        'one_flaw' => 'You can have only one flaw.'
+        'one_flaw' => 'You can have only one flaw.',
     ],
     'vox' => [
-        'not_enough' => 'Not Enough Vox To Withdraw'
+        'not_enough' => 'Not Enough Vox To Withdraw',
     ],
 
     /*

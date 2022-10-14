@@ -16,7 +16,7 @@ class ExperienceRequest extends FormRequest
         return [
             'name' => ['required', 'max:256'],
             'description' => ['max:512'],
-            'value' => ['integer', 'min:0', 'max:10']
+            'value' => ['integer', 'min:0', 'max:10'],
         ];
     }
 }

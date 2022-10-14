@@ -25,5 +25,5 @@ return [
     'user-accounts-create' => 'Create User Special Accounts',
     'user-accounts-delete' => 'Delete User Special Accounts',
     'settings' => 'Change System Settings',
-    'logs' => 'View Logs'
+    'logs' => 'View Logs',
 ];

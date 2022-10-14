@@ -31,6 +31,7 @@ class PasswordBroker implements PasswordBrokerContract
      *
      * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
      * @param  \Illuminate\Contracts\Auth\UserProvider  $users
+     *
      * @return void
      */
     public function __construct(TokenRepositoryInterface $tokens, UserProvider $users)
@@ -44,9 +45,10 @@ class PasswordBroker implements PasswordBrokerContract
      *
      * @param  array  $credentials
      * @param  \Closure|null  $callback
+     *
      * @return string
      */
-    public function sendResetLink(array $credentials, Closure $callback = null)
+    public function sendResetLink(array $credentials, ?Closure $callback = null)
     {
         // First we will check to see if we found a user at the given credentials and
         // if we did not we will redirect back to this current URI with a piece of
@@ -54,11 +56,11 @@ class PasswordBroker implements PasswordBrokerContract
         $user = $this->getUser($credentials);
 
         if (is_null($user)) {
-            return static::INVALID_USER;
+            return self::INVALID_USER;
         }
 
         if ($this->tokens->recentlyCreatedToken($user)) {
-            return static::RESET_THROTTLED;
+            return self::RESET_THROTTLED;
         }
 
         $token = $this->tokens->create($user);
@@ -72,7 +74,7 @@ class PasswordBroker implements PasswordBrokerContract
             $user->sendPasswordResetNotification($token);
         }
 
-        return static::RESET_LINK_SENT;
+        return self::RESET_LINK_SENT;
     }
 
     /**
@@ -80,6 +82,7 @@ class PasswordBroker implements PasswordBrokerContract
      *
      * @param  array  $credentials
      * @param  \Closure  $callback
+     *
      * @return mixed
      */
     public function reset(array $credentials, Closure $callback)
@@ -102,32 +105,14 @@ class PasswordBroker implements PasswordBrokerContract
 
         $this->tokens->delete($user);
 
-        return static::PASSWORD_RESET;
-    }
-
-    /**
-     * Validate a password reset for the given credentials.
-     *
-     * @param  array  $credentials
-     * @return \Illuminate\Contracts\Auth\CanResetPassword|string
-     */
-    protected function validateReset(array $credentials)
-    {
-        if (is_null($user = $this->getUser($credentials))) {
-            return static::INVALID_USER;
-        }
-
-        if (! $this->tokens->exists($user, $credentials['token'])) {
-            return static::INVALID_TOKEN;
-        }
-
-        return $user;
+        return self::PASSWORD_RESET;
     }
 
     /**
      * Get the user for the given credentials.
      *
      * @param  array  $credentials
+     *
      * @return \Illuminate\Contracts\Auth\CanResetPassword|null
      *
      * @throws \UnexpectedValueException
@@ -149,6 +134,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Create a new password reset token for the given user.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return string
      */
     public function createToken(CanResetPasswordContract $user)
@@ -160,6 +146,7 @@ class PasswordBroker implements PasswordBrokerContract
      * Delete password reset tokens of the given user.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return void
      */
     public function deleteToken(CanResetPasswordContract $user)
@@ -172,6 +159,7 @@ class PasswordBroker implements PasswordBrokerContract
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $token
+     *
      * @return bool
      */
     public function tokenExists(CanResetPasswordContract $user, $token)
@@ -187,5 +175,25 @@ class PasswordBroker implements PasswordBrokerContract
     public function getRepository()
     {
         return $this->tokens;
+    }
+
+    /**
+     * Validate a password reset for the given credentials.
+     *
+     * @param  array  $credentials
+     *
+     * @return \Illuminate\Contracts\Auth\CanResetPassword|string
+     */
+    protected function validateReset(array $credentials)
+    {
+        if (is_null($user = $this->getUser($credentials))) {
+            return self::INVALID_USER;
+        }
+
+        if (! $this->tokens->exists($user, $credentials['token'])) {
+            return self::INVALID_TOKEN;
+        }
+
+        return $user;
     }
 }

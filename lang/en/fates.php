@@ -7,6 +7,6 @@ return [
     'continious' => 'Continious',
     'onetime' => 'One-Time',
     'placeholder' => [
-        'text' => 'Fate Statement'
-    ]
+        'text' => 'Fate Statement',
+    ],
 ];

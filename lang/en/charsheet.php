@@ -4,7 +4,7 @@ return [
     'edit' => [
         'title' => 'Edit Charsheet',
         'perks' => 'Edit Perks',
-        'fates' => 'Edit Fates'
+        'fates' => 'Edit Fates',
     ],
     'skills' => 'Skills',
     'crafts' => 'Crafts',
@@ -12,7 +12,7 @@ return [
     'narrative_crafts' => [
         'title' => 'Narrative Crafts',
         'name' => 'Name',
-        'description' => 'Description'
+        'description' => 'Description',
     ],
     'perks' => 'Perks',
     'fates' => 'Fates',
@@ -25,6 +25,6 @@ return [
         'active_combat_perks' => 'Combat Perks: ',
         'active_noncombat_perks' => 'Non-Combat Perks: ',
         'combat_perk_attack' => 'Attack Perk: ',
-        'combat_perk_defence' => 'Defence Perk: '
-    ]
+        'combat_perk_defence' => 'Defence Perk: ',
+    ],
 ];

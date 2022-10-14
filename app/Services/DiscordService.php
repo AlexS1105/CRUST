@@ -12,15 +12,15 @@ class DiscordService
 {
     public function getUserData($code, $redirect)
     {
-        $accessData = Cache::remember('accessData'.$code, 604800, function() use($code, $redirect) {
+        $accessData = Cache::remember('accessData'.$code, 604800, function () use ($code, $redirect) {
             return $this->getAccessToken($code, $redirect);
         });
 
         $token = $accessData['access_token'];
 
-        $userData = Cache::remember('userData'.$token, 604800, function() use($token) {
+        $userData = Cache::remember('userData'.$token, 604800, function () use ($token) {
             $response = Http::withHeaders([
-                'Authorization' => 'Bearer '.$token
+                'Authorization' => 'Bearer '.$token,
             ])->get('https://discordapp.com/api/users/@me');
             $response->throw();
 
@@ -36,19 +36,17 @@ class DiscordService
     {
         $response = Http::withHeaders([
             'Content-Type' => 'application/x-www-form-urlencoded',
-            'Accept' => 'application/json'
+            'Accept' => 'application/json',
         ])->asForm()->post(config('services.discord.api').'/oauth2/token', [
             'client_id' => config('services.discord.clientid'),
             'client_secret' => config('services.discord.secret'),
             'grant_type' => 'authorization_code',
             'code' => $code,
-            'redirect_uri' => $redirect
+            'redirect_uri' => $redirect,
         ]);
         $response->throw();
 
-        $data = json_decode($response->body(), true);
-
-        return $data;
+        return json_decode($response->body(), true);
     }
 
     public function createRegistrationTicket(Character $character)
@@ -58,13 +56,13 @@ class DiscordService
         }
 
         $response = Http::withHeaders([
-            'Authenticate' => config('services.discord.token')
+            'Authenticate' => config('services.discord.token'),
         ])->post(config('services.discord.tickets.api_url').'/ticket', [
             'guild_id' => config('services.discord.tickets.guild_id'),
             'user_id' => $character->user->discord_id,
             'registrar_id' => $character->registrar->discord_id,
             'category_id' => config('services.discord.tickets.category_id'),
-            'topic' => "Регистрация $character->name"
+            'topic' => "Регистрация {$character->name}",
         ]);
         $response->throw();
 
@@ -74,21 +72,21 @@ class DiscordService
             $character->ticket()->create([
                 'id' => $ticket['id'],
                 'character_id' => $character->id,
-                'category_id' => config('services.discord.tickets.category_id')
+                'category_id' => config('services.discord.tickets.category_id'),
             ]);
         }
     }
 
     public function deleteRegistrationTicket(Character $character)
     {
-        if (!$character->ticket) {
+        if (! $character->ticket) {
             throw new Exception('Character has no ticket');
         }
 
         $response = Http::withHeaders([
-            'Authenticate' => config('services.discord.token')
+            'Authenticate' => config('services.discord.token'),
         ])->delete(config('services.discord.tickets.api_url').'/ticket', [
-            'ticket_id' => strval($character->ticket->id)
+            'ticket_id' => strval($character->ticket->id),
         ]);
         $response->throw();
 
@@ -104,9 +102,9 @@ class DiscordService
         }
 
         $response = Http::withHeaders([
-            'Authenticate' => config('services.discord.token')
+            'Authenticate' => config('services.discord.token'),
         ])->get(config('services.discord.tickets.api_url').'/has-user', [
-            'id' => $user->discord_id
+            'id' => $user->discord_id,
         ]);
         $response->throw();
 

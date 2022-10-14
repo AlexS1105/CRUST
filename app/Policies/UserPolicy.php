@@ -19,7 +19,7 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         return $user->hasPermissionTo('user-edit')
-        || $user->id == $model->id;
+        || $user->id === $model->id;
     }
 
     public function manage(User $user, User $model)

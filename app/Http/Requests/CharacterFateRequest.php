@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\FateType;
-use App\Models\PerkVariant;
 use App\Rules\Fates;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,7 +18,7 @@ class CharacterFateRequest extends FormRequest
         $fates = [];
 
         if (isset($this->fates)) {
-            foreach($this->fates as $fate) {
+            foreach ($this->fates as $fate) {
                 $fateType = FateType::None();
 
                 if (isset($fate['continious']) && $fate['continious'] === 'on') {
@@ -36,13 +35,13 @@ class CharacterFateRequest extends FormRequest
 
                 array_push($fates, [
                     'text' => $fate['text'],
-                    'type' => $fateType != FateType::None() ? $fateType : null
+                    'type' => $fateType !== FateType::None() ? $fateType : null,
                 ]);
             }
         }
 
         $this->merge([
-            'fates' => $fates
+            'fates' => $fates,
         ]);
     }
 
@@ -51,7 +50,7 @@ class CharacterFateRequest extends FormRequest
         return [
             'fates' => [new Fates(true)],
             'fates.*.text' => ['required', 'max:1024'],
-            'fates.*.type' => ['required']
+            'fates.*.type' => ['required'],
         ];
     }
 }

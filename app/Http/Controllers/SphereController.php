@@ -11,13 +11,12 @@ use Illuminate\Http\Request;
 
 class SphereController extends Controller
 {
-
     public function create(Character $character)
     {
         $this->authorize('addSphere', $character);
 
         return view('spheres.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -36,7 +35,7 @@ class SphereController extends Controller
 
         return view('spheres.edit', [
             'character' => $character,
-            'sphere' => $sphere
+            'sphere' => $sphere,
         ]);
     }
 
@@ -63,7 +62,7 @@ class SphereController extends Controller
 
         return view('spheres.spend', [
             'character' => $character,
-            'sphere' => $sphere
+            'sphere' => $sphere,
         ]);
     }
 
@@ -71,7 +70,7 @@ class SphereController extends Controller
     {
         $this->authorize('manageIdeas', $character);
         $validated = $request->validate([
-            'value' => ['required', 'min:1', 'max:100', new SphereHasEnough($sphere)]
+            'value' => ['required', 'min:1', 'max:100', new SphereHasEnough($sphere)],
         ]);
 
         $sphere->value -= $validated['value'];
@@ -86,7 +85,7 @@ class SphereController extends Controller
 
         return view('spheres.add', [
             'character' => $character,
-            'sphere' => $sphere
+            'sphere' => $sphere,
         ]);
     }
 
@@ -94,7 +93,7 @@ class SphereController extends Controller
     {
         $this->authorize('manageIdeasGm', $character);
         $validated = $request->validate([
-            'value' => ['required', 'min:1', 'max:100']
+            'value' => ['required', 'min:1', 'max:100'],
         ]);
 
         $sphere->value += $validated['value'];
@@ -106,10 +105,10 @@ class SphereController extends Controller
     public function experienceView(Character $character, Sphere $sphere)
     {
         $this->authorize('manageIdeas', $character);
-        
+
         return view('spheres.experience', [
             'character' => $character,
-            'sphere' => $sphere
+            'sphere' => $sphere,
         ]);
     }
 
@@ -118,12 +117,12 @@ class SphereController extends Controller
         $this->authorize('manageIdeas', $character);
         $validated = $request->validate([
             'experience' => ['required', 'exists:experiences,id', new SphereToExperience($sphere, $request->get('value', 1))],
-            'value' => ['required', 'integer']
+            'value' => ['required', 'integer'],
         ]);
 
         $experience = $character->experiences->find($validated['experience']);
         $experience->increaseFromSphere($sphere, $validated);
-        
+
         return redirect()->route('characters.show', $character);
     }
 }

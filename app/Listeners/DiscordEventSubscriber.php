@@ -41,7 +41,7 @@ class DiscordEventSubscriber
     {
         Bus::chain([
             new VerifyUser($event->user),
-            new SendUserNotification($event->user, new RegisteredNotification())
+            new SendUserNotification($event->user, new RegisteredNotification()),
         ])->dispatch();
     }
 
@@ -51,7 +51,7 @@ class DiscordEventSubscriber
 
         Bus::chain([
             new SendCharacterNotification($character, new CharacterDeletionNotification($character)),
-            new DeleteTicket($character)
+            new DeleteTicket($character),
         ])->dispatch();
     }
 
@@ -64,8 +64,8 @@ class DiscordEventSubscriber
 
     public function handleCharacterSent($event)
     {
-        $registrars = User::whereHas('roles', function ($q) { 
-            $q->where('name', 'like', 'registrar'); 
+        $registrars = User::whereHas('roles', function ($q) {
+            $q->where('name', 'like', 'registrar');
         })->get();
 
         foreach ($registrars as $registrar) {
@@ -79,7 +79,7 @@ class DiscordEventSubscriber
 
         Bus::chain([
             new SendCharacterNotification($character, new ApplicationCanceledNotification($character)),
-            new DeleteTicket($character)
+            new DeleteTicket($character),
         ])->dispatch();
     }
 
@@ -89,7 +89,7 @@ class DiscordEventSubscriber
 
         Bus::chain([
             new CreateTicket($character),
-            new SendCharacterNotification($character, new ApplicationTakenNotification($character))
+            new SendCharacterNotification($character, new ApplicationTakenNotification($character)),
         ])->dispatch();
     }
 
@@ -113,7 +113,7 @@ class DiscordEventSubscriber
 
         Bus::chain([
             new SendCharacterNotification($character, new ApplicationApprovedNotification($character)),
-            new DeleteTicket($character)
+            new DeleteTicket($character),
         ])->dispatch();
     }
 
@@ -122,17 +122,19 @@ class DiscordEventSubscriber
         $character = $event->character;
         $user = $event->user;
         $jobs = [
-            new CreateTicket($character)
+            new CreateTicket($character),
         ];
 
-        if (!$user->is($character->user)) {
-            array_push($jobs,
+        if (! $user->is($character->user)) {
+            array_push(
+                $jobs,
                 new SendCharacterNotification($character, new ApplicationReapprovalNotification($character, $user))
             );
         }
 
-        if ($character->registrar->id != $user->id) {
-            array_push($jobs,
+        if ($character->registrar->id !== $user->id) {
+            array_push(
+                $jobs,
                 new SendRegistrarNotification($character->registrar, new ApplicationReapprovalNotification($character, $user))
             );
         }
@@ -168,7 +170,7 @@ class DiscordEventSubscriber
             CharacterApproved::class => 'handleCharacterApproved',
             CharacterReapproval::class => 'handleCharacterReapproval',
             UserAccountCreated::class => 'handleUserAccountCreated',
-            UserAccountDeleted::class => 'handleUserAccountDeleted'
+            UserAccountDeleted::class => 'handleUserAccountDeleted',
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PerkType;
 use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharsheetRequest;
@@ -22,7 +21,7 @@ class CharsheetController extends Controller
             'character' => $character,
             'maxSkills' => app(CharsheetSettings::class)->skill_points,
             'perks' => Perk::with('variants')->get(),
-            'maxFates' =>  app(CharsheetSettings::class)->max_fates,
+            'maxFates' => app(CharsheetSettings::class)->max_fates,
             'maxActivePerks' => app(CharsheetSettings::class)->max_active_perks,
         ]);
     }
@@ -32,15 +31,15 @@ class CharsheetController extends Controller
         $validated = $request->validated();
         $character->charsheet()->update($validated);
         $character->narrativeCrafts()->delete();
-        
+
         if (isset($validated['narrative_crafts'])) {
             $narrativeCrafts = [];
-        
-            foreach($validated['narrative_crafts'] as $craft) {
+
+            foreach ($validated['narrative_crafts'] as $craft) {
                 $craft['character_id'] = $character->id;
                 array_push($narrativeCrafts, new NarrativeCraft($craft));
             }
-            
+
             $character->narrativeCrafts()->saveMany($narrativeCrafts);
         }
 
@@ -49,7 +48,7 @@ class CharsheetController extends Controller
 
         info('Charsheet updated', [
             'user' => auth()->user()->login,
-            'character' => $character->login
+            'character' => $character->login,
         ]);
 
         return redirect()->route('characters.show', $character);
@@ -71,28 +70,11 @@ class CharsheetController extends Controller
         return redirect()->route('characters.show', $character);
     }
 
-    private function savePerks(Character $character, $validated)
-    {
-        if (isset($validated['perks']) && count($validated['perks'])) {
-            $character->perkVariants()->detach();
-            
-            foreach($validated['perks'] as $perkVariant) {
-                $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach($id, ['active' => true, 'note' => $perkVariant['note']]);
-            }
-
-            info('Character perks updated', [
-                'user' => auth()->user()->login,
-                'character' => $character->login
-            ]);
-        }
-    }
-
     public function editFates(Character $character)
     {
         return view('characters.fates', [
             'character' => $character,
-            'maxFates' =>  app(CharsheetSettings::class)->max_fates
+            'maxFates' => app(CharsheetSettings::class)->max_fates,
         ]);
     }
 
@@ -103,35 +85,52 @@ class CharsheetController extends Controller
         return redirect()->route('characters.show', $character);
     }
 
+    public function togglePerk(Character $character, PerkVariant $perkVariant)
+    {
+        try {
+            $character->togglePerk($perkVariant);
+
+            return back();
+        } catch (Exception $e) {
+            return back()->withErrors([
+                'vox' => __($e->getMessage()),
+            ]);
+        }
+    }
+
+    private function savePerks(Character $character, $validated)
+    {
+        if (isset($validated['perks']) && count($validated['perks'])) {
+            $character->perkVariants()->detach();
+
+            foreach ($validated['perks'] as $perkVariant) {
+                $id = $perkVariant['variant']->id;
+                $character->perkVariants()->attach($id, ['active' => true, 'note' => $perkVariant['note']]);
+            }
+
+            info('Character perks updated', [
+                'user' => auth()->user()->login,
+                'character' => $character->login,
+            ]);
+        }
+    }
+
     private function saveFates($character, $validated)
     {
         if (isset($validated['fates']) && count($validated['fates'])) {
             $character->fates()->delete();
             $fates = [];
 
-            foreach($validated['fates'] as $fate) {
+            foreach ($validated['fates'] as $fate) {
                 $fate['character_id'] = $character->id;
                 array_push($fates, new Fate($fate));
             }
-            
+
             $character->fates()->saveMany($fates);
 
             info('Character fates updated', [
                 'user' => auth()->user()->login,
-                'character' => $character->login
-            ]);
-        }
-    }
-
-    public function togglePerk(Character $character, PerkVariant $perkVariant)
-    {
-        try {
-            $character->togglePerk($perkVariant);
-            
-            return back();
-        } catch (Exception $e) {
-            return back()->withErrors([
-                'vox' => __($e->getMessage())
+                'character' => $character->login,
             ]);
         }
     }

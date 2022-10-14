@@ -4,7 +4,7 @@ return [
     'edit' => [
         'title' => 'Редактирование листа персонажа',
         'perks' => 'Изменение перков',
-        'fates' => 'Изменение Судеб'
+        'fates' => 'Изменение Судеб',
     ],
     'skills' => 'Навыки',
     'crafts' => 'Ремесла',
@@ -12,7 +12,7 @@ return [
     'narrative_crafts' => [
         'title' => 'Умения',
         'name' => 'Название',
-        'description' => 'Описание'
+        'description' => 'Описание',
     ],
     'perks' => 'Перки',
     'fates' => 'Судьбы',
@@ -25,6 +25,6 @@ return [
         'active_combat_perks' => 'Боевых перков: ',
         'active_noncombat_perks' => 'Небоевых перков: ',
         'combat_perk_attack' => 'Атакующий перк: ',
-        'combat_perk_defence' => 'Защитный перк: '
-    ]
+        'combat_perk_defence' => 'Защитный перк: ',
+    ],
 ];

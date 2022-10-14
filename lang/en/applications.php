@@ -13,5 +13,5 @@ return [
     'request_changes' => 'Request Changes',
     'request_approval' => 'Request Approval',
     'approve' => 'Approve',
-    'reapproval' => 'Send To Reapproval'
+    'reapproval' => 'Send To Reapproval',
 ];

@@ -23,7 +23,7 @@ class CharacterPolicy
     public function view(User $user, Character $character)
     {
         return $user->owns($character)
-            || $character->status == CharacterStatus::Approved()
+            || $character->status === CharacterStatus::Approved()
             || $user->hasPermissionTo('character-view');
     }
 
@@ -35,7 +35,7 @@ class CharacterPolicy
 
     public function updateCharsheet(User $user, Character $character)
     {
-        return (!$character->registered && $user->owns($character))
+        return (! $character->registered && $user->owns($character))
             || $user->hasPermissionTo('character-edit');
     }
 
@@ -69,56 +69,56 @@ class CharacterPolicy
     public function send(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status == CharacterStatus::Blank();
+            && $character->status === CharacterStatus::Blank();
     }
 
     public function cancel(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status == CharacterStatus::Pending();
+            && $character->status === CharacterStatus::Pending();
     }
 
     public function takeForApproval(User $user, Character $character)
     {
-        return $character->user_id != $user->id
+        return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-take-for-approval')
-            && $character->status == CharacterStatus::Pending();
+            && $character->status === CharacterStatus::Pending();
     }
 
     public function cancelApproval(User $user, Character $character)
     {
-        return $character->user_id != $user->id
+        return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-cancel-approval')
-            && $character->status == CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval();
     }
 
     public function requestChanges(User $user, Character $character)
     {
-        return $character->user_id != $user->id
-            && $character->registrar->id == $user->id
+        return $character->user_id !== $user->id
+            && $character->registrar->id === $user->id
             && $user->hasPermissionTo('application-request-changes')
-            && $character->status == CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval();
     }
 
     public function requestApproval(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status == CharacterStatus::ChangesRequested()
+            && $character->status === CharacterStatus::ChangesRequested()
             || $user->hasPermissionTo('application-request-approval');
     }
-    
+
     public function approve(User $user, Character $character)
     {
-        return $character->user_id != $user->id
+        return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-approve')
-            && $character->status == CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval();
     }
 
     public function reapproval(User $user, Character $character)
     {
         return ($user->owns($character)
             || $user->hasPermissionTo('application-reapproval'))
-            && $character->status == CharacterStatus::Approved();
+            && $character->status === CharacterStatus::Approved();
     }
 
     public function seeMainInfo(User $user, Character $character)
@@ -126,7 +126,7 @@ class CharacterPolicy
         return $character->info_hidden
             && ($user->owns($character)
             || $user->hasPermissionTo('character-view'))
-            || !$character->info_hidden;
+            || ! $character->info_hidden;
     }
 
     public function seeVisuals(User $user, Character $character)
@@ -139,7 +139,7 @@ class CharacterPolicy
         return $character->bio_hidden
             && ($user->owns($character)
             || $user->hasPermissionTo('character-view'))
-            || !$character->bio_hidden;
+            || ! $character->bio_hidden;
     }
 
     public function seePlayerOnlyInfo(User $user, Character $character)
@@ -202,7 +202,8 @@ class CharacterPolicy
         return count($character->experiences) > 0 && $user->hasPermissionTo('character-edit');
     }
 
-    public function queryCharacters(User $user) {
+    public function queryCharacters(User $user)
+    {
         return $user->hasPermissionTo('character-view');
     }
 }

@@ -20,38 +20,38 @@ class ApplicationCanceledNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $embed = [
-            'title' => "Ваш персонаж '$character->name' снят с проверки",
+            'title' => "Ваш персонаж '{$character->name}' снят с проверки",
             'description' => '*Что-то пошло не так*
             
             Новый регистратор возьмёт Вашего персонажа на проверку в ближайшее время.',
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'fields' => [
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)"
-                ]
-            ]
+                    [**Страница персонажа**]({$url})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));

@@ -13,7 +13,7 @@ class ExperienceController extends Controller
     {
         $this->authorize('updateCharsheetGm', $character);
         return view('experiences.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -31,7 +31,7 @@ class ExperienceController extends Controller
         $this->authorize('update', $character);
         return view('experiences.edit', [
             'character' => $character,
-            'experience' => $experience
+            'experience' => $experience,
         ]);
     }
 
@@ -57,7 +57,7 @@ class ExperienceController extends Controller
         $this->authorize('updateCharsheetGm', $character);
         return view('experiences.set', [
             'character' => $character,
-            'experience' => $experience
+            'experience' => $experience,
         ]);
     }
 
@@ -65,7 +65,7 @@ class ExperienceController extends Controller
     {
         $this->authorize('updateCharsheetGm', $character);
         $validated = $request->validate([
-            'level' => ['min:1', 'max:10']
+            'level' => ['min:1', 'max:10'],
         ]);
 
         $experience->update($validated);

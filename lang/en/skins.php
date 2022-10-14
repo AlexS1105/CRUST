@@ -5,5 +5,5 @@ return [
     'create' => 'Upload Skin',
     'copy' => 'Copy Link',
     'delete' => 'Delete',
-    'empty' => 'Character has no skins'
+    'empty' => 'Character has no skins',
 ];

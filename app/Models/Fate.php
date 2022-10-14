@@ -13,7 +13,7 @@ class Fate extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'type' => FateType::class
+        'type' => FateType::class,
     ];
 
     public function character()

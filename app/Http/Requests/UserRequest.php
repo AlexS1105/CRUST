@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;
@@ -16,7 +15,7 @@ class UserRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'discord_notify' => $this->discord_notify == 'on',
+            'discord_notify' => $this->discord_notify === 'on',
         ]);
     }
 
@@ -24,7 +23,7 @@ class UserRequest extends FormRequest
     {
         return [
             'login' => ['required', 'max:255', Rule::unique('users')->ignore($this->user->login, 'login')],
-            'discord_notify' => ['boolean']
+            'discord_notify' => ['boolean'],
         ];
     }
 }

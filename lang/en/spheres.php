@@ -7,5 +7,5 @@ return [
     'spend' => 'Spend Points',
     'to_experience' => 'To Experience',
     'delete' => 'Delete',
-    'create' => 'Create Sphere'
+    'create' => 'Create Sphere',
 ];

@@ -8,11 +8,10 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     protected $subscribe = [
-        DiscordEventSubscriber::class
+        DiscordEventSubscriber::class,
     ];
 
     public function boot()
     {
-        //
     }
 }

@@ -8,5 +8,5 @@ return [
     'delete' => 'Delete',
     'empty' => 'Users not found',
     'roles' => 'Roles',
-    'permissions' => 'Permissions'
+    'permissions' => 'Permissions',
 ];

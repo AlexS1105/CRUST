@@ -9,7 +9,7 @@ class Ban extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'expires' => 'datetime'
+        'expires' => 'datetime',
     ];
 
     public function user()
@@ -26,17 +26,17 @@ class Ban extends Model
     {
         parent::boot();
 
-        static::created(function($ban) {
+        static::created(function ($ban) {
             info('User banned', [
                 'by' => auth()->user()->login,
-                'user' => $ban->user->login
+                'user' => $ban->user->login,
             ]);
         });
 
-        static::deleted(function($ban) {
+        static::deleted(function ($ban) {
             info('User unbanned', [
                 'by' => auth()->user()->login,
-                'user' => $ban->user->login
+                'user' => $ban->user->login,
             ]);
         });
     }

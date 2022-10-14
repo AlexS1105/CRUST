@@ -31,8 +31,8 @@ class ApplicationController extends Controller
             'status' => $status,
             'search' => $search,
             'characters' => $characters->sortable()
-                                        ->oldest('status_updated_at')
-                                        ->paginate(20)
+                ->oldest('status_updated_at')
+                ->paginate(20),
         ]);
     }
 
@@ -93,7 +93,7 @@ class ApplicationController extends Controller
         $character->setStatus(CharacterStatus::Approved());
 
         event(new CharacterApproved($character));
-        
+
         return back();
     }
 

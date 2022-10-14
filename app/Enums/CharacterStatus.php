@@ -6,20 +6,20 @@ use BenSampo\Enum\Enum;
 
 final class CharacterStatus extends Enum
 {
-    const Blank = 0;
-    const Pending = 1;
-    const Approval = 2;
-    const ChangesRequested = 3;
-    const Approved = 4;
-    const Deleting = 5;
+    public const Blank = 0;
+    public const Pending = 1;
+    public const Approval = 2;
+    public const ChangesRequested = 3;
+    public const Approved = 4;
+    public const Deleting = 5;
 
     protected $colors = [
-        CharacterStatus::Blank => "gray-400",
-        CharacterStatus::Pending => "blue-400",
-        CharacterStatus::Approval => "yellow-300",
-        CharacterStatus::ChangesRequested => "yellow-600",
-        CharacterStatus::Approved => "green-400",
-        CharacterStatus::Deleting => "red-400"
+        CharacterStatus::Blank => 'gray-400',
+        CharacterStatus::Pending => 'blue-400',
+        CharacterStatus::Approval => 'yellow-300',
+        CharacterStatus::ChangesRequested => 'yellow-600',
+        CharacterStatus::Approved => 'green-400',
+        CharacterStatus::Deleting => 'red-400',
     ];
 
     public function color()

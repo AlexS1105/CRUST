@@ -10,14 +10,13 @@ use App\Models\User;
 
 class AccountController extends Controller
 {
-
     public function index(User $user)
     {
         $this->authorize('accounts', $user);
         session()->put('url.intended', url()->previous());
         return view('accounts.index', [
             'user' => $user,
-            'accounts' => $user->accounts
+            'accounts' => $user->accounts,
         ]);
     }
 
@@ -26,7 +25,7 @@ class AccountController extends Controller
         $this->authorize('createAccount', $user);
         session()->put('url.intended', url()->previous());
         return view('accounts.create', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 

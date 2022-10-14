@@ -25,24 +25,24 @@ class VoxLog extends Model
     {
         parent::boot();
 
-        static::created(function($voxLog) {
+        static::created(function ($voxLog) {
             info('Vox log created', [
                 'user' => auth()->user()->login,
-                'character' => $voxLog->character->login
+                'character' => $voxLog->character->login,
             ]);
         });
 
-        static::updated(function($voxLog) {
+        static::updated(function ($voxLog) {
             info('Vox log updated', [
                 'user' => auth()->user()->login,
-                'character' => $voxLog->character->login
+                'character' => $voxLog->character->login,
             ]);
         });
 
-        static::deleted(function($voxLog) {
+        static::deleted(function ($voxLog) {
             info('Vox log deleted', [
                 'user' => auth()->user()->login,
-                'character' => $voxLog->character->login
+                'character' => $voxLog->character->login,
             ]);
         });
     }

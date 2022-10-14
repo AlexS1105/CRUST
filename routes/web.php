@@ -8,7 +8,6 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\LogController;
@@ -17,6 +16,7 @@ use App\Http\Controllers\NarrativeCraftController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SphereController;
 use App\Http\Controllers\UserController;
@@ -39,16 +39,16 @@ Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
 
 Route::get('/perks', PerkListController::class)->name('perks.list');
 
-Route::middleware('auth')->group(function() {
-    Route::get('/discord-invite', function() {
+Route::middleware('auth')->group(function () {
+    Route::get('/discord-invite', function () {
         return redirect(config('services.discord.invite'));
     })->name('discord.invite');
 
-    Route::get('/discord-verify', function() {
+    Route::get('/discord-verify', function () {
         return view('discord.index');
     })->name('discord.verify');
 
-    Route::middleware('verified')->group(function() {
+    Route::middleware('verified')->group(function () {
         Route::get('/', [CharacterController::class, 'index'])
             ->name('characters.index');
 
@@ -197,7 +197,7 @@ Route::middleware('auth')->group(function() {
             ->except(['show', 'edit', 'update'])
             ->shallow();
 
-        Route::middleware('can:settings')->group(function() {
+        Route::middleware('can:settings')->group(function () {
             Route::get('settings', SettingsController::class)
                 ->name('settings.index');
 
@@ -215,7 +215,7 @@ Route::middleware('auth')->group(function() {
 
             Route::resource('settings/perks', PerkController::class)
                 ->except(['show']);
- 
+
             Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
                 ->except(['index', 'show'])
                 ->shallow()
@@ -225,17 +225,17 @@ Route::middleware('auth')->group(function() {
                     'create' => 'perks.variants.create',
                     'update' => 'perks.variants.update',
                     'edit' => 'perks.variants.edit',
-                    'destroy' => 'perks.variants.destroy'
+                    'destroy' => 'perks.variants.destroy',
                 ]);
         });
 
-        Route::middleware('can:logs')->group(function() {
+        Route::middleware('can:logs')->group(function () {
             Route::get('logs', [LogController::class, 'index'])
                 ->name('logs.index');
-                
+
             Route::get('logs/ingame', [LogController::class, 'ingame'])
                 ->name('logs.ingame');
-            
+
             Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
                 ->name('logs.crust');
         });

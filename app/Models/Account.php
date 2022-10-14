@@ -20,17 +20,17 @@ class Account extends Model
     {
         parent::boot();
 
-        static::created(function($account) {
+        static::created(function ($account) {
             info('User account created', [
                 'user' => auth()->user()->login,
-                'account' => $account->login
+                'account' => $account->login,
             ]);
         });
 
-        static::deleted(function($account) {
+        static::deleted(function ($account) {
             info('User account deleted', [
                 'user' => auth()->user()->login,
-                'account' => $account->login
+                'account' => $account->login,
             ]);
         });
     }

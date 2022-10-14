@@ -5,5 +5,5 @@ return [
     'edit' => 'Edit',
     'set' => 'Set',
     'delete' => 'Delete',
-    'create' => 'Create Experience'
+    'create' => 'Create Experience',
 ];

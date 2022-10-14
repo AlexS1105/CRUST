@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(User::class, 'user');
@@ -21,16 +20,16 @@ class UserController extends Controller
         return view('users.index', [
             'search' => $search,
             'users' => User::where('users.login', 'like', '%'.$search.'%')
-                            ->latest('created_at')
-                            ->sortable()
-                            ->paginate(20)
+                ->latest('created_at')
+                ->sortable()
+                ->paginate(20),
         ]);
     }
 
     public function show(User $user)
     {
         return view('users.show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -42,7 +41,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user' => $user,
             'roles' => $can ? Role::with('permissions')->get() : [],
-            'permissions' => $can ? Permission::all() : []
+            'permissions' => $can ? Permission::all() : [],
         ]);
     }
 

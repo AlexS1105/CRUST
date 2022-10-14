@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\PerkType;
 use App\Models\Perk;
+
 class PerkListController extends Controller
 {
     public function __invoke()
@@ -15,7 +16,7 @@ class PerkListController extends Controller
         if (isset($perkType)) {
             $perkType = PerkType::fromValue(intval($perkType));
 
-            if ($perkType->value == PerkType::None) {
+            if ($perkType->value === PerkType::None) {
                 $perks->notHasFlag('perks.type', PerkType::Combat)
                     ->notHasFlag('perks.type', PerkType::Attack)
                     ->notHasFlag('perks.type', PerkType::Defence);
@@ -27,7 +28,7 @@ class PerkListController extends Controller
         return view('perks.list', [
             'perks' => $perks->paginate(20),
             'search' => $search,
-            'perkType' => $perkType
+            'perkType' => $perkType,
         ]);
     }
 }

@@ -15,7 +15,7 @@ class SphereRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:256'],
-            'description' => ['max:1024']
+            'description' => ['max:1024'],
         ];
     }
 }

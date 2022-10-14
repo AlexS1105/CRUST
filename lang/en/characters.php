@@ -11,7 +11,7 @@ return [
         'visuals' => 'Visuals',
         'biography' => 'Biography',
         'registration_info' => 'Registration Info',
-        'additional_info' => 'Additional Info'
+        'additional_info' => 'Additional Info',
     ],
     'placeholder' => [
         'name' => 'Aeran Hyde',
@@ -22,12 +22,12 @@ return [
         'personality' => 'A brave young man with many ambitions.',
         'background' => 'Aeran was born in a small village. After his parents died he went on an adventure.',
         'login' => 'AeranHyde',
-        'player_only_info' => 'Hidden info that will be visible only to you and gamemasters.'
+        'player_only_info' => 'Hidden info that will be visible only to you and gamemasters.',
     ],
     'gender' => [
         'male' => 'Male',
         'female' => 'Female',
-        'other' => 'Other'
+        'other' => 'Other',
     ],
     'status' => [
         'blank' => 'Blank',
@@ -35,10 +35,10 @@ return [
         'approval' => 'Approval',
         'changes_requested' => 'Changes Requested',
         'approved' => 'Approved',
-        'deleting' => 'Deleted'
+        'deleting' => 'Deleted',
     ],
     'stages' => [
         'main' => 'Main',
-        'charsheet' => 'Charsheet'
-    ]
+        'charsheet' => 'Charsheet',
+    ],
 ];

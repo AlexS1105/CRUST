@@ -13,7 +13,7 @@ class BanController extends Controller
         $this->authorize('ban', $user);
         session()->put('url.intended', url()->previous());
         return view('ban.create', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -26,7 +26,7 @@ class BanController extends Controller
         $ban['user_id'] = $user->id;
 
         Ban::updateOrCreate([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ], $ban);
 
         return redirect()->intended('/');

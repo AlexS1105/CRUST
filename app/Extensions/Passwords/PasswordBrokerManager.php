@@ -2,7 +2,6 @@
 
 namespace App\Extensions\Passwords;
 
-use App\Extensions\Passwords\PasswordBroker;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -27,6 +26,7 @@ class PasswordBrokerManager extends ServiceProvider
      * Create a new PasswordBroker manager instance.
      *
      * @param  \Illuminate\Contracts\Foundation\Application  $app
+     *
      * @return void
      */
     public function __construct($app)
@@ -35,22 +35,59 @@ class PasswordBrokerManager extends ServiceProvider
     }
 
     /**
+     * Dynamically call the default driver instance.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->broker()->{$method}(...$parameters);
+    }
+
+    /**
      * Attempt to get the broker from the local cache.
      *
      * @param  string|null  $name
+     *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
     public function broker($name = null)
     {
-        $name = $name ?: $this->getDefaultDriver();
+        $name = $name ? $name : $this->getDefaultDriver();
 
         return $this->brokers[$name] ?? ($this->brokers[$name] = $this->resolve($name));
+    }
+
+    /**
+     * Get the default password broker name.
+     *
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        return $this->app['config']['auth.defaults.passwords'];
+    }
+
+    /**
+     * Set the default password broker name.
+     *
+     * @param  string  $name
+     *
+     * @return void
+     */
+    public function setDefaultDriver($name)
+    {
+        $this->app['config']['auth.defaults.passwords'] = $name;
     }
 
     /**
      * Resolve the given broker.
      *
      * @param  string  $name
+     *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      *
      * @throws \InvalidArgumentException
@@ -76,6 +113,7 @@ class PasswordBrokerManager extends ServiceProvider
      * Create a token repository instance based on the given configuration.
      *
      * @param  array  $config
+     *
      * @return \Illuminate\Auth\Passwords\TokenRepositoryInterface
      */
     protected function createTokenRepository(array $config)
@@ -102,43 +140,11 @@ class PasswordBrokerManager extends ServiceProvider
      * Get the password broker configuration.
      *
      * @param  string  $name
+     *
      * @return array
      */
     protected function getConfig($name)
     {
         return $this->app['config']["auth.passwords.{$name}"];
-    }
-
-    /**
-     * Get the default password broker name.
-     *
-     * @return string
-     */
-    public function getDefaultDriver()
-    {
-        return $this->app['config']['auth.defaults.passwords'];
-    }
-
-    /**
-     * Set the default password broker name.
-     *
-     * @param  string  $name
-     * @return void
-     */
-    public function setDefaultDriver($name)
-    {
-        $this->app['config']['auth.defaults.passwords'] = $name;
-    }
-
-    /**
-     * Dynamically call the default driver instance.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->broker()->{$method}(...$parameters);
     }
 }

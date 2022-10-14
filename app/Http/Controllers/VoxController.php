@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VoxRequest;
 use App\Models\Character;
-use App\Models\VoxLog;
 
 class VoxController extends Controller
 {
@@ -13,7 +12,7 @@ class VoxController extends Controller
         $this->authorize('voxView', $character);
 
         return view('vox.index', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -21,7 +20,7 @@ class VoxController extends Controller
     {
         $this->authorize('voxCreate', $character);
         return view('vox.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 

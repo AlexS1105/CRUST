@@ -6,16 +6,16 @@ use BenSampo\Enum\Enum;
 
 final class CharacterCraft extends Enum
 {
-    const Arc = 0;
-    const Mys = 1;
-    const Wiz = 2;
-    const Mnf = 3;
-    const Eng = 4;
-    const Gun = 5;
-    const Chm = 6;
-    const Smt = 7;
-    const Bld = 8;
-    const Med = 9;
+    public const Arc = 0;
+    public const Mys = 1;
+    public const Wiz = 2;
+    public const Mnf = 3;
+    public const Eng = 4;
+    public const Gun = 5;
+    public const Chm = 6;
+    public const Smt = 7;
+    public const Bld = 8;
+    public const Med = 9;
 
     protected $tiers = [
         CharacterCraft::Arc => 3,
@@ -27,28 +27,28 @@ final class CharacterCraft extends Enum
         CharacterCraft::Chm => 2,
         CharacterCraft::Smt => 2,
         CharacterCraft::Bld => 1,
-        CharacterCraft::Med => 1
+        CharacterCraft::Med => 1,
     ];
 
-    static public function getMagicCrafts()
+    public static function getMagicCrafts()
     {
         return [
             CharacterCraft::Arc(),
             CharacterCraft::Mys(),
-            CharacterCraft::Wiz()
+            CharacterCraft::Wiz(),
         ];
     }
 
-    static public function getTechCrafts()
+    public static function getTechCrafts()
     {
         return [
             CharacterCraft::Mnf(),
             CharacterCraft::Eng(),
-            CharacterCraft::Gun()
+            CharacterCraft::Gun(),
         ];
     }
 
-    static public function getGeneralCrafts()
+    public static function getGeneralCrafts()
     {
         return [
             CharacterCraft::Chm(),
@@ -65,7 +65,7 @@ final class CharacterCraft extends Enum
 
     public function getType()
     {
-        return in_array($this, $this->getMagicCrafts()) ? 'magic' : 
+        return in_array($this, $this->getMagicCrafts()) ? 'magic' :
             (in_array($this, $this->getTechCrafts()) ? 'tech' : 'general');
     }
 
@@ -81,7 +81,7 @@ final class CharacterCraft extends Enum
 
     public function isGeneral()
     {
-        return !$this->isMagic() && !$this->isTech();
+        return ! $this->isMagic() && ! $this->isTech();
     }
 
     public function key()

@@ -25,8 +25,8 @@ class CheckBanned
                     'admin' => $by->login,
                     'tag' => $by->discord_tag,
                     'reason' => $ban->reason,
-                    'time' => Carbon::parse($user->ban->expires)->diffForHumans()
-                ])
+                    'time' => Carbon::parse($user->ban->expires)->diffForHumans(),
+                ]),
             ]);
         }
 

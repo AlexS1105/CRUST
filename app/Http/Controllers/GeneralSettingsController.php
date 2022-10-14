@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Settings\GeneralSettings;
-
 use App\Http\Requests\GeneralSettingsRequest;
+use App\Settings\GeneralSettings;
 
 class GeneralSettingsController extends Controller
 {
-    function show()
+    public function show()
     {
         return view('settings.general', [
-            'settings' => app(GeneralSettings::class)
+            'settings' => app(GeneralSettings::class),
         ]);
     }
 
-    function update(GeneralSettingsRequest $request)
+    public function update(GeneralSettingsRequest $request)
     {
         app(GeneralSettings::class)->update($request->validated());
         return back();

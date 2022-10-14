@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 class SphereHasEnough implements Rule
 {
     public $sphere;
-    
+
     public function __construct($sphere)
     {
         $this->sphere = $sphere;

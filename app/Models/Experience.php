@@ -11,12 +11,12 @@ class Experience extends Model
 
     protected $guarded = [];
 
-    static public function getCost($curValue, $inc)
+    public static function getCost($curValue, $inc)
     {
         $costPerPoint = 2;
         $costSum = 0;
 
-        for ($i = $curValue; $i < $curValue + $inc; $i++) { 
+        for ($i = $curValue; $i < $curValue + $inc; $i++) {
             $costSum += $i >= 5 ? $costPerPoint * 2 : $costPerPoint;
         }
 

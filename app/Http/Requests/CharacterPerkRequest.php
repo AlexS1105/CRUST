@@ -19,26 +19,26 @@ class CharacterPerkRequest extends FormRequest
         $perks = [];
 
         if (isset($this->perks)) {
-            foreach($this->perks as $perkId => $perkData) {
-                if ($perkData['id'] != "-1") {
+            foreach ($this->perks as $perkId => $perkData) {
+                if ($perkData['id'] !== '-1') {
                     $perks[$perkId] = [
                         'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
                         'active' => isset($perkData['active']) ? $perkData['active'] === 'on' : false,
-                        'note' => $perkData['note']
+                        'note' => $perkData['note'],
                     ];
                 }
             }
         }
 
         $this->merge([
-            'perks' => $perks
+            'perks' => $perks,
         ]);
     }
 
     public function rules()
     {
         return [
-            'perks' => [new PerkPool(true)]
+            'perks' => [new PerkPool(true)],
         ];
     }
 }

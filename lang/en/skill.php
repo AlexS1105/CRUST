@@ -9,5 +9,5 @@ return [
     'tech' => 'Tech',
     'magic' => 'Magic',
     'charisma' => 'Charisma',
-    'composure' => 'Composure'
+    'composure' => 'Composure',
 ];

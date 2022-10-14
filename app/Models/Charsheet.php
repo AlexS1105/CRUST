@@ -15,15 +15,15 @@ class Charsheet extends Model
 
     protected $attributes = [
         'skills' => [
-            'fitness'       => 3,
-            'perception'    => 3,
-            'agility'       => 3,
-            'coordination'  => 3,
-            'ingenuity'     => 3,
-            'tech'          => 1,
-            'magic'         => 1,
-            'charisma'      => 3,
-            'composure'     => 3
+            'fitness' => 3,
+            'perception' => 3,
+            'agility' => 3,
+            'coordination' => 3,
+            'ingenuity' => 3,
+            'tech' => 1,
+            'magic' => 1,
+            'charisma' => 3,
+            'composure' => 3,
         ],
         'crafts' => [
             'arc' => 0,
@@ -35,7 +35,7 @@ class Charsheet extends Model
             'chm' => 0,
             'smt' => 0,
             'bld' => 0,
-            'med' => 0
+            'med' => 0,
         ],
     ];
 

@@ -21,14 +21,14 @@ class ApplicationApprovedNotification extends DiscordNotification
         $character = $this->character;
         $registrar = $character->registrar;
         $launcherUrl = config('services.launcherurl');
-        
+
         $embed = [
-            'title' => "Ваш персонаж '$character->name' одобрен!",
+            'title' => "Ваш персонаж '{$character->name}' одобрен!",
             'description' => 'Вы можете начать игру уже сейчас!',
             'url' => $url,
             'color' => 0x34D399,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'author' => [
                 'name' => $registrar->discord_tag,
@@ -37,34 +37,34 @@ class ApplicationApprovedNotification extends DiscordNotification
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
 
-                    [**Страница персонажа**]($url)"
+                    [**Страница персонажа**]({$url})",
                 ],
                 [
                     'name' => '**Данные для входа**',
-                    'value' => "**Логин:** $character->login
+                    'value' => "**Логин:** {$character->login}
                     **Пароль:** Такой же, как у аккаунта здесь
                     
                     **Приятной игры!**
                     
-                    [**Скачать лаунчер**]($launcherUrl)"
-                ]
-            ]
+                    [**Скачать лаунчер**]({$launcherUrl})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));

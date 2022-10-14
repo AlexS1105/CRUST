@@ -13,7 +13,7 @@ class PerkController extends Controller
     {
         return view('perks.index', [
             'perks' => Perk::with('variants')
-                ->paginate(30)
+                ->paginate(30),
         ]);
     }
 
@@ -30,9 +30,9 @@ class PerkController extends Controller
         $perk = Perk::create([
             'name' => $validated['name'],
             'general_description' => $validated['general_description'],
-            'type' => $validated['type']
+            'type' => $validated['type'],
         ]);
-        
+
         PerkVariant::create(['perk_id' => $perk->id, 'description' => $validated['description']]);
 
         return redirect()->route('perks.index');
@@ -41,7 +41,7 @@ class PerkController extends Controller
     public function edit(Perk $perk)
     {
         return view('perks.edit', [
-            'perk' => $perk
+            'perk' => $perk,
         ]);
     }
 
@@ -80,7 +80,7 @@ class PerkController extends Controller
         if ($validated['defence']) {
             $validated['type']->addFlag(PerkType::Defence);
         }
-        
+
         unset($validated['defence']);
 
         return $validated;

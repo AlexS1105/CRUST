@@ -14,7 +14,7 @@ class IdeaController extends Controller
     {
         $this->authorize('addIdea', $character);
         return view('ideas.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -25,7 +25,7 @@ class IdeaController extends Controller
         $character->ideas()->create($validated);
         $user = $request->user();
 
-        if (isset($user) && !$user->can('manageIdeasGm', $character)) {
+        if (isset($user) && ! $user->can('manageIdeasGm', $character)) {
             $character->last_idea = now();
             $character->save();
         }
@@ -38,7 +38,7 @@ class IdeaController extends Controller
         $this->authorize('manageIdeas', $character);
         return view('ideas.edit', [
             'character' => $character,
-            'idea' => $idea
+            'idea' => $idea,
         ]);
     }
 
@@ -64,7 +64,7 @@ class IdeaController extends Controller
         $this->authorize('manageIdeas', $character);
         return view('ideas.sphere', [
             'character' => $character,
-            'idea' => $idea
+            'idea' => $idea,
         ]);
     }
 
@@ -72,7 +72,7 @@ class IdeaController extends Controller
     {
         $this->authorize('manageIdeas', $character);
         $validated = $request->validate([
-            'sphere' => ['required', 'exists:spheres,id', new IdeaToSphere($character)]
+            'sphere' => ['required', 'exists:spheres,id', new IdeaToSphere($character)],
         ]);
 
         $sphere = $character->spheres->find($validated['sphere']);

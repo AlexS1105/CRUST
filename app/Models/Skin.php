@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Skin extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function character()
@@ -20,19 +20,19 @@ class Skin extends Model
     {
         parent::boot();
 
-        static::created(function($skin) {
+        static::created(function ($skin) {
             info('Skin created', [
                 'user' => auth()->user()->login,
                 'character' => $skin->character->login,
-                'prefix' => $skin->prefix
+                'prefix' => $skin->prefix,
             ]);
         });
 
-        static::deleted(function($skin) {
+        static::deleted(function ($skin) {
             info('Skin deleted', [
                 'user' => auth()->user()->login,
                 'character' => $skin->character->login,
-                'prefix' => $skin->prefix
+                'prefix' => $skin->prefix,
             ]);
         });
     }

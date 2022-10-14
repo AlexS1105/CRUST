@@ -13,11 +13,11 @@ return [
     'placeholder' => [
         'name' => 'Perk Name',
         'description' => 'Perk Effect Description',
-        'note' => 'Note'
+        'note' => 'Note',
     ],
     'variants' => [
         'create' => 'Add Variant',
-        'edit' => 'Edit Perk Variant'
+        'edit' => 'Edit Perk Variant',
     ],
     'types' => [
         'combat' => 'Combat',
@@ -25,6 +25,6 @@ return [
         'attack' => 'Attack',
         'defence' => 'Defence',
         'inactive' => 'Inactive',
-        'active' => 'Active'
-    ]
+        'active' => 'Active',
+    ],
 ];

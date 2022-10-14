@@ -62,12 +62,17 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      * @param  string  $hashKey
      * @param  int  $expires
      * @param  int  $throttle
+     *
      * @return void
      */
-    public function __construct(ConnectionInterface $connection, HasherContract $hasher,
-                                $table, $hashKey, $expires = 60,
-                                $throttle = 60)
-    {
+    public function __construct(
+        ConnectionInterface $connection,
+        HasherContract $hasher,
+        $table,
+        $hashKey,
+        $expires = 60,
+        $throttle = 60
+    ) {
         $this->table = $table;
         $this->hasher = $hasher;
         $this->hashKey = $hashKey;
@@ -80,6 +85,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      * Create a new token record.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return string
      */
     public function create(CanResetPasswordContract $user)
@@ -99,39 +105,18 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * Delete all existing reset tokens from the database.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @return int
-     */
-    protected function deleteExisting(CanResetPasswordContract $user)
-    {
-        return $this->getTable()->where('discord_id', $user->discord_id)->delete();
-    }
-
-    /**
-     * Build the record payload for the table.
-     *
-     * @param  string  $discord_id
-     * @param  string  $token
-     * @return array
-     */
-    protected function getPayload($discord_id, $token)
-    {
-        return ['discord_id' => $discord_id, 'token' => $this->hasher->make($token), 'created_at' => new Carbon];
-    }
-
-    /**
      * Determine if a token record exists and is valid.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $token
+     *
      * @return bool
      */
     public function exists(CanResetPasswordContract $user, $token)
     {
         $record = (array) $this->getTable()->where(
-            'discord_id', $user->discord_id
+            'discord_id',
+            $user->discord_id
         )->first();
 
         return $record &&
@@ -140,52 +125,27 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * Determine if the token has expired.
-     *
-     * @param  string  $createdAt
-     * @return bool
-     */
-    protected function tokenExpired($createdAt)
-    {
-        return Carbon::parse($createdAt)->addSeconds($this->expires)->isPast();
-    }
-
-    /**
      * Determine if the given user recently created a password reset token.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return bool
      */
     public function recentlyCreatedToken(CanResetPasswordContract $user)
     {
         $record = (array) $this->getTable()->where(
-            'discord_id', $user->discord_id
+            'discord_id',
+            $user->discord_id
         )->first();
 
         return $record && $this->tokenRecentlyCreated($record['created_at']);
     }
 
     /**
-     * Determine if the token was recently created.
-     *
-     * @param  string  $createdAt
-     * @return bool
-     */
-    protected function tokenRecentlyCreated($createdAt)
-    {
-        if ($this->throttle <= 0) {
-            return false;
-        }
-
-        return Carbon::parse($createdAt)->addSeconds(
-            $this->throttle
-        )->isFuture();
-    }
-
-    /**
      * Delete a token record by user.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
      * @return void
      */
     public function delete(CanResetPasswordContract $user)
@@ -226,16 +186,6 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * Begin a new database query against the table.
-     *
-     * @return \Illuminate\Database\Query\Builder
-     */
-    protected function getTable()
-    {
-        return $this->connection->table($this->table);
-    }
-
-    /**
      * Get the hasher instance.
      *
      * @return \Illuminate\Contracts\Hashing\Hasher
@@ -243,5 +193,70 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     public function getHasher()
     {
         return $this->hasher;
+    }
+
+    /**
+     * Delete all existing reset tokens from the database.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     *
+     * @return int
+     */
+    protected function deleteExisting(CanResetPasswordContract $user)
+    {
+        return $this->getTable()->where('discord_id', $user->discord_id)->delete();
+    }
+
+    /**
+     * Build the record payload for the table.
+     *
+     * @param  string  $discord_id
+     * @param  string  $token
+     *
+     * @return array
+     */
+    protected function getPayload($discord_id, $token)
+    {
+        return ['discord_id' => $discord_id, 'token' => $this->hasher->make($token), 'created_at' => new Carbon()];
+    }
+
+    /**
+     * Determine if the token has expired.
+     *
+     * @param  string  $createdAt
+     *
+     * @return bool
+     */
+    protected function tokenExpired($createdAt)
+    {
+        return Carbon::parse($createdAt)->addSeconds($this->expires)->isPast();
+    }
+
+    /**
+     * Determine if the token was recently created.
+     *
+     * @param  string  $createdAt
+     *
+     * @return bool
+     */
+    protected function tokenRecentlyCreated($createdAt)
+    {
+        if ($this->throttle <= 0) {
+            return false;
+        }
+
+        return Carbon::parse($createdAt)->addSeconds(
+            $this->throttle
+        )->isFuture();
+    }
+
+    /**
+     * Begin a new database query against the table.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function getTable()
+    {
+        return $this->connection->table($this->table);
     }
 }

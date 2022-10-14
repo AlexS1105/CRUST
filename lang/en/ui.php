@@ -11,6 +11,6 @@ return [
         'title' => 'Sorting',
         'created_at' => 'By Creation Date',
         'updated_at' => 'By Latest Activity',
-        'perk' => 'With Perk...'
-    ]
+        'perk' => 'With Perk...',
+    ],
 ];

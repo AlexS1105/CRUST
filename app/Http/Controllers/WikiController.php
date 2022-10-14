@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\RevokeOldTokens;
 use Illuminate\Http\Request;
+
 class WikiController extends Controller
 {
     public function __invoke(Request $request)

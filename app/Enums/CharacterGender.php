@@ -6,14 +6,14 @@ use BenSampo\Enum\Enum;
 
 final class CharacterGender extends Enum
 {
-    const Male = 0;
-    const Female = 1;
-    const Other = 2;
+    public const Male = 0;
+    public const Female = 1;
+    public const Other = 2;
 
     protected $icons = [
         CharacterGender::Male => 'fa-mars',
         CharacterGender::Female => 'fa-venus',
-        CharacterGender::Other => 'fa-genderless', 
+        CharacterGender::Other => 'fa-genderless',
     ];
 
     protected $colors = [

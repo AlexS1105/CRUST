@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NarrativeCraftRequest;
 use App\Models\Character;
 use App\Models\NarrativeCraft;
-use Illuminate\Http\Request;
 
 class NarrativeCraftController extends Controller
 {
@@ -13,7 +12,7 @@ class NarrativeCraftController extends Controller
     {
         $this->authorize('updateCharsheetGm', $character);
         return view('crafts.create', [
-            'character' => $character
+            'character' => $character,
         ]);
     }
 
@@ -31,7 +30,7 @@ class NarrativeCraftController extends Controller
         $this->authorize('update', $character);
         return view('crafts.edit', [
             'character' => $character,
-            'narrativeCraft' => $narrativeCraft
+            'narrativeCraft' => $narrativeCraft,
         ]);
     }
 

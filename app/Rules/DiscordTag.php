@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class DiscordTag implements Rule
 {
-
     public function passes($attribute, $value)
     {
         return preg_match('/^.*#[0-9]{4}$/', $value);

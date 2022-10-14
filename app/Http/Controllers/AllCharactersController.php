@@ -24,13 +24,13 @@ class AllCharactersController extends Controller
         }
 
         if (isset($updated_at)) {
-            if ($updated_at == 'asc') {
+            if ($updated_at === 'asc') {
                 $characters->latest('updated_at');
             } else {
                 $characters->oldest('updated_at');
             }
         } else {
-            if ($created_at == 'asc') {
+            if ($created_at === 'asc') {
                 $characters->latest('created_at');
             } else {
                 $characters->oldest('created_at');
@@ -41,7 +41,7 @@ class AllCharactersController extends Controller
             'search' => $search,
             'characters' => $characters->paginate(48),
             'perks' => Perk::all(),
-            'perk' => $perk
+            'perk' => $perk,
         ]);
     }
 }

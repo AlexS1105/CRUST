@@ -51,5 +51,5 @@ return [
     'prefix' => 'Prefix',
     'skin' => 'Skin',
     'sphere' => 'Sphere',
-    'value' => 'Value'
+    'value' => 'Value',
 ];

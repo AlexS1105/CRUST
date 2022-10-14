@@ -3,5 +3,5 @@
 return [
     'register' => 'Sign Up',
     'login' => 'Log In',
-    'forgot' => 'Forgot your password?'
+    'forgot' => 'Forgot your password?',
 ];

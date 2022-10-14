@@ -13,5 +13,5 @@ return [
     'request_changes' => 'Запросить правки',
     'request_approval' => 'Запросить проверку',
     'approve' => 'Одобрить',
-    'reapproval' => 'Отправить на перепроверку'
+    'reapproval' => 'Отправить на перепроверку',
 ];

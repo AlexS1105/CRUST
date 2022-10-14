@@ -17,7 +17,7 @@ class PerkRequest extends FormRequest
         $this->merge([
             'combat' => $this->combat === 'on' || $this->attack === 'on' || $this->defence === 'on',
             'attack' => $this->attack === 'on',
-            'defence' => $this->defence === 'on'
+            'defence' => $this->defence === 'on',
         ]);
     }
 
@@ -28,10 +28,10 @@ class PerkRequest extends FormRequest
             'general_description' => ['max:5096'],
             'combat' => ['present'],
             'attack' => ['present'],
-            'defence' => ['present']
+            'defence' => ['present'],
         ];
 
-        if ($this->method() != 'PATCH') {
+        if ($this->method() !== 'PATCH') {
             $rules['description'] = ['required', 'max:5096'];
         }
 

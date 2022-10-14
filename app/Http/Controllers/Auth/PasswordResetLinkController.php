@@ -17,7 +17,7 @@ class PasswordResetLinkController extends Controller
     {
         $this->discordService = $discordService;
     }
-    
+
     /**
      * Display the password reset link request view.
      *
@@ -30,27 +30,25 @@ class PasswordResetLinkController extends Controller
 
     public function sent(Request $request)
     {
-        try
-        {
+        try {
             $userData = $this->discordService->getUserData($request->code, config('services.discord.redirecturi.reset'));
 
             $status = Password::sendResetLink([
-                'discord_id' => $userData['id']
-            ], function($user, $token) {
+                'discord_id' => $userData['id'],
+            ], function ($user, $token) {
                 session()->put('token', $token);
             });
 
             return $status == Password::RESET_LINK_SENT
                     ? redirect()->route('password.reset', [
-                        'discord_id' => $userData['id']
+                        'discord_id' => $userData['id'],
                     ])
                     : redirect()->route('password.request')->withInput($request->only('login'))
-                            ->withErrors(['login' => __($status)]);
-        } catch (Exception $e)
-        {
+                        ->withErrors(['login' => __($status)]);
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('password.request')->withErrors([
-                'discord' => $request->input('error_description', __('auth.discord_error'))
+                'discord' => $request->input('error_description', __('auth.discord_error')),
             ]);
         }
     }

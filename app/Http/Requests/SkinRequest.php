@@ -15,7 +15,7 @@ class SkinRequest extends FormRequest
     {
         return [
             'skin' => ['image', 'mimes:png'],
-            'prefix' => ['nullable', 'max:100']
+            'prefix' => ['nullable', 'max:100'],
         ];
     }
 }

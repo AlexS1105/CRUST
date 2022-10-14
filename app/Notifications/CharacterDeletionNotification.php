@@ -20,36 +20,36 @@ class CharacterDeletionNotification extends DiscordNotification
         $url = route('characters.show', $this->character);
         $character = $this->character;
         $embed = [
-            'title' => "Ваш персонаж '$character->name' скоро будет удалён",
+            'title' => "Ваш персонаж '{$character->name}' скоро будет удалён",
             'description' => 'Это произойдет автоматически через некоторое время. До этого момента его всё ещё можно будет восстановить!',
             'url' => $url,
             'color' => 0xEF4444,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'fields' => [
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)"
-                ]
-            ]
+                    [**Страница персонажа**]({$url})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));

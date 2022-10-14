@@ -25,7 +25,7 @@ class PerkPool implements Rule
         $attackPerks = 0;
         $defencePerks = 0;
 
-        foreach($value as $perkData) {
+        foreach ($value as $perkData) {
             $perk = $perkData['variant']->perk;
 
             if ($perk->type->isCombat()) {
@@ -61,19 +61,19 @@ class PerkPool implements Rule
 
         if ($defencePerks > 1) {
             $this->message = 'validation.perkpool.only_one_defence';
-            
+
             return false;
         }
-        
-        if ($attackPerks == 0) {
+
+        if ($attackPerks === 0) {
             $this->message = 'validation.perkpool.one_attack';
 
             return false;
         }
 
-        if ($defencePerks == 0) {
+        if ($defencePerks === 0) {
             $this->message = 'validation.perkpool.one_defence';
-            
+
             return false;
         }
 

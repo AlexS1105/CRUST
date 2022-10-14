@@ -28,16 +28,16 @@ class UserAccountCreatedNotification extends DiscordNotification
             'fields' => [
                 [
                     'name' => '**Данные для входа**',
-                    'value' => "**Логин:** $login
+                    'value' => "**Логин:** {$login}
                     **Пароль:** Такой же, как у аккаунта здесь
                     
                     **Приятной игры!**
                     
-                    [**Скачать лаунчер**]($launcherUrl)"
-                ]
-            ]
+                    [**Скачать лаунчер**]({$launcherUrl})",
+                ],
+            ],
         ];
-        
+
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
     }
 }

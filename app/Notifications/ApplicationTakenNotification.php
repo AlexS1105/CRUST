@@ -2,9 +2,9 @@
 
 namespace App\Notifications;
 
-use NotificationChannels\Discord\DiscordMessage;
 use App\Models\Character;
 use Illuminate\Support\Facades\Storage;
+use NotificationChannels\Discord\DiscordMessage;
 
 class ApplicationTakenNotification extends DiscordNotification
 {
@@ -22,12 +22,12 @@ class ApplicationTakenNotification extends DiscordNotification
         $registrar = $character->registrar;
         $ticketLink = $character->ticket->link();
         $embed = [
-            'title' => "Ваш персонаж '$character->name' взят на проверку!",
-            'description' => "Регистратор $registrar->discord_tag проверит её как можно скорее.",
+            'title' => "Ваш персонаж '{$character->name}' взят на проверку!",
+            'description' => "Регистратор {$registrar->discord_tag} проверит её как можно скорее.",
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'author' => [
                 'name' => $registrar->discord_tag,
@@ -36,26 +36,26 @@ class ApplicationTakenNotification extends DiscordNotification
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)
-                    [**Тикет для обсуждения**]($ticketLink)"
-                ]
-            ]
+                    [**Страница персонажа**]({$url})
+                    [**Тикет для обсуждения**]({$ticketLink})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));

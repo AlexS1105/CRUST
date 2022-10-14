@@ -11,7 +11,7 @@ class PerkVariantController extends Controller
     public function create(Perk $perk)
     {
         return view('perks.variants.create', [
-            'perk' => $perk
+            'perk' => $perk,
         ]);
     }
 
@@ -28,7 +28,7 @@ class PerkVariantController extends Controller
     {
         return view('perks.variants.edit', [
             'perk' => $perk,
-            'variant' => $variant
+            'variant' => $variant,
         ]);
     }
 
@@ -42,7 +42,7 @@ class PerkVariantController extends Controller
     public function destroy(Perk $perk, PerkVariant $variant)
     {
         $variant->delete();
-        
+
         return redirect()->route('perks.index');
     }
 }

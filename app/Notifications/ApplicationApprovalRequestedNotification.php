@@ -22,37 +22,37 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
         $character = $this->character;
         $ticketLink = $character->ticket->link();
         $embed = [
-            'title' => "Для проверяемого Вами персонажа '$character->name' внесены необходимые правки",
+            'title' => "Для проверяемого Вами персонажа '{$character->name}' внесены необходимые правки",
             'description' => 'Пожалуйста, закончите проверку как можно скорее.',
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference)
+                'url' => Storage::url($character->reference),
             ],
             'fields' => [
                 [
                     'name' => 'Пол',
                     'value' => $character->gender->localized(),
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Раса',
                     'value' => $character->race,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Возраст',
                     'value' => $character->age,
-                    'inline' => true
+                    'inline' => true,
                 ],
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
                     
-                    [**Страница персонажа**]($url)
-                    [**Тикет для обсуждения**]($ticketLink)"
-                ]
-            ]
+                    [**Страница персонажа**]({$url})
+                    [**Тикет для обсуждения**]({$ticketLink})",
+                ],
+            ],
         ];
 
         return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
