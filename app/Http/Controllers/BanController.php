@@ -12,9 +12,7 @@ class BanController extends Controller
     {
         $this->authorize('ban', $user);
         session()->put('url.intended', url()->previous());
-        return view('ban.create', [
-            'user' => $user,
-        ]);
+        return view('ban.create', compact('user'));
     }
 
     public function store(BanRequest $request, User $user)
