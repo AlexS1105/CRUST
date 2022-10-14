@@ -43,8 +43,15 @@ class CharacterRequest extends FormRequest
 
         $character = $this->route('character');
 
-        if ($this->method() === 'POST' || ! $character->registered) {
-            $rules['login'] = ['required', $this->method() !== 'PATCH' ? Rule::unique('characters') : Rule::unique('characters')->ignore($this->login, 'login'), 'max:16'];
+        if ($this->isMethod('POST') || ! $character->registered) {
+            $rules['login'] = [
+                'required',
+                'regex:/^\w{3,16}$/',
+                'min:3',
+                'max:16',
+                $this->isMethod('PATCH') ? Rule::unique('characters')->ignore($this->login, 'login') : Rule::unique('characters'),
+                Rule::unique('accounts', 'login'),
+            ];
         }
 
         return $rules;
