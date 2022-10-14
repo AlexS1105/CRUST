@@ -12,7 +12,8 @@ class CheckBanned
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
-        if (auth()->check() && $user->ban && now()->lessThan($user->ban->expires)) {
+
+        if (auth()->check() && $user->isBanned) {
             $ban = $user->ban;
             $by = $ban->by;
 
@@ -21,7 +22,7 @@ class CheckBanned
             $request->session()->regenerateToken();
 
             return redirect()->route('login')->withErrors([
-                'error' => __('ban.message', [
+                'error' => __('ban.message.' . (isset($user->ban->expires) ? 'temporary' : 'permanent'), [
                     'admin' => $by->login,
                     'tag' => $by->discord_tag,
                     'reason' => $ban->reason,

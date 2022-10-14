@@ -191,8 +191,7 @@ Route::middleware('auth')->group(function () {
             ->except(['create', 'store']);
 
         Route::resource('users.ban', BanController::class)
-            ->only(['create', 'store', 'destroy'])
-            ->shallow();
+            ->only(['create', 'store', 'destroy']);
 
         Route::resource('users.accounts', AccountController::class)
             ->except(['show', 'edit', 'update'])

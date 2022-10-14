@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -80,6 +81,13 @@ class User extends Authenticatable
     public function routeNotificationForDiscord()
     {
         return $this->discord_private_channel_id;
+    }
+
+    public function isBanned(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->ban != null && now()->lessThan($this->ban->expires)
+        );
     }
 
     protected static function boot()

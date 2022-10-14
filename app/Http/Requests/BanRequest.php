@@ -14,8 +14,8 @@ class BanRequest extends FormRequest
     public function rules()
     {
         return [
-            'expires' => 'required|after:now',
-            'reason' => 'required|max:256',
+            'expires' => ['nullable', 'after:now'],
+            'reason' => ['required', 'max:256'],
         ];
     }
 }

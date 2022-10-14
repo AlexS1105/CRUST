@@ -34,17 +34,17 @@
     />
 @endcan
 
-@if ($user->ban)
+@if ($user->isBanned)
     @can('unban', $user)
-    <x-action-button text="{{ __('users.unban') }}"
-        bladeMethod="DELETE"
-        action="{{ route('ban.destroy', $user->ban) }}"
-        color="green-100"
-        colorHover="green-200"
-        colorRing="green-300"
-        icon="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
-        tooltip="{{ isset($tooltip) }}"
-    />
+        <x-action-button text="{{ __('users.unban') }}"
+            bladeMethod="DELETE"
+            action="{{ route('users.ban.destroy', ['user' => $user, 'ban' => $user->ban]) }}"
+            color="green-100"
+            colorHover="green-200"
+            colorRing="green-300"
+            icon="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+            tooltip="{{ isset($tooltip) }}"
+        />
     @endcan
 @endif
 

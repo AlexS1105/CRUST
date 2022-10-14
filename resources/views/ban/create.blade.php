@@ -10,7 +10,7 @@
       @csrf
 
       <x-form.card>
-        <x-form.input name="expires" type="datetime-local" list="durations" min="{{ now()->format('Y-m-d\TH:i') }}" required />
+        <x-form.input name="expires" type="datetime-local" list="durations" min="{{ now()->format('Y-m-d\TH:i') }}" />
         <datalist id="durations">
           @php
             $periods = [

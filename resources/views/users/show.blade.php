@@ -15,7 +15,7 @@
     </div>
   </x-slot>
 
-  @if ($user->ban)
+  @if ($user->isBanned)
     <x-card class="bg-yellow-100 mt-4 mx-auto max-w-7xl">
       <div class="flex items-center space-x-4">
         <div class="fa fa-gavel text-7xl text-gray-800"></div>
@@ -27,7 +27,9 @@
             {{ __('label.reason') }}: {{ $user->ban->reason }}
           </div>
           <div>
-            {{ __('label.expires') }} {{ Carbon\Carbon::parse($user->ban->expires)->diffForHumans() }} ({{ $user->ban->expires }})
+            @if (isset($user->ban->expires))
+              {{ __('label.expires') }} {{ Carbon\Carbon::parse($user->ban->expires)->diffForHumans() }} ({{ $user->ban->expires }})
+            @endif
           </div>
         </div>
       </div>
