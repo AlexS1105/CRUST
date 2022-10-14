@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AccountRequest extends FormRequest
 {
@@ -14,7 +15,14 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|max:16|unique:accounts,login,except,login',
+            'login' => [
+                'required',
+                'regex:/^\w{3,16}$/',
+                'min:3',
+                'max:16',
+                Rule::unique('accounts', 'login'),
+                Rule::unique('characters', 'login'),
+            ],
         ];
     }
 }
