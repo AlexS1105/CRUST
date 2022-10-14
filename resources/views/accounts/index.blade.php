@@ -10,7 +10,7 @@
       <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('users.accounts.create', $user) }}">
         {{ __('accounts.create') }}
       </a>
-      @if(count($accounts))
+      @if(count($user->accounts))
         <table class="table-auto w-full border">
           <thead class="border bg-gray-200">
             <tr>
@@ -23,14 +23,14 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($accounts as $account)
+            @foreach ($user->accounts as $account)
               <tr class="py-2 border hover:bg-gray-100">
                 <td class="px-4 py-2 border">
                   {{ $account->login }}
                 </td>
                 <td class="border">
                   <div class="flex w-min mx-auto space-x-2">
-                    <form method="POST" action="{{ route('accounts.destroy', $account) }}">
+                    <form method="POST" action="{{ route('users.accounts.destroy', ['user' => $user, 'account' => $account]) }}">
                       @method('DELETE')
                       @csrf
 

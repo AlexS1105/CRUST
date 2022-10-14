@@ -195,7 +195,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('users.accounts', AccountController::class)
             ->except(['show', 'edit', 'update'])
-            ->shallow();
+            ->middleware('can:accounts,user');
 
         Route::middleware('can:settings')->group(function () {
             Route::get('settings', SettingsController::class)

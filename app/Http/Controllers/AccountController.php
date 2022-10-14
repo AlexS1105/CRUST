@@ -2,46 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserAccountCreated;
-use App\Events\UserAccountDeleted;
 use App\Http\Requests\AccountRequest;
 use App\Models\Account;
 use App\Models\User;
+use App\Services\AccountService;
 
 class AccountController extends Controller
 {
     public function index(User $user)
     {
-        $this->authorize('accounts', $user);
-        session()->put('url.intended', url()->previous());
-        return view('accounts.index', [
-            'user' => $user,
-            'accounts' => $user->accounts,
-        ]);
+        return view('accounts.index', compact('user'));
     }
 
     public function create(User $user)
     {
-        $this->authorize('createAccount', $user);
-        session()->put('url.intended', url()->previous());
-        return view('accounts.create', [
-            'user' => $user,
-        ]);
+        return view('accounts.create', compact('user'));
     }
 
-    public function store(User $user, AccountRequest $request)
+    public function store(AccountService $accountService, User $user, AccountRequest $request)
     {
-        $this->authorize('createAccount', $user);
-        $account = $user->accounts()->create($request->validated());
-        event(new UserAccountCreated($account));
-        return redirect()->intended('/');
+        $accountService->createAccount($user, $request->validated());
+
+        return to_route('users.accounts.index', $user);
     }
 
-    public function destroy(Account $account)
+    public function destroy(AccountService $accountService, User $user, Account $account)
     {
-        $this->authorize('deleteAccount', $account->user);
-        event(new UserAccountDeleted($account));
-        $account->delete();
-        return back();
+        $accountService->deleteAccount($account);
+
+        return to_route('users.accounts.index', $user);
     }
 }
