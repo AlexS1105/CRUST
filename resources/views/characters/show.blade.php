@@ -33,7 +33,7 @@
       </div>
     </div>
   </x-slot>
-  
+
   <x-container class="max-w-6xl space-y-8">
     <div class="flex justify-center gap-8">
       <div class="bg-white rounded-xl max-w-md my-auto shadow-lg row-span-3 flex-none overflow-hidden">
@@ -49,10 +49,10 @@
             <h1 class="font-bold text-xl mb-2">
               {{ __('characters.cards.main_info') }}
             </h1>
-    
+
             <div class="text-lg">
               <div class="flex items-center gap-1">
-                <b>{{ __('label.gender') }}:</b> 
+                <b>{{ __('label.gender') }}:</b>
                 {{ $character->gender->localized() }}
                 <div class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
               </div>
@@ -83,7 +83,7 @@
             </h1>
 
             <div class="prose markdown max-w-none">{!! $character->appearance !!}</div>
-            @can('seePlayerOnlyInfo', $character)
+            @can('see-player-only-info', $character)
               <a class="font-bold underline text-blue-600 visited:text-purple-600" href="{{ route('characters.skins.index', $character) }}">
                 {{ __('skins.index') }}
               </a>
@@ -91,7 +91,7 @@
           </div>
         @endif
 
-        @can('seePlayerOnlyInfo', $character)
+        @can('see-player-only-info', $character)
           <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-max mx-auto">
             <h1 class="font-bold text-xl mb-2 max-w-max mx-auto">
               {{ __('label.vox') }}: {{ $character->vox }}
@@ -144,7 +144,7 @@
             <h1 class="font-bold text-xl mb-2">
               {{ __('charsheet.crafts') }}
             </h1>
-    
+
             @if($character->charsheet->hasAnyCrafts())
               <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
                 @foreach ($character->charsheet->crafts as $craft => $value)
@@ -171,10 +171,10 @@
       </div>
     @endif
 
-    @can('seePlayerOnlyInfo', $character)
+    @can('see-player-only-info', $character)
       @php
-        $narrativeCraftsVisible = Auth::user()->can('updateCharsheetGm', $character) || count($character->narrativeCrafts);
-        $experiencesVisible = Auth::user()->can('updateCharsheetGm', $character) || count($character->experiences);
+        $narrativeCraftsVisible = Auth::user()->can('update-charsheet-gm', $character) || count($character->narrativeCrafts);
+        $experiencesVisible = Auth::user()->can('update-charsheet-gm', $character) || count($character->experiences);
       @endphp
       @if ($narrativeCraftsVisible || $experiencesVisible)
         <div class="flex justify-center gap-8">
@@ -224,7 +224,7 @@
                     </div>
                   </div>
                 @endforeach
-                @can('updateCharsheetGm', $character)
+                @can('update-charsheet-gm', $character)
                   <form method="GET" action="{{ route('characters.narrativeCrafts.create', ['character' => $character]) }}">
                     @csrf
                     <button type="submit" class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
@@ -268,7 +268,7 @@
                           </button>
                         </form>
                       @endcan
-                      @can('updateCharsheetGm', $character)
+                      @can('update-charsheet-gm', $character)
                         <form method="GET" action="{{ route('characters.experiences.setView', ['character' => $character, 'experience' => $experience]) }}">
                           @csrf
                           <button type="submit" class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
@@ -296,7 +296,7 @@
                     </div>
                   </div>
                 @endforeach
-                @can('updateCharsheetGm', $character)
+                @can('update-charsheet-gm', $character)
                   <form method="GET" action="{{ route('characters.experiences.create', ['character' => $character]) }}">
                     @csrf
                     <button type="submit" class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
@@ -314,10 +314,10 @@
       @endif
     @endcan
 
-    @can('seePlayerOnlyInfo', $character)
+    @can('see-player-only-info', $character)
       @php
-        $spheresVisible = Auth::user()->can('addSphere', $character) || count($character->spheres);
-        $ideasVisible = Auth::user()->can('addIdea', $character) || count($character->ideas);
+        $spheresVisible = Auth::user()->can('add-sphere', $character) || count($character->spheres);
+        $ideasVisible = Auth::user()->can('add-idea', $character) || count($character->ideas);
       @endphp
       @if ($spheresVisible || $ideasVisible)
         <div class="flex justify-center gap-8">
@@ -341,7 +341,7 @@
                       </div>
                     @endif
                     <div class="inline-flex flex-wrap" role="group">
-                      @can('manageIdeas', $character)
+                      @can('manage-ideas', $character)
                         <form method="GET" action="{{ route('characters.spheres.edit', ['character' => $character, 'sphere' => $sphere]) }}">
                           @csrf
                           <button type="submit" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
@@ -350,7 +350,7 @@
                           </button>
                         </form>
                       @endcan
-                      @can('manageIdeasGm', $character)
+                      @can('manage-ideasGm', $character)
                         <form method="GET" action="{{ route('characters.spheres.addView', ['character' => $character, 'sphere' => $sphere]) }}">
                           @csrf
                           <button type="submit" class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
@@ -359,7 +359,7 @@
                           </button>
                         </form>
                       @endcan
-                      @can('manageIdeas', $character)
+                      @can('manage-ideas', $character)
                         <form method="GET" action="{{ route('characters.spheres.spendView', ['character' => $character, 'sphere' => $sphere]) }}">
                           @csrf
                           <button type="submit" class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-gray-200 hover:bg-gray-100">
@@ -393,7 +393,7 @@
                   </div>
                 @endforeach
 
-                @can('addSphere', $character)
+                @can('add-sphere', $character)
                   <form method="GET" action="{{ route('characters.spheres.create', ['character' => $character]) }}">
                     @csrf
                     <button type="submit" class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
@@ -430,7 +430,7 @@
                       </div>
                     @endif
                     <div class="inline-flex flex-wrap" role="group">
-                      @can('manageIdeas', $character)
+                      @can('manage-ideas', $character)
                         <form method="GET" action="{{ route('characters.ideas.edit', ['character' => $character, 'idea' => $idea]) }}">
                           @csrf
                           <button type="submit" class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
@@ -448,7 +448,7 @@
                           </button>
                         </form>
                       @endcan
-                      @can('manageIdeas', $character)
+                      @can('manage-ideas', $character)
                         <form method="POST" action="{{ route('characters.ideas.destroy', ['character' => $character, 'idea' => $idea]) }}">
                           @csrf
                           @method('DELETE')
@@ -468,7 +468,7 @@
                   </div>
                 @endforeach
 
-                @can('addIdea', $character)
+                @can('add-idea', $character)
                   <form method="GET" action="{{ route('characters.ideas.create', ['character' => $character]) }}">
                     @csrf
                     <button type="submit" class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
@@ -485,7 +485,7 @@
         </div>
       @endif
     @endcan
-    
+
     @if (count($character->perkVariants))
       @php
         $perks = $character->perkVariants->groupBy(function($item, $key) {
@@ -498,13 +498,13 @@
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.combat') }}
             </h1>
-    
+
             <div class="space-y-4">
               @foreach ($perks->get('combat')->sortByDesc('active') as $perkVariant)
                 @php
                   $perk = $perkVariant->perk
                 @endphp
-    
+
                 <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant" />
               @endforeach
             </div>
@@ -515,13 +515,13 @@
             <h1 class="font-bold text-xl mb-2">
               {{ __('perks.noncombat') }}
             </h1>
-    
+
             <div class="space-y-4">
               @foreach ($perks->get('noncombat')->sortByDesc('active') as $perkVariant)
                 @php
                   $perk = $perkVariant->perk
                 @endphp
-    
+
                 <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant" />
               @endforeach
             </div>
@@ -532,7 +532,7 @@
 
     <x-form.error name="vox" />
 
-    @can('updateCharsheetGm', $character)
+    @can('update-charsheet-gm', $character)
       <div class="flex w-full justify-center">
         <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:"
           href="{{ route('characters.perks.edit', $character) }}"
@@ -542,7 +542,7 @@
       </div>
     @endcan
 
-    @can('seePlayerOnlyInfo', $character)
+    @can('see-player-only-info', $character)
       @if (count($character->fates))
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
           <h1 class="font-bold text-xl mb-2">
@@ -584,8 +584,8 @@
         </div>
       @endif
     @endcan
-    
-    @can('updateCharsheetGm', $character)
+
+    @can('update-charsheet-gm', $character)
       <div class="flex w-full justify-center">
         <a class="text-lg bg-white text-gray-700 py-2 px-3 rounded-full font-bold shadow align-self-center hover:bg-blue-100 focus:ring-2"
           href="{{ route('characters.fates.edit', $character) }}"
@@ -595,7 +595,7 @@
       </div>
     @endcan
 
-    @can('seePlayerOnlyInfo', $character)
+    @can('see-player-only-info', $character)
       @if ($character->player_only_info)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
           <h1 class="font-bold text-xl mb-2">
@@ -606,7 +606,7 @@
         </div>
       @endif
     @endcan
-    
+
     @if ($character->gm_only_info)
       @can('seeGmOnlyInfo', $character)
         <div class="bg-white p-4 rounded-xl shadow-lg text-justify">

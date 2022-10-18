@@ -107,7 +107,7 @@
         @endcan
       </x-form.card>
 
-      @if(!$character->registered || auth()->user()->can('updateCharsheetGm', $character))
+      @if(!$character->registered || auth()->user()->can('update-charsheet-gm', $character))
         <x-form.card>
           <x-slot name="header">
             {{ __('characters.cards.registration_info') }}
