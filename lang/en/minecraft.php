@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'auth_failed' => 'Invalid login or password',
-    'auth_characters' => 'Characters authorization temporarily disabled',
-    'auth_accounts' => 'Accounts authorization temporarily disabled',
+    'auth' => [
+        'credentials' => 'You must specify login or password',
+        'failed' => 'Invalid login or password',
+        'characters' => 'Characters game access temporarily disabled',
+        'accounts' => 'Accounts game access temporarily disabled',
+    ],
 ];
