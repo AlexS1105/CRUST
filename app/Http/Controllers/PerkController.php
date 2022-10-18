@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PerkType;
 use App\Http\Requests\PerkRequest;
 use App\Models\Perk;
-use App\Models\PerkVariant;
+use App\Services\PerkService;
+use Illuminate\Http\Request;
 
 class PerkController extends Controller
 {
     public function index()
     {
-        return view('perks.index', [
-            'perks' => Perk::with('variants')
-                ->paginate(30),
+        $perks = Perk::with('variants')->paginate(30);
+
+        return view('perks.index', compact('perks'));
+    }
+
+    public function all(Request $request)
+    {
+        $perkType = $request->perk_type;
+        $search = $request->search;
+        $perks = Perk::with('variants')
+            ->type($perkType)
+            ->search($search)
+            ->paginate(20);
+
+        return view('perks.list', [
+            'perks' => $perks,
+            'search' => $search,
+            'perkType' => $perkType,
         ]);
     }
 
@@ -22,67 +37,29 @@ class PerkController extends Controller
         return view('perks.create');
     }
 
-    public function store(PerkRequest $request)
+    public function store(PerkService $perkService, PerkRequest $request)
     {
-        $validated = $request->validated();
-        $validated = $this->setFlags($validated);
+        $perkService->createPerk($request);
 
-        $perk = Perk::create([
-            'name' => $validated['name'],
-            'general_description' => $validated['general_description'],
-            'type' => $validated['type'],
-        ]);
-
-        PerkVariant::create(['perk_id' => $perk->id, 'description' => $validated['description']]);
-
-        return redirect()->route('perks.index');
+        return to_route('perks.index');
     }
 
     public function edit(Perk $perk)
     {
-        return view('perks.edit', [
-            'perk' => $perk,
-        ]);
+        return view('perks.edit', compact('perk'));
     }
 
     public function update(PerkRequest $request, Perk $perk)
     {
-        $validated = $request->validated();
-        $validated = $this->setFlags($validated);
-        $perk->update($validated);
+        $perk->update($request->validated());
 
-        return redirect()->route('perks.index');
+        return to_route('perks.index');
     }
 
     public function destroy(Perk $perk)
     {
         $perk->delete();
 
-        return redirect()->route('perks.index');
-    }
-
-    private function setFlags($validated)
-    {
-        $validated['type'] = PerkType::None();
-
-        if ($validated['combat']) {
-            $validated['type']->addFlag(PerkType::Combat);
-        }
-
-        unset($validated['combat']);
-
-        if ($validated['attack']) {
-            $validated['type']->addFlag(PerkType::Attack);
-        }
-
-        unset($validated['attack']);
-
-        if ($validated['defence']) {
-            $validated['type']->addFlag(PerkType::Defence);
-        }
-
-        unset($validated['defence']);
-
-        return $validated;
+        return to_route('perks.index');
     }
 }

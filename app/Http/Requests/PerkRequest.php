@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PerkType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,10 +15,22 @@ class PerkRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        $type = PerkType::None();
+
+        if ($this->combat === 'on') {
+            $type->addFlag(PerkType::Combat);
+        }
+
+        if ($this->attack === 'on') {
+            $type->addFlag(PerkType::Attack);
+        }
+
+        if ($this->defence === 'on') {
+            $type->addFlag(PerkType::Defence);
+        }
+
         $this->merge([
-            'combat' => $this->combat === 'on' || $this->attack === 'on' || $this->defence === 'on',
-            'attack' => $this->attack === 'on',
-            'defence' => $this->defence === 'on',
+            'type' => $type,
         ]);
     }
 
@@ -26,12 +39,10 @@ class PerkRequest extends FormRequest
         $rules = [
             'name' => ['required', 'max:256', Rule::unique('perks')->ignore($this->name, 'name')],
             'general_description' => ['max:5096'],
-            'combat' => ['present'],
-            'attack' => ['present'],
-            'defence' => ['present'],
+            'type' => ['required'],
         ];
 
-        if ($this->method() !== 'PATCH') {
+        if (! $this->isMethod('PATCH')) {
             $rules['description'] = ['required', 'max:5096'];
         }
 
