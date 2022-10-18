@@ -7,16 +7,15 @@ use App\Settings\CharsheetSettings;
 
 class CharsheetSettingsController extends Controller
 {
-    public function show()
+    public function show(CharsheetSettings $settings)
     {
-        return view('settings.charsheet', [
-            'settings' => app(CharsheetSettings::class),
-        ]);
+        return view('settings.charsheet', compact('settings'));
     }
 
-    public function update(CharsheetSettingsRequest $request)
+    public function update(CharsheetSettingsRequest $request, CharsheetSettings $settings)
     {
-        app(CharsheetSettings::class)->update($request->validated());
+        $settings->update($request->validated());
+
         return back();
     }
 }

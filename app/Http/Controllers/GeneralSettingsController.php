@@ -7,16 +7,15 @@ use App\Settings\GeneralSettings;
 
 class GeneralSettingsController extends Controller
 {
-    public function show()
+    public function show(GeneralSettings $settings)
     {
-        return view('settings.general', [
-            'settings' => app(GeneralSettings::class),
-        ]);
+        return view('settings.general', compact('settings'));
     }
 
-    public function update(GeneralSettingsRequest $request)
+    public function update(GeneralSettings $settings, GeneralSettingsRequest $request)
     {
-        app(GeneralSettings::class)->update($request->validated());
+        $settings->update($request->validated());
+
         return back();
     }
 }
