@@ -2,125 +2,102 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SphereAddRequest;
 use App\Http\Requests\SphereRequest;
+use App\Http\Requests\SphereSpendRequest;
+use App\Http\Requests\SphereToExperienceRequest;
 use App\Models\Character;
 use App\Models\Sphere;
-use App\Rules\SphereHasEnough;
-use App\Rules\SphereToExperience;
-use Illuminate\Http\Request;
+use App\Services\IdeaService;
 
 class SphereController extends Controller
 {
     public function create(Character $character)
     {
-        $this->authorize('addSphere', $character);
+        $this->authorize('add-sphere', $character);
 
         return view('spheres.create', compact('character'));
     }
 
     public function store(SphereRequest $request, Character $character)
     {
-        $this->authorize('addSphere', $character);
-        $validated = $request->validated();
-        $character->spheres()->create($validated);
+        $this->authorize('add-sphere', $character);
 
-        return redirect()->route('characters.show', $character);
+        $character->spheres()->create($request->validated());
+
+        return to_route('characters.show', $character);
     }
 
     public function edit(Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
+        $this->authorize('manage-ideas', $character);
 
-        return view('spheres.edit', [
-            'character' => $character,
-            'sphere' => $sphere,
-        ]);
+        return view('spheres.edit', compact('character', 'sphere'));
     }
 
     public function update(SphereRequest $request, Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
-        $validated = $request->validated();
-        $sphere->update($validated);
+        $this->authorize('manage-ideas', $character);
 
-        return redirect()->route('characters.show', $character);
+        $sphere->update($request->validated());
+
+        return to_route('characters.show', $character);
     }
 
     public function destroy(Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
+        $this->authorize('manage-ideas', $character);
+
         $sphere->delete();
 
-        return redirect()->route('characters.show', $character);
+        return to_route('characters.show', $character);
     }
 
     public function spendView(Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
+        $this->authorize('manage-ideas', $character);
 
-        return view('spheres.spend', [
-            'character' => $character,
-            'sphere' => $sphere,
-        ]);
+        return view('spheres.spend', compact('character', 'sphere'));
     }
 
-    public function spend(Request $request, Character $character, Sphere $sphere)
+    public function spend(IdeaService $ideaService, SphereSpendRequest $request, Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
-        $validated = $request->validate([
-            'value' => ['required', 'min:1', 'max:100', new SphereHasEnough($sphere)],
-        ]);
+        $this->authorize('manage-ideas', $character);
 
-        $sphere->value -= $validated['value'];
-        $sphere->save();
+        $ideaService->changeSpherePoints($sphere, -$request->validated('value'));
 
-        return redirect()->route('characters.show', $character);
+        return to_route('characters.show', $character);
     }
 
     public function addView(Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeasGm', $character);
+        $this->authorize('manage-ideasGm', $character);
 
-        return view('spheres.add', [
-            'character' => $character,
-            'sphere' => $sphere,
-        ]);
+        return view('spheres.add', compact('character', 'sphere'));
     }
 
-    public function add(Request $request, Character $character, Sphere $sphere)
+    public function add(IdeaService $ideaService, SphereAddRequest $request, Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeasGm', $character);
-        $validated = $request->validate([
-            'value' => ['required', 'min:1', 'max:100'],
-        ]);
+        $this->authorize('manage-ideas-gm', $character);
 
-        $sphere->value += $validated['value'];
-        $sphere->save();
+        $ideaService->changeSpherePoints($sphere, $request->validated('value'));
 
-        return redirect()->route('characters.show', $character);
+        return to_route('characters.show', $character);
     }
 
     public function experienceView(Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
+        $this->authorize('manage-ideas', $character);
 
-        return view('spheres.experience', [
-            'character' => $character,
-            'sphere' => $sphere,
-        ]);
+        return view('spheres.experience', compact('character', 'sphere'));
     }
 
-    public function experience(Request $request, Character $character, Sphere $sphere)
+    public function experience(IdeaService $ideaService, SphereToExperienceRequest $request, Character $character, Sphere $sphere)
     {
-        $this->authorize('manageIdeas', $character);
-        $validated = $request->validate([
-            'experience' => ['required', 'exists:experiences,id', new SphereToExperience($sphere, $request->get('value', 1))],
-            'value' => ['required', 'integer'],
-        ]);
+        $this->authorize('manage-ideas', $character);
 
-        $experience = $character->experiences->find($validated['experience']);
-        $experience->increaseFromSphere($sphere, $validated);
+        $ideaService->sphereToExperience($request->validated(), $character, $sphere);
 
-        return redirect()->route('characters.show', $character);
+        return to_route('characters.show', $character);
     }
 }
