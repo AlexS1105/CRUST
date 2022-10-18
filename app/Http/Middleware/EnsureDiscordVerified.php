@@ -11,6 +11,7 @@ class EnsureDiscordVerified
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
+
         if (auth()->check() && ! $user->verified) {
             VerifyUser::dispatch($user);
 

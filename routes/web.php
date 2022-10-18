@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
 
-Route::get('/perks', PerkListController::class)->name('perks.list');
+Route::get('/perks', [PerkController::class, 'all'])->name('perks.list');
 
 Route::middleware('auth')->group(function () {
     Route::get('/discord-invite', function () {
@@ -75,19 +75,19 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/characters/{character:login}/perks', [CharsheetController::class, 'editPerks'])
             ->name('characters.perks.edit')
-            ->middleware('can:updateCharsheetGm,character');
+            ->middleware('can:update-charsheet-gm,character');
 
         Route::patch('/characters/{character:login}/perks', [CharsheetController::class, 'updatePerks'])
             ->name('characters.perks.update')
-            ->middleware('can:updateCharsheetGm,character');
+            ->middleware('can:update-charsheet-gm,character');
 
         Route::get('/characters/{character:login}/fates', [CharsheetController::class, 'editFates'])
             ->name('characters.fates.edit')
-            ->middleware('can:updateCharsheetGm,character');
+            ->middleware('can:update-charsheet-gm,character');
 
         Route::patch('/characters/{character:login}/fates', [CharsheetController::class, 'updateFates'])
             ->name('characters.fates.update')
-            ->middleware('can:updateCharsheetGm,character');
+            ->middleware('can:update-charsheet-gm,character');
 
         Route::patch('/characters/{character:login}/perks/{perkVariant}', [CharsheetController::class, 'togglePerk'])
             ->name('characters.perks.toggle')
