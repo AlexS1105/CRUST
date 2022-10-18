@@ -24,6 +24,18 @@ class Ban extends Model
         return $this->belongsTo(User::class, 'banned_by');
     }
 
+    public function message(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => __('ban.message.' . (isset($this->expires) ? 'temporary' : 'permanent'), [
+                'admin' => $this->by->login,
+                'tag' => $this->by->discord_tag,
+                'reason' => $this->reason,
+                'time' => Carbon::parse($this->expires)->diffForHumans(),
+            ]),
+        );
+    }
+
     protected static function booted()
     {
         parent::boot();

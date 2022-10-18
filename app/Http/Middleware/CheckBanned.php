@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,19 +14,13 @@ class CheckBanned
 
         if (auth()->check() && $user->isBanned) {
             $ban = $user->ban;
-            $by = $ban->by;
 
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('login')->withErrors([
-                'error' => __('ban.message.' . (isset($user->ban->expires) ? 'temporary' : 'permanent'), [
-                    'admin' => $by->login,
-                    'tag' => $by->discord_tag,
-                    'reason' => $ban->reason,
-                    'time' => Carbon::parse($user->ban->expires)->diffForHumans(),
-                ]),
+            return to_route('login')->withErrors([
+                'error' => $ban->message,
             ]);
         }
 
