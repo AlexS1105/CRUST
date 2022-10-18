@@ -15,7 +15,7 @@ class EnsureDiscordVerified
             VerifyUser::dispatch($user);
 
             if (! $user->verified) {
-                return redirect()->route('discord.verify');
+                return to_route('discord.verify');
             }
         }
 

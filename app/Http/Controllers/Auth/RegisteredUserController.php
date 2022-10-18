@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
             $user = User::where('discord_id', $userData['id'])->first();
 
             if ($user) {
-                return redirect()->route('login')->withErrors([
+                return to_route('login')->withErrors([
                     'discord' => $request->input('error_description', __('auth.already_registered')),
                 ]);
             }
@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             ]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('login')->withErrors([
+            return to_route('login')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error')),
             ]);
         }

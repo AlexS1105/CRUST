@@ -21,7 +21,7 @@ class PerkVariantController extends Controller
         $variant['perk_id'] = $perk->id;
         PerkVariant::create($variant);
 
-        return redirect()->route('perks.index');
+        return to_route('perks.index');
     }
 
     public function edit(Perk $perk, PerkVariant $variant)
@@ -36,13 +36,13 @@ class PerkVariantController extends Controller
     {
         $variant->update($request->validated());
 
-        return redirect()->route('perks.index');
+        return to_route('perks.index');
     }
 
     public function destroy(Perk $perk, PerkVariant $variant)
     {
         $variant->delete();
 
-        return redirect()->route('perks.index');
+        return to_route('perks.index');
     }
 }

@@ -35,14 +35,14 @@ class PasswordResetLinkController extends Controller
             });
 
             return $status == Password::RESET_LINK_SENT
-                    ? redirect()->route('password.reset', [
+                    ? to_route('password.reset', [
                         'discord_id' => $userData['id'],
                     ])
-                    : redirect()->route('password.request')->withInput($request->only('login'))
+                    : to_route('password.request')->withInput($request->only('login'))
                         ->withErrors(['login' => __($status)]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('password.request')->withErrors([
+            return to_route('password.request')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error')),
             ]);
         }

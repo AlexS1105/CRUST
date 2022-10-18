@@ -90,6 +90,6 @@ class CharacterController extends Controller
     {
         $this->characterService->forceDelete($character);
 
-        return redirect()->route('characters.index');
+        return to_route('characters.index');
     }
 }
