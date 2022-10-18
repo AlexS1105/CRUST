@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\CharacterStatus;
 use App\Enums\CharacterGender;
+use App\Enums\CharacterStatus;
 use App\Models\Character;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;

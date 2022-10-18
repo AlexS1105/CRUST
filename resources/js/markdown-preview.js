@@ -1,5 +1,5 @@
 import DOMPurify from 'isomorphic-dompurify';
-import { marked } from 'marked';
+import {marked} from 'marked';
 
 var currentElement;
 

@@ -1,11 +1,6 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
 import 'dompurify';
 
 import './marked';
@@ -17,3 +12,8 @@ import './markdown';
 import './markdown-preview';
 import './user';
 import './clipboard';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+

@@ -4,14 +4,11 @@ namespace App\Models;
 
 use App\Enums\CharacterGender;
 use App\Enums\CharacterStatus;
-use App\Rules\PerkPool;
 use App\Traits\Searchable;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Kyslik\ColumnSortable\Sortable;
 

@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\FateType;
 use App\Models\Character;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

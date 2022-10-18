@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CharacterCraft;
-use App\Enums\CharacterSkill;
 use App\Enums\FateType;
 use App\Models\PerkVariant;
 use App\Rules\CraftPool;

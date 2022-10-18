@@ -6,13 +6,10 @@ use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
-use App\Models\Fate;
-use App\Models\NarrativeCraft;
 use App\Models\Perk;
 use App\Models\PerkVariant;
 use App\Services\CharsheetService;
 use App\Settings\CharsheetSettings;
-use Exception;
 
 class CharsheetController extends Controller
 {
