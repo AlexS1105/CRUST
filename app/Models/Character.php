@@ -31,28 +31,6 @@ class Character extends Model
         'bio_hidden' => 'boolean',
     ];
 
-    public function giveVox($amount, $reason)
-    {
-        if ($amount !== 0) {
-            $voxLog = [];
-            $voxLog['character_id'] = $this->id;
-            $voxLog['issued_by'] = auth()->user()->id;
-            $voxLog['before'] = $this->vox;
-            $voxLog['after'] = $this->vox + $amount;
-            $voxLog['reason'] = $reason;
-            $voxLog['delta'] = $amount;
-
-            VoxLog::create($voxLog);
-            $this->vox += $amount;
-            $this->save();
-        }
-    }
-
-    public function takeVox($amount, $reason)
-    {
-        $this->giveVox(-$amount, $reason);
-    }
-
     public function hasFreeIdea()
     {
         return ! isset($this->last_idea) || Carbon::now()->startOfWeek()->greaterThan(Carbon::createFromTimeString($this->last_idea));
@@ -146,7 +124,7 @@ class Character extends Model
                 $this->status_updated_at = now();
 
                 return $value;
-            }
+            },
         );
     }
 

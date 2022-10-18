@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VoxRequest;
 use App\Models\Character;
+use App\Services\VoxService;
 
 class VoxController extends Controller
 {
@@ -17,15 +18,16 @@ class VoxController extends Controller
     public function create(Character $character)
     {
         $this->authorize('voxCreate', $character);
+
         return view('vox.create', compact('character'));
     }
 
-    public function store(VoxRequest $request, Character $character)
+    public function store(VoxService $voxService, VoxRequest $request, Character $character)
     {
         $this->authorize('voxCreate', $character);
-        $validated = $request->validated();
-        $character->giveVox($validated['delta'], $validated['reason']);
 
-        return redirect()->route('characters.vox.index', $character);
+        $voxService->giveVox($character, ...$request->validated());
+
+        return to_route('characters.vox.index', $character);
     }
 }
