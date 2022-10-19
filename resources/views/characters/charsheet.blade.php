@@ -17,9 +17,9 @@
         </x-slot>
 
         <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto min-content">
-          @foreach (App\Enums\CharacterSkill::getInstances() as $instance)
+          @foreach (App\Enums\CharacterSkill::cases() as $instance)
             @php
-              $skill = $instance->key();
+              $skill = $instance->value;
               $value = old('skills.'.$skill, $character->charsheet->skills[$skill]);
             @endphp
 
@@ -34,7 +34,7 @@
         </div>
 
         <div class="font-bold text-lg text-right flex justify-end">
-          <div class="mr-2">
+          <div class="mr-2">`
             {{ __('charsheet.points.skills') }}
           </div>
           <div class="mr-2" id="skill_points">
