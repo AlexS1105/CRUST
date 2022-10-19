@@ -2,33 +2,31 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
+use Illuminate\Support\Str;
 
-final class CharacterStatus extends Enum
+enum CharacterStatus : int
 {
-    public const Blank = 0;
-    public const Pending = 1;
-    public const Approval = 2;
-    public const ChangesRequested = 3;
-    public const Approved = 4;
-    public const Deleting = 5;
-
-    protected $colors = [
-        CharacterStatus::Blank => 'gray-400',
-        CharacterStatus::Pending => 'blue-400',
-        CharacterStatus::Approval => 'yellow-300',
-        CharacterStatus::ChangesRequested => 'yellow-600',
-        CharacterStatus::Approved => 'green-400',
-        CharacterStatus::Deleting => 'red-400',
-    ];
+    case Blank = 0;
+    case Pending = 1;
+    case Approval = 2;
+    case ChangesRequested = 3;
+    case Approved = 4;
+    case Deleting = 5;
 
     public function color()
     {
-        return $this->colors[$this->value];
+        return match($this) {
+            CharacterStatus::Blank => 'gray-400',
+            CharacterStatus::Pending => 'blue-400',
+            CharacterStatus::Approval => 'yellow-300',
+            CharacterStatus::ChangesRequested => 'yellow-600',
+            CharacterStatus::Approved => 'green-400',
+            CharacterStatus::Deleting => 'red-400',
+        };
     }
 
     public function localized()
     {
-        return __('characters.status.'.str_replace(' ', '_', strtolower($this->description)));
+        return __('characters.status.' . Str::snake($this->name));
     }
 }

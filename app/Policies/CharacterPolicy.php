@@ -23,7 +23,7 @@ class CharacterPolicy
     public function view(User $user, Character $character)
     {
         return $user->owns($character)
-            || $character->status === CharacterStatus::Approved()
+            || $character->status === CharacterStatus::Approved
             || $user->hasPermissionTo('character-view');
     }
 
@@ -69,27 +69,27 @@ class CharacterPolicy
     public function send(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status === CharacterStatus::Blank();
+            && $character->status === CharacterStatus::Blank;
     }
 
     public function cancel(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status === CharacterStatus::Pending();
+            && $character->status === CharacterStatus::Pending;
     }
 
     public function takeForApproval(User $user, Character $character)
     {
         return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-take-for-approval')
-            && $character->status === CharacterStatus::Pending();
+            && $character->status === CharacterStatus::Pending;
     }
 
     public function cancelApproval(User $user, Character $character)
     {
         return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-cancel-approval')
-            && $character->status === CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval;
     }
 
     public function requestChanges(User $user, Character $character)
@@ -97,13 +97,13 @@ class CharacterPolicy
         return $character->user_id !== $user->id
             && $character->registrar->id === $user->id
             && $user->hasPermissionTo('application-request-changes')
-            && $character->status === CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval;
     }
 
     public function requestApproval(User $user, Character $character)
     {
         return $user->owns($character)
-            && $character->status === CharacterStatus::ChangesRequested()
+            && $character->status === CharacterStatus::ChangesRequested
             || $user->hasPermissionTo('application-request-approval');
     }
 
@@ -111,14 +111,14 @@ class CharacterPolicy
     {
         return $character->user_id !== $user->id
             && $user->hasPermissionTo('application-approve')
-            && $character->status === CharacterStatus::Approval();
+            && $character->status === CharacterStatus::Approval;
     }
 
     public function reapproval(User $user, Character $character)
     {
         return ($user->owns($character)
             || $user->hasPermissionTo('application-reapproval'))
-            && $character->status === CharacterStatus::Approved();
+            && $character->status === CharacterStatus::Approved;
     }
 
     public function seeMainInfo(User $user, Character $character)

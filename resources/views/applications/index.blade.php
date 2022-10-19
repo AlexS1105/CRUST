@@ -8,9 +8,9 @@
   <x-container class="max-w-5xl">
     <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
       <div class="flex mb-4 gap-4 items-center">
-        @foreach (App\Enums\CharacterStatus::getInstances() as $_status)
+        @foreach (App\Enums\CharacterStatus::cases() as $_status)
           <a href="{{ route('applications.index', [ 'status' => $_status->value ]) }}" class="{{ $status == $_status ?:"opacity-40" }}">
-            <x-character.status :status=$_status/>
+            <x-character.status :status=$_status />
           </a>
         @endforeach
 
@@ -27,7 +27,7 @@
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('user.login', __('label.player'))
               </th>
-              @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
+              @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending)
               <th class="px-4 py-2 border border-gray-400">
                 @sortablelink('registrar.name', __('label.registrar'))
               </th>
@@ -58,7 +58,7 @@
                     {{ $character->user->login }}
                   </a>
                 </td>
-                @unless($status == App\Enums\CharacterStatus::Blank() || $status == App\Enums\CharacterStatus::Pending())
+                @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending)
                 <td class="px-4 py-2 border text-center">
                   {{ $character->registrar ? $character->registrar->login : "" }}
                 </td>

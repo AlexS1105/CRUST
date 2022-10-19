@@ -1,4 +1,4 @@
-@if ($character->status == \App\Enums\CharacterStatus::Deleting())
+@if ($character->status == \App\Enums\CharacterStatus::Deleting)
   @can('forceDelete', $character)
     <x-action-button text="{{ __('applications.force_delete') }}"
       action="{{ route('characters.forceDestroy', $character->login) }}"
@@ -49,7 +49,7 @@
     />
 	@endcan
 
-	@if ($character->status == \App\Enums\CharacterStatus::Blank())
+	@if ($character->status == \App\Enums\CharacterStatus::Blank)
 		@can('send', $character)
 			<x-action-button text="{{ __('applications.send') }}"
 				action="{{ route('applications.send', $character->login) }}"
@@ -63,7 +63,7 @@
 		@endcan
 	@endif
 
-	@if ($character->status == \App\Enums\CharacterStatus::Pending())
+	@if ($character->status == \App\Enums\CharacterStatus::Pending)
 		@can('cancel', $character)
 			<x-action-button text="{{ __('applications.cancel') }}"
 				action="{{ route('applications.cancel', $character->login) }}"
@@ -76,7 +76,7 @@
 				tooltip="{{ isset($tooltip) }}"
 			/>
 		@endcan
-		
+
 		@can('takeForApproval', $character)
 			<x-action-button text="{{ __('applications.take') }}"
 				action="{{ route('applications.takeForApproval', $character->login) }}"
@@ -90,7 +90,7 @@
 		@endcan
 	@endif
 
-	@if ($character->status == \App\Enums\CharacterStatus::Approval() || $character->status == \App\Enums\CharacterStatus::ChangesRequested())
+	@if ($character->status == \App\Enums\CharacterStatus::Approval || $character->status == \App\Enums\CharacterStatus::ChangesRequested)
 		@can('cancelApproval', $character)
 			<x-action-button text="{{ __('applications.cancel_approval') }}"
 				action="{{ route('applications.cancelApproval', $character->login) }}"
@@ -104,7 +104,7 @@
 			/>
 		@endcan
 
-		@if ($character->status == \App\Enums\CharacterStatus::Approval())
+		@if ($character->status == \App\Enums\CharacterStatus::Approval)
 			@can('requestChanges', $character)
 				<x-action-button text="{{ __('applications.request_changes') }}"
 					action="{{ route('applications.requestChanges', $character->login) }}"
@@ -140,11 +140,11 @@
 				confirmationText="return confirm('{{ __('ui.confirm', ['tip' => __('tips.character.approval')]) }}')"
 				icon="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
 				tooltip="{{ isset($tooltip) }}"
-			/>    
+			/>
 		@endcan
 	@endif
 
-	@if ($character->status == \App\Enums\CharacterStatus::Approved())
+	@if ($character->status == \App\Enums\CharacterStatus::Approved)
 		@can('reapproval', $character)
 			<x-action-button text="{{ __('applications.reapproval') }}"
 				action="{{ route('applications.reapproval', $character->login) }}"
