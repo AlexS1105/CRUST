@@ -78,13 +78,8 @@ enum CharacterCraft : string
         return in_array($this, self::getGeneralCrafts());
     }
 
-    public function key()
-    {
-        return strtolower($this->name);
-    }
-
     public function localized()
     {
-        return __("craft.{$this->key()}");
+        return __('craft.' . strtolower($this->value));
     }
 }

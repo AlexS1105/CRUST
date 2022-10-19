@@ -74,7 +74,7 @@
             <div class="space-y-1 px-1 pb-1">
               @foreach (App\Enums\CharacterCraft::getMagicCrafts() as $instance)
                 @php
-                  $craft = $instance->key();
+                  $craft = $instance->value;
                   $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
@@ -104,7 +104,7 @@
             <div class="space-y-1 px-1 pb-1">
               @foreach (App\Enums\CharacterCraft::getTechCrafts() as $instance)
                 @php
-                  $craft = $instance->key();
+                  $craft = $instance->value;
                   $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
@@ -130,7 +130,7 @@
             <div class="space-y-1 px-1 pb-1">
               @foreach (App\Enums\CharacterCraft::getGeneralCrafts() as $instance)
                 @php
-                  $craft = $instance->key();
+                  $craft = $instance->value;
                   $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
                   $max = $instance->getMaxTier();
                 @endphp
@@ -212,8 +212,8 @@
 
     <script>
       var maxSkills = @json($settings->skill_points);
-      var magicCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getMagicCrafts()));
-      var techCrafts = @json(array_map(function($instance) { return $instance->key(); }, App\Enums\CharacterCraft::getTechCrafts()));
+      var magicCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getMagicCrafts()));
+      var techCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getTechCrafts()));
       var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) || [];
       var craftNameText = @json(__('charsheet.narrative_crafts.name'));
       var craftDescriptionText = @json(__('charsheet.narrative_crafts.description'));
