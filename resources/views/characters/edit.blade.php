@@ -21,7 +21,7 @@
         <x-tip>
           {{ __('tips.character.name') }}
         </x-tip>
-        <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::getKeys()" :labels="array_map(function($status) { return App\Enums\CharacterGender::fromValue($status)->localized(); }, App\Enums\CharacterGender::getValues())" :value="old('gender', $character->gender->description)"/>
+        <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::cases()" :labels="array_map(function($status) { return $status->localized(); }, App\Enums\CharacterGender::cases())" :value="old('gender', $character->gender)"/>
         <x-tip>
           {{ __('tips.character.gender') }}
         </x-tip>

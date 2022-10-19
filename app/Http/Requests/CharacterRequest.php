@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Enums\CharacterGender;
-use BenSampo\Enum\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class CharacterRequest extends FormRequest
 {
@@ -17,7 +17,6 @@ class CharacterRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'gender' => CharacterGender::fromKey($this->gender),
             'info_hidden' => $this->info_hidden === 'on',
             'bio_hidden' => $this->bio_hidden === 'on',
         ]);

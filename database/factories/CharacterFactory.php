@@ -27,7 +27,7 @@ class CharacterFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->paragraph(6),
-            'gender' => array_rand(CharacterGender::getValues()),
+            'gender' => array_rand(CharacterGender::cases()),
             'race' => $this->faker->word(),
             'age' => $this->faker->numberBetween(1, 100).' '.$this->faker->word(),
             'appearance' => $this->faker->paragraph(10),

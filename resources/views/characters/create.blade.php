@@ -20,7 +20,7 @@
         <x-tip>
           {{ __('tips.character.name') }}
         </x-tip>
-        <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::getKeys()" :labels="array_map(function($status) { return App\Enums\CharacterGender::fromValue($status)->localized(); }, App\Enums\CharacterGender::getValues())" :value="old('gender')" />
+        <x-form.select required :name="'gender'" :values="App\Enums\CharacterGender::cases()" :labels="array_map(function($status) { return $status->localized(); }, App\Enums\CharacterGender::cases())" :value="old('gender')" />
         <x-tip>
           {{ __('tips.character.gender') }}
         </x-tip>
@@ -61,7 +61,7 @@
         <x-slot name="header">
           {{ __('characters.cards.biography') }}
         </x-slot>
-        
+
         <x-form.textarea name="personality" onfocus="preview(this)" placeholder="{{ __('characters.placeholder.personality') }}" wrap="off" />
         <x-tip>
           {{ __('tips.character.personality') }}
@@ -75,7 +75,7 @@
           {{ __('tips.character.bio_hidden') }}
         </x-tip>
       </x-form.card>
-      
+
       <x-form.card>
         <x-slot name="header">
           {{ __('characters.cards.additional_info') }}
@@ -97,7 +97,7 @@
           {{ __('tips.character.login') }}
         </x-tip>
       </x-form.card>
-      
+
       <x-button>
         {{ __('ui.submit') }}
       </x-button>

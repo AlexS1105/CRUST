@@ -2,38 +2,32 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class CharacterGender extends Enum
+enum CharacterGender : int
 {
-    public const Male = 0;
-    public const Female = 1;
-    public const Other = 2;
-
-    protected $icons = [
-        CharacterGender::Male => 'fa-mars',
-        CharacterGender::Female => 'fa-venus',
-        CharacterGender::Other => 'fa-genderless',
-    ];
-
-    protected $colors = [
-        CharacterGender::Male => 'blue-400',
-        CharacterGender::Female => 'pink-400',
-        CharacterGender::Other => 'gray-400',
-    ];
+    case Male = 0;
+    case Female = 1;
+    case Other = 2;
 
     public function icon()
     {
-        return $this->icons[$this->value];
+        return match($this) {
+            CharacterGender::Male => 'fa-mars',
+            CharacterGender::Female => 'fa-venus',
+            CharacterGender::Other => 'fa-genderless',
+        };
     }
 
     public function color()
     {
-        return $this->colors[$this->value];
+        return match($this) {
+            CharacterGender::Male => 'blue-400',
+            CharacterGender::Female => 'pink-400',
+            CharacterGender::Other => 'gray-400',
+        };
     }
 
     public function localized()
     {
-        return __('characters.gender.'.strtolower($this->description));
+        return __('characters.gender.' . strtolower($this->name));
     }
 }
