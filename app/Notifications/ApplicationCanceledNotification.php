@@ -22,12 +22,12 @@ class ApplicationCanceledNotification extends DiscordNotification
         $embed = [
             'title' => "Ваш персонаж '{$character->name}' снят с проверки",
             'description' => '*Что-то пошло не так*
-            
+
             Новый регистратор возьмёт Вашего персонажа на проверку в ближайшее время.',
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'fields' => [
                 [
@@ -48,7 +48,7 @@ class ApplicationCanceledNotification extends DiscordNotification
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
-                    
+
                     [**Страница персонажа**]({$url})",
                 ],
             ],

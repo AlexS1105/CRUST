@@ -40,7 +40,7 @@
             <div class="flex">
               <img
                 class="object-cover object-top h-36 w-36"
-                src="{{ Storage::url($character->reference).'?='.$character->updated_at }}"
+                src="{{ $character->reference }}"
                 alt="Character Reference"
               >
               <div class="ml-2 p-2 my-auto">

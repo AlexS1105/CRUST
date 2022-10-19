@@ -53,6 +53,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'characters' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/characters'),
+            'url' => env('APP_URL').'/storage/characters',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

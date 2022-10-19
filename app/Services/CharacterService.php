@@ -13,14 +13,10 @@ class CharacterService
     public function create($request)
     {
         $validated = $request->validated();
-        $validated['user_id'] = auth()->id();
-        unset($validated['reference']);
-
-        $character = Character::create($validated);
-
-        $this->saveReference($character, $request);
-
+        $character = $request->user->characters()->create($validated);
         $character->charsheet()->create();
+
+        $this->saveReference($character, $validated);
 
         return $character;
     }
@@ -29,7 +25,7 @@ class CharacterService
     {
         $charsheet = $character->charsheet;
         $validated = $request->validated();
-        unset($validated['reference']);
+
         $character->update($validated);
 
         if ($charsheet->character !== $character->login) {
@@ -37,28 +33,14 @@ class CharacterService
             $charsheet->save();
         }
 
-        $this->saveReference($character, $request);
+        $this->saveReference($character, $validated);
     }
 
-    public function saveReference($character, $request)
+    public function saveReference($character, $validated)
     {
-        $file = $request->file('reference');
+        $file = $validated['reference'];
 
-        if ($file) {
-            if ($character->reference !== 'storage/characters/references/_default.png') {
-                Storage::delete('characters/references/'.basename($character->reference));
-            }
-
-            $character->reference = str_replace(
-                'public/',
-                'storage/',
-                $file->storePubliclyAs('characters/references', $character->login.'.'.$file->extension())
-            );
-            $character->save();
-        } elseif ($character->reference === 'storage/characters/references/_default.png') {
-            $character->reference = 'characters/references/_default.png';
-            $character->save();
-        }
+        Storage::disk('characters')->putFileAs($character->id, $file, 'reference');
     }
 
     public function delete($character)

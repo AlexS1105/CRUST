@@ -22,12 +22,12 @@ class CharacterCompleteDeletionNotification extends DiscordNotification
         $embed = [
             'title' => "Ваш персонаж '{$character->name}' полностью удалён",
             'description' => 'Его нельзя восстановить.
-            
+
             ***Помянем***',
             'url' => $url,
             'color' => 0xEF4444,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'fields' => [
                 [

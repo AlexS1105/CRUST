@@ -29,12 +29,12 @@ class ApplicationReapprovalNotification extends DiscordNotification
         $embed = [
             'title' => ($notifiable->is($character->user) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
             'description' => "{$user->discord_tag} что-то не понравилось.
-            
+
             Игровой аккаунт отключен до повторной проверки регистратором {$registrar->discord_tag}.",
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'author' => [
                 'name' => $user->discord_tag,

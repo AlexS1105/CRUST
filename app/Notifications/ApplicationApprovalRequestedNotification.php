@@ -27,7 +27,7 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'fields' => [
                 [
@@ -48,7 +48,7 @@ class ApplicationApprovalRequestedNotification extends DiscordNotification
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
-                    
+
                     [**Страница персонажа**]({$url})
                     [**Тикет для обсуждения**]({$ticketLink})",
                 ],

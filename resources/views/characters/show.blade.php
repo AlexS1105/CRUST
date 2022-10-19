@@ -39,7 +39,7 @@
       <div class="bg-white rounded-xl max-w-md my-auto shadow-lg row-span-3 flex-none overflow-hidden">
         <img
           class="object-cover"
-          src="{{ Storage::url($character->reference).'?='.$character->updated_at }}"
+          src="{{ $character->reference }}"
           alt="Character Reference"
         />
       </div>

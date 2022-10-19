@@ -27,7 +27,7 @@ class ApplicationTakenNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'author' => [
                 'name' => $registrar->discord_tag,
@@ -51,7 +51,7 @@ class ApplicationTakenNotification extends DiscordNotification
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
-                    
+
                     [**Страница персонажа**]({$url})
                     [**Тикет для обсуждения**]({$ticketLink})",
                 ],

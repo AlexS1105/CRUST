@@ -28,7 +28,7 @@ class ApplicationApprovedNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x34D399,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'author' => [
                 'name' => $registrar->discord_tag,
@@ -59,9 +59,9 @@ class ApplicationApprovedNotification extends DiscordNotification
                     'name' => '**Данные для входа**',
                     'value' => "**Логин:** {$character->login}
                     **Пароль:** Такой же, как у аккаунта здесь
-                    
+
                     **Приятной игры!**
-                    
+
                     [**Скачать лаунчер**]({$launcherUrl})",
                 ],
             ],

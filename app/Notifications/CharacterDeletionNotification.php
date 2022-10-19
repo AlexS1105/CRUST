@@ -25,7 +25,7 @@ class CharacterDeletionNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xEF4444,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'fields' => [
                 [
@@ -46,7 +46,7 @@ class CharacterDeletionNotification extends DiscordNotification
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
-                    
+
                     [**Страница персонажа**]({$url})",
                 ],
             ],

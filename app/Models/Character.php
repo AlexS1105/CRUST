@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -22,7 +23,26 @@ class Character extends Model
         'status',
     ];
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'description',
+        'gender',
+        'race',
+        'age',
+        'appearance',
+        'background',
+        'info_hidden',
+        'bio_hidden',
+        'login',
+        'status',
+        'status_updated_at',
+        'player_only_info',
+        'gm_only_info',
+        'registered',
+        'vox',
+        'personality',
+        'last_idea',
+    ];
 
     protected $casts = [
         'status' => CharacterStatus::class,
@@ -125,6 +145,18 @@ class Character extends Model
 
                 return $value;
             },
+        );
+    }
+
+    public function reference(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $disk = Storage::disk('characters');
+                $fileName = $this->id . '/reference';
+
+                return $disk->url($disk->exists($fileName) ? $fileName : 'default/reference');
+            }
         );
     }
 

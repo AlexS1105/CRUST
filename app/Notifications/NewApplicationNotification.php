@@ -27,7 +27,7 @@ class NewApplicationNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [
-                'url' => Storage::url($character->reference),
+                'url' => $character->reference,
             ],
             'author' => [
                 'name' => $user->discord_tag,
@@ -52,7 +52,7 @@ class NewApplicationNotification extends DiscordNotification
                 [
                     'name' => 'Описание',
                     'value' => $character->description."
-                    
+
                     [**Страница персонажа**]({$url})",
                 ],
             ],
