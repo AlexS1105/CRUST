@@ -2,95 +2,89 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class CharacterCraft extends Enum
+enum CharacterCraft : string
 {
-    public const Arc = 0;
-    public const Mys = 1;
-    public const Wiz = 2;
-    public const Mnf = 3;
-    public const Eng = 4;
-    public const Gun = 5;
-    public const Chm = 6;
-    public const Smt = 7;
-    public const Bld = 8;
-    public const Med = 9;
-
-    protected $tiers = [
-        CharacterCraft::Arc => 3,
-        CharacterCraft::Mys => 3,
-        CharacterCraft::Wiz => 2,
-        CharacterCraft::Mnf => 3,
-        CharacterCraft::Eng => 3,
-        CharacterCraft::Gun => 2,
-        CharacterCraft::Chm => 2,
-        CharacterCraft::Smt => 2,
-        CharacterCraft::Bld => 1,
-        CharacterCraft::Med => 1,
-    ];
+    case Arc = 'arc';
+    case Mys = 'mys';
+    case Wiz = 'wiz';
+    case Mnf = 'mnf';
+    case Eng = 'eng';
+    case Gun = 'gun';
+    case Chm = 'chm';
+    case Smt = 'smt';
+    case Bld = 'bld';
+    case Med = 'med';
 
     public static function getMagicCrafts()
     {
         return [
-            CharacterCraft::Arc(),
-            CharacterCraft::Mys(),
-            CharacterCraft::Wiz(),
+            CharacterCraft::Arc,
+            CharacterCraft::Mys,
+            CharacterCraft::Wiz,
         ];
     }
 
     public static function getTechCrafts()
     {
         return [
-            CharacterCraft::Mnf(),
-            CharacterCraft::Eng(),
-            CharacterCraft::Gun(),
+            CharacterCraft::Mnf,
+            CharacterCraft::Eng,
+            CharacterCraft::Gun,
         ];
     }
 
     public static function getGeneralCrafts()
     {
         return [
-            CharacterCraft::Chm(),
-            CharacterCraft::Smt(),
-            CharacterCraft::Bld(),
-            CharacterCraft::Med(),
+            CharacterCraft::Chm,
+            CharacterCraft::Smt,
+            CharacterCraft::Bld,
+            CharacterCraft::Med,
         ];
     }
 
     public function getMaxTier()
     {
-        return $this->tiers[$this->value];
+        return match($this) {
+            CharacterCraft::Arc, CharacterCraft::Mys,
+            CharacterCraft::Mnf, CharacterCraft::Eng => 3,
+            CharacterCraft::Gun, CharacterCraft::Wiz,
+            CharacterCraft::Chm, CharacterCraft::Smt => 2,
+            CharacterCraft::Bld, CharacterCraft::Med => 1,
+        };
     }
 
     public function getType()
     {
-        return in_array($this, $this->getMagicCrafts()) ? 'magic' :
-            (in_array($this, $this->getTechCrafts()) ? 'tech' : 'general');
+        return match (true) {
+            $this->isMagic() => 'magic',
+            $this->isTech() => 'tech',
+            default => 'general',
+        };
     }
 
     public function isMagic()
     {
-        return in_array($this, $this->getMagicCrafts());
+        return in_array($this, self::getMagicCrafts());
     }
 
     public function isTech()
     {
-        return in_array($this, $this->getTechCrafts());
+        return in_array($this, self::getTechCrafts());
     }
 
     public function isGeneral()
     {
-        return ! $this->isMagic() && ! $this->isTech();
+        return in_array($this, self::getGeneralCrafts());
     }
 
     public function key()
     {
-        return strtolower($this->description);
+        return strtolower($this->name);
     }
 
     public function localized()
     {
-        return __('craft.'.strtolower($this->description));
+        return __("craft.{$this->key()}");
     }
 }

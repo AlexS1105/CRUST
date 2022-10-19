@@ -33,7 +33,7 @@ class CraftPool implements Rule
         ];
 
         foreach ($crafts as $craft => $value) {
-            $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
+            $type = CharacterCraft::from($craft)->getType();
 
             if ($value > 0) {
                 $tiers[$type] += 1;
@@ -48,7 +48,7 @@ class CraftPool implements Rule
         }
 
         foreach ($crafts as $craft => $value) {
-            $type = CharacterCraft::fromKey(ucfirst($craft))->getType();
+            $type = CharacterCraft::from($craft)->getType();
             $cost = $value;
 
             ${$type.'Points'} += $cost;
