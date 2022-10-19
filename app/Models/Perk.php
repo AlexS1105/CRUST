@@ -18,10 +18,6 @@ class Perk extends Model
         'type',
     ];
 
-    protected $casts = [
-        'type' => PerkType::class,
-    ];
-
     public function variants()
     {
         return $this->hasMany(PerkVariant::class);
@@ -40,6 +36,26 @@ class Perk extends Model
                 $query->hasFlag('type', $perkType->value);
             }
         }
+    }
+
+    public function isCombat()
+    {
+        return ! $this->isNonCombat();
+    }
+
+    public function isNonCombat()
+    {
+        return PerkType::none($this->type, PerkType::Combat, PerkType::Attack, PerkType::Defence);
+    }
+
+    public function isAttack()
+    {
+        return PerkType::on($this->type, PerkType::Attack);
+    }
+
+    public function isDefence()
+    {
+        return PerkType::on($this->type, PerkType::Defence);
     }
 
     protected static function boot()

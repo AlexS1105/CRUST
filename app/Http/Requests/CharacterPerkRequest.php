@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\PerkVariant;
 use App\Rules\PerkPool;
+use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharacterPerkRequest extends FormRequest
@@ -15,23 +16,10 @@ class CharacterPerkRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $perksCollection = PerkVariant::with('perk')->get();
-        $perks = [];
-
-        if (isset($this->perks)) {
-            foreach ($this->perks as $perkId => $perkData) {
-                if ($perkData['id'] !== '-1') {
-                    $perks[$perkId] = [
-                        'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
-                        'active' => isset($perkData['active']) ? $perkData['active'] === 'on' : false,
-                        'note' => $perkData['note'],
-                    ];
-                }
-            }
-        }
+        $charsheetService = resolve(CharsheetService::class);
 
         $this->merge([
-            'perks' => $perks,
+            'perks' => $charsheetService->convertPerks($this->perks, true),
         ]);
     }
 

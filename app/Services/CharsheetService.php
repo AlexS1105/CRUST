@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\FateType;
 use App\Models\Character;
 use App\Models\Fate;
 use App\Models\PerkVariant;
@@ -38,7 +39,7 @@ class CharsheetService
 
             foreach ($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach($id, ['active' => true, 'note' => $perkVariant['note']]);
+                $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'note' => $perkVariant['note']]);
             }
 
             info('Character perks updated', [
@@ -111,5 +112,44 @@ class CharsheetService
                 'vox' => __($e->getMessage()),
             ]);
         }
+    }
+
+    public function convertFates($fates)
+    {
+        foreach ($fates as &$fate) {
+            $fate['type'] = 0;
+
+            if (isset($fate['ambition'])) {
+                $fate['type'] = FateType::set($fate['type'], FateType::Ambition);
+            }
+
+            if (isset($fate['flaw'])) {
+                $fate['type'] = FateType::set($fate['type'], FateType::Flaw);
+            }
+
+            if (isset($fate['continuous'])) {
+                $fate['type'] = FateType::set($fate['type'], FateType::Continuous);
+            }
+        }
+
+        return $fates;
+    }
+
+    public function convertPerks($perks, $edit = false)
+    {
+        $perkVariants = PerkVariant::with('perk')->get();
+        $perksCollection = [];
+
+        foreach ($perks as $perkId => $perkData) {
+            if ($perkData['id'] !== '-1') {
+                $perksCollection[$perkId] = [
+                    'variant' => $perkVariants->firstWhere('id', $perkData['id']),
+                    'note' => $perkData['note'],
+                    'active' => !$edit || isset($perkData['active']),
+                ];
+            }
+        }
+
+        return $perksCollection;
     }
 }

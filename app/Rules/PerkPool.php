@@ -28,12 +28,16 @@ class PerkPool implements Rule
         foreach ($value as $perkData) {
             $perk = $perkData['variant']->perk;
 
-            if ($perk->type->isCombat()) {
+            if ($this->edit && ! $perkData['active']) {
+                continue;
+            }
+
+            if ($perk->isCombat()) {
                 $combatPerks += 1;
 
-                if ($perk->type->hasFlag(PerkType::Attack)) {
+                if ($perk->isAttack()) {
                     $attackPerks += 1;
-                } elseif ($perk->type->hasFlag(PerkType::Defence)) {
+                } elseif ($perk->isDefence()) {
                     $defencePerks += 1;
                 }
             } else {

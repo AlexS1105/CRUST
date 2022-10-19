@@ -15,7 +15,7 @@
   </button>
   <div id="perk-open-body-{{ $perk->id }}" class="hidden" aria-labelledby="perk-open-heading-{{ $perk->id }}">
     <div class="flex bg-gray-50 border-b border-t border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm items-center">
-      @if ($perk->type->isCombat())
+      @if ($perk->isCombat())
         <div class="bg-red-100 px-2 rounded-full">
           {{ __('perks.types.combat') }}
         </div>
@@ -25,13 +25,13 @@
       </div>
       @endif
 
-      @if ($perk->type->hasFlag(App\Enums\PerkType::Attack))
+      @if ($perk->isAttack())
         <div class="bg-orange-100 px-2 rounded-full">
           {{ __('perks.types.attack') }}
         </div>
       @endif
 
-      @if ($perk->type->hasFlag(App\Enums\PerkType::Defence))
+      @if ($perk->isDefence())
         <div class="bg-blue-200 px-2 rounded-full">
           {{ __('perks.types.defence') }}
         </div>

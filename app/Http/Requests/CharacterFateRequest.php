@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\FateType;
 use App\Rules\FatesRule;
+use App\Services\CharsheetService;
 use App\Services\FateService;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,10 +17,10 @@ class CharacterFateRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $fateService = resolve(FateService::class);
+        $charsheetService = resolve(CharsheetService::class);
 
         $this->merge([
-            'fates' => $fateService->convertFateTypes($this->fates),
+            'fates' => $charsheetService->convertFates($this->fates),
         ]);
     }
 

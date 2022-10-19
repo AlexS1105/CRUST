@@ -486,7 +486,7 @@
     @if (count($character->perkVariants))
       @php
         $perks = $character->perkVariants->groupBy(function($item, $key) {
-          return $item->perk->type->isCombat() ? 'combat' : 'noncombat';
+          return $item->perk->isCombat() ? 'combat' : 'noncombat';
         });
       @endphp
       <div class="flex justify-center gap-8">

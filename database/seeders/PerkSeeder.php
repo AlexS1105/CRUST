@@ -16,19 +16,17 @@ class PerkSeeder extends Seeder
             $amount = rand(1, 3);
 
             if (rand(1, 2) === 1) {
-                $perk->type->addFlag(PerkType::Combat);
+                $perk->type = PerkType::set($perk->type, PerkType::Combat);
 
                 if (rand(1, 3) === 1) {
-                    $perk->type->addFlag(PerkType::Attack);
-                }
-    
-                if (rand(1, 4) === 1) {
-                    $perk->type->addFlag(PerkType::Defence);
+                    $perk->type = PerkType::set($perk->type, PerkType::Attack);
+                } elseif (rand(1, 3) === 1) {
+                    $perk->type = PerkType::set($perk->type, PerkType::Defence);
                 }
             }
 
             $perk->save();
-    
+
             for ($i = 0; $i <= $amount; $i++) {
                 PerkVariant::factory()->create(['perk_id' => $perk->id]);
             }

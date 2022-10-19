@@ -2,21 +2,14 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\FlaggedEnum;
+use FramJet\Packages\EnumBitmask\BitmaskFunctionality;
 
-final class PerkType extends FlaggedEnum
+enum PerkType: int
 {
-    public const Combat = 1 << 0;
-    public const Attack = 1 << 1;
-    public const Defence = 1 << 2;
+    use BitmaskFunctionality;
 
-    public function isCombat()
-    {
-        return ! $this->isNonCombat();
-    }
-
-    public function isNonCombat()
-    {
-        return $this->notHasFlags([PerkType::Combat, PerkType::Attack, PerkType::Defence]);
-    }
+    case None = 0;
+    case Combat = 1 << 0;
+    case Attack = 1 << 1;
+    case Defence = 1 << 2;
 }

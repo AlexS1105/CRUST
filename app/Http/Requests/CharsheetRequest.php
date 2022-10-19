@@ -8,7 +8,7 @@ use App\Rules\CraftPool;
 use App\Rules\FatesRule;
 use App\Rules\PerkPool;
 use App\Rules\SkillPool;
-use App\Services\FateService;
+use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharsheetRequest extends FormRequest
@@ -20,27 +20,11 @@ class CharsheetRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        // TODO: rewrite perks input
-        $perksCollection = PerkVariant::with('perk')->get();
-        $perks = [];
-
-        if (isset($this->perks)) {
-            foreach ($this->perks as $perkId => $perkData) {
-                if ($perkData['id'] !== '-1') {
-                    $perks[$perkId] = [
-                        'variant' => $perksCollection->firstWhere('id', intval($perkData['id'])),
-                        'note' => $perkData['note'],
-                        'active' => isset($perkData['active']) && $perkData['active'] === 'on',
-                    ];
-                }
-            }
-        }
-
-        $fateService = resolve(FateService::class);
+        $charsheetService = resolve(CharsheetService::class);
 
         $this->merge([
-            'perks' => $perks,
-            'fates' => $fateService->convertFateTypes($this->fates),
+            'perks' => $charsheetService->convertPerks($this->perks),
+            'fates' => $charsheetService->convertFates($this->fates),
         ]);
     }
 
