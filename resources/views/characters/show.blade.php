@@ -550,27 +550,27 @@
             @foreach ($character->fates as $fate)
               <div class="p-2">
                 <div class="flex text-sm font-semibold space-x-2 mb-2">
-                  @if ($fate->type->isDual())
+                  @if ($fate->isDual())
                     <div class="bg-gray-200 px-2 rounded-full">
                       {{ __('fates.dual') }}
                     </div>
-                  @elseif ($fate->type->hasFlag(App\Enums\FateType::Ambition))
+                  @elseif ($fate->isAmbition())
                     <div class="bg-yellow-200 px-2 rounded-full">
                       {{ __('fates.ambition') }}
                     </div>
-                  @elseif ($fate->type->hasFlag(App\Enums\FateType::Flaw))
+                  @elseif ($fate->isFlaw())
                     <div class="bg-blue-200 px-2 rounded-full">
                       {{ __('fates.flaw') }}
                     </div>
                   @endif
 
-                  @if ($fate->type->isOnetime())
+                  @if ($fate->isOnetime())
                     <div class="bg-green-200 px-2 rounded-full">
                       {{ __('fates.onetime') }}
                     </div>
                   @else
                     <div class="bg-purple-200 px-2 rounded-full">
-                      {{ __('fates.continious') }}
+                      {{ __('fates.continuous') }}
                     </div>
                   @endif
                 </div>

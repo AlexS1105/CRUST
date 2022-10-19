@@ -2,28 +2,19 @@
 
 namespace App\Rules;
 
+use App\Enums\FateType;
 use Illuminate\Contracts\Validation\Rule;
 
-class Fates implements Rule
+class FatesRule implements Rule
 {
     public $message = 'validation.fates.invalid';
-    public $edit = false;
-
-    public function __construct($edit)
-    {
-        $this->edit = $edit;
-    }
 
     public function passes($attribute, $fates)
     {
         $dualFates = 0;
 
         foreach ($fates as $fate) {
-            if ($fate['type'] === null) {
-                continue;
-            }
-
-            if ($fate['type']->isDual()) {
+            if (FateType::all($fate['type'], FateType::Ambition, FateType::Flaw)) {
                 $dualFates += 1;
             }
         }

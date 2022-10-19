@@ -50,22 +50,16 @@ class CharsheetService
 
     public function saveFates($character, $validated)
     {
-        if (isset($validated['fates']) && count($validated['fates'])) {
-            $character->fates()->delete();
-            $fates = [];
+        $character->fates()->delete();
 
-            foreach ($validated['fates'] as $fate) {
-                $fate['character_id'] = $character->id;
-                array_push($fates, new Fate($fate));
-            }
-
-            $character->fates()->saveMany($fates);
-
-            info('Character fates updated', [
-                'user' => auth()->user()->login,
-                'character' => $character->login,
-            ]);
+        if (isset($validated['fates'])) {
+            $character->fates()->createMany($validated['fates']);
         }
+
+        info('Character fates updated', [
+            'user' => auth()->user()->login,
+            'character' => $character->login,
+        ]);
     }
 
     public function togglePerk(Character $character, PerkVariant $perkVariant)

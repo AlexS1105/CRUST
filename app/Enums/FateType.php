@@ -2,21 +2,14 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\FlaggedEnum;
+use FramJet\Packages\EnumBitmask\BitmaskFunctionality;
 
-final class FateType extends FlaggedEnum
+enum FateType: int
 {
-    public const Ambition = 1 << 0;
-    public const Flaw = 1 << 1;
-    public const Continious = 1 << 2;
+    use BitmaskFunctionality;
 
-    public function isDual()
-    {
-        return $this->hasFlags([FateType::Ambition, FateType::Flaw]);
-    }
-
-    public function isOnetime()
-    {
-        return $this->notHasFlag(FateType::Continious);
-    }
+    case None = 0;
+    case Ambition = 1 << 0;
+    case Flaw = 1 << 1;
+    case Continuous = 1 << 2;
 }

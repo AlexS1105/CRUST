@@ -6,7 +6,7 @@ function updateFates() {
         if (fate.type) {
             fate['ambition'] = fate.type & 1 && 'on'
             fate['flaw'] = fate.type & 2 && 'on'
-            fate['continious'] = fate.type & 4 && 'on'
+            fate['continuous'] = fate.type & 4 && 'on'
         }
 
         addFateCard(fate)
@@ -85,18 +85,18 @@ function addFateCard(fate) {
 
     flagsDiv.append(flawLabel)
 
-    var checkboxContinious = document.createElement('input')
-    checkboxContinious.type = 'checkbox'
-    checkboxContinious.checked = fate && fate['continious'] == 'on' || null
-    checkboxContinious.name = 'fates[' + id + '][continious]'
+    var checkboxContinuous = document.createElement('input')
+    checkboxContinuous.type = 'checkbox'
+    checkboxContinuous.checked = fate && fate['continuous'] == 'on' || null
+    checkboxContinuous.name = 'fates[' + id + '][continuous]'
 
-    flagsDiv.append(checkboxContinious)
+    flagsDiv.append(checkboxContinuous)
 
-    var continiousLabel = document.createElement('label')
-    continiousLabel.htmlFor = 'fates[' + id + '][flaw]'
-    continiousLabel.innerHTML = continiousLabelText
+    var continuousLabel = document.createElement('label')
+    continuousLabel.htmlFor = 'fates[' + id + '][flaw]'
+    continuousLabel.innerHTML = continuousLabelText
 
-    flagsDiv.append(continiousLabel)
+    flagsDiv.append(continuousLabel)
 
     var deleteButton = document.createElement('button')
     deleteButton.type = 'button'

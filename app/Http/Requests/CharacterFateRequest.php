@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Enums\FateType;
-use App\Rules\Fates;
+use App\Rules\FatesRule;
+use App\Services\FateService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CharacterFateRequest extends FormRequest
@@ -15,42 +16,20 @@ class CharacterFateRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $fates = [];
-
-        if (isset($this->fates)) {
-            foreach ($this->fates as $fate) {
-                $fateType = FateType::None();
-
-                if (isset($fate['continious']) && $fate['continious'] === 'on') {
-                    $fateType->addFlag(FateType::Continious);
-                }
-
-                if (isset($fate['ambition']) && $fate['ambition'] === 'on') {
-                    $fateType->addFlag(FateType::Ambition);
-                }
-
-                if (isset($fate['flaw']) && $fate['flaw'] === 'on') {
-                    $fateType->addFlag(FateType::Flaw);
-                }
-
-                array_push($fates, [
-                    'text' => $fate['text'],
-                    'type' => $fateType !== FateType::None() ? $fateType : null,
-                ]);
-            }
-        }
+        $fateService = resolve(FateService::class);
 
         $this->merge([
-            'fates' => $fates,
+            'fates' => $fateService->convertFateTypes($this->fates),
         ]);
     }
 
     public function rules()
     {
         return [
-            'fates' => [new Fates(true)],
+            'fates' => [new FatesRule()],
             'fates.*.text' => ['required', 'max:1024'],
-            'fates.*.type' => ['required'],
+            'fates.*.ambition' => ['required_without:fates.*.flaw', 'nullable'],
+            'fates.*.flaw' => ['required_without:fates.*.ambition', 'nullable'],
         ];
     }
 }

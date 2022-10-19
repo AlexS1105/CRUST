@@ -4,7 +4,7 @@ return [
     'ambition' => 'Ambition',
     'flaw' => 'Flaw',
     'dual' => 'Dual',
-    'continious' => 'Continious',
+    'continuous' => 'Continuous',
     'onetime' => 'One-Time',
     'placeholder' => [
         'text' => 'Fate Statement',
