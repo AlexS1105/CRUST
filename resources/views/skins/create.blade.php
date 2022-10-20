@@ -11,13 +11,19 @@
             @csrf
 
             <x-form.card>
-                <x-form.input name="prefix" maxlength="100" :value="old('prefix')"/>
-                <x-tip>
-                    {{ __('tips.skins.prefix') }}
-                </x-tip>
-                <x-form.input name="skin" type="file" accept="image/*" :value="old('skin')"/>
+                <x-form.input name="skins[]" type="file" accept="image/*" :value="old('skins')" multiple />
+                <div id="skins-list" class="grid grid-cols-2 gap-1 mx-auto">
+                    <div class="hidden bg-gray-100 border p-2">
+                        <div class="text-gray-800 font-bold">{{ __('label.prefix') }}</div>
+                        <input class="border h-8 p-1 text-sm w-full" type="text">
+                        <img id="skin" class="mt-2 border" src="#"/>
+                    </div>
+                </div>
                 <x-tip>
                     {{ __('tips.skins.skin') }}
+                </x-tip>
+                <x-tip>
+                    {{ __('tips.skins.prefix') }}
                 </x-tip>
 
                 <x-button>

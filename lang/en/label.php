@@ -51,6 +51,7 @@ return [
     'max_fates' => 'Max Fates',
     'max_active_perks' => 'Max Active Perks',
     'prefix' => 'Prefix',
+    'skins[]' => 'Skins',
     'skin' => 'Skin',
     'sphere' => 'Sphere',
     'value' => 'Value',

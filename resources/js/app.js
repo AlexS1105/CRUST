@@ -12,6 +12,7 @@ import './markdown';
 import './markdown-preview';
 import './user';
 import './clipboard';
+import './skins'
 
 window.Alpine = Alpine;
 

@@ -9,27 +9,39 @@ class SkinService
     public function upload($character, $request)
     {
         $validated = $request->validated();
+        $skins = $validated['skins'];
+        $prefixes = $validated['prefix'];
 
-        $skin = $character->skins()->updateOrCreate([
-            'prefix' => $validated['prefix'],
-            'character_id' => $character->id,
-        ], $validated);
-
-        $this->saveSkin($request->file('skin'), $skin);
+        foreach ($skins as $key => $skin) {
+            $this->saveSkin($character, $skin, $prefixes[$key] ?? 'default');
+        }
     }
 
-    public function saveSkin($file, $skin)
+    public function saveSkin($character, $file, $prefix)
     {
-        Storage::delete('characters/skins/'.basename($skin->skin));
+        $disk = Storage::disk('characters');
+        $disk->putFileAs($character->id . '/skins', $file, $prefix);
+        $disk->putFileAs('skins', $file, $character->login . '.png');
+    }
 
-        $skin->skin = str_replace(
-            'public/',
-            'storage/',
-            $file->storePubliclyAs(
-                'characters/skins',
-                (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension()
-            )
-        );
-        $skin->save();
+    public function getSkins($character)
+    {
+        $disk = Storage::disk('characters');
+        return collect($disk->files($character->id . '/skins'))->map(function ($value) use ($disk) {
+            return [
+                'url' => $disk->url($value),
+                'prefix' => basename($value)
+            ];
+        });
+    }
+
+    public function deleteSkin($character, $prefix)
+    {
+        $disk = Storage::disk('characters');
+        $disk->delete($character->id . '/skins/' . $prefix);
+
+        if ($prefix == 'default') {
+            $disk->delete('skins/' . $character->login . '.png');
+        }
     }
 }

@@ -23,6 +23,7 @@
         "@vitejs/plugin-basic-ssl": "^0.1.2",
         "dompurify": "^2.3.10",
         "isomorphic-dompurify": "^0.23.0",
+        "jquery": "^3.6.1",
         "marked": "^4.0.18"
     }
 }

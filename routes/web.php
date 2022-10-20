@@ -131,9 +131,10 @@ Route::middleware('auth')->group(function () {
             ->name('applications.reapproval')
             ->middleware('can:reapproval,character');
 
-        Route::resource('characters.skins', SkinController::class)
-            ->scoped(['character' => 'login'])
-            ->except(['show', 'edit', 'update']);
+        Route::get('/characters/{character:login}/skins', [SkinController::class, 'index'])->name('characters.skins.index');
+        Route::get('/characters/{character:login}/skins/create', [SkinController::class, 'create'])->name('characters.skins.create');
+        Route::post('/characters/{character:login}/skins', [SkinController::class, 'store'])->name('characters.skins.store');
+        Route::delete('/characters/{character:login}/skins', [SkinController::class, 'destroy'])->name('characters.skins.destroy');
 
         Route::resource('characters.vox', VoxController::class)
             ->scoped(['character' => 'login'])

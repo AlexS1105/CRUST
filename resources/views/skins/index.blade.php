@@ -11,7 +11,7 @@
                href="{{ route('characters.skins.create', $character) }}">
                 {{ __('skins.create') }}
             </a>
-            @if(count($character->skins))
+            @if(count($skins))
                 <table class="table-auto w-full border mt-2">
                     <thead class="border bg-gray-200">
                     <tr>
@@ -27,28 +27,30 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($character->skins as $skin)
+                    @foreach ($skins as $skin)
                         <tr class="py-2 border hover:bg-gray-100">
                             <td class="px-4 py-2 border">
-                                {{ $skin->prefix ?? '-' }}
+                                {{ $skin['prefix'] }}
                             </td>
                             <td class="px-4 py-2 border">
-                                <a href="{{ Storage::url($skin->skin) }}">
+                                <a href="{{ $skin['url'] }}">
                                     <img
                                         class="object-cover"
-                                        src="{{ Storage::url($skin->skin).'?='.$skin->updated_at }}"
-                                        alt="Character Reference"
+                                        src="{{ $skin['url'] }}"
+                                        alt="Character Skin"
+                                        width="128"
+                                        height="128"
                                     />
                                 </a>
                             </td>
                             <td class="border">
                                 <div class="w-min mx-auto text-center">
                                     <a class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer"
-                                       onclick="copyToClipboard('{{ Storage::url($skin->skin) }}')">
+                                       onclick="copyToClipboard('{{ $skin['url'] }}')">
                                         {{ __('skins.copy') }}
                                     </a>
                                     <form method="POST"
-                                          action="{{ route('characters.skins.destroy', ['character' => $character, 'skin' => $skin]) }}">
+                                          action="{{ route('characters.skins.destroy',['character' => $character, 'prefix' => $skin['prefix']]) }}">
                                         @method('DELETE')
                                         @csrf
 
