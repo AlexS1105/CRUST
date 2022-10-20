@@ -6,7 +6,7 @@
         </div>
         <img
             class="object-cover object-top h-96 w-full"
-            src="{{ $character->reference }}"
+            src="{{ $character->getResizedReference(400) }}"
             alt="Character Reference"
         >
     </div>

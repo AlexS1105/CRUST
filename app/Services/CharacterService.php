@@ -6,6 +6,7 @@ use App\Enums\CharacterStatus;
 use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterDeleted;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class CharacterService
 {
@@ -25,6 +26,17 @@ class CharacterService
         $file = $validated['reference'];
 
         Storage::disk('characters')->putFileAs($character->id, $file, 'reference');
+    }
+
+    public function resizeReference($fileName, $size)
+    {
+        $disk = Storage::disk('characters');
+        $img = Image::make($disk->get($fileName));
+        $img->resize($size, $size, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        $disk->put($fileName . '_' . $size, $img->encode());
     }
 
     public function update($character, $request)

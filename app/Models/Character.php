@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CharacterGender;
 use App\Enums\CharacterStatus;
+use App\Services\CharacterService;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -240,9 +241,21 @@ class Character extends Model
                 $disk = Storage::disk('characters');
                 $fileName = $this->id.'/reference';
 
-                return $disk->url($disk->exists($fileName) ? $fileName : 'default/reference');
+                return $disk->exists($fileName) ? $fileName : 'default/reference';
             }
         );
+    }
+
+    public function getResizedReference($size)
+    {
+        $disk = Storage::disk('characters');
+        $fileName = $this->reference . '_' . $size;
+
+        if (! $disk->exists($fileName)) {
+            resolve(CharacterService::class)->resizeReference($this->reference, $size);
+        }
+
+        return $disk->url($fileName);
     }
 
     protected static function boot()

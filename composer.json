@@ -13,6 +13,7 @@
         "framjet/enum-bitmask": "^1.0",
         "fruitcake/laravel-cors": "^2.2",
         "guzzlehttp/guzzle": "^7.5.1",
+        "intervention/image": "^2.7",
         "jenssegers/mongodb": "^3.9",
         "kyslik/column-sortable": "^6.4",
         "laravel-notification-channels/discord": "^1.3",

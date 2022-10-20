@@ -26,7 +26,7 @@ class ApplicationChangesRequestedNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xFCD34D,
             'image' => [
-                'url' => $character->reference,
+                'url' => $character->getResizedReference(400),
             ],
             'author' => [
                 'name' => $registrar->discord_tag,

@@ -44,7 +44,7 @@
                         <div class="flex">
                             <img
                                 class="object-cover object-top h-36 w-36"
-                                src="{{ $character->reference }}"
+                                src="{{ $character->getResizedReference(150) }}"
                                 alt="Character Reference"
                             >
                             <div class="ml-2 p-2 my-auto">

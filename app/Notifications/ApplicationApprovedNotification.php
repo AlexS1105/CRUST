@@ -27,7 +27,7 @@ class ApplicationApprovedNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x34D399,
             'image' => [
-                'url' => $character->reference,
+                'url' => $character->getResizedReference(400),
             ],
             'author' => [
                 'name' => $registrar->discord_tag,

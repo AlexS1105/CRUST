@@ -24,7 +24,7 @@ class CharacterDeletionNotification extends DiscordNotification
             'url' => $url,
             'color' => 0xEF4444,
             'image' => [
-                'url' => $character->reference,
+                'url' => $character->getResizedReference(400),
             ],
             'fields' => [
                 [

@@ -26,7 +26,7 @@ class NewApplicationNotification extends DiscordNotification
             'url' => $url,
             'color' => 0x60A5FA,
             'image' => [
-                'url' => $character->reference,
+                'url' => $character->getResizedReference(400),
             ],
             'author' => [
                 'name' => $user->discord_tag,

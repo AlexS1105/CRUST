@@ -40,7 +40,7 @@
             <div class="bg-white rounded-xl max-w-md my-auto shadow-lg row-span-3 flex-none overflow-hidden">
                 <img
                     class="object-cover"
-                    src="{{ $character->reference }}"
+                    src="{{ Storage::disk('characters')->url($character->reference) }}"
                     alt="Character Reference"
                 />
             </div>
