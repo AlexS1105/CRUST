@@ -26,7 +26,10 @@ class PasswordResetLinkController extends Controller
     public function sent(Request $request)
     {
         try {
-            $userData = $this->discordService->getUserData($request->code, config('services.discord.redirecturi.reset'));
+            $userData = $this->discordService->getUserData(
+                $request->code,
+                config('services.discord.redirecturi.reset')
+            );
 
             $status = Password::sendResetLink([
                 'discord_id' => $userData['id'],
@@ -34,14 +37,15 @@ class PasswordResetLinkController extends Controller
                 session()->put('token', $token);
             });
 
-            return $status == Password::RESET_LINK_SENT
-                    ? to_route('password.reset', [
-                        'discord_id' => $userData['id'],
-                    ])
-                    : to_route('password.request')->withInput($request->only('login'))
-                        ->withErrors(['login' => __($status)]);
+            return $status === Password::RESET_LINK_SENT
+                ? to_route('password.reset', [
+                    'discord_id' => $userData['id'],
+                ])
+                : to_route('password.request')->withInput($request->only('login'))
+                    ->withErrors(['login' => __($status)]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
+
             return to_route('password.request')->withErrors([
                 'discord' => $request->input('error_description', __('auth.discord_error')),
             ]);

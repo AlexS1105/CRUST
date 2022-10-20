@@ -43,6 +43,7 @@ class CraftPool implements Rule
         foreach ($tiers as $value) {
             if ($value > 2) {
                 $this->message = 'validation.craftpool.maxtiers';
+
                 return false;
             }
         }
@@ -56,11 +57,13 @@ class CraftPool implements Rule
 
         if ($magicPoints > $magicMax) {
             $this->message = 'validation.craftpool.magic';
+
             return false;
         }
 
         if ($techPoints > $techMax) {
             $this->message = 'validation.craftpool.tech';
+
             return false;
         }
 
@@ -68,11 +71,15 @@ class CraftPool implements Rule
 
         if ($freeGeneralPoints < 0) {
             $this->message = 'validation.craftpool.general';
+
             return false;
         }
 
-        if (count($this->narrative_crafts) > (floor($magicMax / 2) + floor($techMax / 2) + floor($ingenuityPoints / 2) + $freeGeneralPoints)) {
+        if (count($this->narrative_crafts) > (floor($magicMax / 2) + floor($techMax / 2) + floor(
+            $ingenuityPoints / 2
+        ) + $freeGeneralPoints)) {
             $this->message = 'validation.craftpool.narrative_crafts';
+
             return false;
         }
 

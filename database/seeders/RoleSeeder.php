@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
             'character-restore' => [$admin, $registrar, $gamemaster],
             'character-create-unlimited' => [$admin],
             'character-create-vox' => [$admin],
-            
+
             'application-index' => [$admin, $registrar, $gamemaster],
             'application-take-for-approval' => [$admin, $registrar],
             'application-cancel-approval' => [$admin, $registrar],
@@ -43,7 +43,7 @@ class RoleSeeder extends Seeder
             'user-accounts' => [$admin],
 
             'settings' => [$admin],
-            'logs' => [$admin]
+            'logs' => [$admin],
         ];
 
         foreach ($permissions as $permission => $roles) {

@@ -15,7 +15,7 @@ class SphereSpendRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => ['required', 'min:1', 'max:100', new SphereHasEnough($this->sphere)]
+            'value' => ['required', 'min:1', 'max:100', new SphereHasEnough($this->sphere)],
         ];
     }
 }

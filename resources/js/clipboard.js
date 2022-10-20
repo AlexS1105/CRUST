@@ -1,3 +1,3 @@
-window.copyToClipboard = function(text) {
+window.copyToClipboard = function (text) {
     navigator.clipboard.writeText(text)
 }

@@ -8,7 +8,7 @@ class DropPerkCostColumns extends Migration
 {
     public function up()
     {
-        Schema::table('perks', function(Blueprint $table) {
+        Schema::table('perks', function (Blueprint $table) {
             $table->dropColumn('cost');
         });
 
@@ -19,7 +19,7 @@ class DropPerkCostColumns extends Migration
 
     public function down()
     {
-        Schema::table('perks', function(Blueprint $table) {
+        Schema::table('perks', function (Blueprint $table) {
             $table->integer('cost')->nullable();
         });
 

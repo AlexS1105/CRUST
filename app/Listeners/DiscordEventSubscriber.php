@@ -104,7 +104,10 @@ class DiscordEventSubscriber
     {
         $character = $event->character;
 
-        SendRegistrarNotification::dispatch($character->registrar, new ApplicationApprovalRequestedNotification($character));
+        SendRegistrarNotification::dispatch(
+            $character->registrar,
+            new ApplicationApprovalRequestedNotification($character)
+        );
     }
 
     public function handleCharacterApproved($event)
@@ -135,7 +138,10 @@ class DiscordEventSubscriber
         if ($character->registrar->id !== $user->id) {
             array_push(
                 $jobs,
-                new SendRegistrarNotification($character->registrar, new ApplicationReapprovalNotification($character, $user))
+                new SendRegistrarNotification(
+                    $character->registrar,
+                    new ApplicationReapprovalNotification($character, $user)
+                )
             );
         }
 

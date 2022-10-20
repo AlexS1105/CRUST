@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Enums\PerkType;
 use App\Settings\CharsheetSettings;
 use Illuminate\Contracts\Validation\Rule;
 

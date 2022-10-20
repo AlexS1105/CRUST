@@ -56,12 +56,12 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Create a new token repository instance.
      *
-     * @param  \Illuminate\Database\ConnectionInterface  $connection
-     * @param  \Illuminate\Contracts\Hashing\Hasher  $hasher
-     * @param  string  $table
-     * @param  string  $hashKey
-     * @param  int  $expires
-     * @param  int  $throttle
+     * @param \Illuminate\Database\ConnectionInterface $connection
+     * @param \Illuminate\Contracts\Hashing\Hasher $hasher
+     * @param string $table
+     * @param string $hashKey
+     * @param int $expires
+     * @param int $throttle
      *
      * @return void
      */
@@ -84,7 +84,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Create a new token record.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      *
      * @return string
      */
@@ -105,10 +105,32 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
+     * Delete a token record by user.
+     *
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     *
+     * @return void
+     */
+    public function delete(CanResetPasswordContract $user)
+    {
+        $this->deleteExisting($user);
+    }
+
+    /**
+     * Create a new token for the user.
+     *
+     * @return string
+     */
+    public function createNewToken()
+    {
+        return hash_hmac('sha256', Str::random(40), $this->hashKey);
+    }
+
+    /**
      * Determine if a token record exists and is valid.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string $token
      *
      * @return bool
      */
@@ -120,14 +142,14 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
         )->first();
 
         return $record &&
-               ! $this->tokenExpired($record['created_at']) &&
-                 $this->hasher->check($token, $record['token']);
+            ! $this->tokenExpired($record['created_at']) &&
+            $this->hasher->check($token, $record['token']);
     }
 
     /**
      * Determine if the given user recently created a password reset token.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      *
      * @return bool
      */
@@ -142,18 +164,6 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
-     * Delete a token record by user.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     *
-     * @return void
-     */
-    public function delete(CanResetPasswordContract $user)
-    {
-        $this->deleteExisting($user);
-    }
-
-    /**
      * Delete expired tokens.
      *
      * @return void
@@ -163,16 +173,6 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
         $expiredAt = Carbon::now()->subSeconds($this->expires);
 
         $this->getTable()->where('created_at', '<', $expiredAt)->delete();
-    }
-
-    /**
-     * Create a new token for the user.
-     *
-     * @return string
-     */
-    public function createNewToken()
-    {
-        return hash_hmac('sha256', Str::random(40), $this->hashKey);
     }
 
     /**
@@ -198,7 +198,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Delete all existing reset tokens from the database.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      *
      * @return int
      */
@@ -208,10 +208,20 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     }
 
     /**
+     * Begin a new database query against the table.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function getTable()
+    {
+        return $this->connection->table($this->table);
+    }
+
+    /**
      * Build the record payload for the table.
      *
-     * @param  string  $discord_id
-     * @param  string  $token
+     * @param string $discord_id
+     * @param string $token
      *
      * @return array
      */
@@ -223,7 +233,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Determine if the token has expired.
      *
-     * @param  string  $createdAt
+     * @param string $createdAt
      *
      * @return bool
      */
@@ -235,7 +245,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     /**
      * Determine if the token was recently created.
      *
-     * @param  string  $createdAt
+     * @param string $createdAt
      *
      * @return bool
      */
@@ -248,15 +258,5 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
         return Carbon::parse($createdAt)->addSeconds(
             $this->throttle
         )->isFuture();
-    }
-
-    /**
-     * Begin a new database query against the table.
-     *
-     * @return \Illuminate\Database\Query\Builder
-     */
-    protected function getTable()
-    {
-        return $this->connection->table($this->table);
     }
 }

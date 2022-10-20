@@ -22,7 +22,7 @@ class PerkVariantFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->sentences(3, true)
+            'description' => $this->faker->sentences(3, true),
         ];
     }
 }

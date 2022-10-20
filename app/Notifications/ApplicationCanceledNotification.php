@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Character;
-use Illuminate\Support\Facades\Storage;
 use NotificationChannels\Discord\DiscordMessage;
 
 class ApplicationCanceledNotification extends DiscordNotification

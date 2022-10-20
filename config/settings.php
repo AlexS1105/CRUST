@@ -1,5 +1,8 @@
 <?php
 
+use App\Settings\GeneralSettings;
+use App\Settings\CharsheetSettings;
+
 return [
 
     /*
@@ -8,7 +11,7 @@ return [
      */
     'settings' => [
         GeneralSettings::class,
-        CharsheetSettings::class
+        CharsheetSettings::class,
     ],
 
     /*

@@ -48,7 +48,9 @@ class CharacterRequest extends FormRequest
                 'regex:/^\w{3,16}$/',
                 'min:3',
                 'max:16',
-                $this->isMethod('PATCH') ? Rule::unique('characters')->ignore($this->login, 'login') : Rule::unique('characters'),
+                $this->isMethod('PATCH') ? Rule::unique('characters')->ignore($this->login, 'login') : Rule::unique(
+                    'characters'
+                ),
                 Rule::unique('accounts', 'login'),
             ];
         }

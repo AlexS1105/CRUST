@@ -37,27 +37,27 @@ return [
         'secret' => env('DISCORD_SECRET'),
         'redirecturi' => [
             'login' => env('DISCORD_REDIRECT_LOGIN'),
-            'reset' => env('DISCORD_REDIRECT_RESET')
+            'reset' => env('DISCORD_REDIRECT_RESET'),
         ],
         'oauth2url' => [
             'login' => env('DISCORD_OAUTH2_URL_LOGIN'),
-            'reset' => env('DISCORD_OAUTH2_URL_RESET')
+            'reset' => env('DISCORD_OAUTH2_URL_RESET'),
         ],
         'tickets' => [
             'api_url' => env('DISCORD_TICKETS_API_URL'),
             'guild_id' => env('DISCORD_TICKETS_GUILD_ID'),
-            'category_id' => env('DISCORD_TICKETS_CATEGORY_ID')
+            'category_id' => env('DISCORD_TICKETS_CATEGORY_ID'),
         ],
-        'invite' => env('DISCORD_INVITE')
+        'invite' => env('DISCORD_INVITE'),
     ],
 
     'launcherurl' => env('LAUNCHER_DOWNLOAD_URL'),
-    
+
     'minecraft' => [
         'characters_auth' => env('MINECRAFT_CHARACTERS_AUTH', true),
-        'accounts_auth' => env('MINECRAFT_ACCOUNTS_AUTH', true)
+        'accounts_auth' => env('MINECRAFT_ACCOUNTS_AUTH', true),
     ],
     'wiki' => [
-        'rules_link' => env('RULES_LINK')
-    ]
+        'rules_link' => env('RULES_LINK'),
+    ],
 ];

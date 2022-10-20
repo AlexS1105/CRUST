@@ -29,8 +29,8 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Create a new password broker instance.
      *
-     * @param  \Illuminate\Auth\Passwords\TokenRepositoryInterface  $tokens
-     * @param  \Illuminate\Contracts\Auth\UserProvider  $users
+     * @param \Illuminate\Auth\Passwords\TokenRepositoryInterface $tokens
+     * @param \Illuminate\Contracts\Auth\UserProvider $users
      *
      * @return void
      */
@@ -43,8 +43,8 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Send a password reset link to a user.
      *
-     * @param  array  $credentials
-     * @param  \Closure|null  $callback
+     * @param array $credentials
+     * @param \Closure|null $callback
      *
      * @return string
      */
@@ -78,10 +78,32 @@ class PasswordBroker implements PasswordBrokerContract
     }
 
     /**
+     * Get the user for the given credentials.
+     *
+     * @param array $credentials
+     *
+     * @return \Illuminate\Contracts\Auth\CanResetPassword|null
+     *
+     * @throws \UnexpectedValueException
+     */
+    public function getUser(array $credentials)
+    {
+        $credentials = Arr::except($credentials, ['token']);
+
+        $user = $this->users->retrieveByCredentials($credentials);
+
+        if ($user && ! $user instanceof CanResetPasswordContract) {
+            throw new UnexpectedValueException('User must implement CanResetPassword interface.');
+        }
+
+        return $user;
+    }
+
+    /**
      * Reset the password for the given token.
      *
-     * @param  array  $credentials
-     * @param  \Closure  $callback
+     * @param array $credentials
+     * @param \Closure $callback
      *
      * @return mixed
      */
@@ -109,31 +131,9 @@ class PasswordBroker implements PasswordBrokerContract
     }
 
     /**
-     * Get the user for the given credentials.
-     *
-     * @param  array  $credentials
-     *
-     * @return \Illuminate\Contracts\Auth\CanResetPassword|null
-     *
-     * @throws \UnexpectedValueException
-     */
-    public function getUser(array $credentials)
-    {
-        $credentials = Arr::except($credentials, ['token']);
-
-        $user = $this->users->retrieveByCredentials($credentials);
-
-        if ($user && ! $user instanceof CanResetPasswordContract) {
-            throw new UnexpectedValueException('User must implement CanResetPassword interface.');
-        }
-
-        return $user;
-    }
-
-    /**
      * Create a new password reset token for the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      *
      * @return string
      */
@@ -145,7 +145,7 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Delete password reset tokens of the given user.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
      *
      * @return void
      */
@@ -157,8 +157,8 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Validate the given password reset token.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string $token
      *
      * @return bool
      */
@@ -180,7 +180,7 @@ class PasswordBroker implements PasswordBrokerContract
     /**
      * Validate a password reset for the given credentials.
      *
-     * @param  array  $credentials
+     * @param array $credentials
      *
      * @return \Illuminate\Contracts\Auth\CanResetPassword|string
      */

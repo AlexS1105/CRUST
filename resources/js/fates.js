@@ -32,7 +32,7 @@ function displayAddFateButton() {
     button.innerHTML = '+'
     button.type = 'button'
     button.id = 'button_add_fate'
-    button.onclick = function() {
+    button.onclick = function () {
         addFateCard()
         list.append(button)
         updateMaxFates()
@@ -101,7 +101,7 @@ function addFateCard(fate) {
     var deleteButton = document.createElement('button')
     deleteButton.type = 'button'
     deleteButton.className = 'fas fa-trash text-red-400 text-lg'
-    deleteButton.onclick = function() {
+    deleteButton.onclick = function () {
         fates = fates.filter(_card => _card.id != card.id)
         card.remove()
 
@@ -132,6 +132,6 @@ function updateAddButton() {
     }
 }
 
-if (typeof(maxFates) != 'undefined') {
+if (typeof (maxFates) != 'undefined') {
     updateFates()
 }

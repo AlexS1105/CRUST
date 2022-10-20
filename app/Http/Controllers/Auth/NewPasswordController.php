@@ -40,8 +40,8 @@ class NewPasswordController extends Controller
 
         session()->forget('token');
 
-        return $status == Password::PASSWORD_RESET
-                    ? to_route('login')->with('status', __($status))
-                    : back();
+        return $status === Password::PASSWORD_RESET
+            ? to_route('login')->with('status', __($status))
+            : back();
     }
 }

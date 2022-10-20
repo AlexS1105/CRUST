@@ -25,7 +25,10 @@ class SkinService
         $skin->skin = str_replace(
             'public/',
             'storage/',
-            $file->storePubliclyAs('characters/skins', (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension())
+            $file->storePubliclyAs(
+                'characters/skins',
+                (isset($skin->prefix) ? $skin->prefix.'_' : '').$skin->character->login.'.'.$file->extension()
+            )
         );
         $skin->save();
     }

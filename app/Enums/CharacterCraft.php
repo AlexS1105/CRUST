@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CharacterCraft : string
+enum CharacterCraft: string
 {
     case Arc = 'arc';
     case Mys = 'mys';
@@ -15,37 +15,9 @@ enum CharacterCraft : string
     case Bld = 'bld';
     case Med = 'med';
 
-    public static function getMagicCrafts()
-    {
-        return [
-            CharacterCraft::Arc,
-            CharacterCraft::Mys,
-            CharacterCraft::Wiz,
-        ];
-    }
-
-    public static function getTechCrafts()
-    {
-        return [
-            CharacterCraft::Mnf,
-            CharacterCraft::Eng,
-            CharacterCraft::Gun,
-        ];
-    }
-
-    public static function getGeneralCrafts()
-    {
-        return [
-            CharacterCraft::Chm,
-            CharacterCraft::Smt,
-            CharacterCraft::Bld,
-            CharacterCraft::Med,
-        ];
-    }
-
     public function getMaxTier()
     {
-        return match($this) {
+        return match ($this) {
             CharacterCraft::Arc, CharacterCraft::Mys,
             CharacterCraft::Mnf, CharacterCraft::Eng => 3,
             CharacterCraft::Gun, CharacterCraft::Wiz,
@@ -68,9 +40,27 @@ enum CharacterCraft : string
         return in_array($this, self::getMagicCrafts());
     }
 
+    public static function getMagicCrafts()
+    {
+        return [
+            CharacterCraft::Arc,
+            CharacterCraft::Mys,
+            CharacterCraft::Wiz,
+        ];
+    }
+
     public function isTech()
     {
         return in_array($this, self::getTechCrafts());
+    }
+
+    public static function getTechCrafts()
+    {
+        return [
+            CharacterCraft::Mnf,
+            CharacterCraft::Eng,
+            CharacterCraft::Gun,
+        ];
     }
 
     public function isGeneral()
@@ -78,8 +68,18 @@ enum CharacterCraft : string
         return in_array($this, self::getGeneralCrafts());
     }
 
+    public static function getGeneralCrafts()
+    {
+        return [
+            CharacterCraft::Chm,
+            CharacterCraft::Smt,
+            CharacterCraft::Bld,
+            CharacterCraft::Med,
+        ];
+    }
+
     public function localized()
     {
-        return __('craft.' . strtolower($this->value));
+        return __('craft.'.strtolower($this->value));
     }
 }

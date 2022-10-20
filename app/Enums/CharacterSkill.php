@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CharacterSkill : string
+enum CharacterSkill: string
 {
     case Fitness = 'fitness';
     case Perception = 'perception';
@@ -16,6 +16,6 @@ enum CharacterSkill : string
 
     public function localized()
     {
-        return __('skill.' . $this->value);
+        return __('skill.'.$this->value);
     }
 }

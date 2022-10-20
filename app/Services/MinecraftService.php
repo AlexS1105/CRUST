@@ -50,8 +50,10 @@ class MinecraftService
 
             throw new Exception();
         } catch (Exception $e) {
-            return $this->launcherResponse(empty($e->getMessage()) ?
-                __('minecraft.auth.failed') : $e->getMessage());
+            return $this->launcherResponse(
+                empty($e->getMessage()) ?
+                    __('minecraft.auth.failed') : $e->getMessage()
+            );
         }
     }
 

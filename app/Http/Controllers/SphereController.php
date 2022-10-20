@@ -12,13 +12,6 @@ use App\Services\IdeaService;
 
 class SphereController extends Controller
 {
-    public function create(Character $character)
-    {
-        $this->authorize('add-sphere', $character);
-
-        return view('spheres.create', compact('character'));
-    }
-
     public function store(SphereRequest $request, Character $character)
     {
         $this->authorize('add-sphere', $character);
@@ -26,6 +19,13 @@ class SphereController extends Controller
         $character->spheres()->create($request->validated());
 
         return to_route('characters.show', $character);
+    }
+
+    public function create(Character $character)
+    {
+        $this->authorize('add-sphere', $character);
+
+        return view('spheres.create', compact('character'));
     }
 
     public function edit(Character $character, Sphere $sphere)
@@ -92,8 +92,12 @@ class SphereController extends Controller
         return view('spheres.experience', compact('character', 'sphere'));
     }
 
-    public function experience(IdeaService $ideaService, SphereToExperienceRequest $request, Character $character, Sphere $sphere)
-    {
+    public function experience(
+        IdeaService $ideaService,
+        SphereToExperienceRequest $request,
+        Character $character,
+        Sphere $sphere
+    ) {
         $this->authorize('manage-ideas', $character);
 
         $ideaService->sphereToExperience($request->validated(), $character, $sphere);

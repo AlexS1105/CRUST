@@ -12,6 +12,65 @@ use Kyslik\ColumnSortable\Sortable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $login
+ * @property string $discord_tag
+ * @property string $discord_id
+ * @property string $discord_private_channel_id
+ * @property string $password
+ * @property bool $discord_notify
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $verified
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Account> $accounts
+ * @property-read int|null $accounts_count
+ * @property-read \App\Models\Ban|null $ban
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Character> $characters
+ * @property-read int|null $characters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Passport\Client> $clients
+ * @property-read int|null $clients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Ban> $issuedBans
+ * @property-read int|null $issued_bans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\VoxLog> $issuedVox
+ * @property-read int|null $issued_vox_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|array<\Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\Spatie\Permission\Models\Permission> $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Character> $registrationCharacters
+ * @property-read int|null $registration_characters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\Spatie\Permission\Models\Role> $roles
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Passport\Token> $tokens
+ * @property-read int|null $tokens_count
+ *
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User search($search, $field = 'name')
+ * @method static \Illuminate\Database\Eloquent\Builder|User sortable($defaultParameters = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordNotify($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordPrivateChannelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDiscordTag($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVerified($value)
+ *
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Sortable, HasRoles, CanResetPassword, Searchable;
@@ -85,7 +144,7 @@ class User extends Authenticatable
     public function isBanned(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->ban != null && now()->lessThan($this->ban->expires)
+            get: fn () => $this->ban !== null && now()->lessThan($this->ban->expires)
         );
     }
 

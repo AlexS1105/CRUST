@@ -14,7 +14,7 @@ class SkinRequest extends FormRequest
     public function rules()
     {
         return [
-            'skin' => ['required','image', 'mimes:png'],
+            'skin' => ['required', 'image', 'mimes:png'],
             'prefix' => ['nullable', 'max:100'],
         ];
     }

@@ -42,16 +42,16 @@ class CharacterController extends Controller
         return view('characters.all', compact('characters', 'search', 'perks', 'perk'));
     }
 
-    public function create()
-    {
-        return view('characters.create');
-    }
-
     public function store(CharacterRequest $request)
     {
         $character = $this->characterService->create($request);
 
         return to_route('characters.charsheet.edit', $character->login);
+    }
+
+    public function create()
+    {
+        return view('characters.create');
     }
 
     public function show(Character $character)
@@ -68,8 +68,11 @@ class CharacterController extends Controller
     {
         $this->characterService->update($character, $request);
 
-        return to_route($request->user()->can('update-charsheet', $character)
-            ? 'characters.charsheet.edit' : 'characters.show', $character);
+        return to_route(
+            $request->user()->can('update-charsheet', $character)
+                ? 'characters.charsheet.edit' : 'characters.show',
+            $character
+        );
     }
 
     public function destroy(Character $character)

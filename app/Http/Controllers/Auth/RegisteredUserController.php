@@ -25,30 +25,6 @@ class RegisteredUserController extends Controller
         $this->discordService = $discordService;
     }
 
-    public function create(Request $request)
-    {
-        try {
-            $userData = $this->discordService->getUserData($request->input('code'), config('services.discord.redirecturi.login'));
-
-            $user = User::where('discord_id', $userData['id'])->first();
-
-            if ($user) {
-                return to_route('login')->withErrors([
-                    'discord' => $request->input('error_description', __('auth.already_registered')),
-                ]);
-            }
-
-            return view('auth.register', [
-                'discord_data' => $userData,
-            ]);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return to_route('login')->withErrors([
-                'discord' => $request->input('error_description', __('auth.discord_error')),
-            ]);
-        }
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -75,5 +51,33 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function create(Request $request)
+    {
+        try {
+            $userData = $this->discordService->getUserData(
+                $request->input('code'),
+                config('services.discord.redirecturi.login')
+            );
+
+            $user = User::where('discord_id', $userData['id'])->first();
+
+            if ($user) {
+                return to_route('login')->withErrors([
+                    'discord' => $request->input('error_description', __('auth.already_registered')),
+                ]);
+            }
+
+            return view('auth.register', [
+                'discord_data' => $userData,
+            ]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            return to_route('login')->withErrors([
+                'discord' => $request->input('error_description', __('auth.discord_error')),
+            ]);
+        }
     }
 }

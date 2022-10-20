@@ -25,7 +25,7 @@ class PasswordBrokerManager extends ServiceProvider
     /**
      * Create a new PasswordBroker manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return void
      */
@@ -37,8 +37,8 @@ class PasswordBrokerManager extends ServiceProvider
     /**
      * Dynamically call the default driver instance.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      *
      * @return mixed
      */
@@ -50,7 +50,7 @@ class PasswordBrokerManager extends ServiceProvider
     /**
      * Attempt to get the broker from the local cache.
      *
-     * @param  string|null  $name
+     * @param string|null $name
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
@@ -74,7 +74,7 @@ class PasswordBrokerManager extends ServiceProvider
     /**
      * Set the default password broker name.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return void
      */
@@ -86,7 +86,7 @@ class PasswordBrokerManager extends ServiceProvider
     /**
      * Resolve the given broker.
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      *
@@ -110,9 +110,21 @@ class PasswordBrokerManager extends ServiceProvider
     }
 
     /**
+     * Get the password broker configuration.
+     *
+     * @param string $name
+     *
+     * @return array
+     */
+    protected function getConfig($name)
+    {
+        return $this->app['config']["auth.passwords.{$name}"];
+    }
+
+    /**
      * Create a token repository instance based on the given configuration.
      *
-     * @param  array  $config
+     * @param array $config
      *
      * @return \Illuminate\Auth\Passwords\TokenRepositoryInterface
      */
@@ -134,17 +146,5 @@ class PasswordBrokerManager extends ServiceProvider
             $config['expire'],
             $config['throttle'] ?? 0
         );
-    }
-
-    /**
-     * Get the password broker configuration.
-     *
-     * @param  string  $name
-     *
-     * @return array
-     */
-    protected function getConfig($name)
-    {
-        return $this->app['config']["auth.passwords.{$name}"];
     }
 }

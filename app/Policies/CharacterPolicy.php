@@ -117,7 +117,7 @@ class CharacterPolicy
     public function reapproval(User $user, Character $character)
     {
         return ($user->owns($character)
-            || $user->hasPermissionTo('application-reapproval'))
+                || $user->hasPermissionTo('application-reapproval'))
             && $character->status === CharacterStatus::Approved;
     }
 
@@ -125,7 +125,7 @@ class CharacterPolicy
     {
         return $character->info_hidden
             && ($user->owns($character)
-            || $user->hasPermissionTo('character-view'))
+                || $user->hasPermissionTo('character-view'))
             || ! $character->info_hidden;
     }
 
@@ -138,7 +138,7 @@ class CharacterPolicy
     {
         return $character->bio_hidden
             && ($user->owns($character)
-            || $user->hasPermissionTo('character-view'))
+                || $user->hasPermissionTo('character-view'))
             || ! $character->bio_hidden;
     }
 
@@ -179,7 +179,8 @@ class CharacterPolicy
     public function addIdea(User $user, Character $character)
     {
         return count($character->ideas) < 3
-            && (($user->owns($character) && $character->registered && $character->hasFreeIdea()) || $user->hasPermissionTo('character-edit'));
+            && (($user->owns($character) && $character->registered && $character->hasFreeIdea(
+            )) || $user->hasPermissionTo('character-edit'));
     }
 
     public function ideaToSphere(User $user, Character $character)

@@ -10,7 +10,8 @@ class ApplicationController extends Controller
 {
     protected $applicationService;
 
-    public function __construct(ApplicationService $applicationService) {
+    public function __construct(ApplicationService $applicationService)
+    {
         $this->applicationService = $applicationService;
     }
 

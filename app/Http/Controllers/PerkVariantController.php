@@ -8,13 +8,6 @@ use App\Models\PerkVariant;
 
 class PerkVariantController extends Controller
 {
-    public function create(Perk $perk)
-    {
-        return view('perks.variants.create', [
-            'perk' => $perk,
-        ]);
-    }
-
     public function store(PerkVariantRequest $request, Perk $perk)
     {
         $variant = $request->validated();
@@ -22,6 +15,13 @@ class PerkVariantController extends Controller
         PerkVariant::create($variant);
 
         return to_route('perks.index');
+    }
+
+    public function create(Perk $perk)
+    {
+        return view('perks.variants.create', [
+            'perk' => $perk,
+        ]);
     }
 
     public function edit(Perk $perk, PerkVariant $variant)

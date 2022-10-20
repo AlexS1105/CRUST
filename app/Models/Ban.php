@@ -6,6 +6,33 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Ban
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $reason
+ * @property int|null $banned_by
+ * @property \Illuminate\Support\Carbon|null $expires
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ *
+ * @property-read \App\Models\User|null $by
+ * @property-read \App\Models\User $user
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereBannedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereExpires($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban whereUserId($value)
+ *
+ * @mixin \Eloquent
+ */
 class Ban extends Model
 {
     protected $guarded = [];
@@ -27,7 +54,7 @@ class Ban extends Model
     public function message(): Attribute
     {
         return Attribute::make(
-            get: fn() => __('ban.message.' . (isset($this->expires) ? 'temporary' : 'permanent'), [
+            get: fn () => __('ban.message.'.(isset($this->expires) ? 'temporary' : 'permanent'), [
                 'admin' => $this->by->login,
                 'tag' => $this->by->discord_tag,
                 'reason' => $this->reason,

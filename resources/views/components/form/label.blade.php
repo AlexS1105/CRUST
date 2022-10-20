@@ -1,7 +1,7 @@
 @props(['name', 'label' => ''])
 
 <label {{ $attributes->merge([ 'class' => 'block uppercase text-xs text-gray-700']) }}
-  for="{{ $name }}"
+       for="{{ $name }}"
 >
-  {!! ucwords(__('label.'.$name)) !!}
+    {!! ucwords(__('label.'.$name)) !!}
 </label>

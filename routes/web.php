@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AllCharactersController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
@@ -14,7 +13,6 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\NarrativeCraftController;
 use App\Http\Controllers\PerkController;
-use App\Http\Controllers\PerkListController;
 use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkinController;
@@ -163,10 +161,16 @@ Route::middleware('auth')->group(function () {
         Route::patch('/characters/{character:login}/spheres/{sphere}/add', [SphereController::class, 'add'])
             ->name('characters.spheres.add');
 
-        Route::get('/characters/{character:login}/spheres/{sphere}/experience', [SphereController::class, 'experienceView'])
+        Route::get(
+            '/characters/{character:login}/spheres/{sphere}/experience',
+            [SphereController::class, 'experienceView']
+        )
             ->name('characters.spheres.experienceView');
 
-        Route::patch('/characters/{character:login}/spheres/{sphere}/experience', [SphereController::class, 'experience'])
+        Route::patch(
+            '/characters/{character:login}/spheres/{sphere}/experience',
+            [SphereController::class, 'experience']
+        )
             ->name('characters.spheres.experience');
 
         Route::resource('characters.spheres', SphereController::class)
@@ -177,7 +181,10 @@ Route::middleware('auth')->group(function () {
             ->scoped(['character' => 'login'])
             ->except(['show', 'index']);
 
-        Route::get('/characters/{character:login}/experiences/{experience}/set', [ExperienceController::class, 'setView'])
+        Route::get(
+            '/characters/{character:login}/experiences/{experience}/set',
+            [ExperienceController::class, 'setView']
+        )
             ->name('characters.experiences.setView');
 
         Route::patch('/characters/{character:login}/experiences/{experience}/set', [ExperienceController::class, 'set'])

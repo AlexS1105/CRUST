@@ -8,13 +8,6 @@ use App\Models\NarrativeCraft;
 
 class NarrativeCraftController extends Controller
 {
-    public function create(Character $character)
-    {
-        $this->authorize('update-charsheet-gm', $character);
-
-        return view('crafts.create', compact('character'));
-    }
-
     public function store(NarrativeCraftRequest $request, Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);
@@ -22,6 +15,13 @@ class NarrativeCraftController extends Controller
         $character->narrativeCrafts()->create($request->validated());
 
         return to_route('characters.show', $character);
+    }
+
+    public function create(Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        return view('crafts.create', compact('character'));
     }
 
     public function edit(Character $character, NarrativeCraft $narrativeCraft)

@@ -1,3 +1,3 @@
 <div {{ $attributes->merge(['class' => 'p-8 mx-auto']) }}>
-  {{ $slot }}
+    {{ $slot }}
 </div>

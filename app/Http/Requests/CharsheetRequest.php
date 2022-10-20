@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\FateType;
-use App\Models\PerkVariant;
 use App\Rules\CraftPool;
 use App\Rules\FatesRule;
 use App\Rules\PerkPool;

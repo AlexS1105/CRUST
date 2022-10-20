@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Enums\FateType;
 use App\Models\Character;
-use App\Models\Fate;
 use App\Models\PerkVariant;
 use App\Rules\PerkPool;
 use Exception;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class CharsheetService
 {
     // TODO: Refactor all this
-    function update($character, $validated)
+    public function update($character, $validated)
     {
         $character->charsheet()->update($validated);
 
@@ -39,7 +38,10 @@ class CharsheetService
 
             foreach ($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach($id, ['active' => $perkVariant['active'], 'note' => $perkVariant['note']]);
+                $character->perkVariants()->attach(
+                    $id,
+                    ['active' => $perkVariant['active'], 'note' => $perkVariant['note']]
+                );
             }
 
             info('Character perks updated', [
@@ -145,7 +147,7 @@ class CharsheetService
                 $perksCollection[$perkId] = [
                     'variant' => $perkVariants->firstWhere('id', $perkData['id']),
                     'note' => $perkData['note'],
-                    'active' => !$edit || isset($perkData['active']),
+                    'active' => ! $edit || isset($perkData['active']),
                 ];
             }
         }
