@@ -24,6 +24,7 @@ class CharacterService
     public function saveReference($character, $validated)
     {
         if (isset($validated['reference'])) {
+            $this->deleteReferences($character);
             $file = $validated['reference'];
             Storage::disk('characters')->putFileAs($character->id, $file, 'reference');
         }
@@ -38,6 +39,11 @@ class CharacterService
         });
 
         $disk->put($fileName . '_' . $size, $img->encode());
+    }
+
+    public function deleteReferences($character)
+    {
+        Storage::disk('characters')->deleteDirectory($character->id);
     }
 
     public function update($character, $request)

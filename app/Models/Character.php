@@ -271,36 +271,4 @@ class Character extends Model
             }
         );
     }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function (Character $character) {
-            if ($character->charsheet) {
-                $character->charsheet->delete();
-            }
-        });
-
-        static::created(function ($character) {
-            info('Character created', [
-                'user' => auth()->user() !== null ? auth()->user()->login : null,
-                'character' => $character->login,
-            ]);
-        });
-
-        static::updated(function ($character) {
-            info('Character updated', [
-                'user' => auth()->user()->login,
-                'character' => $character->login,
-            ]);
-        });
-
-        static::deleted(function ($character) {
-            info('User unbanned', [
-                'user' => auth()->user()->login,
-                'character' => $character->login,
-            ]);
-        });
-    }
 }
