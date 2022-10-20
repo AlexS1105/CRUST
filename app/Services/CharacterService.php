@@ -23,9 +23,10 @@ class CharacterService
 
     public function saveReference($character, $validated)
     {
-        $file = $validated['reference'];
-
-        Storage::disk('characters')->putFileAs($character->id, $file, 'reference');
+        if (isset($validated['reference'])) {
+            $file = $validated['reference'];
+            Storage::disk('characters')->putFileAs($character->id, $file, 'reference');
+        }
     }
 
     public function resizeReference($fileName, $size)
@@ -41,15 +42,9 @@ class CharacterService
 
     public function update($character, $request)
     {
-        $charsheet = $character->charsheet;
         $validated = $request->validated();
 
         $character->update($validated);
-
-        if ($charsheet->character !== $character->login) {
-            $charsheet->character = $character->login;
-            $charsheet->save();
-        }
 
         $this->saveReference($character, $validated);
     }
