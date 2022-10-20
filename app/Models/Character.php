@@ -258,6 +258,20 @@ class Character extends Model
         return $disk->url($fileName);
     }
 
+    public function login(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                if (isset($this->charsheet)) {
+                    $this->charsheet->character = $value;
+                    $this->charsheet->save();
+                }
+
+                return $value;
+            }
+        );
+    }
+
     protected static function boot()
     {
         parent::boot();
