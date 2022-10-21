@@ -1,6 +1,6 @@
 @can('force-delete', $character)
     <x-action-button text="{{ __('applications.force_delete') }}"
-                     action="{{ route('characters.forceDestroy', $character->login) }}"
+                     action="{{ route('characters.force_destroy', $character->login) }}"
                      bladeMethod="DELETE"
                      color="red-300"
                      colorHover="red-400"
@@ -75,7 +75,7 @@
 
 @can('take-for-approval', $character)
     <x-action-button text="{{ __('applications.take') }}"
-                     action="{{ route('applications.takeForApproval', $character->login) }}"
+                     action="{{ route('applications.take_for_approval', $character->login) }}"
                      bladeMethod="PATCH"
                      color="blue-200"
                      colorHover="blue-300"
@@ -87,7 +87,7 @@
 
 @can('cancel-approval', $character)
     <x-action-button text="{{ __('applications.cancel_approval') }}"
-                     action="{{ route('applications.cancelApproval', $character->login) }}"
+                     action="{{ route('applications.cancel_approval', $character->login) }}"
                      bladeMethod="PATCH"
                      color="red-200"
                      colorHover="red-300"
@@ -100,7 +100,7 @@
 
 @can('request-changes', $character)
     <x-action-button text="{{ __('applications.request_changes') }}"
-                     action="{{ route('applications.requestChanges', $character->login) }}"
+                     action="{{ route('applications.request_changes', $character->login) }}"
                      bladeMethod="PATCH"
                      color="yellow-200"
                      colorHover="yellow-300"
@@ -112,7 +112,7 @@
 
 @can('request-approval', $character)
     <x-action-button text="{{ __('applications.request_approval') }}"
-                     action="{{ route('applications.requestApproval', $character->login) }}"
+                     action="{{ route('applications.request_approval', $character->login) }}"
                      bladeMethod="PATCH"
                      color="green-100"
                      colorHover="green-200"

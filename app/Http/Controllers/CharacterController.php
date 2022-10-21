@@ -82,7 +82,7 @@ class CharacterController extends Controller
 
     public function restore(Character $character)
     {
-        $this->authorize('force-delete', $character);
+        $this->authorize('restore', $character);
 
         $this->characterService->restore($character);
 

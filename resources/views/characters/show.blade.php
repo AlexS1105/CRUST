@@ -219,7 +219,7 @@
                                         <div class="inline-flex flex-wrap" role="group">
                                             @can('update', $character)
                                                 <form method="GET"
-                                                      action="{{ route('characters.narrativeCrafts.edit', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
+                                                      action="{{ route('characters.narrative_crafts.edit', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
@@ -235,7 +235,7 @@
                                             @endcan
                                             @can('update', $character)
                                                 <form method="POST"
-                                                      action="{{ route('characters.narrativeCrafts.destroy', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
+                                                      action="{{ route('characters.narrative_crafts.destroy', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
@@ -260,7 +260,7 @@
                                 @endforeach
                                 @can('update-charsheet-gm', $character)
                                     <form method="GET"
-                                          action="{{ route('characters.narrativeCrafts.create', ['character' => $character]) }}">
+                                          action="{{ route('characters.narrative_crafts.create', ['character' => $character]) }}">
                                         @csrf
                                         <button type="submit"
                                                 class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
@@ -328,7 +328,7 @@
                                             @endcan
                                             @can('update-charsheet-gm', $character)
                                                 <form method="GET"
-                                                      action="{{ route('characters.experiences.setView', ['character' => $character, 'experience' => $experience]) }}">
+                                                      action="{{ route('characters.experiences.set_view', ['character' => $character, 'experience' => $experience]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
@@ -447,7 +447,7 @@
                                             @endcan
                                             @can('manage-ideasGm', $character)
                                                 <form method="GET"
-                                                      action="{{ route('characters.spheres.addView', ['character' => $character, 'sphere' => $sphere]) }}">
+                                                      action="{{ route('characters.spheres.add_view', ['character' => $character, 'sphere' => $sphere]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
@@ -463,7 +463,7 @@
                                             @endcan
                                             @can('manage-ideas', $character)
                                                 <form method="GET"
-                                                      action="{{ route('characters.spheres.spendView', ['character' => $character, 'sphere' => $sphere]) }}">
+                                                      action="{{ route('characters.spheres.spend_view', ['character' => $character, 'sphere' => $sphere]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-gray-200 hover:bg-gray-100">
@@ -477,7 +477,7 @@
                                                     </button>
                                                 </form>
                                                 <form method="GET"
-                                                      action="{{ route('characters.spheres.experienceView', ['character' => $character, 'sphere' => $sphere]) }}">
+                                                      action="{{ route('characters.spheres.experience_view', ['character' => $character, 'sphere' => $sphere]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-gray-200 hover:bg-gray-100">

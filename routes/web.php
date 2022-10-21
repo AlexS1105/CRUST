@@ -33,174 +33,239 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/auth', MinecraftAuthController::class)->name('minecraft.auth');
+Route::get('/auth', MinecraftAuthController::class)
+    ->name('minecraft.auth');
 
-Route::get('/perks', [PerkController::class, 'all'])->name('perks.list');
+Route::get('/perks', [PerkController::class, 'all'])
+    ->name('perks.list');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/discord-invite', function () {
-        return redirect(config('services.discord.invite'));
-    })->name('discord.invite');
+Route::middleware('auth')
+    ->group(function () {
+        Route::get('/discord-invite', function () {
+            return redirect(config('services.discord.invite'));
+        })->name('discord.invite');
 
-    Route::get('/discord-verify', function () {
-        return view('discord.index');
-    })->name('discord.verify');
+        Route::get('/discord-verify', function () {
+            return view('discord.index');
+        })->name('discord.verify');
 
-    Route::middleware('verified')->group(function () {
-        Route::get('/', [CharacterController::class, 'index'])
-            ->name('characters.index');
+        Route::middleware('verified')
+            ->group(function () {
+                Route::controller(CharacterController::class)
+                    ->name('characters.')
+                    ->group(function () {
+                        Route::get('/', 'index')
+                            ->name('index');
 
-        Route::get('/characters', [CharacterController::class, 'all'])
-            ->name('characters.all');
+                        Route::get('/characters', 'all')
+                            ->name('all');
 
-        Route::get('/wikiauth', WikiController::class)->name('wiki.index');
+                        Route::prefix('characters/{character:login}/')
+                            ->group(function () {
+                                Route::delete('force', 'forceDestroy')
+                                    ->name('force_destroy');
 
-        Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
-            ->name('characters.forceDestroy');
+                                Route::patch('restore', 'restore')
+                                    ->name('restore');
+                            });
+                    });
 
-        Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
-            ->name('characters.restore');
+                Route::controller(CharsheetController::class)
+                    ->name('characters.')
+                    ->prefix('characters/{character:login}/')
+                    ->group(function () {
+                        Route::name('charsheet.')
+                            ->group(function () {
+                                Route::get('charsheet', 'edit')
+                                    ->name('edit');
 
-        Route::get('/characters/{character:login}/charsheet', [CharsheetController::class, 'edit'])
-            ->name('characters.charsheet.edit');
+                                Route::patch('charsheet', 'update')
+                                    ->name('update');
+                            });
 
-        Route::patch('/characters/{character:login}/charsheet', [CharsheetController::class, 'update'])
-            ->name('characters.charsheet.update');
+                        Route::name('perks.')
+                            ->group(function () {
+                                Route::get('perks', 'editPerks')
+                                    ->name('edit');
 
-        Route::get('/characters/{character:login}/perks', [CharsheetController::class, 'editPerks'])
-            ->name('characters.perks.edit');
+                                Route::patch('perks', 'updatePerks')
+                                    ->name('update');
 
-        Route::patch('/characters/{character:login}/perks', [CharsheetController::class, 'updatePerks'])
-            ->name('characters.perks.update');
+                                Route::patch('perks/{perkVariant}', 'togglePerk')
+                                    ->name('toggle');
+                            });
 
-        Route::get('/characters/{character:login}/fates', [CharsheetController::class, 'editFates'])
-            ->name('characters.fates.edit');
+                        Route::name('fates.')
+                            ->group(function () {
+                                Route::get('fates', 'editFates')
+                                    ->name('edit');
 
-        Route::patch('/characters/{character:login}/fates', [CharsheetController::class, 'updateFates'])
-            ->name('characters.fates.update');
+                                Route::patch('fates', 'updateFates')
+                                    ->name('update');
+                            });
+                    });
 
-        Route::patch('/characters/{character:login}/perks/{perkVariant}', [CharsheetController::class, 'togglePerk'])
-            ->name('characters.perks.toggle');
+                Route::controller(ApplicationController::class)
+                    ->name('applications.')
+                    ->group(function () {
+                        Route::get('/applications', 'index')
+                            ->name('index');
 
-        Route::resource('characters', CharacterController::class)
-            ->except('index')
-            ->scoped(['character' => 'login']);
+                        Route::prefix('characters/{character:login}/')->group(function () {
+                            Route::patch('send', 'send')
+                                ->name('send');
 
-        Route::get('/applications', [ApplicationController::class, 'index'])
-            ->name('applications.index');
+                            Route::patch('cancel', 'cancel')
+                                ->name('cancel');
 
-        Route::patch('/characters/{character:login}/send', [ApplicationController::class, 'send'])
-            ->name('applications.send');
+                            Route::patch('take-for-approval', 'takeForApproval')
+                                ->name('take_for_approval');
 
-        Route::patch('/characters/{character:login}/cancel', [ApplicationController::class, 'cancel'])
-            ->name('applications.cancel');
+                            Route::patch('cancel-approval', 'cancelApproval')
+                                ->name('cancel_approval');
 
-        Route::patch('/characters/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
-            ->name('applications.takeForApproval');
+                            Route::patch('request-changes', 'requestChanges')
+                                ->name('request_changes');
 
-        Route::patch('/characters/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
-            ->name('applications.cancelApproval');
+                            Route::patch('request-approval', 'requestApproval')
+                                ->name('request_approval');
 
-        Route::patch('/characters/{character:login}/requestChanges', [ApplicationController::class, 'requestChanges'])
-            ->name('applications.requestChanges');
+                            Route::patch('approve', 'approve')
+                                ->name('approve');
 
-        Route::patch('/characters/{character:login}/requestApproval', [ApplicationController::class, 'requestApproval'])
-            ->name('applications.requestApproval');
+                            Route::patch('reapproval', 'reapproval')
+                                ->name('reapproval');
+                        });
+                    });
 
-        Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
-            ->name('applications.approve');
+                Route::controller(SkinController::class)
+                    ->prefix('/characters/{character:login}/')
+                    ->name('characters.skins.')
+                    ->group(function () {
+                        Route::get('skins', 'index')
+                            ->name('index');
 
-        Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
-            ->name('applications.reapproval');
+                        Route::get('skins/create', 'create')
+                            ->name('create');
 
-        Route::get('/characters/{character:login}/skins', [SkinController::class, 'index'])->name('characters.skins.index');
-        Route::get('/characters/{character:login}/skins/create', [SkinController::class, 'create'])->name('characters.skins.create');
-        Route::post('/characters/{character:login}/skins', [SkinController::class, 'store'])->name('characters.skins.store');
-        Route::delete('/characters/{character:login}/skins', [SkinController::class, 'destroy'])->name('characters.skins.destroy');
+                        Route::post('skins', 'store')
+                            ->name('store');
 
-        Route::resource('characters.vox', VoxController::class)
-            ->scoped(['character' => 'login'])
-            ->only(['index', 'create', 'store']);
+                        Route::delete('skins', 'destroy')
+                            ->name('destroy');
+                    });
 
-        Route::get('/characters/{character:login}/ideas/{idea}/sphere', [IdeaController::class, 'sphereView'])
-            ->name('characters.ideas.sphereView');
+                Route::resource('characters', CharacterController::class)
+                    ->except('index')
+                    ->scoped(['character' => 'login']);
 
-        Route::patch('/characters/{character:login}/ideas/{idea}/sphere', [IdeaController::class, 'sphere'])
-            ->name('characters.ideas.sphere');
+                Route::get('/wikiauth', WikiController::class)
+                    ->name('wiki.index');
 
-        Route::resource('characters.ideas', IdeaController::class)
-            ->scoped(['character' => 'login'])
-            ->except(['show', 'index']);
+                Route::resource('characters.vox', VoxController::class)
+                    ->scoped(['character' => 'login'])
+                    ->only(['index', 'create', 'store']);
 
-        Route::get('/characters/{character:login}/spheres/{sphere}/spend', [SphereController::class, 'spendView'])
-            ->name('characters.spheres.spendView');
+                Route::controller(IdeaController::class)
+                    ->name('characters.ideas.')
+                    ->prefix('/characters/{character:login}/ideas/{idea}/')
+                    ->group(function () {
+                        Route::get('sphere', 'sphereView')
+                            ->name('sphere_view');
 
-        Route::patch('/characters/{character:login}/spheres/{sphere}/spend', [SphereController::class, 'spend'])
-            ->name('characters.spheres.spend');
+                        Route::patch('sphere', 'sphere')
+                            ->name('sphere');
+                    });
 
-        Route::get('/characters/{character:login}/spheres/{sphere}/add', [SphereController::class, 'addView'])
-            ->name('characters.spheres.addView');
+                Route::resource('characters.ideas', IdeaController::class)
+                    ->scoped(['character' => 'login'])
+                    ->except(['show', 'index']);
 
-        Route::patch('/characters/{character:login}/spheres/{sphere}/add', [SphereController::class, 'add'])
-            ->name('characters.spheres.add');
+                Route::controller(SphereController::class)
+                    ->name('characters.spheres.')
+                    ->prefix('/characters/{character:login}/spheres/{sphere}/')
+                    ->group(function () {
+                        Route::get('spend', 'spendView')
+                            ->name('spend_view');
 
-        Route::get(
-            '/characters/{character:login}/spheres/{sphere}/experience',
-            [SphereController::class, 'experienceView']
-        )
-            ->name('characters.spheres.experienceView');
+                        Route::patch('spend', 'spend')
+                            ->name('spend');
 
-        Route::patch(
-            '/characters/{character:login}/spheres/{sphere}/experience',
-            [SphereController::class, 'experience']
-        )
-            ->name('characters.spheres.experience');
+                        Route::get('add', 'addView')
+                            ->name('add_view');
 
-        Route::resource('characters.spheres', SphereController::class)
-            ->scoped(['character' => 'login'])
-            ->except(['show', 'index']);
+                        Route::patch('add', 'add')
+                            ->name('add');
 
-        Route::resource('characters.narrativeCrafts', NarrativeCraftController::class)
-            ->scoped(['character' => 'login'])
-            ->except(['show', 'index']);
+                        Route::get('experience', 'experienceView')
+                            ->name('experience_view');
 
-        Route::get(
-            '/characters/{character:login}/experiences/{experience}/set',
-            [ExperienceController::class, 'setView']
-        )
-            ->name('characters.experiences.setView');
+                        Route::patch('experience', 'experience')
+                            ->name('experience');
+                    });
 
-        Route::patch('/characters/{character:login}/experiences/{experience}/set', [ExperienceController::class, 'set'])
-            ->name('characters.experiences.set');
+                Route::resource('characters.spheres', SphereController::class)
+                    ->scoped(['character' => 'login'])
+                    ->except(['show', 'index']);
 
-        Route::resource('characters.experiences', ExperienceController::class)
-            ->scoped(['character' => 'login'])
-            ->except(['show', 'index']);
+                Route::resource('characters.narrative_crafts', NarrativeCraftController::class)
+                    ->parameter('narrative_crafts', 'narrativeCrafts')
+                    ->scoped(['character' => 'login'])
+                    ->except(['show', 'index']);
 
-        Route::resource('users', UserController::class)
-            ->except(['create', 'store']);
+                Route::controller(ExperienceController::class)
+                    ->name('characters.experiences.')
+                    ->prefix('/characters/{character:login}/experiences/{experience}/')
+                    ->group(function () {
+                        Route::get('set', 'setView')
+                            ->name('set_view');
 
-        Route::resource('users.ban', BanController::class)
-            ->only(['create', 'store', 'destroy']);
+                        Route::patch('set', 'set')
+                            ->name('set');
+                    });
 
-        Route::resource('users.accounts', AccountController::class)
-            ->except(['show', 'edit', 'update']);
+                Route::resource('characters.experiences', ExperienceController::class)
+                    ->scoped(['character' => 'login'])
+                    ->except(['show', 'index']);
 
-        Route::middleware('can:settings')->group(function () {
-            Route::get('settings', SettingsController::class)
-                ->name('settings.index');
+                Route::resource('users', UserController::class)
+                    ->except(['create', 'store']);
 
-            Route::get('settings/general', [GeneralSettingsController::class, 'show'])
-                ->name('settings.general.show');
+                Route::resource('users.ban', BanController::class)
+                    ->only(['create', 'store', 'destroy']);
 
-            Route::patch('settings/general', [GeneralSettingsController::class, 'update'])
-                ->name('settings.general.update');
+                Route::resource('users.accounts', AccountController::class)
+                    ->except(['show', 'edit', 'update']);
 
-            Route::get('settings/charsheet', [CharsheetSettingsController::class, 'show'])
-                ->name('settings.charsheet.show');
+                Route::middleware('can:settings')
+                    ->group(function () {
+                        Route::name('settings.')
+                            ->group(function () {
+                                Route::get('settings', SettingsController::class)
+                                    ->name('index');
 
-            Route::patch('settings/charsheet', [CharsheetSettingsController::class, 'update'])
-                ->name('settings.charsheet.update');
+                                Route::controller(GeneralSettingsController::class)
+                                    ->name('general.')
+                                    ->prefix('settings/')
+                                    ->group(function () {
+                                        Route::get('general', 'show')
+                                            ->name('show');
+
+                                        Route::patch('general', 'update')
+                                            ->name('update');
+                                    });
+
+                                Route::controller(CharsheetSettingsController::class)
+                                    ->name('charsheet.')
+                                    ->prefix('charsheet/')
+                                    ->group(function () {
+                                        Route::get('charsheet', 'show')
+                                            ->name('show');
+
+                                        Route::patch('charsheet', 'update')
+                                            ->name('update');
+                                    });
+                            });
 
             Route::resource('settings/perks', PerkController::class)
                 ->except(['show']);
@@ -216,19 +281,21 @@ Route::middleware('auth')->group(function () {
                     'edit' => 'perks.variants.edit',
                     'destroy' => 'perks.variants.destroy',
                 ]);
-        });
+                    });
 
-        Route::middleware('can:logs')->group(function () {
-            Route::get('logs', [LogController::class, 'index'])
-                ->name('logs.index');
+                Route::middleware('can:logs')
+                    ->name('logs.')
+                    ->group(function () {
+                        Route::get('logs', [LogController::class, 'index'])
+                            ->name('index');
 
-            Route::get('logs/ingame', [LogController::class, 'ingame'])
-                ->name('logs.ingame');
+                        Route::get('logs/ingame', [LogController::class, 'ingame'])
+                            ->name('ingame');
 
-            Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
-                ->name('logs.crust');
-        });
-    });
+                        Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
+                            ->name('crust');
+                    });
+            });
 });
 
 require __DIR__.'/auth.php';

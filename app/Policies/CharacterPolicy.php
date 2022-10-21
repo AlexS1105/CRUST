@@ -9,6 +9,11 @@ use App\Settings\GeneralSettings;
 
 class CharacterPolicy
 {
+    public function viewAny()
+    {
+        return true;
+    }
+
     public function create(User $user)
     {
         return $user->characters->count() < app(GeneralSettings::class)->max_characters
