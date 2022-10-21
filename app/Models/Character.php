@@ -53,8 +53,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\PerkVariant> $perkVariants
  * @property-read int|null $perk_variants_count
  * @property-read \App\Models\User|null $registrar
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Skin> $skins
- * @property-read int|null $skins_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Sphere> $spheres
  * @property-read int|null $spheres_count
  * @property-read \App\Models\Ticket|null $ticket
@@ -180,11 +178,6 @@ class Character extends Model
     public function voxLogs()
     {
         return $this->hasMany(VoxLog::class);
-    }
-
-    public function skins()
-    {
-        return $this->hasMany(Skin::class);
     }
 
     public function ideas()
