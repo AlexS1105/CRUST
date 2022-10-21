@@ -43,7 +43,7 @@ class IdeaService
         $experience->level += $validated['value'];
         $experience->save();
 
-        $sphere->value -= $this->getExperienceCost($experience->value, $validated['value']);
+        $sphere->value -= $this->getExperienceCost($experience->level, $validated['value']);
         $sphere->save();
     }
 
