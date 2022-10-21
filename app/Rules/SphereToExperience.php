@@ -23,13 +23,13 @@ class SphereToExperience implements Rule
         $experience = Experience::find($value);
 
         if (! isset($experience)) {
-            $this->message = 'validation.sphere.invalid';
+            $this->message = 'validation.spheres.invalid';
 
             return false;
         }
 
         if ($experience->level + $this->inc > 10) {
-            $this->message = 'validation.sphere.experience_max';
+            $this->message = 'validation.spheres.experience_max';
 
             return false;
         }

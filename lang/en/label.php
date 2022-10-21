@@ -55,4 +55,6 @@ return [
     'skin' => 'Skin',
     'sphere' => 'Sphere',
     'value' => 'Value',
+    'experience' => 'Experience',
+    'level' => 'Level',
 ];
