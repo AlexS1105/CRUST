@@ -70,20 +70,21 @@ class CharsheetService
         try {
             $perkVariant = $character->perkVariants->firstWhere('id', $perkVariant->id);
             $pivot = $perkVariant->pivot;
+            $active = $pivot->active;
 
-            if ($character->vox <= 0 && ! $pivot->active) {
+            if ($character->vox <= 0 && !$active) {
                 throw new Exception('validation.vox.not_enough');
             }
 
-            $perks = [];
-
-            foreach ($character->perkVariants as $variant) {
-                $perks[$variant->perk_id] = [
-                    'variant' => $variant,
-                    'active' => $variant->id === $perkVariant->id ? ! $pivot->active : $variant->pivot->active,
-                    'note' => $variant->pivot->note,
+            $perks = $character->perkVariants->mapWithKeys(function ($variant) use ($perkVariant, $active) {
+                return [
+                    $variant->perk_id => [
+                        'variant' => $variant,
+                        'active' => $variant->is($perkVariant) ? !$active : $variant->pivot->active,
+                        'note' => $variant->pivot->note,
+                    ],
                 ];
-            }
+            });
 
             $validator = Validator::make([
                 'perks' => $perks,
@@ -96,11 +97,14 @@ class CharsheetService
             }
 
             if (! $pivot->active) {
-                $character->takeVox(1, 'Активация перка '.$perkVariant->perk->name);
+                app(VoxService::class)->giveVox(
+                    $character,
+                    -1,
+                    __('vox.perk_activation', ['perk' => $perkVariant->perk->name])
+                );
             }
 
-            $character->perkVariants()->detach($perkVariant->id);
-            $character->perkVariants()->attach($perkVariant, ['active' => ! $pivot->active, 'note' => $pivot->note]);
+            $character->perkVariants()->updateExistingPivot($perkVariant->id, ['active' => !$active]);
 
             info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
                 'user' => auth()->user()->login,
