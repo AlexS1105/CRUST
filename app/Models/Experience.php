@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
- * @property-read \App\Models\Character $character
+ * @property-read Character $character
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Experience newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Experience newQuery()
@@ -38,27 +38,6 @@ class Experience extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public function increaseFromSphere(Sphere $sphere, $data)
-    {
-        $this->level += $data['value'];
-        $this->save();
-
-        $sphere->value -= $this->getCost($this->value, $data['value']);
-        $sphere->save();
-    }
-
-    public static function getCost($curValue, $inc)
-    {
-        $costPerPoint = 2;
-        $costSum = 0;
-
-        for ($i = $curValue; $i < $curValue + $inc; $i++) {
-            $costSum += $i >= 5 ? $costPerPoint * 2 : $costPerPoint;
-        }
-
-        return $costSum;
-    }
 
     public function character()
     {

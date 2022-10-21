@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Experience;
+use App\Services\IdeaService;
 use Illuminate\Contracts\Validation\Rule;
 
 class SphereToExperience implements Rule
@@ -34,7 +35,8 @@ class SphereToExperience implements Rule
             return false;
         }
 
-        return $this->sphere->value >= Experience::getCost($experience->value, $this->inc);
+        return $this->sphere->value
+            >= app(IdeaService::class)->getExperienceCost($experience->value, $this->inc);
     }
 
     public function message()

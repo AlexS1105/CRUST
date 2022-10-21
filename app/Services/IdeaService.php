@@ -40,6 +40,22 @@ class IdeaService
     public function sphereToExperience($validated, $character, $sphere)
     {
         $experience = $character->experiences->find($validated['experience']);
-        $experience->increaseFromSphere($sphere, $validated);
+        $experience->level += $validated['value'];
+        $experience->save();
+
+        $sphere->value -= $this->getExperienceCost($this->value, $validated['value']);
+        $sphere->save();
+    }
+
+    public function getExperienceCost($curValue, $inc)
+    {
+        $costPerPoint = 2;
+        $costSum = 0;
+
+        for ($i = $curValue; $i < $curValue + $inc; $i++) {
+            $costSum += $i >= 5 ? $costPerPoint * 2 : $costPerPoint;
+        }
+
+        return $costSum;
     }
 }
