@@ -15,7 +15,7 @@ class CharacterPerkRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $charsheetService = resolve(CharsheetService::class);
+        $charsheetService = app(CharsheetService::class);
 
         $this->merge([
             'perks' => $charsheetService->convertPerks($this->perks, true),

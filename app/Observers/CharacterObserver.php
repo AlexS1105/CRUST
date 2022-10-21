@@ -46,7 +46,7 @@ class CharacterObserver
     {
         $character->charsheet?->delete();
 
-        resolve(CharacterService::class)->deleteReferences($character);
-        resolve(SkinService::class)->deleteSkin($character, 'default');
+        app(CharacterService::class)->deleteReferences($character);
+        app(SkinService::class)->deleteSkin($character, 'default');
     }
 }

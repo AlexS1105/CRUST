@@ -15,7 +15,7 @@ class CharacterFateRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $charsheetService = resolve(CharsheetService::class);
+        $charsheetService = app(CharsheetService::class);
 
         $this->merge([
             'fates' => $charsheetService->convertFates($this->fates),

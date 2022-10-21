@@ -245,7 +245,7 @@ class Character extends Model
         $fileName = $this->reference . '_' . $size;
 
         if (! $disk->exists($fileName)) {
-            resolve(CharacterService::class)->resizeReference($this->reference, $size);
+            app(CharacterService::class)->resizeReference($this->reference, $size);
         }
 
         return $disk->url($fileName);
