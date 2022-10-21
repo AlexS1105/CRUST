@@ -7,24 +7,15 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Rules\DiscordTag;
 use App\Services\DiscordService;
-use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use NotificationChannels\Discord\Discord;
 
 class RegisteredUserController extends Controller
 {
-    private $discordService;
-
-    public function __construct(DiscordService $discordService)
-    {
-        $this->discordService = $discordService;
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -53,31 +44,8 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function create(Request $request)
+    public function create(DiscordService $discordService, Request $request)
     {
-        try {
-            $userData = $this->discordService->getUserData(
-                $request->input('code'),
-                config('services.discord.redirecturi.login')
-            );
-
-            $user = User::where('discord_id', $userData['id'])->first();
-
-            if ($user) {
-                return to_route('login')->withErrors([
-                    'discord' => $request->input('error_description', __('auth.already_registered')),
-                ]);
-            }
-
-            return view('auth.register', [
-                'discord_data' => $userData,
-            ]);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-
-            return to_route('login')->withErrors([
-                'discord' => $request->input('error_description', __('auth.discord_error')),
-            ]);
-        }
+        return $discordService->auth($request);
     }
 }

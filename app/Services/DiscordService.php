@@ -5,39 +5,48 @@ namespace App\Services;
 use App\Models\Character;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DiscordService
 {
-    public function getUserData($code, $redirect)
+    public function auth($request)
     {
-        $accessData = Cache::remember('accessData'.$code, 604800, function () use ($code, $redirect) {
-            return $this->getAccessToken($code, $redirect);
-        });
+        try {
+            $token = $this->getAccessToken($request->code, route('register'));
+            $userData = $this->getUserData($token);
 
-        $token = $accessData['access_token'];
+            if (User::firstWhere('discord_id', $userData['id'])->exists()) {
+                return to_route('login')->withErrors([
+                    'discord' => __('auth.already_registered'),
+                ]);
+            }
 
-        $userData = Cache::remember('userData'.$token, 604800, function () use ($token) {
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer '.$token,
-            ])->get('https://discordapp.com/api/users/@me');
-            $response->throw();
+            return view('auth.register', [
+                'discord_data' => $userData,
+            ]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
 
-            return json_decode($response->body(), true);
-        });
+            return to_route('login')->withErrors([
+                'discord' => $request->input('error_description', __('auth.discord_error')),
+            ]);
+        }
+    }
 
-        $userData['accessData'] = $accessData;
+    public function getUserData($token)
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.$token,
+        ])->get('https://discordapp.com/api/users/@me');
+        $response->throw();
 
-        return $userData;
+        return json_decode($response->body(), true);
     }
 
     public function getAccessToken($code, $redirect)
     {
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'Accept' => 'application/json',
-        ])->asForm()->post(config('services.discord.api').'/oauth2/token', [
+        $response = Http::asForm()->post('https://discord.com/api/oauth2/token', [
             'client_id' => config('services.discord.clientid'),
             'client_secret' => config('services.discord.secret'),
             'grant_type' => 'authorization_code',

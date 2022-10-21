@@ -173,7 +173,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
-        App\Providers\DiscordServiceProvider::class,
 
         App\Extensions\Passwords\PasswordResetServiceProvider::class,
 

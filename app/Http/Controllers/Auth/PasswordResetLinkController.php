@@ -11,22 +11,15 @@ use Illuminate\Support\Facades\Password;
 
 class PasswordResetLinkController extends Controller
 {
-    private $discordService;
-
-    public function __construct(DiscordService $discordService)
-    {
-        $this->discordService = $discordService;
-    }
-
     public function create()
     {
         return view('auth.forgot-password');
     }
 
-    public function sent(Request $request)
+    public function sent(DiscordService $discordService, Request $request)
     {
         try {
-            $userData = $this->discordService->getUserData(
+            $userData = $discordService->getUserData(
                 $request->code,
                 config('services.discord.redirecturi.reset')
             );
