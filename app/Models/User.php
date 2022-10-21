@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CharacterStatus;
 use App\Traits\Searchable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -27,22 +28,22 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $verified
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Account> $accounts
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Account> $accounts
  * @property-read int|null $accounts_count
- * @property-read \App\Models\Ban|null $ban
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Character> $characters
+ * @property-read Ban|null $ban
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Character> $characters
  * @property-read int|null $characters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Passport\Client> $clients
  * @property-read int|null $clients_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Ban> $issuedBans
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Ban> $issuedBans
  * @property-read int|null $issued_bans_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\VoxLog> $issuedVox
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<VoxLog> $issuedVox
  * @property-read int|null $issued_vox_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|array<\Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Spatie\Permission\Models\Permission> $permissions
  * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Character> $registrationCharacters
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Character> $registrationCharacters
  * @property-read int|null $registration_characters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
@@ -103,7 +104,12 @@ class User extends Authenticatable
 
     public function owns(Character $character)
     {
-        return $this->id === $character->user->id;
+        return $this->is($character->user);
+    }
+
+    public function registers(Character $character)
+    {
+        return $this->is($character->registrar) && $character->status != CharacterStatus::Approved;
     }
 
     public function characters()

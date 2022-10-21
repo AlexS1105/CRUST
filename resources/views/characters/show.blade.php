@@ -6,10 +6,15 @@
                     {{ $character->name }}
                 </h2>
                 <div class="font-thin text-base">
-                    {{ __('label.player') }}: <a @can('view', $character->user)
-                                                     class="font-bold underline text-blue-600 visited:text-purple-600"
-                                                 href="{{ route('users.show', $character->user) }}"
-                        @endcan>{{ $character->user->login }}</a>
+                    {{ __('label.player') }}:
+                    <a
+                        @can('view', $character->user)
+                            class="font-bold underline text-blue-600 visited:text-purple-600"
+                        href="{{ route('users.show', $character->user) }}"
+                        @endcan
+                    >
+                        {{ $character->user->login }}
+                    </a>
                 </div>
                 <div class="font-thin text-base">
                     Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
@@ -45,7 +50,7 @@
                 />
             </div>
             <div class="space-y-8 my-auto">
-                @can('seeMainInfo', $character)
+                @can('see-main-info', $character)
                     <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
                         <h1 class="font-bold text-xl mb-2">
                             {{ __('characters.cards.main_info') }}
@@ -68,7 +73,7 @@
                     </div>
                 @endcan
 
-                @can('seeMainInfo', $character)
+                @can('see-main-info', $character)
                     <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
                         <h1 class="font-bold text-xl mb-2">
                             {{ __('label.description') }}
@@ -101,13 +106,13 @@
                         </h1>
 
                         <div class="space-x-2">
-                            @can('voxView', $character)
+                            @can('vox-view', $character)
                                 <a class="font-bold underline text-blue-600"
                                    href="{{ route('characters.vox.index', $character) }}">
                                     {{ __('vox.index') }}
                                 </a>
                             @endcan
-                            @can('voxCreate', $character)
+                            @can('vox-create', $character)
                                 <a class="font-bold underline text-blue-600 visited:text-purple-600"
                                    href="{{ route('characters.vox.create', $character) }}">
                                     {{ __('vox.create') }}
@@ -580,7 +585,7 @@
                                                     </button>
                                                 </form>
                                             @endcan
-                                            @can('ideaToSphere', $character)
+                                            @can('idea-to-sphere', $character)
                                                 <form method="GET"
                                                       action="{{ route('characters.ideas.sphere', ['character' => $character, 'idea' => $idea]) }}">
                                                     @csrf
@@ -768,7 +773,7 @@
         @endcan
 
         @if ($character->gm_only_info)
-            @can('seeGmOnlyInfo', $character)
+            @can('see-gm-only-info', $character)
                 <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
                     <h1 class="font-bold text-xl mb-2">
                         {{ __('label.gm_only_info') }}
@@ -779,7 +784,7 @@
             @endcan
         @endif
 
-        @can('seeBio', $character)
+        @can('see-bio', $character)
             @if ($character->personality)
                 <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
                     <h1 class="font-bold text-xl mb-2">

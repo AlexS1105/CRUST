@@ -8,18 +8,19 @@ class UserPolicy
 {
     public function viewAny(User $user)
     {
-        return $user->hasPermissionTo('user-index');
+        return $user->hasPermissionTo('user-view');
     }
 
     public function view(User $user, User $model)
     {
-        return $user->hasPermissionTo('user-view');
+        return $user->hasPermissionTo('user-view')
+            || $user->is($model);
     }
 
     public function update(User $user, User $model)
     {
         return $user->hasPermissionTo('user-edit')
-            || $user->id === $model->id;
+            || $user->is($model);
     }
 
     public function manage(User $user, User $model)
@@ -29,17 +30,19 @@ class UserPolicy
 
     public function delete(User $user, User $model)
     {
-        return $user->hasPermissionTo('user-delete');
+        return false;
     }
 
     public function ban(User $user, User $model)
     {
-        return $user->hasPermissionTo('user-ban');
+        return $user->hasPermissionTo('user-ban')
+            && !$user->is($model);
     }
 
     public function unban(User $user, User $model)
     {
-        return $user->hasPermissionTo('user-ban');
+        return $user->hasPermissionTo('user-ban')
+            && !$user->is($model);
     }
 
     public function accounts(User $user, User $model)

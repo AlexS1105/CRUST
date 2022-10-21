@@ -25,6 +25,14 @@ enum CharacterStatus: int
         };
     }
 
+    public function hasRegistrar()
+    {
+        return match ($this) {
+            CharacterStatus::Approval, CharacterStatus::ChangesRequested, CharacterStatus::Approved => true,
+            CharacterStatus::Blank, CharacterStatus::Deleting, CharacterStatus::Pending => false,
+        };
+    }
+
     public function localized()
     {
         return __('characters.status.'.Str::snake($this->name));

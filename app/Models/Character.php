@@ -41,23 +41,23 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string|null $personality
  * @property string|null $last_idea
  *
- * @property-read \App\Models\Charsheet|null $charsheet
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Experience> $experiences
+ * @property-read Charsheet|null $charsheet
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Experience> $experiences
  * @property-read int|null $experiences_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Fate> $fates
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Fate> $fates
  * @property-read int|null $fates_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Idea> $ideas
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Idea> $ideas
  * @property-read int|null $ideas_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\NarrativeCraft> $narrativeCrafts
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<NarrativeCraft> $narrativeCrafts
  * @property-read int|null $narrative_crafts_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\PerkVariant> $perkVariants
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<PerkVariant> $perkVariants
  * @property-read int|null $perk_variants_count
- * @property-read \App\Models\User|null $registrar
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Sphere> $spheres
+ * @property-read User|null $registrar
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<Sphere> $spheres
  * @property-read int|null $spheres_count
- * @property-read \App\Models\Ticket|null $ticket
- * @property-read \App\Models\User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\VoxLog> $voxLogs
+ * @property-read Ticket|null $ticket
+ * @property-read User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<VoxLog> $voxLogs
  * @property-read int|null $vox_logs_count
  *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, $operator = '>=', $count = 1, $boolean = 'and', ?\Closure $callback = null)
@@ -220,9 +220,16 @@ class Character extends Model
     {
         return Attribute::make(
             set: function ($value) {
-                $this->status_updated_at = now();
+                $attributes = [
+                    'status' => $value,
+                    'status_updated_at' => now(),
+                ];
 
-                return $value;
+                if (!$value->hasRegistrar()) {
+                    $attributes['registrar_id'] = null;
+                }
+
+                return $attributes;
             },
         );
     }

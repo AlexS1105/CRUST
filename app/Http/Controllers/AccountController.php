@@ -11,16 +11,22 @@ class AccountController extends Controller
 {
     public function index(User $user)
     {
+        $this->authorize('accounts', $user);
+
         return view('accounts.index', compact('user'));
     }
 
     public function create(User $user)
     {
+        $this->authorize('accounts', $user);
+
         return view('accounts.create', compact('user'));
     }
 
     public function store(AccountService $accountService, User $user, AccountRequest $request)
     {
+        $this->authorize('accounts', $user);
+
         $accountService->createAccount($user, $request->validated());
 
         return to_route('users.accounts.index', $user);
@@ -28,6 +34,8 @@ class AccountController extends Controller
 
     public function destroy(AccountService $accountService, User $user, Account $account)
     {
+        $this->authorize('accounts', $user);
+
         $accountService->deleteAccount($account);
 
         return to_route('users.accounts.index', $user);

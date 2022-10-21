@@ -18,13 +18,13 @@
                     <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                         {{ __('characters.index') }}
                     </x-nav-link>
-                    @can('viewApplications', App\Models\Character::class)
+                    @can('view-applications', App\Models\Character::class)
                         <x-nav-link :href="route('applications.index')"
                                     :active="request()->routeIs('applications.index')">
                             {{ __('applications.index') }}
                         </x-nav-link>
                     @endcan
-                    @can('viewAny', App\Models\User::class)
+                    @can('view-any', App\Models\User::class)
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('users.index') }}
                         </x-nav-link>
@@ -101,13 +101,13 @@
             <x-responsive-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.*')">
                 {{ __('characters.index') }}
             </x-responsive-nav-link>
-            @can('viewApplications', App\Models\Character::class)
+            @can('view-applications', App\Models\Character::class)
                 <x-responsive-nav-link :href="route('applications.index')"
                                        :active="request()->routeIs('applications.*')">
                     {{ __('applications.index') }}
                 </x-responsive-nav-link>
             @endcan
-            @can('viewAny', App\Models\User::class)
+            @can('view-any', App\Models\User::class)
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                     {{ __('users.index') }}
                 </x-responsive-nav-link>

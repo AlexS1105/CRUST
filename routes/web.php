@@ -56,80 +56,62 @@ Route::middleware('auth')->group(function () {
         Route::get('/wikiauth', WikiController::class)->name('wiki.index');
 
         Route::delete('/characters/{character:login}/force', [CharacterController::class, 'forceDestroy'])
-            ->name('characters.forceDestroy')
-            ->middleware('can:forceDelete,character');
+            ->name('characters.forceDestroy');
 
         Route::patch('/characters/{character:login}/restore', [CharacterController::class, 'restore'])
-            ->name('characters.restore')
-            ->middleware('can:restore,character');
+            ->name('characters.restore');
 
         Route::get('/characters/{character:login}/charsheet', [CharsheetController::class, 'edit'])
-            ->name('characters.charsheet.edit')
-            ->middleware('can:updateCharsheet,character');
+            ->name('characters.charsheet.edit');
 
         Route::patch('/characters/{character:login}/charsheet', [CharsheetController::class, 'update'])
-            ->name('characters.charsheet.update')
-            ->middleware('can:updateCharsheet,character');
+            ->name('characters.charsheet.update');
 
         Route::get('/characters/{character:login}/perks', [CharsheetController::class, 'editPerks'])
-            ->name('characters.perks.edit')
-            ->middleware('can:update-charsheet-gm,character');
+            ->name('characters.perks.edit');
 
         Route::patch('/characters/{character:login}/perks', [CharsheetController::class, 'updatePerks'])
-            ->name('characters.perks.update')
-            ->middleware('can:update-charsheet-gm,character');
+            ->name('characters.perks.update');
 
         Route::get('/characters/{character:login}/fates', [CharsheetController::class, 'editFates'])
-            ->name('characters.fates.edit')
-            ->middleware('can:update-charsheet-gm,character');
+            ->name('characters.fates.edit');
 
         Route::patch('/characters/{character:login}/fates', [CharsheetController::class, 'updateFates'])
-            ->name('characters.fates.update')
-            ->middleware('can:update-charsheet-gm,character');
+            ->name('characters.fates.update');
 
         Route::patch('/characters/{character:login}/perks/{perkVariant}', [CharsheetController::class, 'togglePerk'])
-            ->name('characters.perks.toggle')
-            ->middleware('can:togglePerks,character');
+            ->name('characters.perks.toggle');
 
         Route::resource('characters', CharacterController::class)
             ->except('index')
             ->scoped(['character' => 'login']);
 
         Route::get('/applications', [ApplicationController::class, 'index'])
-            ->middleware('can:viewApplications,App\Models\Character')
             ->name('applications.index');
 
         Route::patch('/characters/{character:login}/send', [ApplicationController::class, 'send'])
-            ->name('applications.send')
-            ->middleware('can:send,character');
+            ->name('applications.send');
 
         Route::patch('/characters/{character:login}/cancel', [ApplicationController::class, 'cancel'])
-            ->name('applications.cancel')
-            ->middleware('can:cancel,character');
+            ->name('applications.cancel');
 
         Route::patch('/characters/{character:login}/takeForApproval', [ApplicationController::class, 'takeForApproval'])
-            ->name('applications.takeForApproval')
-            ->middleware('can:takeForApproval,character');
+            ->name('applications.takeForApproval');
 
         Route::patch('/characters/{character:login}/cancelApproval', [ApplicationController::class, 'cancelApproval'])
-            ->name('applications.cancelApproval')
-            ->middleware('can:cancelApproval,character');
+            ->name('applications.cancelApproval');
 
         Route::patch('/characters/{character:login}/requestChanges', [ApplicationController::class, 'requestChanges'])
-            ->name('applications.requestChanges')
-            ->middleware('can:requestChanges,character');
+            ->name('applications.requestChanges');
 
         Route::patch('/characters/{character:login}/requestApproval', [ApplicationController::class, 'requestApproval'])
-            ->name('applications.requestApproval')
-            ->middleware('can:requestApproval,character');
+            ->name('applications.requestApproval');
 
         Route::patch('/characters/{character:login}/approve', [ApplicationController::class, 'approve'])
-            ->name('applications.approve')
-            ->middleware('can:approve,character');
+            ->name('applications.approve');
 
         Route::patch('/characters/{character:login}/reapproval', [ApplicationController::class, 'reapproval'])
-            ->name('applications.reapproval')
-            ->middleware('can:reapproval,character');
+            ->name('applications.reapproval');
 
         Route::get('/characters/{character:login}/skins', [SkinController::class, 'index'])->name('characters.skins.index');
         Route::get('/characters/{character:login}/skins/create', [SkinController::class, 'create'])->name('characters.skins.create');
@@ -202,8 +184,7 @@ Route::middleware('auth')->group(function () {
             ->only(['create', 'store', 'destroy']);
 
         Route::resource('users.accounts', AccountController::class)
-            ->except(['show', 'edit', 'update'])
-            ->middleware('can:accounts,user');
+            ->except(['show', 'edit', 'update']);
 
         Route::middleware('can:settings')->group(function () {
             Route::get('settings', SettingsController::class)

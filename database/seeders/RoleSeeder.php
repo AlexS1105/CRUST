@@ -13,32 +13,24 @@ class RoleSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $registrar = Role::create(['name' => 'registrar']);
-        $gamemaster = Role::create(['name' => 'gamemaster']);
-        $admin = Role::create(['name' => 'admin']);
+        $registrar = Role::findOrCreate('registrar');
+        $gamemaster = Role::findOrCreate('gamemaster');
+        $admin = Role::findOrCreate('admin');
 
         $permissions = [
-            'character-edit' => [$admin, $registrar, $gamemaster],
-            'character-view' => [$admin, $registrar, $gamemaster],
-            'character-delete' => [$admin, $registrar, $gamemaster],
-            'character-force-delete' => [$admin],
-            'character-restore' => [$admin, $registrar, $gamemaster],
             'character-create-unlimited' => [$admin],
-            'character-create-vox' => [$admin],
+            'character-view' => [$admin, $gamemaster],
+            'character-manage' => [$admin, $gamemaster],
+            'character-force-delete' => [$admin],
+            'character-vox' => [$admin],
 
-            'application-index' => [$admin, $registrar, $gamemaster],
-            'application-take-for-approval' => [$admin, $registrar],
-            'application-cancel-approval' => [$admin, $registrar],
-            'application-request-changes' => [$admin, $registrar],
-            'application-request-approval' => [$admin, $registrar],
-            'application-approve' => [$admin, $registrar],
-            'application-reapproval' => [$admin, $registrar, $gamemaster],
+            'application-view' => [$admin, $registrar, $gamemaster],
+            'application-approval' => [$admin, $registrar],
+            'application-admin' => [$admin],
 
-            'user-index' => [$admin, $registrar, $gamemaster],
             'user-view' => [$admin, $registrar, $gamemaster],
             'user-edit' => [$admin],
             'user-manage' => [$admin],
-            'user-delete' => [$admin],
             'user-ban' => [$admin],
             'user-accounts' => [$admin],
 

@@ -24,6 +24,8 @@ class CharsheetController extends Controller
 
     public function edit(Character $character)
     {
+        $this->authorize('update-charsheet', $character);
+
         $perks = Perk::with('variants')->get();
         $settings = $this->settings;
 
@@ -32,6 +34,8 @@ class CharsheetController extends Controller
 
     public function update(CharsheetRequest $request, Character $character)
     {
+        $this->authorize('update-charsheet', $character);
+
         $this->charsheetService->update($character, $request->validated());
 
         return to_route('characters.show', $character);
@@ -39,6 +43,8 @@ class CharsheetController extends Controller
 
     public function editPerks(Character $character)
     {
+        $this->authorize('update-charsheet-gm', $character);
+
         $perks = Perk::with('variants')->get();
         $settings = $this->settings;
 
@@ -47,6 +53,8 @@ class CharsheetController extends Controller
 
     public function updatePerks(CharacterPerkRequest $request, Character $character)
     {
+        $this->authorize('update-charsheet-gm', $character);
+
         $this->charsheetService->savePerks($character, $request->validated());
 
         return to_route('characters.show', $character);
@@ -54,6 +62,8 @@ class CharsheetController extends Controller
 
     public function editFates(Character $character)
     {
+        $this->authorize('update-charsheet-gm', $character);
+
         $settings = $this->settings;
 
         return view('characters.fates', compact('character', 'settings'));
@@ -61,6 +71,8 @@ class CharsheetController extends Controller
 
     public function updateFates(CharacterFateRequest $request, Character $character)
     {
+        $this->authorize('update-charsheet-gm', $character);
+
         $this->charsheetService->saveFates($character, $request->validated());
 
         return to_route('characters.show', $character);
@@ -68,6 +80,8 @@ class CharsheetController extends Controller
 
     public function togglePerk(Character $character, PerkVariant $perkVariant)
     {
+        $this->authorize('toggle-perks', $character);
+
         return $this->charsheetService->togglePerk($character, $perkVariant);
     }
 }

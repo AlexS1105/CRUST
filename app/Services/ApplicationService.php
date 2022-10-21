@@ -39,7 +39,6 @@ class ApplicationService
     public function cancelApproval($character)
     {
         $character->status = CharacterStatus::Pending;
-        $character->registrar_id = null;
         $character->save();
 
         event(new CharacterCanceled($character));

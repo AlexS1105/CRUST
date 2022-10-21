@@ -18,7 +18,7 @@
                     @sortablelink('updated_at', __('ui.sort.updated_at'), ['perk' => $perk, 'search' => $search])
                 </div>
 
-                @can('queryCharacters', App\Models\Character::class)
+                @can('query-characters', App\Models\Character::class)
                     <form method="GET" action="{{ route('characters.all') }}">
                         <select name="perk" id="perk"
                                 class="form-select block w-auto mt-1 border-0 rounded-full text-sm p-0 px-2 text-gray-500"

@@ -100,7 +100,7 @@
                 <x-tip>
                     {{ __('tips.character.player_only_info') }}
                 </x-tip>
-                @can('seeGmOnlyInfo', $character)
+                @can('see-gm-only-info', $character)
                     <x-form.textarea name="gm_only_info" onfocus="preview(this)" wrap="off">
                         {{ old('gm_only_info', $character->gm_only_info) }}
                     </x-form.textarea>
@@ -110,7 +110,7 @@
                 @endcan
             </x-form.card>
 
-            @if(!$character->registered || auth()->user()->can('update-charsheet-gm', $character))
+            @can('update-charsheet-gm', $character)
                 <x-form.card>
                     <x-slot name="header">
                         {{ __('characters.cards.registration_info') }}

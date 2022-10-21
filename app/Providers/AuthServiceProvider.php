@@ -2,26 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\Character;
 use App\Models\Passport\Client;
-use App\Policies\CharacterPolicy;
-use App\Policies\UserPolicy;
+use App\Policies\GeneralPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        Character::class => CharacterPolicy::class,
-        User::class => UserPolicy::class,
-    ];
-
     /**
      * Register any authentication / authorization services.
      *
@@ -31,19 +19,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             Passport::routes();
         }
 
         Passport::useClientModel(Client::class);
         Passport::tokensExpireIn(now()->addMonth());
 
-        Gate::define('settings', function ($user) {
-            return $user->hasPermissionTo('settings');
-        });
-
-        Gate::define('logs', function ($user) {
-            return $user->hasPermissionTo('logs');
-        });
+        Gate::define('settings', [GeneralPolicy::class, 'settings']);
+        Gate::define('logs', [GeneralPolicy::class, 'logs']);
     }
 }

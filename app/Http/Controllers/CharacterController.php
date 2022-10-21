@@ -29,8 +29,6 @@ class CharacterController extends Controller
 
     public function all(Request $request)
     {
-        $this->authorize('view-any', Character::class);
-
         $characters = Character::filter($request)
             ->status(CharacterStatus::Approved)
             ->sortable()
@@ -84,6 +82,8 @@ class CharacterController extends Controller
 
     public function restore(Character $character)
     {
+        $this->authorize('force-delete', $character);
+
         $this->characterService->restore($character);
 
         return back();
@@ -91,6 +91,8 @@ class CharacterController extends Controller
 
     public function forceDestroy(Character $character)
     {
+        $this->authorize('force-delete', $character);
+
         $this->characterService->forceDelete($character);
 
         return to_route('characters.index');

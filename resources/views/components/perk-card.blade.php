@@ -52,8 +52,8 @@
                     {{ __('perks.types.inactive') }}
                 </div>
             @endif
-            @can('togglePerks', $character)
-                @if($character->vox > 1 && !$perkVariant->pivot->active || $perkVariant->pivot->active)
+                @can('toggle-perks', $character)
+                    @if($character->vox > 1 && !$perkVariant->pivot->active || $perkVariant->pivot->active)
                     <form method="POST"
                           action="{{ route('characters.perks.toggle', ['character' => $character, 'perkVariant' => $perkVariant]) }}">
                         @csrf
