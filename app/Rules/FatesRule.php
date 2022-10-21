@@ -13,16 +13,18 @@ class FatesRule implements Rule
     {
         $dualFates = 0;
 
-        foreach ($fates as $fate) {
-            if (FateType::all($fate['type'], FateType::Ambition, FateType::Flaw)) {
-                $dualFates += 1;
+        if (isset($fates)) {
+            foreach ($fates as $fate) {
+                if (FateType::all($fate['type'], FateType::Ambition, FateType::Flaw)) {
+                    $dualFates += 1;
+                }
             }
-        }
 
-        if ($dualFates > 1) {
-            $this->message = 'validation.fates.one_dual';
+            if ($dualFates > 1) {
+                $this->message = 'validation.fates.one_dual';
 
-            return false;
+                return false;
+            }
         }
 
         return true;

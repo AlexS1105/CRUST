@@ -44,7 +44,7 @@ class CharacterRequest extends FormRequest
 
         if ($this->isMethod('POST') || ! $character->registered) {
             $rules['login'] = [
-                'required',
+                $this->isMethod('POST') ? 'required' : 'sometimes',
                 'regex:/^\w{3,16}$/',
                 'min:3',
                 'max:16',

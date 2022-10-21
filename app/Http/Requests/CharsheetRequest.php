@@ -42,7 +42,7 @@ class CharsheetRequest extends FormRequest
         if (! $character->registered) {
             $rules = array_merge($rules, [
                 'perks' => [new PerkPool(false)],
-                'fates' => [new FatesRule(false)],
+                'fates' => [new FatesRule()],
                 'fates.*.text' => ['required', 'max:1024'],
                 'fates.*.type' => ['required'],
             ]);

@@ -75,9 +75,11 @@ class CraftPool implements Rule
             return false;
         }
 
-        if (count($this->narrative_crafts) > (floor($magicMax / 2) + floor($techMax / 2) + floor(
-            $ingenuityPoints / 2
-        ) + $freeGeneralPoints)) {
+        if (isset($this->narrative_crafts) && count($this->narrative_crafts) > (floor($magicMax / 2) + floor(
+                    $techMax / 2
+                ) + floor(
+                    $ingenuityPoints / 2
+                ) + $freeGeneralPoints)) {
             $this->message = 'validation.craftpool.narrative_crafts';
 
             return false;
