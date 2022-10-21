@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-container class="max-w-3xl mx-auto">
-        <form class="space-y-8" method="POST" action="{{ route('characters.narrativeCrafts.store', $character) }}">
+        <form class="space-y-8" method="POST" action="{{ route('characters.narrative_crafts.store', $character) }}">
             @csrf
 
             <x-form.card>

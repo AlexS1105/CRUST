@@ -209,7 +209,6 @@ Route::middleware('auth')
                     ->except(['show', 'index']);
 
                 Route::resource('characters.narrative_crafts', NarrativeCraftController::class)
-                    ->parameter('narrative_crafts', 'narrativeCrafts')
                     ->scoped(['character' => 'login'])
                     ->except(['show', 'index']);
 

@@ -7,7 +7,7 @@
 
     <x-container class="max-w-3xl mx-auto">
         <form class="space-y-8" method="POST"
-              action="{{ route('characters.narrativeCrafts.update', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
+              action="{{ route('characters.narrative_crafts.update', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}">
             @csrf
             @method('PATCH')
 

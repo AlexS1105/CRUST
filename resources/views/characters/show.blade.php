@@ -219,7 +219,7 @@
                                         <div class="inline-flex flex-wrap" role="group">
                                             @can('update', $character)
                                                 <form method="GET"
-                                                      action="{{ route('characters.narrative_crafts.edit', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
+                                                      action="{{ route('characters.narrative_crafts.edit', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}">
                                                     @csrf
                                                     <button type="submit"
                                                             class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
@@ -235,7 +235,7 @@
                                             @endcan
                                             @can('update', $character)
                                                 <form method="POST"
-                                                      action="{{ route('characters.narrative_crafts.destroy', ['character' => $character, 'narrativeCraft' => $narrativeCraft]) }}">
+                                                      action="{{ route('characters.narrative_crafts.destroy', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
