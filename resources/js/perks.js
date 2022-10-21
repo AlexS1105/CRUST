@@ -25,7 +25,9 @@ window.updatePerks = function () {
             var active = false
 
             if (dataFields != null && dataFields.hasChildNodes()) {
-                active = dataFields.children[0].children[0].checked
+                var checkbox = dataFields.children[0].children[0];
+
+                active = checkbox != null ? checkbox.checked : true;
             }
 
             if (active) {
