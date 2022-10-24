@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Character;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -119,10 +120,21 @@ class DiscordService
 
         if ($response->ok()) {
             $found = json_decode($response->body(), true);
+
             if ($found) {
                 $user->verified = true;
                 $user->save();
             }
+        }
+    }
+
+    public function unverifyUser(Request $request)
+    {
+        $user = User::firstWhere('discord_id', $request->get('user_id', null));
+
+        if (isset($user) && $user->verified) {
+            $user->verified = false;
+            $user->save();
         }
     }
 }
