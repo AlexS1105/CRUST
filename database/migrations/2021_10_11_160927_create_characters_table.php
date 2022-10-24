@@ -28,7 +28,7 @@ class CreateCharactersTable extends Migration
             $table->string('login');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('registrar_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->unsignedInteger('status')->default(CharacterStatus::Blank);
+            $table->tinyInteger('status')->default(CharacterStatus::Blank->value);
             $table->timestamp('status_updated_at')->nullable();
             $table->string('reference')->default('storage/characters/references/_default.png');
             $table->timestamps();
