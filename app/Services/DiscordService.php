@@ -38,7 +38,7 @@ class DiscordService
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer '.$token,
-        ])->get('https://discordapp.com/api/users/@me');
+        ])->get(config('services.discord.api').'/users/@me');
         $response->throw();
 
         return json_decode($response->body(), true);
@@ -46,8 +46,8 @@ class DiscordService
 
     public function getAccessToken($code, $redirect)
     {
-        $response = Http::asForm()->post('https://discord.com/api/oauth2/token', [
-            'client_id' => config('services.discord.clientid'),
+        $response = Http::asForm()->post(config('services.discord.api').'/oauth2/token', [
+            'client_id' => config('services.discord.client_id'),
             'client_secret' => config('services.discord.secret'),
             'grant_type' => 'authorization_code',
             'code' => $code,

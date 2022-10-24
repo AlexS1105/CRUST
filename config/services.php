@@ -33,12 +33,8 @@ return [
     'discord' => [
         'api' => env('DISCORD_API'),
         'token' => env('DISCORD_TOKEN'),
-        'clientid' => env('DISCORD_CLIENT_ID'),
+        'client_id' => env('DISCORD_CLIENT_ID'),
         'secret' => env('DISCORD_SECRET'),
-        'redirecturi' => [
-            'login' => env('DISCORD_REDIRECT_LOGIN'),
-            'reset' => env('DISCORD_REDIRECT_RESET'),
-        ],
         'oauth2url' => [
             'login' => env('DISCORD_OAUTH2_URL_LOGIN'),
             'reset' => env('DISCORD_OAUTH2_URL_RESET'),
