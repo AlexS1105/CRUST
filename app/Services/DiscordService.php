@@ -35,6 +35,24 @@ class DiscordService
         }
     }
 
+    public function resetPassword($request)
+    {
+        try {
+            $token = $this->getAccessToken($request->code, route('password.sent'));
+            $userData = $this->getUserData($token);
+
+            return to_route('password.reset', [
+                'discord_id' => $userData['id'],
+            ]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+
+            return to_route('password.request')->withErrors([
+                'discord' => $request->input('error_description', __('auth.discord_error')),
+            ]);
+        }
+    }
+
     public function getUserData($token)
     {
         $response = Http::withHeaders([

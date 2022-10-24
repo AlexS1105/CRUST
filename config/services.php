@@ -36,7 +36,7 @@ return [
         'client_id' => env('DISCORD_CLIENT_ID'),
         'secret' => env('DISCORD_SECRET'),
         'oauth2url' => [
-            'login' => env('DISCORD_OAUTH2_URL_LOGIN'),
+            'login' => env('DISCORD_OAUTH2_URL_REGISTER'),
             'reset' => env('DISCORD_OAUTH2_URL_RESET'),
         ],
         'tickets' => [

@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
 class NewPasswordController extends Controller
@@ -19,29 +16,15 @@ class NewPasswordController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'discord_id' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $request['token'] = session('token');
+        $user = User::firstWhere('discord_id', $validated['discord_id']);
+        $user->password = \Hash::make($validated['password']);
+        $user->save();
 
-        $status = Password::reset(
-            $request->only('discord_id', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
-                ])->save();
-
-                event(new PasswordReset($user));
-            }
-        );
-
-        session()->forget('token');
-
-        return $status === Password::PASSWORD_RESET
-            ? to_route('login')->with('status', __($status))
-            : back();
+        return to_route('login');
     }
 }
