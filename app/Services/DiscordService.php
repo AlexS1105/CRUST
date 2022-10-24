@@ -16,7 +16,7 @@ class DiscordService
             $token = $this->getAccessToken($request->code, route('register'));
             $userData = $this->getUserData($token);
 
-            if (User::firstWhere('discord_id', $userData['id'])->exists()) {
+            if (User::where('discord_id', $userData['id'])->exists()) {
                 return to_route('login')->withErrors([
                     'discord' => __('auth.already_registered'),
                 ]);
@@ -55,7 +55,7 @@ class DiscordService
         ]);
         $response->throw();
 
-        return json_decode($response->body(), true);
+        return json_decode($response->body(), true)['access_token'];
     }
 
     public function createRegistrationTicket(Character $character)
