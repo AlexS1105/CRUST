@@ -122,7 +122,6 @@ class DiscordService
         ])->get(config('services.discord.tickets.api_url').'/has-user', [
             'id' => $user->discord_id,
         ]);
-        $response->throw();
 
         if ($response->ok()) {
             $found = json_decode($response->body(), true);

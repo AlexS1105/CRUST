@@ -46,7 +46,7 @@ Route::middleware('auth')
         })->name('discord.invite');
 
         Route::get('/discord-verify', function () {
-            return view('discord.index');
+            return auth()->user()->verified ? to_route('characters.index') : view('discord.index');
         })->name('discord.verify');
 
         Route::middleware('verified')
