@@ -11,7 +11,7 @@ class SphereToExperience implements Rule
     public $sphere;
     public $inc;
 
-    public $message = 'validation.sphere_not_enough';
+    public $message = 'validation.spheres.not_enough';
 
     public function __construct($sphere, $inc)
     {
