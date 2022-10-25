@@ -13,7 +13,7 @@ class CharacterService
     public function create($request)
     {
         $validated = $request->validated();
-        $character = $request->user->characters()->create($validated);
+        $character = $request->user()->characters()->create($validated);
         $character->charsheet()->create();
 
         $this->saveReference($character, $validated);
