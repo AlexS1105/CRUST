@@ -266,20 +266,20 @@ Route::middleware('auth')
                                     });
                             });
 
-            Route::resource('settings/perks', PerkController::class)
-                ->except(['show']);
+                        Route::resource('settings/perks', PerkController::class)
+                            ->except(['show']);
 
-            Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
-                ->except(['index', 'show'])
-                ->shallow()
-                ->names([
-                    'index' => 'perks.variants.index',
-                    'store' => 'perks.variants.store',
-                    'create' => 'perks.variants.create',
-                    'update' => 'perks.variants.update',
-                    'edit' => 'perks.variants.edit',
-                    'destroy' => 'perks.variants.destroy',
-                ]);
+                        Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
+                            ->except(['index', 'show'])
+                            ->shallow()
+                            ->names([
+                                'index' => 'perks.variants.index',
+                                'store' => 'perks.variants.store',
+                                'create' => 'perks.variants.create',
+                                'update' => 'perks.variants.update',
+                                'edit' => 'perks.variants.edit',
+                                'destroy' => 'perks.variants.destroy',
+                            ]);
                     });
 
                 Route::middleware('can:logs')
@@ -295,6 +295,6 @@ Route::middleware('auth')
                             ->name('crust');
                     });
             });
-});
+    });
 
 require __DIR__.'/auth.php';

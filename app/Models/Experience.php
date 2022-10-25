@@ -16,9 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $native
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read Character $character
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Experience newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Experience newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Experience query()
@@ -30,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Experience whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Experience whereNative($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Experience whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Experience extends Model

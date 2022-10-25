@@ -30,6 +30,11 @@ class CharacterService
         }
     }
 
+    public function deleteReferences($character)
+    {
+        Storage::disk('characters')->deleteDirectory($character->id);
+    }
+
     public function resizeReference($fileName, $size)
     {
         $disk = Storage::disk('characters');
@@ -38,12 +43,7 @@ class CharacterService
             $constraint->aspectRatio();
         });
 
-        $disk->put($fileName . '_' . $size, $img->encode());
-    }
-
-    public function deleteReferences($character)
-    {
-        Storage::disk('characters')->deleteDirectory($character->id);
+        $disk->put($fileName.'_'.$size, $img->encode());
     }
 
     public function update($character, $request)

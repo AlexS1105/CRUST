@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 
 class CharsheetService
 {
-    // TODO: Refactor all this
     public function update($character, $validated)
     {
         $character->charsheet()->update($validated);

@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SkinRequest;
 use App\Models\Character;
-use App\Models\Skin;
 use App\Services\SkinService;
-use Illuminate\Support\Facades\Request;
 
 class SkinController extends Controller
 {

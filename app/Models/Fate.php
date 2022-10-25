@@ -15,9 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed $type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
- * @property-read \App\Models\Character $character
- *
+ * @property-read Character $character
  * @method static \Illuminate\Database\Eloquent\Builder|Fate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Fate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Fate query()
@@ -27,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Fate whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Fate whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Fate whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Fate extends Model

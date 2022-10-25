@@ -11,7 +11,7 @@ class CharacterObserver
     /**
      * Handle the Character "created" event.
      *
-     * @param  \App\Models\Character  $character
+     * @param Character $character
      * @return void
      */
     public function created(Character $character)
@@ -25,7 +25,7 @@ class CharacterObserver
     /**
      * Handle the Character "updated" event.
      *
-     * @param  \App\Models\Character  $character
+     * @param Character $character
      * @return void
      */
     public function updated(Character $character)
@@ -39,7 +39,7 @@ class CharacterObserver
     /**
      * Handle the Character "deleted" event.
      *
-     * @param  \App\Models\Character  $character
+     * @param Character $character
      * @return void
      */
     public function deleted(Character $character)

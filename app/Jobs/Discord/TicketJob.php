@@ -3,7 +3,6 @@
 namespace App\Jobs\Discord;
 
 use App\Jobs\CharacterJob;
-use App\Models\Character;
 
 class TicketJob extends CharacterJob
 {

@@ -20,17 +20,18 @@ class SkinService
     public function saveSkin($character, $file, $prefix)
     {
         $disk = Storage::disk('characters');
-        $disk->putFileAs($character->id . '/skins', $file, $prefix);
-        $disk->putFileAs('skins', $file, $character->login . '.png');
+        $disk->putFileAs($character->id.'/skins', $file, $prefix);
+        $disk->putFileAs('skins', $file, $character->login.'.png');
     }
 
     public function getSkins($character)
     {
         $disk = Storage::disk('characters');
-        return collect($disk->files($character->id . '/skins'))->map(function ($value) use ($disk) {
+
+        return collect($disk->files($character->id.'/skins'))->map(function ($value) use ($disk) {
             return [
                 'url' => $disk->url($value),
-                'prefix' => basename($value)
+                'prefix' => basename($value),
             ];
         });
     }
@@ -38,10 +39,10 @@ class SkinService
     public function deleteSkin($character, $prefix)
     {
         $disk = Storage::disk('characters');
-        $disk->delete($character->id . '/skins/' . $prefix);
+        $disk->delete($character->id.'/skins/'.$prefix);
 
-        if ($prefix == 'default') {
-            $disk->delete('skins/' . $character->login . '.png');
+        if ($prefix === 'default') {
+            $disk->delete('skins/'.$character->login.'.png');
         }
     }
 }

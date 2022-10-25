@@ -14,9 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
- * @property-read \App\Models\Character $character
- *
+ * @property-read Character $character
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft query()
@@ -26,7 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|NarrativeCraft whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class NarrativeCraft extends Model

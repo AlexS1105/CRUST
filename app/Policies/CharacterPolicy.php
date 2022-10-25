@@ -49,10 +49,8 @@ class CharacterPolicy
     public function delete(User $user, Character $character)
     {
         return $character->status !== CharacterStatus::Deleting
-            && (
-                $user->owns($character)
-                || $user->hasPermissionTo('character-manage')
-            );
+            && ($user->owns($character)
+                || $user->hasPermissionTo('character-manage'));
     }
 
     public function forceDelete(User $user, Character $character)
@@ -64,10 +62,8 @@ class CharacterPolicy
     public function restore(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Deleting
-            && (
-                $user->owns($character)
-                || $user->hasPermissionTo('character-manage')
-            );
+            && ($user->owns($character)
+                || $user->hasPermissionTo('character-manage'));
     }
 
     public function viewApplications(User $user)
@@ -90,87 +86,68 @@ class CharacterPolicy
     public function takeForApproval(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Pending
-            && (
-                !$user->owns($character)
+            && (!$user->owns($character)
                 && $user->hasPermissionTo('application-approval')
-                || $user->hasPermissionTo('application-admin')
-            );
+                || $user->hasPermissionTo('application-admin'));
     }
 
     public function cancelApproval(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Approval
-            && (
-                $user->registers($character)
+            && ($user->registers($character)
                 && $user->hasPermissionTo('application-approval')
-                || $user->hasPermissionTo('application-admin')
-            );
+                || $user->hasPermissionTo('application-admin'));
     }
 
     public function requestChanges(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Approval
-            && (
-                $user->registers($character)
+            && ($user->registers($character)
                 && $user->hasPermissionTo('application-approval')
-                || $user->hasPermissionTo('application-admin')
-            );
+                || $user->hasPermissionTo('application-admin'));
     }
 
     public function requestApproval(User $user, Character $character)
     {
         return $character->status === CharacterStatus::ChangesRequested
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 || $user->registers($character) && $user->hasPermissionTo('application-approval')
-                || $user->hasPermissionTo('application-admin')
-            );
+                || $user->hasPermissionTo('application-admin'));
     }
 
     public function approve(User $user, Character $character)
     {
-        return
-            (
-                $character->status === CharacterStatus::Approval
-                || $character->status === CharacterStatus::ChangesRequested
-            )
-            && (
-                $user->registers($character)
+        return ($character->status === CharacterStatus::Approval
+                || $character->status === CharacterStatus::ChangesRequested)
+            && ($user->registers($character)
                 && $user->hasPermissionTo('application-approval')
-                || $user->hasPermissionTo('application-admin')
-            );
+                || $user->hasPermissionTo('application-admin'));
     }
 
     public function reapproval(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Approved
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 || $user->is($character->registrar)
-                || $user->hasAnyPermission('application-reapproval', 'application-admin')
-            );
+                || $user->hasAnyPermission('application-reapproval', 'application-admin'));
     }
 
     public function seeMainInfo(User $user, Character $character)
     {
         return !$character->info_hidden
             || $character->info_hidden
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 || $user->is($character->registrar)
-                || $user->hasPermissionTo('character-view')
-            );
+                || $user->hasPermissionTo('character-view'));
     }
 
     public function seeBio(User $user, Character $character)
     {
         return !$character->bio_hidden
             || $character->bio_hidden
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 || $user->is($character->registrar)
-                || $user->hasPermissionTo('character-view')
-            );
+                || $user->hasPermissionTo('character-view'));
     }
 
     public function seePlayerOnlyInfo(User $user, Character $character)
@@ -206,22 +183,18 @@ class CharacterPolicy
     public function addSphere(User $user, Character $character)
     {
         return count($character->spheres) < 3
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 && $character->registered
-                || $user->hasPermissionTo('character-manage')
-            );
+                || $user->hasPermissionTo('character-manage'));
     }
 
     public function addIdea(User $user, Character $character)
     {
         return count($character->ideas) < 3
-            && (
-                $user->owns($character)
+            && ($user->owns($character)
                 && $character->registered
                 && $character->hasFreeIdea()
-                || $user->hasPermissionTo('character-manage')
-            );
+                || $user->hasPermissionTo('character-manage'));
     }
 
     public function ideaToSphere(User $user, Character $character)

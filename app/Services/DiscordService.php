@@ -35,6 +35,30 @@ class DiscordService
         }
     }
 
+    public function getAccessToken($code, $redirect)
+    {
+        $response = Http::asForm()->post(config('services.discord.api').'/oauth2/token', [
+            'client_id' => config('services.discord.client_id'),
+            'client_secret' => config('services.discord.secret'),
+            'grant_type' => 'authorization_code',
+            'code' => $code,
+            'redirect_uri' => $redirect,
+        ]);
+        $response->throw();
+
+        return json_decode($response->body(), true)['access_token'];
+    }
+
+    public function getUserData($token)
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.$token,
+        ])->get(config('services.discord.api').'/users/@me');
+        $response->throw();
+
+        return json_decode($response->body(), true);
+    }
+
     public function resetPassword($request)
     {
         try {
@@ -53,46 +77,15 @@ class DiscordService
         }
     }
 
-    public function getUserData($token)
-    {
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '.$token,
-        ])->get(config('services.discord.api').'/users/@me');
-        $response->throw();
-
-        return json_decode($response->body(), true);
-    }
-
-    public function getAccessToken($code, $redirect)
-    {
-        $response = Http::asForm()->post(config('services.discord.api').'/oauth2/token', [
-            'client_id' => config('services.discord.client_id'),
-            'client_secret' => config('services.discord.secret'),
-            'grant_type' => 'authorization_code',
-            'code' => $code,
-            'redirect_uri' => $redirect,
-        ]);
-        $response->throw();
-
-        return json_decode($response->body(), true)['access_token'];
-    }
-
     public function createRegistrationTicket(Character $character)
     {
-        if ($character->ticket) {
-            throw new Exception('Character ticket already exists');
-        }
-
-        $response = Http::withHeaders([
-            'Authenticate' => config('services.discord.token'),
-        ])->post(config('services.discord.tickets.api_url').'/ticket', [
+        $response = Http::post(config('services.discord.tickets.api_url').'/ticket', [
             'guild_id' => config('services.discord.tickets.guild_id'),
-            'user_id' => $character->user->discord_id,
+            'user_id' => $character->registrar->discord_id,
             'registrar_id' => $character->registrar->discord_id,
             'category_id' => config('services.discord.tickets.category_id'),
             'topic' => "Регистрация {$character->name}",
         ]);
-        $response->throw();
 
         if ($response->ok()) {
             $ticket = json_decode($response->body(), true);
@@ -107,16 +100,11 @@ class DiscordService
 
     public function deleteRegistrationTicket(Character $character)
     {
-        if (! $character->ticket) {
-            throw new Exception('Character has no ticket');
-        }
-
         $response = Http::withHeaders([
             'Authenticate' => config('services.discord.token'),
         ])->delete(config('services.discord.tickets.api_url').'/ticket', [
             'ticket_id' => strval($character->ticket->id),
         ]);
-        $response->throw();
 
         if ($response->ok()) {
             $character->ticket->delete();

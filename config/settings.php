@@ -1,7 +1,7 @@
 <?php
 
-use App\Settings\GeneralSettings;
 use App\Settings\CharsheetSettings;
+use App\Settings\GeneralSettings;
 
 return [
 

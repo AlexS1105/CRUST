@@ -1,10 +1,11 @@
 import jQuery from 'jquery';
+
 window.$ = jQuery;
 
 var skinsList = $('#skins-list')
 var card = skinsList.children().first()
 
-$('#skins\\[\\]').change(function() {
+$('#skins\\[\\]').change(function () {
     var files = $('#skins\\[\\]').prop('files')
 
     for (var file of files) {

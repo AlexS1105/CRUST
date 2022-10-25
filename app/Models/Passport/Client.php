@@ -18,14 +18,12 @@ use Laravel\Passport\Client as BaseClient;
  * @property bool $revoked
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Passport\AuthCode> $authCodes
  * @property-read int|null $auth_codes_count
  * @property-read string|null $plain_secret
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Passport\Token> $tokens
  * @property-read int|null $tokens_count
  * @property-read \App\Models\User|null $user
- *
  * @method static \Laravel\Passport\Database\Factories\ClientFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Client newQuery()
@@ -41,7 +39,6 @@ use Laravel\Passport\Client as BaseClient;
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class Client extends BaseClient
