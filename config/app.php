@@ -174,8 +174,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
 
-        App\Extensions\Passwords\PasswordResetServiceProvider::class,
-
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
