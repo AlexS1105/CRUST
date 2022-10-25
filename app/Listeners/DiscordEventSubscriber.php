@@ -78,8 +78,8 @@ class DiscordEventSubscriber
         $character = $event->character;
 
         Bus::chain([
-            new SendCharacterNotification($character, new ApplicationCanceledNotification($character)),
             new DeleteTicket($character),
+            new SendCharacterNotification($character, new ApplicationCanceledNotification($character)),
         ])->dispatch();
     }
 
@@ -115,8 +115,8 @@ class DiscordEventSubscriber
         $character = $event->character;
 
         Bus::chain([
-            new SendCharacterNotification($character, new ApplicationApprovedNotification($character)),
             new DeleteTicket($character),
+            new SendCharacterNotification($character, new ApplicationApprovedNotification($character)),
         ])->dispatch();
     }
 
