@@ -47,7 +47,7 @@ return [
         'invite' => env('DISCORD_INVITE'),
     ],
 
-    'launcherurl' => env('LAUNCHER_DOWNLOAD_URL'),
+    'launcher_url' => env('LAUNCHER_DOWNLOAD_URL'),
 
     'minecraft' => [
         'characters_auth' => env('MINECRAFT_CHARACTERS_AUTH', true),
