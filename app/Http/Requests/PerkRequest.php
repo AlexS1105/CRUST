@@ -15,18 +15,18 @@ class PerkRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $type = PerkType::None();
+        $type = 0;
 
-        if ($this->combat === 'on') {
-            $type->addFlag(PerkType::Combat);
+        if (isset($this->combat)) {
+            $type = PerkType::set($type, PerkType::Combat);
         }
 
-        if ($this->attack === 'on') {
-            $type->addFlag(PerkType::Attack);
+        if (isset($this->attack)) {
+            $type = PerkType::set($type, PerkType::Attack);
         }
 
-        if ($this->defence === 'on') {
-            $type->addFlag(PerkType::Defence);
+        if (isset($this->defence)) {
+            $type = PerkType::set($type, PerkType::Defence);
         }
 
         $this->merge([

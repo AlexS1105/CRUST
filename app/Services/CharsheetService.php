@@ -148,13 +148,15 @@ class CharsheetService
         $perkVariants = PerkVariant::with('perk')->get();
         $perksCollection = [];
 
-        foreach ($perks as $perkId => $perkData) {
-            if ($perkData['id'] !== '-1') {
-                $perksCollection[$perkId] = [
-                    'variant' => $perkVariants->firstWhere('id', $perkData['id']),
-                    'note' => $perkData['note'],
-                    'active' => ! $edit || isset($perkData['active']),
-                ];
+        if (isset($perks)) {
+            foreach ($perks as $perkId => $perkData) {
+                if ($perkData['id'] !== '-1') {
+                    $perksCollection[$perkId] = [
+                        'variant' => $perkVariants->firstWhere('id', $perkData['id']),
+                        'note' => $perkData['note'],
+                        'active' => !$edit || isset($perkData['active']),
+                    ];
+                }
             }
         }
 

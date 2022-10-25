@@ -18,11 +18,11 @@
                     {{ old('general_description', $perk->general_description) }}
                 </x-form.textarea>
                 <x-form.checkbox name="combat"
-                                 value="{{ old('combat', $perk->type->hasFlag(App\Enums\PerkType::Combat)) }}"/>
+                                 value="{{ old('combat', $perk->isCombat()) }}"/>
                 <x-form.checkbox name="attack"
-                                 value="{{ old('attack', $perk->type->hasFlag(App\Enums\PerkType::Attack)) }}"/>
+                                 value="{{ old('attack', $perk->isAttack()) }}"/>
                 <x-form.checkbox name="defence"
-                                 value="{{ old('defence', $perk->type->hasFlag(App\Enums\PerkType::Defence)) }}"/>
+                                 value="{{ old('defence', $perk->isDefence()) }}"/>
 
                 <x-button>
                     {{ __('ui.submit') }}
