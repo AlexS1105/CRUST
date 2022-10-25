@@ -10,6 +10,8 @@ class CreateTicket extends TicketJob
     {
         if (!isset($this->character->ticket)) {
             $discordService->createRegistrationTicket($this->character);
+        } else {
+            $discordService->deleteRegistrationTicket($this->character);
         }
     }
 }

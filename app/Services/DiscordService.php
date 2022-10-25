@@ -101,13 +101,11 @@ class DiscordService
 
     public function deleteRegistrationTicket(Character $character)
     {
-        $response = Http::delete(config('services.discord.tickets.api_url').'/ticket', [
+        Http::delete(config('services.discord.tickets.api_url').'/ticket', [
             'ticket_id' => strval($character->ticket->id),
         ]);
 
-        if ($response->ok()) {
-            $character->ticket->delete();
-        }
+        $character->ticket->delete();
     }
 
     public function verifyUser(User $user)
