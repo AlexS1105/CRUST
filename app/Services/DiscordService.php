@@ -81,7 +81,8 @@ class DiscordService
     {
         $response = Http::post(config('services.discord.tickets.api_url').'/ticket', [
             'guild_id' => config('services.discord.tickets.guild_id'),
-            'user_id' => $character->registrar->discord_id,
+            'user_id' => config('app.env', 'local') === 'production'
+                ? $character->user->discord_id : $character->registrar->discord_id,
             'registrar_id' => $character->registrar->discord_id,
             'category_id' => config('services.discord.tickets.category_id'),
             'topic' => "Регистрация {$character->name}",
