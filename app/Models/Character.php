@@ -40,6 +40,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int $vox
  * @property string|null $personality
  * @property string|null $last_idea
+ *
  * @property-read Charsheet|null $charsheet
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Experience> $experiences
  * @property-read int|null $experiences_count
@@ -58,6 +59,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|array<VoxLog> $voxLogs
  * @property-read int|null $vox_logs_count
+ *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, $operator = '>=', $count = 1, $boolean = 'and', ?\Closure $callback = null)
  * @method static \Database\Factories\CharacterFactory factory(...$parameters)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character filter($request)
@@ -90,6 +92,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUpdatedAt($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUserId($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereVox($value)
+ *
  * @mixin \Eloquent
  */
 class Character extends Model

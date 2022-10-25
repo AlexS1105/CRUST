@@ -10,6 +10,8 @@ use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
@@ -51,7 +53,7 @@ return [
     |
     */
 
-    'ide' => null,
+    'ide' => 'phpstorm',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,6 +88,7 @@ return [
         ReturnTypeHintSniff::class,
         UselessFunctionDocCommentSniff::class,
         DisallowEqualOperatorsSniff::class,
+        UnusedUsesSniff::class,
     ],
 
     'config' => [

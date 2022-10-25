@@ -14,7 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $character_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read Character $character
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Idea newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Idea newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Idea query()
@@ -24,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Idea extends Model

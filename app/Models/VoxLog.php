@@ -17,8 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $reason
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read Character $character
  * @property-read User|null $issuedBy
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog query()
@@ -31,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog whereIssuedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog whereReason($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VoxLog whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class VoxLog extends Model

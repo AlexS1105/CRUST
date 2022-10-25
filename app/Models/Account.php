@@ -13,7 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $login
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Account newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Account newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Account query()
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereLogin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Account whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Account extends Model

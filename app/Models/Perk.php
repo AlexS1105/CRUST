@@ -17,8 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $general_description
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<PerkVariant> $variants
  * @property-read int|null $variants_count
+ *
  * @method static \Database\Factories\PerkFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk hasAllFlags(string $column, array $flags)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk hasAnyFlags(string $column, array $flags)
@@ -35,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Perk extends Model
