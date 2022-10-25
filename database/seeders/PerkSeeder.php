@@ -19,9 +19,9 @@ class PerkSeeder extends Seeder
             if (rand(1, 2) === 1) {
                 $type = PerkType::set($type, PerkType::Combat);
 
-                if (rand(1, 3) === 1) {
+                if (rand(1, 2) === 1) {
                     $type = PerkType::set($type, PerkType::Attack);
-                } elseif (rand(1, 3) === 1) {
+                } else {
                     $type = PerkType::set($type, PerkType::Defence);
                 }
             }
