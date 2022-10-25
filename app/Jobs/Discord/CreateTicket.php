@@ -8,6 +8,8 @@ class CreateTicket extends TicketJob
 {
     public function handle(DiscordService $discordService)
     {
-        $discordService->createRegistrationTicket($this->character);
+        if (!isset($this->character->ticket)) {
+            $discordService->createRegistrationTicket($this->character);
+        }
     }
 }

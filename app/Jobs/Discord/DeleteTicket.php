@@ -8,6 +8,8 @@ class DeleteTicket extends TicketJob
 {
     public function handle(DiscordService $discordService)
     {
-        $discordService->deleteRegistrationTicket($this->character);
+        if (isset($this->character->ticket)) {
+            $discordService->deleteRegistrationTicket($this->character);
+        }
     }
 }
