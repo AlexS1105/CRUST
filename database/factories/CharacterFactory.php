@@ -33,10 +33,15 @@ class CharacterFactory extends Factory
             'appearance' => $this->faker->paragraph(10),
             'background' => $this->faker->paragraphs(100, true),
             'login' => $this->faker->userName(),
+            'info_hidden' => $this->faker->boolean(),
+            'bio_hidden' => $this->faker->boolean(),
             'user_id' => User::factory(),
             'registrar_id' => User::factory(),
             'status' => CharacterStatus::from(array_rand(CharacterStatus::cases())),
             'status_updated_at' => now(),
+            'personality' => $this->faker->paragraph(),
+            'player_only_info' => $this->faker->paragraph(),
+            'gm_only_info' => $this->faker->paragraph(),
         ];
     }
 }

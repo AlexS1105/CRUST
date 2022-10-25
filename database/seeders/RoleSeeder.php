@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
 
         $permissions = [
             'character-create-unlimited' => [$admin],
-            'character-view' => [$admin, $gamemaster],
+            'character-view' => [$admin, $registrar, $gamemaster],
             'character-manage' => [$admin, $gamemaster],
             'character-force-delete' => [$admin],
             'character-vox' => [$admin],
