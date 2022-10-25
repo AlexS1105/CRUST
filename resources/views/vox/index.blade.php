@@ -33,7 +33,7 @@
                     </thead>
                     <tbody>
                     @foreach ($character->voxLogs->sortBy('created_at') as $voxLog)
-                        <tr class="py-2 hover:bg-{{ $voxLog->delta > 0 ? 'green' : 'red' }}-200 text-center bg-{{ $voxLog->delta > 0 ? 'green' : 'red' }}-100">
+                        <tr class="py-2 hover:{{ $voxLog->delta > 0 ? 'bg-green' : 'bg-red' }}-200 text-center {{ $voxLog->delta > 0 ? 'bg-green' : 'bg-red' }}-100">
                             <td class="px-4 py-2 border border-gray-400">
                                 {{ $voxLog->created_at }}
                             </td>

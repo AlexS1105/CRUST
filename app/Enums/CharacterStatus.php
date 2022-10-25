@@ -25,6 +25,16 @@ enum CharacterStatus: int
         };
     }
 
+    public function bgColor()
+    {
+        return 'bg-'.$this->color();
+    }
+
+    public function ringColor()
+    {
+        return 'ring-'.$this->color();
+    }
+
     public function hasRegistrar()
     {
         return match ($this) {

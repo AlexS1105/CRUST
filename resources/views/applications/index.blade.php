@@ -10,8 +10,8 @@
             <div class="flex mb-4 gap-4 items-center">
                 @foreach (App\Enums\CharacterStatus::cases() as $_status)
                     <a href="{{ route('applications.index', [ 'status' => $_status->value ]) }}"
-                       class="{{ $status == $_status ?:"opacity-40" }}">
-                        <x-character.status :status=$_status />
+                       class="{{ $status == $_status->value ?:"opacity-40" }}">
+                        <x-character.status :status=$_status/>
                     </a>
                 @endforeach
 

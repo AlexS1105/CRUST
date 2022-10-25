@@ -7,7 +7,7 @@
     @endif
 
     <button
-        class="px-4 py-2 bg-{{ $color }} hover:bg-{{ $colorHover }} focus:outline-none focus:border-{{ $colorRing }} focus:ring ring-{{ $colorRing }} rounded-full shadow"
+        class="px-4 py-2 {{ $color }} hover:{{ $colorHover }} focus:outline-none focus:{{ $colorRing }} focus:ring {{ $colorRing }} rounded-full shadow"
         type="submit"
         onclick="{{ $confirmationText }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24"

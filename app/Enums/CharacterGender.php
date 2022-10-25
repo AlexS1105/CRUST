@@ -20,9 +20,9 @@ enum CharacterGender: int
     public function color()
     {
         return match ($this) {
-            CharacterGender::Male => 'blue-400',
-            CharacterGender::Female => 'pink-400',
-            CharacterGender::Other => 'gray-400',
+            CharacterGender::Male => 'text-blue-600',
+            CharacterGender::Female => 'text-pink-400',
+            CharacterGender::Other => 'text-gray-400',
         };
     }
 

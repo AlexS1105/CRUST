@@ -61,7 +61,7 @@
                                 <b>{{ __('label.gender') }}:</b>
                                 {{ $character->gender->localized() }}
                                 <div
-                                    class="text-2xl fa {{ $character->gender->icon() }} text-{{ $character->gender->color() }}"></div>
+                                    class="text-2xl fa {{ $character->gender->icon() }} {{ $character->gender->color() }}"></div>
                             </div>
                             <div>
                                 <b>{{ __('label.race') }}:</b> {{ $character->race }}
