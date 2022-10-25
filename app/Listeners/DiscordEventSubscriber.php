@@ -129,19 +129,16 @@ class DiscordEventSubscriber
         ];
 
         if (! $user->is($character->user)) {
-            array_push(
-                $jobs,
-                new SendCharacterNotification($character, new ApplicationReapprovalNotification($character, $user))
+            $jobs[] = new SendCharacterNotification(
+                $character,
+                new ApplicationReapprovalNotification($character, $user)
             );
         }
 
         if ($character->registrar->id !== $user->id) {
-            array_push(
-                $jobs,
-                new SendRegistrarNotification(
-                    $character->registrar,
-                    new ApplicationReapprovalNotification($character, $user)
-                )
+            $jobs[] = new SendRegistrarNotification(
+                $character->registrar,
+                new ApplicationReapprovalNotification($character, $user)
             );
         }
 
@@ -152,7 +149,7 @@ class DiscordEventSubscriber
     {
         $account = $event->account;
 
-        SendUserNotification::dispatch($account->user, new UserAccountCreatedNotification($account));
+        SendUserNotification::dispatch($account->user, new UserAccountCreatedNotification($account->login));
     }
 
     public function handleUserAccountDeleted($event)

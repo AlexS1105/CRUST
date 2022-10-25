@@ -5,67 +5,36 @@ namespace App\Notifications;
 use App\Models\Character;
 use App\Models\User;
 use NotificationChannels\Discord\DiscordMessage;
+use Termwind\Enums\Color;
 
-class ApplicationReapprovalNotification extends DiscordNotification
+class ApplicationReapprovalNotification extends CharacterNotification
 {
-    public $character;
-    public $user;
+    protected $color = Color::AMBER_500;
+    protected $user;
 
-    public function __construct(Character $character, User $user, $isRegistrar = false)
+    public function __construct(Character $character, User $user)
     {
-        $this->character = $character;
+        parent::__construct($character);
+
         $this->user = $user;
-        $this->registrarNotification = $isRegistrar;
     }
 
     public function toDiscord($notifiable)
     {
-        $url = route('characters.show', $this->character);
         $character = $this->character;
         $user = $this->user;
-        $registrar = $character->registrar;
-        $ticketLink = $character->ticket->link();
-        $embed = [
-            'title' => ($notifiable->is(
-                $character->user
-            ) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
-            'description' => "{$user->discord_tag} что-то не понравилось.
 
-            Игровой аккаунт отключен до повторной проверки регистратором {$registrar->discord_tag}.",
-            'url' => $url,
-            'color' => 0xFCD34D,
-            'image' => [
-                'url' => $character->getResizedReference(400),
-            ],
-            'author' => [
-                'name' => $user->discord_tag,
-            ],
-            'fields' => [
-                [
-                    'name' => 'Пол',
-                    'value' => $character->gender->localized(),
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Раса',
-                    'value' => $character->race,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Возраст',
-                    'value' => $character->age,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Описание',
-                    'value' => $character->description."
+        return DiscordMessage::create(
+            '',
+            array_merge($this->getEmbed(), [
+                'title' => ($notifiable->is(
+                        $character->user
+                    ) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
+                'description' => "{$user->discord_tag} что-то не понравилось.
 
-                    [**Страница персонажа**]({$url})
-                    [**Тикет для обсуждения**]({$ticketLink})",
-                ],
-            ],
-        ];
-
-        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
+            Игровой аккаунт отключен до повторной проверки регистратором {$character->registrar->discord_tag}.",
+                'author' => $this->authorField($user, false),
+            ])
+        );
     }
 }

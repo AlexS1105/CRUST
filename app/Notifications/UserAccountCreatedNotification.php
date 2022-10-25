@@ -2,42 +2,30 @@
 
 namespace App\Notifications;
 
-use App\Models\Account;
 use NotificationChannels\Discord\DiscordMessage;
+use Termwind\Enums\Color;
 
 class UserAccountCreatedNotification extends DiscordNotification
 {
-    public $account;
+    protected $color = Color::BLUE_500;
+    protected $login;
 
-    public function __construct(Account $account)
+    public function __construct($login)
     {
-        $this->account = $account;
+        $this->login = $login;
     }
 
-    public function toDiscord($notifiable)
+    public function toDiscord()
     {
-        $appUrl = config('app.url');
-        $login = $this->account->login;
-        $launcherUrl = config('services.launcherurl');
-
-        $embed = [
-            'title' => 'Для Вас создан новый аккаунт!',
-            'description' => 'Вы можете использовать указанные ниже данные для входа в игру.',
-            'url' => $appUrl,
-            'color' => 0x93c47d,
-            'fields' => [
-                [
-                    'name' => '**Данные для входа**',
-                    'value' => "**Логин:** {$login}
-                    **Пароль:** Такой же, как у аккаунта здесь
-                    
-                    **Приятной игры!**
-                    
-                    [**Скачать лаунчер**]({$launcherUrl})",
+        return DiscordMessage::create(
+            '',
+            array_merge_recursive($this->getEmbed(), [
+                'title' => 'Для Вас создан новый аккаунт!',
+                'description' => 'Вы можете использовать указанные ниже данные для входа в игру.',
+                'fields' => [
+                    $this->loginData($this->login),
                 ],
-            ],
-        ];
-
-        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
+            ])
+        );
     }
 }

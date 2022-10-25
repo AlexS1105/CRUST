@@ -2,57 +2,23 @@
 
 namespace App\Notifications;
 
-use App\Models\Character;
 use NotificationChannels\Discord\DiscordMessage;
+use Termwind\Enums\Color;
 
-class ApplicationCanceledNotification extends DiscordNotification
+class ApplicationCanceledNotification extends CharacterNotification
 {
-    public $character;
+    protected $color = Color::AMBER_500;
 
-    public function __construct(Character $character)
+    public function toDiscord()
     {
-        $this->character = $character;
-    }
-
-    public function toDiscord($notifiable)
-    {
-        $url = route('characters.show', $this->character);
-        $character = $this->character;
-        $embed = [
-            'title' => "Ваш персонаж '{$character->name}' снят с проверки",
-            'description' => '*Что-то пошло не так*
+        return DiscordMessage::create(
+            '',
+            array_merge_recursive($this->getEmbed(), [
+                'title' => "Ваш персонаж '{$this->character->name}' снят с проверки",
+                'description' => '*Что-то пошло не так*
 
             Новый регистратор возьмёт Вашего персонажа на проверку в ближайшее время.',
-            'url' => $url,
-            'color' => 0xFCD34D,
-            'image' => [
-                'url' => $character->getResizedReference(400),
-            ],
-            'fields' => [
-                [
-                    'name' => 'Пол',
-                    'value' => $character->gender->localized(),
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Раса',
-                    'value' => $character->race,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Возраст',
-                    'value' => $character->age,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Описание',
-                    'value' => $character->description."
-
-                    [**Страница персонажа**]({$url})",
-                ],
-            ],
-        ];
-
-        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
+            ])
+        );
     }
 }

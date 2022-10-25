@@ -2,61 +2,23 @@
 
 namespace App\Notifications;
 
-use App\Models\Character;
 use NotificationChannels\Discord\DiscordMessage;
+use Termwind\Enums\Color;
 
-class ApplicationTakenNotification extends DiscordNotification
+class ApplicationTakenNotification extends CharacterNotification
 {
-    public $character;
+    protected $color = Color::BLUE_500;
 
-    public function __construct(Character $character)
+    public function toDiscord()
     {
-        $this->character = $character;
-    }
-
-    public function toDiscord($notifiable)
-    {
-        $url = route('characters.show', $this->character);
         $character = $this->character;
-        $registrar = $character->registrar;
-        $ticketLink = $character->ticket->link();
-        $embed = [
-            'title' => "Ваш персонаж '{$character->name}' взят на проверку!",
-            'description' => "Регистратор {$registrar->discord_tag} проверит её как можно скорее.",
-            'url' => $url,
-            'color' => 0x60A5FA,
-            'image' => [
-                'url' => $character->getResizedReference(400),
-            ],
-            'author' => [
-                'name' => $registrar->discord_tag,
-            ],
-            'fields' => [
-                [
-                    'name' => 'Пол',
-                    'value' => $character->gender->localized(),
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Раса',
-                    'value' => $character->race,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Возраст',
-                    'value' => $character->age,
-                    'inline' => true,
-                ],
-                [
-                    'name' => 'Описание',
-                    'value' => $character->description."
 
-                    [**Страница персонажа**]({$url})
-                    [**Тикет для обсуждения**]({$ticketLink})",
-                ],
-            ],
-        ];
-
-        return DiscordMessage::create('', array_merge($this->getEmbed(), $embed));
+        return DiscordMessage::create(
+            '',
+            array_merge_recursive($this->getEmbed(), [
+                'title' => "Ваш персонаж '{$character->name}' взят на проверку!",
+                'description' => "Регистратор {$character->registrar->discord_tag} проверит её как можно скорее.",
+            ])
+        );
     }
 }
