@@ -37,7 +37,8 @@ class CharacterPolicy
 
     public function updateCharsheet(User $user, Character $character)
     {
-        return (!$character->registered && ($user->owns($character) || $user->registers($character)))
+        return (!$character->registered && $user->owns($character))
+            || $user->registers($character)
             || $user->hasPermissionTo('character-manage');
     }
 
@@ -200,7 +201,8 @@ class CharacterPolicy
     public function ideaToSphere(User $user, Character $character)
     {
         return count($character->spheres) > 0
-            && $user->hasPermissionTo('character-manage');
+            && ($user->owns($character)
+                || $user->hasPermissionTo('character-manage'));
     }
 
     public function manageIdeas(User $user, Character $character)
