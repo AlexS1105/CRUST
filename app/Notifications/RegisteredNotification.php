@@ -3,9 +3,12 @@
 namespace App\Notifications;
 
 use NotificationChannels\Discord\DiscordMessage;
+use Termwind\Enums\Color;
 
 class RegisteredNotification extends DiscordNotification
 {
+    protected $color = Color::BLUE_500;
+
     public function toDiscord($notifiable)
     {
         $profileLink = route('users.edit', $notifiable);
