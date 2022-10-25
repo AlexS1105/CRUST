@@ -38,10 +38,10 @@ class ApplicationService
 
     public function cancelApproval($character)
     {
+        event(new CharacterCanceled($character));
+
         $character->status = CharacterStatus::Pending;
         $character->save();
-
-        event(new CharacterCanceled($character));
     }
 
     public function changesRequested($character)
