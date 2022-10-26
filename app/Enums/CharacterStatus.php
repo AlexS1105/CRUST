@@ -13,6 +13,11 @@ enum CharacterStatus: int
     case Approved = 4;
     case Deleting = 5;
 
+    public function bgColor()
+    {
+        return 'bg-'.$this->color();
+    }
+
     public function color()
     {
         return match ($this) {
@@ -23,11 +28,6 @@ enum CharacterStatus: int
             CharacterStatus::Approved => 'green-400',
             CharacterStatus::Deleting => 'red-400',
         };
-    }
-
-    public function bgColor()
-    {
-        return 'bg-'.$this->color();
     }
 
     public function ringColor()

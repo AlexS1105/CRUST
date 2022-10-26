@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8b40dab0e2cf988cb303f7554e73437",
+    "content-hash": "d75b3a01593eb4aa0710c24a667f1cd8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1240,6 +1240,85 @@
                 "source": "https://github.com/firebase/php-jwt/tree/v6.3.0"
             },
             "time": "2022-07-15T16:48:45+00:00"
+        },
+        {
+            "name": "fiveam-code/laravel-notion-api",
+            "version": "v0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/5am-code/laravel-notion-api.git",
+                "reference": "4f75db65b22cb600ffdfba14eab49b1ef36bee54"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/5am-code/laravel-notion-api/zipball/4f75db65b22cb600ffdfba14eab49b1ef36bee54",
+                "reference": "4f75db65b22cb600ffdfba14eab49b1ef36bee54",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0.1",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "FiveamCode\\LaravelNotionApi\\LaravelNotionApiServiceProvider"
+                    ],
+                    "aliases": {
+                        "Notion": "FiveamCode\\LaravelNotionApi\\NotionFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FiveamCode\\LaravelNotionApi\\": "src",
+                    "FiveamCode\\LaravelNotionApi\\Endpoints\\": "src/Endpoints",
+                    "FiveamCode\\LaravelNotionApi\\Exceptions\\": "src/Exceptions"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Diana Scharf",
+                    "email": "hello@dianaweb.dev",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Johannes Güntner",
+                    "email": "johannes.guentner@it-guentner.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Wrapper for the Notion API",
+            "homepage": "https://github.com/fiveam-code/laravel-notion-api",
+            "keywords": [
+                "api-wrapper",
+                "fiveam-code",
+                "laravel",
+                "laravel-notion-api",
+                "notion",
+                "notion-api"
+            ],
+            "support": {
+                "issues": "https://github.com/5am-code/laravel-notion-api/issues",
+                "source": "https://github.com/5am-code/laravel-notion-api/tree/v0.8.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/5amcode",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-08-01T16:46:22+00:00"
         },
         {
             "name": "framjet/enum-bitmask",

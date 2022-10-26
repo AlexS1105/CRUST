@@ -37,7 +37,7 @@ class CharacterPolicy
 
     public function updateCharsheet(User $user, Character $character)
     {
-        return (!$character->registered && $user->owns($character))
+        return (! $character->registered && $user->owns($character))
             || $user->registers($character)
             || $user->hasPermissionTo('character-manage');
     }
@@ -87,7 +87,7 @@ class CharacterPolicy
     public function takeForApproval(User $user, Character $character)
     {
         return $character->status === CharacterStatus::Pending
-            && (!$user->owns($character)
+            && (! $user->owns($character)
                 && $user->hasPermissionTo('application-approval')
                 || $user->hasPermissionTo('application-admin'));
     }
@@ -135,7 +135,7 @@ class CharacterPolicy
 
     public function seeMainInfo(User $user, Character $character)
     {
-        return !$character->info_hidden
+        return ! $character->info_hidden
             || $character->info_hidden
             && ($user->owns($character)
                 || $user->is($character->registrar)
@@ -144,7 +144,7 @@ class CharacterPolicy
 
     public function seeBio(User $user, Character $character)
     {
-        return !$character->bio_hidden
+        return ! $character->bio_hidden
             || $character->bio_hidden
             && ($user->owns($character)
                 || $user->is($character->registrar)

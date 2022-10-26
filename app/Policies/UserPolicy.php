@@ -36,13 +36,13 @@ class UserPolicy
     public function ban(User $user, User $model)
     {
         return $user->hasPermissionTo('user-ban')
-            && !$user->is($model);
+            && ! $user->is($model);
     }
 
     public function unban(User $user, User $model)
     {
         return $user->hasPermissionTo('user-ban')
-            && !$user->is($model);
+            && ! $user->is($model);
     }
 
     public function accounts(User $user, User $model)
