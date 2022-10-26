@@ -124,6 +124,7 @@ class Character extends Model
         'vox',
         'personality',
         'last_idea',
+        'notion_page',
     ];
 
     protected $casts = [
@@ -269,6 +270,13 @@ class Character extends Model
 
                 return $value;
             }
+        );
+    }
+
+    public function notionTitle(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->id . ' ' . $this->login . ' | ' . $this->name,
         );
     }
 }

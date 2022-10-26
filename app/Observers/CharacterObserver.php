@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Jobs\ExportCharacter;
 use App\Models\Character;
+use App\Services\NotionService;
 
 class CharacterObserver
 {
@@ -29,9 +31,13 @@ class CharacterObserver
     public function updated(Character $character)
     {
         info('Character updated', [
-            'user' => auth()->user()->login,
+            'user' => auth()->user() !== null ? auth()->user()->login : null,
             'character' => $character->login,
         ]);
+
+        if ($character->registered) {
+            ExportCharacter::dispatch($character);
+        }
     }
 
     /**
