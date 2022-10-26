@@ -32,7 +32,13 @@ class CharacterService
 
     public function deleteReferences($character)
     {
-        Storage::disk('characters')->deleteDirectory($character->id);
+        $disk = Storage::disk('characters');
+
+        foreach ($disk->files($character->id) as $file) {
+            if (\Str::startsWith(basename($file), 'reference')) {
+                $disk->delete($file);
+            }
+        }
     }
 
     public function resizeReference($fileName, $size)

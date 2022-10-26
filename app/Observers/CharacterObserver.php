@@ -3,8 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Character;
-use App\Services\CharacterService;
-use App\Services\SkinService;
 
 class CharacterObserver
 {
@@ -46,7 +44,6 @@ class CharacterObserver
     {
         $character->charsheet?->delete();
 
-        app(CharacterService::class)->deleteReferences($character);
-        app(SkinService::class)->deleteSkin($character, 'default');
+        \Storage::disk('characters')->deleteDirectory($character->id);
     }
 }
