@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\CharacterSkill;
-use App\Models\Character;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\NotionFacade;
 use FiveamCode\LaravelNotionApi\Query\Filters\Filter;

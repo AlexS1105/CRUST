@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Jobs\ExportCharacter;
 use App\Models\Character;
-use App\Services\NotionService;
 
 class CharacterObserver
 {
