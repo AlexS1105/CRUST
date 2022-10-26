@@ -71,7 +71,7 @@ class CharsheetService
             $pivot = $perkVariant->pivot;
             $active = $pivot->active;
 
-            if ($character->vox <= 0 && !$active) {
+            if ($character->vox <= 0 && ! $active) {
                 throw new Exception('validation.vox.not_enough');
             }
 
@@ -79,7 +79,7 @@ class CharsheetService
                 return [
                     $variant->perk_id => [
                         'variant' => $variant,
-                        'active' => $variant->is($perkVariant) ? !$active : $variant->pivot->active,
+                        'active' => $variant->is($perkVariant) ? ! $active : $variant->pivot->active,
                         'note' => $variant->pivot->note,
                     ],
                 ];
@@ -103,7 +103,7 @@ class CharsheetService
                 );
             }
 
-            $character->perkVariants()->updateExistingPivot($perkVariant->id, ['active' => !$active]);
+            $character->perkVariants()->updateExistingPivot($perkVariant->id, ['active' => ! $active]);
 
             info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
                 'user' => auth()->user()->login,
@@ -153,7 +153,7 @@ class CharsheetService
                     $perksCollection[$perkId] = [
                         'variant' => $perkVariants->firstWhere('id', $perkData['id']),
                         'note' => $perkData['note'],
-                        'active' => !$edit || isset($perkData['active']),
+                        'active' => ! $edit || isset($perkData['active']),
                     ];
                 }
             }

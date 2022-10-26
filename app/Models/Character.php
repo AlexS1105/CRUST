@@ -226,7 +226,7 @@ class Character extends Model
                     'status_updated_at' => now(),
                 ];
 
-                if (!$value->hasRegistrar()) {
+                if (! $value->hasRegistrar()) {
                     $attributes['registrar_id'] = null;
                 }
 
@@ -276,7 +276,7 @@ class Character extends Model
     public function notionTitle(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->id . ' ' . $this->login . ' | ' . $this->name,
+            get: fn () => $this->id.' '.$this->login.' | '.$this->name,
         );
     }
 }

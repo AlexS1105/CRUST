@@ -58,5 +58,5 @@ return [
     ],
     'notion' => [
         'characters_database' => env('NOTION_CHARACTERS_DATABASE'),
-    ]
+    ],
 ];

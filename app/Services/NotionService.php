@@ -36,9 +36,12 @@ class NotionService
 
         $character->load('perkVariants.perk');
 
-        $page->setMultiSelect('Перки', $character->perkVariants->map(function ($perkVariant) {
-            return $perkVariant->perk->name;
-        })->toArray());
+        $page->setMultiSelect(
+            'Перки',
+            $character->perkVariants->map(function ($perkVariant) {
+                return $perkVariant->perk->name;
+            })->toArray()
+        );
     }
 
     public function fetchCharacterPage($character)
@@ -48,8 +51,8 @@ class NotionService
                 Filter::textFilter(
                     'Name',
                     Operators::STARTS_WITH,
-                    $character->id . ' '
-                )
+                    $character->id.' '
+                ),
             ]
         );
 

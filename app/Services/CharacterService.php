@@ -41,6 +41,14 @@ class CharacterService
         }
     }
 
+    public function delete($character)
+    {
+        $character->status = CharacterStatus::Deleting;
+        $character->save();
+
+        event(new CharacterDeleted($character));
+    }
+
     public function resizeReference($fileName, $size)
     {
         $disk = Storage::disk('characters');
@@ -72,13 +80,5 @@ class CharacterService
         event(new CharacterCompletelyDeleted($character));
 
         $character->delete();
-    }
-
-    public function delete($character)
-    {
-        $character->status = CharacterStatus::Deleting;
-        $character->save();
-
-        event(new CharacterDeleted($character));
     }
 }

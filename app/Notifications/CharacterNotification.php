@@ -23,7 +23,7 @@ class CharacterNotification extends DiscordNotification
                 'url' => $character->getResizedReference(400),
             ],
             'author' => $this->authorField(
-                ...($this->registrarNotification || !isset($character->registrar)
+                ...($this->registrarNotification || ! isset($character->registrar)
                 ? [$character->user] : [$character->registrar, false])
             ),
             'fields' => [

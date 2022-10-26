@@ -28,8 +28,8 @@ class ApplicationReapprovalNotification extends CharacterNotification
             '',
             array_merge($this->getEmbed(), [
                 'title' => ($notifiable->is(
-                        $character->user
-                    ) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
+                    $character->user
+                ) ? 'Ваш' : 'Проверенный Вами')." персонаж '{$character->name}' отправлен на перепроверку",
                 'description' => "{$user->discord_tag} что-то не понравилось.
 
             Игровой аккаунт отключен до повторной проверки регистратором {$character->registrar->discord_tag}.",
