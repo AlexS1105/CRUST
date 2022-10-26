@@ -56,4 +56,7 @@ return [
     'wiki' => [
         'rules_link' => env('RULES_LINK'),
     ],
+    'notion' => [
+        'characters_database' => env('NOTION_CHARACTERS_DATABASE'),
+    ]
 ];
