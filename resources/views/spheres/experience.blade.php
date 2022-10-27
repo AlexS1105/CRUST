@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST"
               action="{{ route('characters.spheres.experience', ['character' => $character, 'sphere' => $sphere]) }}">
             @csrf
@@ -16,9 +16,7 @@
                                :labels="$character->experiences->pluck('name')" :value="old('experience')"/>
                 <x-form.input name="value" required type="number" min="1" max="10" :value="old('value', 1)"/>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

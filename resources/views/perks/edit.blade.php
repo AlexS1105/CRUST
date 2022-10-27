@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST" action="{{ route('perks.update', $perk) }}">
             @csrf
             @method('PATCH')
@@ -24,9 +24,7 @@
                 <x-form.checkbox name="defence"
                                  value="{{ old('defence', $perk->isDefence()) }}"/>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

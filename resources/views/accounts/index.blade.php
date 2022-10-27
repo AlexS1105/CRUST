@@ -7,10 +7,10 @@
 
     <x-container class="max-w-2xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
-            <a class="font-bold underline text-blue-600 visited:text-purple-600"
+            <x-link
                href="{{ route('users.accounts.create', $user) }}">
                 {{ __('accounts.create') }}
-            </a>
+            </x-link>
             @if(count($user->accounts))
                 <table class="table-auto w-full border">
                     <thead class="border bg-gray-200">
@@ -36,12 +36,11 @@
                                         @method('DELETE')
                                         @csrf
 
-                                        <a
-                                            class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer"
+                                        <x-link
                                             onclick="event.preventDefault();this.closest('form').submit();"
                                         >
                                             {{ __('accounts.delete') }}
-                                        </a>
+                                        </x-link>
                                     </form>
                                 </div>
                             </td>

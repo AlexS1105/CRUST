@@ -40,8 +40,8 @@
     @if (count($user->characters))
         <x-character.list :characters="$user->characters"/>
     @else
-        <div class="text-gray-300 text-6xl text-center font-bold mt-40">
+        <x-text-bg>
             {{ __('characters.empty') }}
-        </div>
+        </x-text-bg>
     @endif
 </x-app-layout>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form method="POST" action="{{ route('users.update', $user) }}">
             @csrf
             @method('PATCH')
@@ -62,9 +62,7 @@
                     </script>
                 @endcan
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

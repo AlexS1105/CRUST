@@ -196,5 +196,12 @@ return [
         'login' => 'Логин',
         'expires' => 'Истекает',
         'now' => 'Сейчас',
+        'reference' => 'Арт',
+        'race' => 'Раса',
+        'appearance' => 'Внешность',
+        'personality' => 'Характер',
+        'background' => 'Предыстория',
+        'player_only_info' => 'Скрытая информация',
+        'gm_only_info' => 'Гейммастерская информация',
     ],
 ];

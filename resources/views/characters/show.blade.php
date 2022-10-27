@@ -1,60 +1,70 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center text-gray-600">
-            <div class="flex-shrink-0">
-                <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
-                    {{ $character->name }}
-                </h2>
-                <div class="font-thin text-base">
-                    {{ __('label.player') }}:
-                    <a
-                        @can('view', $character->user)
-                            class="font-bold underline text-blue-600 visited:text-purple-600"
-                        href="{{ route('users.show', $character->user) }}"
-                        @endcan
-                    >
-                        {{ $character->user->login }}
-                    </a>
-                </div>
-                <div class="font-thin text-base">
-                    Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
-                </div>
-                <div class="font-thin text-base">
-                    {{ __('label.login') }}: <span class="select-all">{{ $character->login }}</span>
-                </div>
+@extends('layouts.app')
+
+@section('title', $character->name)
+
+@section('header')
+    <div class="lg:flex lg:justify-between lg:items-center text-gray-600">
+        <div class="text-center text-lg md:text-left">
+            <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
+                {{ $character->name }}
+            </h2>
+
+            <div class="font-thin text-base">
+                {{ __('label.player') }}:
+                <a
+                    @can('view', $character->user)
+                        class="font-bold underline text-blue-600 visited:text-purple-600"
+                    href="{{ route('users.show', $character->user) }}"
+                    @endcan
+                >
+                    {{ $character->user->login }}
+                </a>
             </div>
-            <div class="flex flex-wrap justify-center">
-                <x-application.actions :character="$character"/>
+
+            <div class="font-thin text-base">
+                Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
             </div>
-            <div>
-                <div class="flex items-center gap-4 font-bold text-xl">
-                    {{ __('label.status') }}:
-                    <x-character.status :status="$character->status"/>
-                </div>
-                @if ($character->registrar)
-                    <div class="font-thin text-base text-right mt-2">
-                        {{ __('label.registrar') }}: {{ $character->registrar->discord_tag }}
-                    </div>
-                @endif
+
+            <div class="font-thin text-base">
+                {{ __('label.login') }}: <span class="select-all">{{ $character->login }}</span>
             </div>
         </div>
-    </x-slot>
+        <div class="flex flex-wrap justify-center">
+            <x-application.actions :character="$character" :icons="false"/>
+        </div>
+        <div>
+            <div class="flex justify-center items-center gap-4 font-bold text-xl text-center mt-2 sm:mt-0">
+                <div class="hidden sm:block">{{ __('label.status') }}:</div>
 
+                <x-character.status :status="$character->status"/>
+            </div>
+            @if ($character->registrar)
+                <div class="font-thin text-base text-right mt-2">
+                    {{ __('label.registrar') }}:
+                    {{ $character->registrar->discord_tag }}
+                </div>
+            @endif
+        </div>
+    </div>
+@endsection
+
+@section('content')
     <x-container class="max-w-6xl space-y-8">
-        <div class="flex justify-center gap-8">
-            <div class="bg-white rounded-xl max-w-md my-auto shadow-lg row-span-3 flex-none overflow-hidden">
+        <div class="flex flex-wrap md:flex-nowrap justify-center gap-8 p-2 md:p-0">
+            <x-card class="max-w-md my-auto flex-none p-0">
                 <img
                     class="object-cover"
                     src="{{ Storage::disk('characters')->url($character->reference) }}"
                     alt="Character Reference"
                 />
-            </div>
+            </x-card>
+
             <div class="space-y-8 my-auto">
                 @can('see-main-info', $character)
-                    <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card class="mr-auto text-justify">
+                        <x-header>
                             {{ __('characters.cards.main_info') }}
-                        </h1>
+                        </x-header>
 
                         <div class="text-lg">
                             <div class="flex items-center gap-1">
@@ -63,120 +73,100 @@
                                 <div
                                     class="text-2xl fa {{ $character->gender->icon() }} {{ $character->gender->color() }}"></div>
                             </div>
+
                             <div>
                                 <b>{{ __('label.race') }}:</b> {{ $character->race }}
                             </div>
+
                             <div>
                                 <b>{{ __('label.age') }}:</b> {{ $character->age }}
                             </div>
                         </div>
-                    </div>
+                    </x-card>
                 @endcan
 
                 @can('see-main-info', $character)
-                    <div class="bg-white p-4 rounded-xl shadow-lg mr-auto text-justify">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card class="mr-auto text-justify">
+                        <x-header>
                             {{ __('label.description') }}
-                        </h1>
+                        </x-header>
 
-                        <div class="prose markdown max-w-none">{!! $character->description !!}</div>
-                    </div>
+                        <x-markdown class="max-w-none">{!! $character->description !!}</x-markdown>
+                    </x-card>
                 @endcan
 
                 @if ($character->appearance)
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card>
+                        <x-header>
                             {{ __('label.appearance') }}
-                        </h1>
+                        </x-header>
 
-                        <div class="prose markdown max-w-none">{!! $character->appearance !!}</div>
+                        <x-markdown class="max-w-none">{!! $character->appearance !!}</x-markdown>
+
                         @can('see-player-only-info', $character)
-                            <a class="font-bold underline text-blue-600 visited:text-purple-600"
-                               href="{{ route('characters.skins.index', $character) }}">
+                            <x-link href="{{ route('characters.skins.index', $character) }}">
                                 {{ __('skins.index') }}
-                            </a>
+                            </x-link>
                         @endcan
-                    </div>
+                    </x-card>
                 @endif
 
                 @can('see-player-only-info', $character)
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify max-w-max mx-auto">
-                        <h1 class="font-bold text-xl mb-2 max-w-max mx-auto">
+                    <x-card class=" max-w-max mx-auto">
+                        <x-header class="max-w-max mx-auto">
                             {{ __('label.vox') }}: {{ $character->vox }}
-                        </h1>
+                        </x-header>
 
                         <div class="space-x-2">
                             @can('vox-view', $character)
-                                <a class="font-bold underline text-blue-600"
-                                   href="{{ route('characters.vox.index', $character) }}">
+                                <x-link href="{{ route('characters.vox.index', $character) }}">
                                     {{ __('vox.index') }}
-                                </a>
+                                </x-link>
                             @endcan
+
                             @can('vox-create', $character)
-                                <a class="font-bold underline text-blue-600 visited:text-purple-600"
-                                   href="{{ route('characters.vox.create', $character) }}">
+                                <x-link href="{{ route('characters.vox.create', $character) }}">
                                     {{ __('vox.create') }}
-                                </a>
+                                </x-link>
                             @endcan
                         </div>
-                    </div>
+                    </x-card>
                 @endcan
             </div>
         </div>
 
         @if(isset($character->charsheet->skills) || $character->charsheet->hasAnyCrafts())
-            <div class="flex justify-center gap-8">
+            <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 @if(isset($character->charsheet->skills) && count($character->charsheet->skills))
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card class="w-full my-auto">
+                        <x-header>
                             {{ __('charsheet.skills') }}
-                        </h1>
+                        </x-header>
 
                         <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
                             @foreach ($character->charsheet->skills as $skill => $value)
-                                <div class="text-lg font-semibold text-right">
-                                    {{ __('skill.'.$skill) }}
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
-                                    <div class="bg-blue-400 rounded-full h-3" style="width: {{ $value * 10 }}%">
-                                        <div
-                                            class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
-                                            {{ $value }}
-                                        </div>
-                                    </div>
-                                </div>
+                                <x-progress value="{{ $value }}">{{ __('skill.'.$skill) }}</x-progress>
                             @endforeach
                         </div>
-                    </div>
+                    </x-card>
                 @endif
 
                 @if ($character->charsheet->hasAnyCrafts())
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
-                        <h1 class="font-bold text-xl mb-2">
-                            {{ __('charsheet.crafts') }}
-                        </h1>
+                    <x-card class="w-full my-auto">
+                        <x-header>
+                            {{ __('charsheet.crafts.index') }}
+                        </x-header>
 
                         @if($character->charsheet->hasAnyCrafts())
                             <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
                                 @foreach ($character->charsheet->crafts as $craft => $value)
                                     @if($value)
-                                        <div class="text-lg font-semibold text-right">
-                                            {{ __('craft.'.$craft) }}
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full my-auto p-0.5">
-                                            <div class="bg-blue-400 rounded-full h-3"
-                                                 style="width: {{ $value / App\Enums\CharacterCraft::from($craft)->getMaxTier() * 100 }}%">
-                                                <div
-                                                    class="text-sm font-medium text-white text-center leading-none {{ $value == 0 ? "hidden" : "" }}">
-                                                    {{ $value }}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <x-progress value="{{ $value }}">{{ __('craft.'.$craft) }}</x-progress>
                                     @endif
                                 @endforeach
                             </div>
                         @endif
-                    </div>
+                    </x-card>
                 @endif
             </div>
         @endif
@@ -186,92 +176,55 @@
                 $narrativeCraftsVisible = Auth::user()->can('update-charsheet-gm', $character) || count($character->narrativeCrafts);
                 $experiencesVisible = Auth::user()->can('update-charsheet-gm', $character) || count($character->experiences);
             @endphp
+
             @if ($narrativeCraftsVisible || $experiencesVisible)
                 <div class="flex justify-center gap-8">
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
+                    <x-card class="w-full my-auto">
                         @if($narrativeCraftsVisible)
-                            <h1 class="font-bold text-xl mb-2">
+                            <x-header>
                                 {{ __('charsheet.narrative_crafts.title') }}
-                            </h1>
+                            </x-header>
+
                             <div id="narrative-craft-open" data-accordion="open">
                                 @foreach($character->narrativeCrafts as $narrativeCraft)
-                                    <h2 class="mt-2" id="narrative-craft-open-heading-{{$loop->iteration}}">
-                                        <button type="button"
-                                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100"
-                                                data-accordion-target="#narrative-craft-open-body-{{$loop->iteration}}"
-                                                aria-expanded="false"
-                                                aria-controls="narrative-craft-open-body-{{$loop->iteration}}">
-                                            <span>{{ $narrativeCraft->name }}</span>
-                                            <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0"
-                                                 fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="narrative-craft-open-body-{{$loop->iteration}}" class="hidden"
-                                         aria-labelledby="narrative-craft-open-heading-{{$loop->iteration}}">
-                                        <div class="p-2 font-light border border-t-0 border-gray-200">
-                                            <p class="mb-2 text-gray-500">{{ $narrativeCraft->description }}</p>
-                                        </div>
-                                        <div class="inline-flex flex-wrap" role="group">
+                                    <x-accordion-item id="narrative-craft" :loop="$loop">
+                                        <x-slot name="title">
+                                            {{ $narrativeCraft->name }}
+                                        </x-slot>
+
+                                        <x-slot name="content">
+                                            {{ $narrativeCraft->description }}
+                                        </x-slot>
+
+                                        <x-slot name="buttons">
                                             @can('update', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.narrative_crafts.edit', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                        </svg>
-                                                        {{ __('crafts.edit') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                    action="{{ route('characters.narrative_crafts.edit', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}"
+                                                    icon="fa-solid fa-pen-to-square"
+                                                >
+                                                    {{ __('crafts.edit') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="DELETE"
+                                                    action="{{ route('characters.narrative_crafts.destroy', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}"
+                                                    icon="fa-solid fa-trash"
+                                                    confirm="true"
+                                                >
+                                                    {{ __('crafts.delete') }}
+                                                </x-accordion-action>
                                             @endcan
-                                            @can('update', $character)
-                                                <form method="POST"
-                                                      action="{{ route('characters.narrative_crafts.destroy', ['character' => $character, 'narrative_craft' => $narrativeCraft]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        type="submit"
-                                                        class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100"
-                                                        onclick="if (!confirm('{{ __('ui.confirm', ['tip' => '']) }}')) {
-                              event.preventDefault();
-                            }"
-                                                    >
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                        {{ __('crafts.delete') }}
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
+                                        </x-slot>
+                                    </x-accordion-item>
                                 @endforeach
+
                                 @can('update-charsheet-gm', $character)
-                                    <form method="GET"
-                                          action="{{ route('characters.narrative_crafts.create', ['character' => $character]) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            {{ __('crafts.create') }}
-                                        </button>
-                                    </form>
+                                    <x-accordion-action class="mt-2 w-full border-t"
+                                                        method="GET"
+                                                        action="{{ route('characters.narrative_crafts.create', ['character' => $character]) }}"
+                                                        icon="fa-solid fa-circle-plus"
+                                    >
+                                        {{ __('crafts.create') }}
+                                    </x-accordion-action>
                                 @endcan
                             </div>
                         @endif
@@ -281,112 +234,63 @@
                         @endif
 
                         @if ($experiencesVisible)
-                            <h1 class="font-bold text-xl mb-2">
+                            <x-header>
                                 {{ __('experiences.index') }}
-                            </h1>
+                            </x-header>
+
                             <div id="experience-open" data-accordion="open">
                                 @foreach($character->experiences as $experience)
-                                    <h2 class="mt-2" id="experiences-open-heading-{{$loop->iteration}}">
-                                        <button type="button"
-                                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100"
-                                                data-accordion-target="#experience-open-body-{{$loop->iteration}}"
-                                                aria-expanded="false"
-                                                aria-controls="experience-open-body-{{$loop->iteration}}">
-                                            <span>{{ $experience->name }} ({{ $experience->level }})</span>
-                                            <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0"
-                                                 fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="experience-open-body-{{$loop->iteration}}" class="hidden"
-                                         aria-labelledby="experience-open-heading-{{$loop->iteration}}">
-                                        @if (isset($experience->description))
-                                            <div class="p-2 font-light border border-t-0 border-gray-200">
-                                                <p class="mb-2 text-gray-500">{{ $experience->description }}</p>
-                                            </div>
-                                        @endif
-                                        <div class="inline-flex flex-wrap" role="group">
+                                    <x-accordion-item id="experiences" :loop="$loop">
+                                        <x-slot name="title">
+                                            {{ $experience->name }}
+                                        </x-slot>
+
+                                        <x-slot name="content">
+                                            {{ $experience->description }}
+                                        </x-slot>
+
+                                        <x-slot name="buttons">
                                             @can('update', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.experiences.edit', ['character' => $character, 'experience' => $experience]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                        </svg>
-                                                        {{ __('experiences.edit') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.experiences.edit', ['character' => $character, 'experience' => $experience]) }}"
+                                                                    icon="fa-solid fa-pen-to-square"
+                                                >
+                                                    {{ __('experiences.edit') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="DELETE"
+                                                                    action="{{ route('characters.experiences.destroy', ['character' => $character, 'experience' => $experience]) }}"
+                                                                    icon="fa-solid fa-trash"
+                                                                    confirm="true"
+                                                >
+                                                    {{ __('experiences.delete') }}
+                                                </x-accordion-action>
                                             @endcan
+
                                             @can('update-charsheet-gm', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.experiences.set_view', ['character' => $character, 'experience' => $experience]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                                                        </svg>
-                                                        {{ __('experiences.set') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.experiences.set_view', ['character' => $character, 'experience' => $experience]) }}"
+                                                                    icon="fa-solid fa-sliders"
+                                                >
+                                                    {{ __('experiences.set') }}
+                                                </x-accordion-action>
                                             @endcan
-                                            @can('update', $character)
-                                                <form method="POST"
-                                                      action="{{ route('characters.experiences.destroy', ['character' => $character, 'experience' => $experience]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        type="submit"
-                                                        class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100"
-                                                        onclick="if (!confirm('{{ __('ui.confirm', ['tip' => '']) }}')) {
-                              event.preventDefault();
-                            }"
-                                                    >
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                        {{ __('experiences.delete') }}
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
+                                        </x-slot>
+                                    </x-accordion-item>
                                 @endforeach
+
                                 @can('update-charsheet-gm', $character)
-                                    <form method="GET"
-                                          action="{{ route('characters.experiences.create', ['character' => $character]) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            {{ __('experiences.create') }}
-                                        </button>
-                                    </form>
+                                    <x-accordion-action class="mt-2 w-full border-t"
+                                                        method="GET"
+                                                        action="{{ route('characters.experiences.create', ['character' => $character]) }}"
+                                                        icon="fa-solid fa-circle-plus"
+                                    >
+                                        {{ __('experiences.create') }}
+                                    </x-accordion-action>
                                 @endcan
                             </div>
                         @endif
-
-                        <x-form.error name="ideas"/>
-                    </div>
+                    </x-card>
                 </div>
             @endif
         @endcan
@@ -396,139 +300,77 @@
                 $spheresVisible = Auth::user()->can('add-sphere', $character) || count($character->spheres);
                 $ideasVisible = Auth::user()->can('add-idea', $character) || count($character->ideas);
             @endphp
+
             @if ($spheresVisible || $ideasVisible)
                 <div class="flex justify-center gap-8">
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-full my-auto">
+                    <x-card class="w-full my-auto">
                         @if($spheresVisible)
-                            <h1 class="font-bold text-xl mb-2">
+                            <x-header>
                                 {{ __('spheres.index') }}
-                            </h1>
+                            </x-header>
+
                             <div id="sphere-open" data-accordion="open">
                                 @foreach($character->spheres as $sphere)
-                                    <h2 class="mt-2" id="sphere-open-heading-{{$loop->iteration}}">
-                                        <button type="button"
-                                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100"
-                                                data-accordion-target="#sphere-open-body-{{$loop->iteration}}"
-                                                aria-expanded="false"
-                                                aria-controls="sphere-open-body-{{$loop->iteration}}">
-                                            <span>{{ $sphere->name }} ({{ $sphere->value }})</span>
-                                            <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0"
-                                                 fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="sphere-open-body-{{$loop->iteration}}" class="hidden"
-                                         aria-labelledby="sphere-open-heading-{{$loop->iteration}}">
-                                        @if (isset($sphere->description))
-                                            <div class="p-2 font-light border border-t-0 border-gray-200">
-                                                <p class="mb-2 text-gray-500">{{ $sphere->description }}</p>
-                                            </div>
-                                        @endif
-                                        <div class="inline-flex flex-wrap" role="group">
+                                    <x-accordion-item id="sphere" :loop="$loop">
+                                        <x-slot name="title">
+                                            {{ $sphere->name }}
+                                        </x-slot>
+
+                                        <x-slot name="content">
+                                            {{ $sphere->description }}
+                                        </x-slot>
+
+                                        <x-slot name="buttons">
                                             @can('manage-ideas', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.spheres.edit', ['character' => $character, 'sphere' => $sphere]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                        </svg>
-                                                        {{ __('spheres.edit') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.spheres.edit', ['character' => $character, 'sphere' => $sphere]) }}"
+                                                                    icon="fa-solid fa-pen-to-square"
+                                                >
+                                                    {{ __('spheres.edit') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.spheres.spend', ['character' => $character, 'sphere' => $sphere]) }}"
+                                                                    icon="fa-solid fa-arrow-right-to-bracket"
+                                                >
+                                                    {{ __('spheres.spend') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="DELETE"
+                                                                    action="{{ route('characters.spheres.destroy', ['character' => $character, 'sphere' => $sphere]) }}"
+                                                                    icon="fa-solid fa-trash"
+                                                                    confirm="true"
+                                                >
+                                                    {{ __('spheres.delete') }}
+                                                </x-accordion-action>
                                             @endcan
-                                            @can('manage-ideasGm', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.spheres.add_view', ['character' => $character, 'sphere' => $sphere]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                        </svg>
-                                                        {{ __('spheres.add') }}
-                                                    </button>
-                                                </form>
+                                            @can('manage-ideas-gm', $character)
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.spheres.add_view', ['character' => $character, 'sphere' => $sphere]) }}"
+                                                                    icon="fa-solid fa-circle-plus"
+                                                >
+                                                    {{ __('spheres.add') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.spheres.experience_view', ['character' => $character, 'sphere' => $sphere]) }}"
+                                                                    icon="fa-solid fa-lightbulb"
+                                                >
+                                                    {{ __('spheres.to_experience') }}
+                                                </x-accordion-action>
                                             @endcan
-                                            @can('manage-ideas', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.spheres.spend_view', ['character' => $character, 'sphere' => $sphere]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                                                        </svg>
-                                                        {{ __('spheres.spend') }}
-                                                    </button>
-                                                </form>
-                                                <form method="GET"
-                                                      action="{{ route('characters.spheres.experience_view', ['character' => $character, 'sphere' => $sphere]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                                                        </svg>
-                                                        {{ __('spheres.to_experience') }}
-                                                    </button>
-                                                </form>
-                                                <form method="POST"
-                                                      action="{{ route('characters.spheres.destroy', ['character' => $character, 'sphere' => $sphere]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        type="submit"
-                                                        class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100"
-                                                        onclick="if (!confirm('{{ __('ui.confirm', ['tip' => '']) }}')) {
-                              event.preventDefault();
-                            }"
-                                                    >
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                        {{ __('spheres.delete') }}
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
+                                        </x-slot>
+                                    </x-accordion-item>
                                 @endforeach
 
                                 @can('add-sphere', $character)
-                                    <form method="GET"
-                                          action="{{ route('characters.spheres.create', ['character' => $character]) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            {{ __('spheres.create') }}
-                                        </button>
-                                    </form>
+                                    <x-accordion-action class="mt-2 w-full border-t"
+                                                        method="GET"
+                                                        action="{{ route('characters.spheres.create', ['character' => $character]) }}"
+                                                        icon="fa-solid fa-circle-plus"
+                                    >
+                                        {{ __('spheres.create') }}
+                                    </x-accordion-action>
                                 @endcan
                             </div>
 
@@ -540,157 +382,95 @@
                         @endif
 
                         @if ($ideasVisible)
-                            <h1 class="font-bold text-xl mb-2">
+                            <x-header>
                                 {{ __('ideas.index') }}
-                            </h1>
+                            </x-header>
                             <div id="idea-open" data-accordion="open">
                                 @foreach($character->ideas as $idea)
-                                    <h2 class="mt-2" id="idea-open-heading-{{$loop->iteration}}">
-                                        <button type="button"
-                                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100"
-                                                data-accordion-target="#idea-open-body-{{$loop->iteration}}"
-                                                aria-expanded="false"
-                                                aria-controls="idea-open-body-{{$loop->iteration}}">
-                                            <span>{{ $idea->name }}</span>
-                                            <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0"
-                                                 fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="idea-open-body-{{$loop->iteration}}" class="hidden"
-                                         aria-labelledby="idea-open-heading-{{$loop->iteration}}">
-                                        @if (isset($idea->description))
-                                            <div class="p-2 font-light border border-t-0 border-gray-200">
-                                                <p class="mb-2 text-gray-500">{{ $idea->description }}</p>
-                                            </div>
-                                        @endif
-                                        <div class="inline-flex flex-wrap" role="group">
+                                    <x-accordion-item id="sphere" :loop="$loop">
+                                        <x-slot name="title">
+                                            {{ $idea->name }}
+                                        </x-slot>
+
+                                        <x-slot name="content">
+                                            {{ $idea->description }}
+                                        </x-slot>
+
+                                        <x-slot name="buttons">
                                             @can('manage-ideas', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.ideas.edit', ['character' => $character, 'idea' => $idea]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-l border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                        </svg>
-                                                        {{ __('ideas.edit') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.ideas.edit', ['character' => $character, 'idea' => $idea]) }}"
+                                                                    icon="fa-solid fa-pen-to-square"
+                                                >
+                                                    {{ __('ideas.edit') }}
+                                                </x-accordion-action>
+
+                                                <x-accordion-action method="DELETE"
+                                                                    action="{{ route('characters.ideas.destroy', ['character' => $character, 'idea' => $idea]) }}"
+                                                                    icon="fa-solid fa-trash"
+                                                                    confirm="true"
+                                                >
+                                                    {{ __('ideas.delete') }}
+                                                </x-accordion-action>
                                             @endcan
                                             @can('idea-to-sphere', $character)
-                                                <form method="GET"
-                                                      action="{{ route('characters.ideas.sphere', ['character' => $character, 'idea' => $idea]) }}">
-                                                    @csrf
-                                                    <button type="submit"
-                                                            class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100">
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                                        </svg>
-                                                        {{ __('ideas.to_sphere') }}
-                                                    </button>
-                                                </form>
+                                                <x-accordion-action method="GET"
+                                                                    action="{{ route('characters.ideas.sphere', ['character' => $character, 'idea' => $idea]) }}"
+                                                                    icon="fa-solid fa-boxes-stacked"
+                                                >
+                                                    {{ __('ideas.to_sphere') }}
+                                                </x-accordion-action>
                                             @endcan
-                                            @can('manage-ideas', $character)
-                                                <form method="POST"
-                                                      action="{{ route('characters.ideas.destroy', ['character' => $character, 'idea' => $idea]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        type="submit"
-                                                        class="inline-flex gap-2 items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white border-b border-r border-gray-200 hover:bg-gray-100"
-                                                        onclick="if (!confirm('{{ __('ui.confirm', ['tip' => '']) }}')) {
-                              event.preventDefault();
-                            }"
-                                                    >
-                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                  stroke-width="2"
-                                                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                        {{ __('ideas.delete') }}
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </div>
+                                        </x-slot>
+                                    </x-accordion-item>
                                 @endforeach
 
                                 @can('add-idea', $character)
-                                    <form method="GET"
-                                          action="{{ route('characters.ideas.create', ['character' => $character]) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="mt-2 flex items-center gap-2 w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            {{ __('ideas.create') }}
-                                        </button>
-                                    </form>
+                                    <x-accordion-action class="mt-2 w-full border-t"
+                                                        method="GET"
+                                                        action="{{ route('characters.ideas.create', ['character' => $character]) }}"
+                                                        icon="fa-solid fa-circle-plus"
+                                    >
+                                        {{ __('ideas.create') }}
+                                    </x-accordion-action>
                                 @endcan
                             </div>
                         @endif
 
                         <x-form.error name="ideas"/>
-                    </div>
+                    </x-card>
                 </div>
             @endif
         @endcan
 
-        @if (count($character->perkVariants))
-            @php
-                $perks = $character->perkVariants->groupBy(function($item, $key) {
-                  return $item->perk->isCombat() ? 'combat' : 'noncombat';
-                });
-            @endphp
-            <div class="flex justify-center gap-8">
+        @if (count($perks))
+            <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 @if ($perks->get('combat'))
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card class="w-auto my-auto">
+                        <x-header>
                             {{ __('perks.combat') }}
-                        </h1>
+                        </x-header>
 
                         <div class="space-y-4">
                             @foreach ($perks->get('combat')->sortByDesc('active') as $perkVariant)
-                                @php
-                                    $perk = $perkVariant->perk
-                                @endphp
-
-                                <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant"/>
+                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant"/>
                             @endforeach
                         </div>
-                    </div>
+                    </x-card>
                 @endif
+
                 @if ($perks->get('noncombat'))
-                    <div class="bg-white p-4 rounded-xl shadow-lg text-justify w-auto my-auto">
-                        <h1 class="font-bold text-xl mb-2">
+                    <x-card class="w-auto my-auto">
+                        <x-header>
                             {{ __('perks.noncombat') }}
-                        </h1>
+                        </x-header>
 
                         <div class="space-y-4">
                             @foreach ($perks->get('noncombat')->sortByDesc('active') as $perkVariant)
-                                @php
-                                    $perk = $perkVariant->perk
-                                @endphp
-
-                                <x-perk-card :character="$character" :perk="$perk" :perkVariant="$perkVariant"/>
+                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant"/>
                             @endforeach
                         </div>
-                    </div>
+                    </x-card>
                 @endif
             </div>
         @endif
@@ -709,10 +489,10 @@
 
         @can('see-player-only-info', $character)
             @if (count($character->fates))
-                <div class="bg-white p-4 rounded-xl shadow-lg text-justify mx-auto w-max max-w-full">
-                    <h1 class="font-bold text-xl mb-2">
+                <x-card class=" mx-auto w-max max-w-full">
+                    <x-header>
                         {{ __('charsheet.fates') }}
-                    </h1>
+                    </x-header>
 
                     <div class="divide-y divide-dashed">
                         @foreach ($character->fates as $fate)
@@ -742,11 +522,11 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="prose markdown text-lg min-w-full">{!! $fate->text !!}</div>
+                                <x-markdown class="text-lg min-w-full">{!! $fate->text !!}</x-markdown>
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </x-card>
             @endif
         @endcan
 
@@ -762,47 +542,47 @@
 
         @can('see-player-only-info', $character)
             @if ($character->player_only_info)
-                <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-                    <h1 class="font-bold text-xl mb-2">
+                <x-card>
+                    <x-header>
                         {{ __('label.player_only_info') }}
-                    </h1>
+                    </x-header>
 
-                    <div class="prose markdown max-w-none">{!! $character->player_only_info !!}</div>
-                </div>
+                    <x-markdown class="max-w-none">{!! $character->player_only_info !!}</x-markdown>
+                </x-card>
             @endif
         @endcan
 
         @if ($character->gm_only_info)
             @can('see-gm-only-info', $character)
-                <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-                    <h1 class="font-bold text-xl mb-2">
+                <x-card>
+                    <x-header>
                         {{ __('label.gm_only_info') }}
-                    </h1>
+                    </x-header>
 
-                    <div class="prose markdown max-w-none">{!! $character->gm_only_info !!}</div>
-                </div>
+                    <x-markdown class="max-w-none">{!! $character->gm_only_info !!}</x-markdown>
+                </x-card>
             @endcan
         @endif
 
         @can('see-bio', $character)
             @if ($character->personality)
-                <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-                    <h1 class="font-bold text-xl mb-2">
+                <x-card>
+                    <x-header>
                         {{ __('label.personality') }}
-                    </h1>
+                    </x-header>
 
-                    <div class="prose markdown max-w-none">{!! $character->personality !!}</div>
-                </div>
+                    <x-markdown class="max-w-none">{!! $character->personality !!}</x-markdown>
+                </x-card>
             @endif
             @if ($character->background)
-                <div class="bg-white p-4 rounded-xl shadow-lg text-justify">
-                    <h1 class="font-bold text-xl mb-2">
+                <x-card>
+                    <x-header>
                         {{ __('label.background') }}
-                    </h1>
+                    </x-header>
 
-                    <div class="prose markdown max-w-none">{!! $character->background !!}</div>
-                </div>
+                    <x-markdown class="max-w-none">{!! $character->background !!}</x-markdown>
+                </x-card>
             @endif
         @endcan
     </x-container>
-</x-app-layout>
+@endsection

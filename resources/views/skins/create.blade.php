@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST" action="{{ route('characters.skins.store', $character) }}"
               enctype="multipart/form-data">
             @csrf
@@ -26,9 +26,7 @@
                     {{ __('tips.skins.prefix') }}
                 </x-tip>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

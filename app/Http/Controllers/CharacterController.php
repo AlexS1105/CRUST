@@ -54,7 +54,13 @@ class CharacterController extends Controller
 
     public function show(Character $character)
     {
-        return view('characters.show', compact('character'));
+        $character->load('perkVariants.perk');
+
+        $perks = $character->perkVariants->groupBy(function($variant) {
+            return $variant->perk->isCombat() ? 'combat' : 'noncombat';
+        });
+
+        return view('characters.show', compact('character', 'perks'));
     }
 
     public function edit(Character $character)

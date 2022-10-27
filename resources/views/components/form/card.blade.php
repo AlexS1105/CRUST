@@ -1,4 +1,4 @@
-<x-card>
+<x-card class="p-6">
     @if (isset($header))
         <h1 class="text-xl font-bold text-gray-700 uppercase mb-4">
             {{ $header }}

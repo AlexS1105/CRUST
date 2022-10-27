@@ -14,9 +14,7 @@
                 <x-form.input name="max_characters" type="number" min="0" max="100"
                               :value="old('max_characters', $settings->max_characters)"/>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

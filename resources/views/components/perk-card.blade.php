@@ -84,10 +84,9 @@
             @endcan
         </div>
         @if (isset($perk->general_description))
-            <div class="prose markdown p-2 min-w-full border-b bg-white">{!! $perk->general_description !!}</div>
+            <x-markdown class="p-2 min-w-full border-b bg-white">{!! $perk->general_description !!}</x-markdown>
         @endif
-        <div
-            class="prose markdown p-2 min-w-full {{isset($perk->general_description) ? "bg-gray-50" : "bg-white"}}">{!! $perkVariant->description !!}</div>
+        <x-markdown class="p-2 min-w-full {{ isset($perk->general_description) ? 'bg-gray-50' : 'bg-white' }}">{!! $perkVariant->description !!}</x-markdown>
         @if($perkVariant->pivot->note)
             <div class="px-2 py-1 border-t bg-gray-50 italic">
                 {{ $perkVariant->pivot->note }}

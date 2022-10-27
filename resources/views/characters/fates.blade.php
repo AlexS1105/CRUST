@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST" action="{{ route('characters.fates.update', $character) }}"
               enctype="multipart/form-data">
             @csrf
@@ -19,9 +19,7 @@
                 <x-character.fates :character="$character" :maxFates="$settings->max_fates"/>
             </x-form.card>
 
-            <x-button>
-                {{ __('ui.submit') }}
-            </x-button>
+            <x-button-submit/>
         </form>
     </x-container>
 </x-app-layout>

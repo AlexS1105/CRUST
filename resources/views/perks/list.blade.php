@@ -79,11 +79,11 @@
                 </div>
                 <div class="divide-y divide-dashed">
                     @if (isset($perk->general_description))
-                        <div class="prose markdown p-2 min-w-full border-b">{!! $perk->general_description !!}</div>
+                        <x-markdown class="p-2 min-w-full border-b">{!! $perk->general_description !!}</x-markdown>
                     @endif
                     @foreach ($perk->variants as $perkVariant)
-                        <div
-                            class="prose markdown p-2 min-w-full {{isset($perk->general_description) ? "bg-gray-50" : ""}}">{!! $perkVariant->description !!}</div>
+                        <x-markdown
+                            class="p-2 min-w-full {{isset($perk->general_description) ? "bg-gray-50" : ""}}">{!! $perkVariant->description !!}</x-markdown>
                     @endforeach
                 </div>
             </div>

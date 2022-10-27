@@ -7,8 +7,12 @@ return [
         'fates' => 'Изменение Судеб',
     ],
     'skills' => 'Навыки',
-    'crafts' => 'Ремесла',
-    'crafts_general' => 'Общие',
+    'crafts' => [
+        'index' => 'Ремесла',
+        'magic' => 'Магия',
+        'tech' => 'Техника',
+        'general' => 'Общие'
+    ],
     'narrative_crafts' => [
         'title' => 'Умения',
         'name' => 'Название',

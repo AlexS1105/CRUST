@@ -7,8 +7,12 @@ return [
         'fates' => 'Edit Fates',
     ],
     'skills' => 'Skills',
-    'crafts' => 'Crafts',
-    'crafts_general' => 'General',
+    'crafts' => [
+        'index' => 'Crafts',
+        'magic' => 'Magic',
+        'tech' => 'Tech',
+        'general' => 'General'
+    ],
     'narrative_crafts' => [
         'title' => 'Narrative Crafts',
         'name' => 'Name',

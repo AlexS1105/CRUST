@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST"
               action="{{ route('perks.variants.update', ['perk' => $perk, 'variant' => $variant]) }}">
             @csrf
@@ -17,9 +17,7 @@
                     {{ old('description', $variant->description) }}
                 </x-form.textarea>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
         <script>

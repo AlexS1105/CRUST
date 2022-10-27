@@ -8,10 +8,9 @@
     <x-container class="max-w-6xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             @can('vox-create', $character)
-                <a class="font-bold underline text-blue-600 visited:text-purple-600"
-                   href="{{ route('characters.vox.create', $character) }}">
+                <x-link href="{{ route('characters.vox.create', $character) }}">
                     {{ __('vox.create') }}
-                </a>
+                </x-link>
             @endcan
             @if(count($character->voxLogs))
                 <table class="table-auto w-full border mt-2">

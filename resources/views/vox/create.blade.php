@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <x-container class="max-w-3xl mx-auto">
+    <x-container>
         <form class="space-y-8" method="POST" action="{{ route('characters.vox.store', $character) }}">
             @csrf
 
@@ -13,9 +13,7 @@
                 <x-form.input name="reason" required maxlength="256" :value="old('reason')"/>
                 <x-form.input name="delta" required type="number" min="-100" max="100" :value="old('delta')"/>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

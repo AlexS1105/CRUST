@@ -1,19 +1,17 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('characters.all') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="max-w-7xl mx-auto">
+@section('header', __('characters.all'))
+
+@section('content')
+    <div class="max-w-7xl mx-auto px-2">
         <div class="mt-6 bg-white mx-auto shadow-lg p-4 rounded-xl">
             <x-search-field :search="$search" :route="route('characters.all')"/>
-            <div class="flex space-x-2 mt-2 ml-2 text-sm items-center">
+            <div class="flex flex-wrap gap-2 mt-2 ml-2 text-sm items-center">
                 <div class="text-gray-500">
                     {{ __('ui.sort.title') }}:
                 </div>
 
-                <div class="text-blue-500">
+                <div class="text-blue-500 space-x-1">
                     @sortablelink('created_at', __('ui.sort.created_at'), ['perk' => $perk, 'search' => $search])
                     @sortablelink('updated_at', __('ui.sort.updated_at'), ['perk' => $perk, 'search' => $search])
                 </div>
@@ -37,7 +35,7 @@
         </div>
 
         @if (count($characters))
-            <div class="grid gap-4 grid-cols-3 mt-4">
+            <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 mt-4">
                 @foreach ($characters as $character)
                     <a href="{{ route('characters.show', $character) }}"
                        class="bg-white rounded-xl flex-none overflow-hidden shadow-lg transition duration-150 ease-in-out transform hover:-translate-y-2 hover:scale-105">
@@ -63,13 +61,13 @@
                 @endforeach
             </div>
         @else
-            <div class="text-gray-300 text-6xl text-center font-bold my-40">
+            <x-text-bg>
                 {{ __('characters.empty') }}
-            </div>
+            </x-text-bg>
         @endif
 
         <div class="mt-4 mb-8">
             {{ $characters->appends(request()->query())->links() }}
         </div>
     </div>
-</x-app-layout>
+@endsection

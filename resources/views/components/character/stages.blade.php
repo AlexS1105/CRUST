@@ -5,7 +5,8 @@
         :disabled="!isset($character) || request()->routeIs('characters.edit') || request()->routeIs('characters.create')">
         {{ __('characters.stages.main') }}
     </x-character-stage-link>
-    @if(isset($character) && auth()->user()->can('update-charsheet', $character) || !isset($character))
+
+    @if(!isset($character) || auth()->user()->can('update-charsheet', $character))
         <x-character-stage-link
             href="{{ isset($character) ? route('characters.charsheet.edit', $character->login) : '#' }}"
             :active="request()->routeIs('characters.charsheet.edit')"

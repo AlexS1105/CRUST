@@ -7,10 +7,10 @@
 
     <x-container class="max-w-2xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
-            <a class="font-bold underline text-blue-600 visited:text-purple-600"
+            <x-link
                href="{{ route('characters.skins.create', $character) }}">
                 {{ __('skins.create') }}
-            </a>
+            </x-link>
             @if(count($skins))
                 <table class="table-auto w-full border mt-2">
                     <thead class="border bg-gray-200">
@@ -45,21 +45,21 @@
                             </td>
                             <td class="border">
                                 <div class="w-min mx-auto text-center">
-                                    <a class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer"
+                                    <x-link class="cursor-pointer"
                                        onclick="copyToClipboard('{{ $skin['url'] }}')">
                                         {{ __('skins.copy') }}
-                                    </a>
+                                    </x-link>
                                     <form method="POST"
                                           action="{{ route('characters.skins.destroy',['character' => $character, 'prefix' => $skin['prefix']]) }}">
                                         @method('DELETE')
                                         @csrf
 
-                                        <a
-                                            class="font-bold underline text-blue-600 visited:text-purple-600 cursor-pointer"
+                                        <x-link
+                                            class="font-bold cursor-pointer"
                                             onclick="if (confirm('{{ __('ui.confirm', ['tip' => '']) }}')) { event.preventDefault();this.closest('form').submit(); }"
                                         >
                                             {{ __('skins.delete') }}
-                                        </a>
+                                        </x-link>
                                     </form>
                                 </div>
                             </td>

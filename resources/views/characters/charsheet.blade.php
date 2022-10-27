@@ -1,17 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('charsheet.edit.title') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <x-container class="max-w-3xl mx-auto">
+@section('header', __('characters.edit'))
+
+@section('content')
+    <x-container>
         <x-character.stages :character="$character"/>
-        <form class="space-y-8" method="POST" action="{{ route('characters.charsheet.update', $character->login) }}"
-              enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
 
+        <x-form.base action="{{ route('characters.charsheet.update', $character->login) }}" method="PATCH">
             <x-form.card>
                 <x-slot name="header">
                     {{ __('charsheet.skills') }}
@@ -37,7 +32,7 @@
                 </div>
 
                 <div class="font-bold text-lg text-right flex justify-end">
-                    <div class="mr-2">`
+                    <div class="mr-2">
                         {{ __('charsheet.points.skills') }}
                     </div>
                     <div class="mr-2" id="skill_points">
@@ -47,119 +42,32 @@
                         / {{ $settings->skill_points }}
                     </div>
                 </div>
-
+                <x-tip text="character.skills"/>
                 <x-form.error name="skills"/>
-
-                <x-tip>
-                    {{ __('tips.character.skills') }}
-                </x-tip>
             </x-form.card>
 
             <x-form.card>
                 <x-slot name="header">
-                    {{ __('charsheet.crafts') }}
+                    {{ __('charsheet.crafts.index') }}
                 </x-slot>
 
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="bg-purple-100 rounded-2xl p-2">
-                        <div class="mb-1 text-center font-bold bg-purple-300 rounded-full flex justify-center">
-                            <div class="mr-2">
-                                {{ __('skill.magic') }}
-                            </div>
-                            <div id="magic_points_spent">
-                                0
-                            </div>
-                            /
-                            <div id="magic_points_max">
-                                {{ $character->charsheet->skills['magic'] }}
-                            </div>
-                        </div>
-                        <div class="space-y-1 px-1 pb-1">
-                            @foreach (App\Enums\CharacterCraft::getMagicCrafts() as $instance)
-                                @php
-                                    $craft = $instance->value;
-                                    $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
-                                    $max = $instance->getMaxTier();
-                                @endphp
-                                <div class="px-3 py-1 bg-purple-200 rounded-lg">
-                                    {{ $instance->localized() }}
-                                    <div class="flex space-x-2">
-                                        <input class="w-full" type="range" id="crafts[{{ $craft }}]"
-                                               name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}"
-                                               oninput="updateCraftsSum(this)"/>
-                                        <output class="font-bold flex-none">{{ $value }}</output>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="bg-yellow-100 rounded-2xl p-2">
-                        <div class="mb-1 text-center font-bold bg-yellow-300 rounded-full flex justify-center">
-                            <div class="mr-2">
-                                {{ __('skill.tech') }}
-                            </div>
-                            <div id="tech_points_spent">
-                                0
-                            </div>
-                            /
-                            <div id="tech_points_max">
-                                {{ $character->charsheet->skills['tech'] }}
-                            </div>
-                        </div>
-                        <div class="space-y-1 px-1 pb-1">
-                            @foreach (App\Enums\CharacterCraft::getTechCrafts() as $instance)
-                                @php
-                                    $craft = $instance->value;
-                                    $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
-                                    $max = $instance->getMaxTier();
-                                @endphp
-                                <div class="px-3 py-1 bg-yellow-200 rounded-lg">
-                                    {{ $instance->localized() }}
-                                    <div class="flex space-x-2">
-                                        <input class="w-full" type="range" id="crafts[{{ $craft }}]"
-                                               name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}"
-                                               oninput="updateCraftsSum(this)"/>
-                                        <output class="font-bold flex-none">{{ $value }}</output>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 rounded-2xl p-2">
-                        <div class="mb-1 text-center font-bold bg-gray-300 rounded-full flex justify-center">
-                            <div class="mr-2">
-                                {{ __('charsheet.crafts_general') }}
-                            </div>
-                            <div id="general_points_max">
-                                0
-                            </div>
-                        </div>
-                        <div class="space-y-1 px-1 pb-1">
-                            @foreach (App\Enums\CharacterCraft::getGeneralCrafts() as $instance)
-                                @php
-                                    $craft = $instance->value;
-                                    $value = old('crafts.'.$craft, $character->charsheet->crafts[$craft]);
-                                    $max = $instance->getMaxTier();
-                                @endphp
-                                <div class="px-3 py-1 bg-gray-200 rounded-lg">
-                                    {{ $instance->localized() }}
-                                    <div class="flex space-x-2">
-                                        <input class="w-full" type="range" id="crafts[{{ $craft }}]"
-                                               name="crafts[{{ $craft }}]" min="0" max="{{ $max }}" value="{{ $value }}"
-                                               oninput="updateCraftsSum(this)"/>
-                                        <output class="font-bold flex-none">{{ $value }}</output>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <x-character.charsheet.craft-selector color="purple"
+                                                          craft="magic"
+                                                          :character="$character"
+                    />
+                    <x-character.charsheet.craft-selector color="yellow"
+                                                          craft="tech"
+                                                          :character="$character"
+                    />
+                    <x-character.charsheet.craft-selector color="gray"
+                                                          craft="general"
+                                                          :character="$character"
+                    />
                 </div>
 
+                <x-tip text="character.crafts"/>
                 <x-form.error name="crafts"/>
-
-                <x-tip>
-                    {{ __('tips.character.crafts') }}
-                </x-tip>
 
                 <div class="space-y-2">
                     <div class="text-lg font-bold uppercase text-gray-700">
@@ -177,13 +85,10 @@
                     </div>
                 </div>
 
+                <x-tip text="character.narrative_crafts"/>
                 <x-form.error name="narrative_crafts"/>
                 <x-form.error name="narrative_crafts.*.name"/>
                 <x-form.error name="narrative_crafts.*.description"/>
-
-                <x-tip>
-                    {{ __('tips.character.narrative_crafts') }}
-                </x-tip>
             </x-form.card>
 
             @if (!$character->registered)
@@ -196,9 +101,7 @@
                         <x-character.perks :character="$character" :perks="$perks"
                                            :maxActivePerks="$settings->max_active_perks" :edit="false"/>
 
-                        <x-tip>
-                            {{ __('tips.character.perks') }}
-                        </x-tip>
+                        <x-tip text="character.perks"/>
                     </x-form.card>
                 @endif
 
@@ -208,26 +111,23 @@
                     </x-slot>
 
                     <x-character.fates :character="$character" :maxFates="$settings->max_fates"/>
-
-                    <x-tip>
-                        {{ __('tips.character.fates') }}
-                    </x-tip>
+                    <x-tip text="character.fates"/>
                 </x-form.card>
             @endif
 
-            <x-button>
-                {{ __('ui.submit') }}
-            </x-button>
-        </form>
-
-        <script>
-            var maxSkills = @json($settings->skill_points);
-            var magicCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getMagicCrafts()));
-            var techCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getTechCrafts()));
-            var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) ||
-            [];
-            var craftNameText = @json(__('charsheet.narrative_crafts.name'));
-            var craftDescriptionText = @json(__('charsheet.narrative_crafts.description'));
-        </script>
+            <x-button-submit/>
+        </x-form.base>
     </x-container>
-</x-app-layout>
+@endsection
+
+@push('scripts')
+    <script>
+        var maxSkills = @json($settings->skill_points);
+        var magicCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getMagicCrafts()));
+        var techCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getTechCrafts()));
+        var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) ||
+        [];
+        var craftNameText = @json(__('charsheet.narrative_crafts.name'));
+        var craftDescriptionText = @json(__('charsheet.narrative_crafts.description'));
+    </script>
+@endpush

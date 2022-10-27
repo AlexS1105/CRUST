@@ -18,9 +18,7 @@
                 <x-form.input name="max_active_perks" type="number" min="0" max="100"
                               :value="old('max_active_perks', $settings->max_active_perks)"/>
 
-                <x-button>
-                    {{ __('ui.submit') }}
-                </x-button>
+                <x-button-submit/>
             </x-form.card>
         </form>
     </x-container>

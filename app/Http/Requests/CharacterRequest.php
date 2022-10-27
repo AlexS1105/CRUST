@@ -27,7 +27,7 @@ class CharacterRequest extends FormRequest
         $rules = [
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
-            'reference' => ['nullable', 'image'],
+            'reference' => ['nullable', 'mimes:png,jpg,jpeg,bmp,svg,webp'],
             'gender' => ['required', new Enum(CharacterGender::class)],
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],

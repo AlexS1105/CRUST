@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('applications.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('applications.index'))
+
+@section('content')
     <x-container class="max-w-5xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             <div class="flex mb-4 gap-4 items-center">
@@ -50,16 +48,14 @@
                     @foreach ($characters as $character)
                         <tr class="py-2 border hover:bg-gray-100">
                             <td class="px-4 py-2 border">
-                                <a class="font-bold underline text-blue-600 visited:text-purple-600"
-                                   href="{{ route('characters.show', $character->login) }}">
+                                <x-link href="{{ route('characters.show', $character->login) }}">
                                     {{ $character->name }}
-                                </a>
+                                </x-link>
                             </td>
                             <td class="px-4 py-2 border text-center">
-                                <a class="font-bold underline text-blue-600 visited:text-purple-600"
-                                   href="{{ route('users.show', $character->user) }}">
+                                <x-link href="{{ route('users.show', $character->user) }}">
                                     {{ $character->user->login }}
-                                </a>
+                                </x-link>
                             </td>
                             @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending)
                                 <td class="px-4 py-2 border text-center">
@@ -76,7 +72,7 @@
                             </td>
                             <td class="border">
                                 <div class="flex w-min mx-auto">
-                                    <x-application.actions :character="$character" :tooltip="true"/>
+                                    <x-application.actions :character="$character" :icons="true"/>
                                 </div>
                             </td>
                         </tr>
@@ -94,4 +90,4 @@
             </div>
         </div>
     </x-container>
-</x-app-layout>
+@endsection

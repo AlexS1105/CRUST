@@ -34,20 +34,20 @@
                     @foreach ($users as $user)
                         <tr class="py-2 border hover:bg-gray-100">
                             <td class="px-4 py-2 border text-center">
-                                <a class="font-bold underline text-blue-600 visited:text-purple-600"
+                                <x-link
                                    href="{{ route('users.show', $user) }}">
                                     {{ $user->login }}
-                                </a>
+                                </x-link>
                             </td>
                             <td class="px-4 py-2 border text-center">
                                 <span class="select-all">{{ $user->discord_tag }}</span>
                             </td>
                             <td class="px-4 py-2 border text-center">
                                 @foreach ($user->characters as $character)
-                                    <a class="font-bold underline text-blue-600 visited:text-purple-600"
+                                    <x-link
                                        href="{{ route('characters.show', $character->login) }}">
                                         {{ $character->name }}
-                                    </a>
+                                    </x-link>
 
                                     @unless ($loop->last)
                                         ,
