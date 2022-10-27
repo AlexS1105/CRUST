@@ -15,4 +15,5 @@ return [
     ],
     'never' => 'Never',
     'continue' => 'Continue',
+    'menu' => 'Menu',
 ];
