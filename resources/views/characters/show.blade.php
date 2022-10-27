@@ -14,7 +14,7 @@
                 <a
                     @can('view', $character->user)
                         class="font-bold underline text-blue-600 visited:text-purple-600"
-                    href="{{ route('users.show', $character->user) }}"
+                        href="{{ route('users.show', $character->user) }}"
                     @endcan
                 >
                     {{ $character->user->login }}
@@ -29,9 +29,11 @@
                 {{ __('label.login') }}: <span class="select-all">{{ $character->login }}</span>
             </div>
         </div>
+
         <div class="flex flex-wrap justify-center">
             <x-application.actions :character="$character" :icons="false"/>
         </div>
+
         <div>
             <div class="flex justify-center items-center gap-4 font-bold text-xl text-center mt-2 sm:mt-0">
                 <div class="hidden sm:block">{{ __('label.status') }}:</div>
