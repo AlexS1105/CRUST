@@ -6,16 +6,12 @@
     </x-slot>
 
     <x-card class="mx-auto max-w-md mt-8">
-        <div class="mb-4 text-sm text-gray-600">
+        <x-message>
             {{ __('discord.message') }}
-        </div>
+        </x-message>
 
-        <div class="text-center">
-            <x-button class="bg-indigo-500 w-full place-content-center"
-                      onclick="window.location.href='{{ route('discord.invite') }}'" type="button">
-                <div class="fab fa-discord mx-2"></div>
-                {{ __('discord.invite') }}
-            </x-button>
-        </div>
+        <x-button-discord href="{{ route('discord.invite') }}">
+            {{ __('discord.invite') }}
+        </x-button-discord>
     </x-card>
 </x-app-layout>

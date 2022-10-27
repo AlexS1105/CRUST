@@ -14,4 +14,5 @@ return [
         'perk' => 'With Perk...',
     ],
     'never' => 'Never',
+    'continue' => 'Continue',
 ];
