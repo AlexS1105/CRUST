@@ -56,7 +56,7 @@ class CharacterController extends Controller
     {
         $character->load('perkVariants.perk');
 
-        $perks = $character->perkVariants->groupBy(function($variant) {
+        $perks = $character->perkVariants->groupBy(function ($variant) {
             return $variant->perk->isCombat() ? 'combat' : 'noncombat';
         });
 

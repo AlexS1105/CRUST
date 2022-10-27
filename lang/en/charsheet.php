@@ -11,7 +11,7 @@ return [
         'index' => 'Crafts',
         'magic' => 'Magic',
         'tech' => 'Tech',
-        'general' => 'General'
+        'general' => 'General',
     ],
     'narrative_crafts' => [
         'title' => 'Narrative Crafts',

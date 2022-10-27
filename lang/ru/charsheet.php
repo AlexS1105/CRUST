@@ -11,7 +11,7 @@ return [
         'index' => 'Ремесла',
         'magic' => 'Магия',
         'tech' => 'Техника',
-        'general' => 'Общие'
+        'general' => 'Общие',
     ],
     'narrative_crafts' => [
         'title' => 'Умения',
