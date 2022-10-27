@@ -1,20 +1,24 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center text-gray-600">
-            <div class="flex-grow-0">
-                <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
-                    {{ $user->login }}
-                </h2>
-                <div class="font-thin text-base mt-2">
-                    Discord: <span class="select-all">{{ $user->discord_tag }}</span>
-                </div>
-            </div>
-            <div class="flex flex-wrap flex-shrink-0">
-                <x-user.actions :user="$user"/>
+@extends('layouts.app')
+
+@section('title', $user->name)
+
+@section('header')
+    <div class="flex justify-between items-center text-gray-600">
+        <div class="flex-grow-0">
+            <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
+                {{ $user->login }}
+            </h2>
+            <div class="font-thin text-base mt-2">
+                Discord: <span class="select-all">{{ $user->discord_tag }}</span>
             </div>
         </div>
-    </x-slot>
+        <div class="flex flex-wrap flex-shrink-0">
+            <x-user.actions :user="$user"/>
+        </div>
+    </div>
+@endsection
 
+@section('content')
     @if ($user->isBanned)
         <x-card class="bg-yellow-100 mt-4 mx-auto max-w-7xl">
             <div class="flex items-center space-x-4">
@@ -44,4 +48,4 @@
             {{ __('characters.empty') }}
         </x-text-bg>
     @endif
-</x-app-layout>
+@endsection

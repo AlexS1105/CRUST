@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('discord.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('discord.index'))
+
+@section('content')
     <x-card class="mx-auto max-w-md mt-8">
         <x-message>
             {{ __('discord.message') }}
@@ -14,4 +12,4 @@
             {{ __('discord.invite') }}
         </x-button-discord>
     </x-card>
-</x-app-layout>
+@endsection

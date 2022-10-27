@@ -1,11 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('perks.variants.edit') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <x-container>
+@section('header', __('perks.variants.edit'))
+
+@section('content')
         <form class="space-y-8" method="POST"
               action="{{ route('perks.variants.update', ['perk' => $perk, 'variant' => $variant]) }}">
             @csrf
@@ -24,4 +21,4 @@
             var previewText = @json(__('label.preview'))
         </script>
     </x-container>
-</x-app-layout>
+@endsection

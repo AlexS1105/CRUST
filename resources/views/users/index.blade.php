@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('users.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('users.index'))
+
+@section('content')
     <x-container class="max-w-5xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             <x-search-field class="w-full mb-6" :search="$search" :route="route('users.index')"/>
@@ -77,4 +75,4 @@
             </div>
         </div>
     </x-container>
-</x-app-layout>
+@endsection

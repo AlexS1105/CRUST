@@ -1,19 +1,16 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('accounts.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('accounts.index'))
+
+@section('content')
     <x-container>
-        <form class="space-y-8" method="POST" action="{{ route('users.accounts.store', $user) }}">
-            @csrf
+        <x-form.base action="{{ route('users.accounts.store', $user) }}" method="POST">
 
             <x-form.card>
                 <x-form.input name="login" required maxlength="16"/>
 
                 <x-button-submit/>
             </x-form.card>
-        </form>
+        </x-form.base>
     </x-container>
-</x-app-layout>
+@endsection

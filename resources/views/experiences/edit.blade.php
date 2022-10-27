@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('experiences.edit') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('experiences.edit'))
+
+@section('content')
     <x-container>
         <form class="space-y-8" method="POST"
               action="{{ route('characters.experiences.update', ['character' => $character, 'experience' => $experience]) }}">
@@ -20,4 +18,4 @@
             </x-form.card>
         </form>
     </x-container>
-</x-app-layout>
+@endsection

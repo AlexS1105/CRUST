@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('users.edit') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('users.edit'))
+
+@section('content')
     <x-container>
         <form method="POST" action="{{ route('users.update', $user) }}">
             @csrf
@@ -66,4 +64,4 @@
             </x-form.card>
         </form>
     </x-container>
-</x-app-layout>
+@endsection

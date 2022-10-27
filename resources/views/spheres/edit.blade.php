@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('spheres.edit') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('spheres.edit'))
+
+@section('content')
     <x-container>
         <form class="space-y-8" method="POST"
               action="{{ route('characters.spheres.update', ['character' => $character, 'sphere' => $sphere]) }}">
@@ -19,4 +17,4 @@
             </x-form.card>
         </form>
     </x-container>
-</x-app-layout>
+@endsection

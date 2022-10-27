@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('accounts.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('accounts.index'))
+
+@section('content')
     <x-container class="max-w-2xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             <x-link
@@ -55,4 +53,4 @@
             @endif
         </div>
     </x-container>
-</x-app-layout>
+@endsection

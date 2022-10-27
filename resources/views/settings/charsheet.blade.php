@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('settings.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('settings.index'))
+
+@section('content')
     <x-container class="max-w-3xl">
         <form method="POST" action="{{ route('settings.charsheet.update') }}">
             @csrf
@@ -22,4 +20,4 @@
             </x-form.card>
         </form>
     </x-container>
-</x-app-layout>
+@endsection

@@ -1,10 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('vox.index') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
+@section('header', __('vox.index'))
+
+@section('content')
     <x-container class="max-w-6xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             @can('vox-create', $character)
@@ -59,4 +57,4 @@
             @endif
         </div>
     </x-container>
-</x-app-layout>
+@endsection
