@@ -478,11 +478,9 @@
         <x-form.error name="vox"/>
 
         @can('update-charsheet-gm', $character)
-            <div class="flex w-full justify-center">
-                <x-character.action href="{{ route('characters.perks.edit', $character) }}">
-                    {{ __('charsheet.edit.perks') }}
-                </x-character.action>
-            </div>
+            <x-character.action href="{{ route('characters.perks.edit', $character) }}">
+                {{ __('charsheet.edit.perks') }}
+            </x-character.action>
         @endcan
 
         @can('see-player-only-info', $character)
@@ -529,11 +527,9 @@
         @endcan
 
         @can('update-charsheet-gm', $character)
-            <div class="flex w-full justify-center">
-                <x-character.action href="{{ route('characters.fates.edit', $character) }}">
-                    {{ __('charsheet.edit.fates') }}
-                </x-character.action>
-            </div>
+            <x-character.action href="{{ route('characters.fates.edit', $character) }}">
+                {{ __('charsheet.edit.fates') }}
+            </x-character.action>
         @endcan
 
         @can('see-player-only-info', $character)
