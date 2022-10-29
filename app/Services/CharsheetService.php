@@ -24,8 +24,13 @@ class CharsheetService
             $character->narrativeCrafts()->createMany($validated['narrative_crafts']);
         }
 
-        $this->savePerks($character, $validated);
-        $this->saveFates($character, $validated);
+        if (isset($validated['fates'])) {
+            $this->savePerks($character, $validated);
+        }
+
+        if (isset($validated['perks'])) {
+            $this->saveFates($character, $validated);
+        }
 
         info('Charsheet updated', [
             'user' => auth()->user()->login,
@@ -35,9 +40,9 @@ class CharsheetService
 
     public function savePerks(Character $character, $validated)
     {
-        if (isset($validated['perks']) && count($validated['perks'])) {
-            $character->perkVariants()->detach();
+        $character->perkVariants()->detach();
 
+        if (isset($validated['perks'])) {
             foreach ($validated['perks'] as $perkVariant) {
                 $id = $perkVariant['variant']->id;
                 $character->perkVariants()->attach(
