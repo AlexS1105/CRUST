@@ -19,24 +19,21 @@
 </head>
 <body class="font-sans antialiased bg-white">
 <div class="z-10 p-2 fixed top-0 w-full bg-white border-b">
-    @php
-        $perkTypeInstance = isset($perkType) ? App\Enums\PerkType::from($perkType) : App\Enums\PerkType::None;
-    @endphp
     <div class="flex p-1 mb-2 space-x-2">
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Combat]) }}"
-           class="bg-red-200 px-2 rounded-full {{ $perkTypeInstance->isCombat() ? '' : 'opacity-50' }}">
+           class="bg-red-200 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::on($perkType, App\Enums\PerkType::Combat) ? '' : 'opacity-50' }}">
             {{ __('perks.types.combat') }}
         </a>
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::None]) }}"
-           class="bg-green-200 px-2 rounded-full {{ isset($perkType) && $perkTypeInstance->value == App\Enums\PerkType::None ? '' : 'opacity-50' }}">
+           class="bg-green-200 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::on($perkType, App\Enums\PerkType::None) ? '' : 'opacity-50' }}">
             {{ __('perks.types.noncombat') }}
         </a>
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Attack]) }}"
-           class="bg-orange-200 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Attack) ? '' : 'opacity-50' }}">
+           class="bg-orange-200 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::on($perkType, App\Enums\PerkType::Attack) ? '' : 'opacity-50' }}">
             {{ __('perks.types.attack') }}
         </a>
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Defence]) }}"
-           class="bg-blue-300 px-2 rounded-full {{ $perkTypeInstance->hasFlag(App\Enums\PerkType::Defence) ? '' : 'opacity-50' }}">
+           class="bg-blue-300 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::on($perkType, App\Enums\PerkType::Defence) ? '' : 'opacity-50' }}">
             {{ __('perks.types.defence') }}
         </a>
         <a href="{{ route('perks.list') }}" class="bg-gray-200 px-2 rounded-full">
