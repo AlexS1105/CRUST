@@ -13,6 +13,8 @@ class Charsheet extends Model
 
     protected $connection = 'mongodb2';
 
+    protected $touches = ['character'];
+
     protected $attributes = [
         'skills' => [
             'fitness' => 3,

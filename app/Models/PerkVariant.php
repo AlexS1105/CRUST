@@ -36,6 +36,8 @@ class PerkVariant extends Model
 
     protected $guarded = [];
 
+    protected $touches = ['character'];
+
     public function perk()
     {
         return $this->belongsTo(Perk::class);
