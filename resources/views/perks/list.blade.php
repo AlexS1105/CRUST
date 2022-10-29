@@ -25,7 +25,7 @@
             {{ __('perks.types.combat') }}
         </a>
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::None]) }}"
-           class="bg-green-200 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::on($perkType, App\Enums\PerkType::None) ? '' : 'opacity-50' }}">
+           class="bg-green-200 px-2 rounded-full {{ isset($perkType) && App\Enums\PerkType::off($perkType, App\Enums\PerkType::Combat) ? '' : 'opacity-50' }}">
             {{ __('perks.types.noncombat') }}
         </a>
         <a href="{{ route('perks.list', ['perk_type' => App\Enums\PerkType::Attack]) }}"
