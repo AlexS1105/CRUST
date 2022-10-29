@@ -13,7 +13,10 @@ class CharsheetService
 {
     public function update($character, $validated)
     {
-        $character->charsheet()->update($validated);
+        $character->charsheet()->update([
+            'skills' => array_map(function ($value) { return intval($value); }, $validated['skills']),
+            'crafts' => array_map(function ($value) { return intval($value); }, $validated['crafts']),
+        ]);
 
         $character->narrativeCrafts()->delete();
 
