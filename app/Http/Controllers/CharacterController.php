@@ -31,7 +31,7 @@ class CharacterController extends Controller
     {
         $characters = Character::filter($request)
             ->status(CharacterStatus::Approved)
-            ->sortable()
+            ->sortable(['updated_at' => 'desc'])
             ->paginate(48);
         $search = request('search');
         $perks = Perk::all();
