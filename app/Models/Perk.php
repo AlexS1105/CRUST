@@ -58,14 +58,10 @@ class Perk extends Model
     public function scopeType($query, $perkType)
     {
         if (isset($perkType)) {
-            $perkType = PerkType::from(intval($perkType));
-
-            if ($perkType->value === PerkType::None) {
-                $query->notHasFlag('type', PerkType::Combat)
-                    ->notHasFlag('type', PerkType::Attack)
-                    ->notHasFlag('type', PerkType::Defence);
+            if ($perkType != 0) {
+                $query->whereRaw('(type & ?) = ?', [$perkType, $perkType]);
             } else {
-                $query->hasFlag('type', $perkType->value);
+                $query->where('type', 0);
             }
         }
     }
