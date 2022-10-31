@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiscordController;
 use Illuminate\Support\Facades\Route;
 
