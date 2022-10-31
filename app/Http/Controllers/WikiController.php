@@ -12,8 +12,8 @@ class WikiController extends Controller
         RevokeOldTokens::dispatch(auth()->user()->id);
 
         return redirect()->away(
-            auth()->user()->tokens->where('client_id', env('WIKI_CLIENT_ID'))->first() !== null ?
-                env('WIKI_URL') : env('WIKI_OAUTH2_URL')
+            auth()->user()->tokens->where('client_id', config('services.wiki.client_id'))->first() !== null ?
+                config('services.wiki.url') : config('services.wiki.oauth2')
         );
     }
 }

@@ -53,9 +53,14 @@ return [
         'characters_auth' => env('MINECRAFT_CHARACTERS_AUTH', true),
         'accounts_auth' => env('MINECRAFT_ACCOUNTS_AUTH', true),
     ],
+
     'wiki' => [
         'rules_link' => env('RULES_LINK'),
+        'client_id' => env('WIKI_CLIENT_ID'),
+        'url' => env('WIKI_URL'),
+        'oauth2' => env('WIKI_OAUTH2_URL'),
     ],
+
     'notion' => [
         'characters_database' => env('NOTION_CHARACTERS_DATABASE'),
     ],
