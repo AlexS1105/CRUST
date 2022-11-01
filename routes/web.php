@@ -6,6 +6,7 @@ use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
+use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\IdeaController;
@@ -41,13 +42,12 @@ Route::get('/perks', [PerkController::class, 'all'])
 
 Route::middleware('auth')
     ->group(function () {
-        Route::get('/discord-invite', function () {
-            return redirect(config('services.discord.invite'));
-        })->name('discord.invite');
-
-        Route::get('/discord-verify', function () {
-            return auth()->user()->verified ? to_route('characters.index') : view('discord.index');
-        })->name('discord.verify');
+        Route::controller(DiscordController::class)
+            ->name('discord.')
+            ->group(function () {
+                Route::get('/discord-invite', 'invite')->name('invite');
+                Route::get('/discord-verify', 'verify')->name('verify');
+        });
 
         Route::middleware('verified')
             ->group(function () {
