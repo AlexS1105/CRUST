@@ -25,11 +25,11 @@ class CharsheetService
         }
 
         if (isset($validated['fates'])) {
-            $this->savePerks($character, $validated);
+            $this->saveFates($character, $validated);
         }
 
         if (isset($validated['perks'])) {
-            $this->saveFates($character, $validated);
+            $this->savePerks($character, $validated);
         }
 
         info('Charsheet updated', [
