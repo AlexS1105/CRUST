@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\PerkType;
 use App\Models\Character;
 use App\Models\Perk;
 use App\Models\User;

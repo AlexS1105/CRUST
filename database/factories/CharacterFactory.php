@@ -5,8 +5,6 @@ namespace Database\Factories;
 use App\Enums\CharacterGender;
 use App\Enums\CharacterStatus;
 use App\Models\Character;
-use App\Models\Charsheet;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CharacterFactory extends Factory
