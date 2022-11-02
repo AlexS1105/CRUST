@@ -44,7 +44,8 @@ class CharsheetRequest extends FormRequest
                 'perks' => [new PerkPool(false)],
                 'fates' => [new FatesRule()],
                 'fates.*.text' => ['required', 'max:1024'],
-                'fates.*.type' => ['required'],
+                'fates.*.ambition' => ['required_without:fates.*.flaw', 'nullable'],
+                'fates.*.flaw' => ['required_without:fates.*.ambition', 'nullable'],
             ]);
         }
 
