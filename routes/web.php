@@ -47,7 +47,7 @@ Route::middleware('auth')
             ->group(function () {
                 Route::get('/discord-invite', 'invite')->name('invite');
                 Route::get('/discord-verify', 'verify')->name('verify');
-        });
+            });
 
         Route::middleware('verified')
             ->group(function () {

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Character;
 use App\Models\Charsheet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
