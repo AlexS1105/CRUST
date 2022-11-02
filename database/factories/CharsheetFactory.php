@@ -23,7 +23,6 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'character' => Character::factory()->create(['registrar_id' => null])->login,
             'skills' => [
                 'fitness' => $this->faker->numberBetween(0, 10),
                 'perception' => $this->faker->numberBetween(0, 10),

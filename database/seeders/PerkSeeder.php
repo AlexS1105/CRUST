@@ -11,7 +11,7 @@ class PerkSeeder extends Seeder
 {
     public function run()
     {
-        for ($k = 0; $k <= 10; $k++) {
+        for ($k = 0; $k <= 50; $k++) {
             $perk = Perk::factory()->create(['type' => PerkType::None]);
             $type = 0;
             $amount = rand(1, 3);
@@ -19,9 +19,9 @@ class PerkSeeder extends Seeder
             if (rand(1, 2) === 1) {
                 $type = PerkType::set($type, PerkType::Combat);
 
-                if (rand(1, 2) === 1) {
+                if (rand(1, 3) === 1) {
                     $type = PerkType::set($type, PerkType::Attack);
-                } else {
+                } elseif (rand(1, 3) === 1) {
                     $type = PerkType::set($type, PerkType::Defence);
                 }
             }
