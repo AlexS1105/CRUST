@@ -4,8 +4,8 @@
 
 @section('content')
     <x-container>
-        <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
-            <div class="flex mb-4 gap-4 items-center">
+        <x-card class="p-6">
+            <div class="flex flex-wrap mb-4 gap-4">
                 @foreach (App\Enums\CharacterStatus::cases() as $_status)
                     <a href="{{ route('applications.index', [ 'status' => $_status ]) }}"
                        class="{{ $status == $_status ?:"opacity-40" }}">
@@ -17,77 +17,84 @@
             </div>
 
             @if(count($characters))
-                <table class="table-auto w-full border">
-                    <thead class="border bg-gray-200">
-                    <tr>
-                        <th class="px-4 py-2 border border-gray-400">
+                <x-table>
+                    <x-slot name="heading">
+                        <x-table.header>
                             @sortablelink('name', __('label.name'))
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+
+                        <x-table.header>
                             @sortablelink('user.login', __('label.player'))
-                        </th>
+                        </x-table.header>
+
                         @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending)
-                            <th class="px-4 py-2 border border-gray-400">
+                            <x-table.header>
                                 @sortablelink('registrar.name', __('label.registrar'))
-                            </th>
+                            </x-table.header>
                         @endunless
-                        @unless (isset($status))
-                            <th class="px-4 py-2 border border-gray-400">
+
+                        @unless(isset($status))
+                            <x-table.header>
                                 @sortablelink('status', __('label.status'))
-                            </th>
-                        @endif
-                        <th class="px-4 py-2 border border-gray-400">
+                            </x-table.header>
+                        @endunless
+
+                        <x-table.header>
                             @sortablelink('status_updated_at', __('label.waiting'))
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+
+                        <x-table.header>
                             {{ __('label.actions') }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </x-table.header>
+                    </x-slot>
+
                     @foreach ($characters as $character)
-                        <tr class="py-2 border hover:bg-gray-100">
-                            <td class="px-4 py-2 border">
+                        <x-table.row>
+                            <x-table.cell>
                                 <x-link href="{{ route('characters.show', $character->login) }}">
                                     {{ $character->name }}
                                 </x-link>
-                            </td>
-                            <td class="px-4 py-2 border text-center">
+                            </x-table.cell>
+
+                            <x-table.cell>
                                 <x-link href="{{ route('users.show', $character->user) }}">
                                     {{ $character->user->login }}
                                 </x-link>
-                            </td>
+                            </x-table.cell>
+
                             @unless($status == App\Enums\CharacterStatus::Blank || $status == App\Enums\CharacterStatus::Pending)
-                                <td class="px-4 py-2 border text-center">
+                                <x-table.cell>
                                     {{ $character->registrar ? $character->registrar->login : "" }}
-                                </td>
+                                </x-table.cell>
                             @endunless
-                            @unless (isset($status))
-                                <td class="px-4 py-2 border text-center">
+
+                            @unless(isset($status))
+                                <x-table.cell>
                                     <x-character.status :status="$character->status"/>
-                                </td>
+                                </x-table.cell>
                             @endunless
-                            <td class="px-4 py-2 border text-center">
+
+                            <x-table.cell title="{{ $character->status_updated_at }}">
                                 {{ Carbon\Carbon::parse($character->status_updated_at)->diffForHumans() }}
-                            </td>
-                            <td class="border">
-                                <div class="flex w-min mx-auto">
+                            </x-table.cell>
+
+                            <x-table.cell>
+                                <div class="flex flex-wrap justify-center">
                                     <x-application.actions :character="$character" :icons="true"/>
                                 </div>
-                            </td>
-                        </tr>
+                            </x-table.cell>
+                        </x-table.row>
                     @endforeach
-                    </tbody>
-                </table>
+                </x-table>
             @else
-                <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
+                <x-text-bg>
                     {{ __('characters.empty') }}
-                </p>
+                </x-text-bg>
             @endif
 
             <div class="pt-4">
                 {{ $characters->appends(request()->query())->links() }}
             </div>
-        </div>
+        </x-card>
     </x-container>
 @endsection
