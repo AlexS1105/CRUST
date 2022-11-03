@@ -20,8 +20,9 @@ class ApplicationController extends Controller
         $this->authorize('view-applications', Character::class);
 
         $search = request('search');
-        $status = request('status', CharacterStatus::Pending);
-        $characters = Character::search($search)
+        $status = CharacterStatus::from(request('status', CharacterStatus::Pending->value));
+        $characters = Character::with(['user', 'registrar'])
+            ->search($search)
             ->status($status)
             ->oldest('status_updated_at')
             ->sortable()

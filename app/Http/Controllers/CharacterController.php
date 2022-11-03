@@ -29,7 +29,8 @@ class CharacterController extends Controller
 
     public function all(Request $request)
     {
-        $characters = Character::filter($request)
+        $characters = Character::with('user')
+            ->filter($request)
             ->status(CharacterStatus::Approved)
             ->sortable(['updated_at' => 'desc'])
             ->paginate(48);
