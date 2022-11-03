@@ -4,12 +4,13 @@
 
 @section('content')
     <x-container>
-        <form class="space-y-8" method="POST" action="{{ route('users.ban.store', $user) }}">
-            @csrf
-
+        <x-form.base action="{{ route('users.ban.store', $user) }}">
             <x-form.card>
-                <x-form.input name="expires" type="datetime-local" list="durations"
+                <x-form.input name="expires"
+                              type="datetime-local"
+                              list="durations"
                               min="{{ now()->format('Y-m-d\TH:i') }}"/>
+
                 <datalist id="durations">
                     @php
                         $periods = [
@@ -29,14 +30,16 @@
                     @endphp
 
                     @foreach ($periods as $time)
-                        <option
-                            label="{{ Carbon\Carbon::parse($time)->addMinute()->diffForHumans() }}">{{ $time->format('Y-m-d\TH:i') }}</option>
+                        <option label="{{ Carbon\Carbon::parse($time)->addMinute()->diffForHumans() }}">
+                            {{ $time->format('Y-m-d\TH:i') }}
+                        </option>
                     @endforeach
                 </datalist>
+
                 <x-form.input name="reason" required maxlength="256"/>
 
                 <x-button-submit/>
             </x-form.card>
-        </form>
+        </x-form.base>
     </x-container>
 @endsection

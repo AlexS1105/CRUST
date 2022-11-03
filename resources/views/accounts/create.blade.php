@@ -5,7 +5,6 @@
 @section('content')
     <x-container>
         <x-form.base action="{{ route('users.accounts.store', $user) }}" method="POST">
-
             <x-form.card>
                 <x-form.input name="login" required maxlength="16"/>
 
