@@ -3,13 +3,13 @@
 @section('header', __('applications.index'))
 
 @section('content')
-    <x-container class="max-w-5xl">
+    <x-container>
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
             <div class="flex mb-4 gap-4 items-center">
                 @foreach (App\Enums\CharacterStatus::cases() as $_status)
-                    <a href="{{ route('applications.index', [ 'status' => $_status->value ]) }}"
-                       class="{{ $status == $_status->value ?:"opacity-40" }}">
-                        <x-character.status :status=$_status/>
+                    <a href="{{ route('applications.index', [ 'status' => $_status ]) }}"
+                       class="{{ $status == $_status ?:"opacity-40" }}">
+                        <x-character.status :status=$_status />
                     </a>
                 @endforeach
 

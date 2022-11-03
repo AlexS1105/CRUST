@@ -7,6 +7,7 @@
                      colorRing="ring-red-500"
                      confirmationText="return confirm('{{ __('ui.confirm', ['tip' => __('tips.character.force_delete')]) }}')"
                      icon="fa-solid fa-trash"
+                     :icons="$icons"
     />
 @endcan
 
@@ -18,6 +19,7 @@
                      colorHover="border-blue-200"
                      colorRing="ring-blue-300"
                      icon="fa-solid fa-trash-can-arrow-up"
+                     :icons="$icons"
     />
 @endcan
 
