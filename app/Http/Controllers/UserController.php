@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
-        $users = User::search($search)
+        $users = User::search($search, 'login')
             ->latest('created_at')
             ->sortable()
             ->paginate(20);
