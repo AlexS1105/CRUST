@@ -288,9 +288,6 @@ Route::middleware('auth')
                         Route::get('logs', [LogController::class, 'index'])
                             ->name('index');
 
-                        Route::get('logs/ingame', [LogController::class, 'ingame'])
-                            ->name('ingame');
-
                         Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
                             ->name('crust');
                     });

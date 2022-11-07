@@ -8,9 +8,4 @@ class LogController extends Controller
     {
         return view('logs.index');
     }
-
-    public function ingame()
-    {
-        return view('logs.ingame');
-    }
 }
