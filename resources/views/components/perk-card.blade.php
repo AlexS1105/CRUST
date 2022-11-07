@@ -11,13 +11,15 @@
                 {{ $perk->name }}
             </div>
         </div>
-        <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+
+        <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
              xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                   clip-rule="evenodd"></path>
         </svg>
     </button>
+
     <div id="perk-open-body-{{ $perk->id }}" class="hidden" aria-labelledby="perk-open-heading-{{ $perk->id }}">
         <div
             class="flex bg-gray-50 border-b border-t border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm items-center">
@@ -52,6 +54,7 @@
                     {{ __('perks.types.inactive') }}
                 </div>
             @endif
+
             @can('toggle-perks', $character)
                 @if($character->vox > 1 && !$perkVariant->pivot->active || $perkVariant->pivot->active)
                     <form method="POST"
@@ -83,9 +86,11 @@
                 @endif
             @endcan
         </div>
+
         @if (isset($perk->general_description))
             <x-markdown class="p-2 min-w-full border-b bg-white">{!! $perk->general_description !!}</x-markdown>
         @endif
+
         <x-markdown class="p-2 min-w-full {{ isset($perk->general_description) ? 'bg-gray-50' : 'bg-white' }}">{!! $perkVariant->description !!}</x-markdown>
         @if($perkVariant->pivot->note)
             <div class="px-2 py-1 border-t bg-gray-50 italic">
