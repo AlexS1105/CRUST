@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Enums\CharacterStatus;
 use App\Models\Character;
+use App\Models\PerkVariant;
 use App\Models\User;
 use App\Settings\GeneralSettings;
 
@@ -175,9 +176,10 @@ class CharacterPolicy
         return $user->hasPermissionTo('character-vox');
     }
 
-    public function togglePerks(User $user, Character $character)
+    public function togglePerks(User $user, Character $character, PerkVariant $perkVariant)
     {
-        return $user->owns($character)
+        return ($character->vox > 0 && !$perkVariant->pivot->active || $perkVariant->pivot->active)
+            && $user->owns($character)
             || $user->hasPermissionTo('character-manage');
     }
 

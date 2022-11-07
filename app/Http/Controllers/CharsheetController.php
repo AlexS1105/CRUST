@@ -80,7 +80,7 @@ class CharsheetController extends Controller
 
     public function togglePerk(Character $character, PerkVariant $perkVariant)
     {
-        $this->authorize('toggle-perks', $character);
+        $this->authorize('toggle-perks', [$character, $perkVariant]);
 
         return $this->charsheetService->togglePerk($character, $perkVariant);
     }
