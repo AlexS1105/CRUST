@@ -3,5 +3,5 @@
 @section('header', __('crafts.edit'))
 
 @section('content')
-    @include('crafts.form', ['action' => route('characters.narrative_crafts.store', $character), 'method' => 'PATCH'])
+    @include('crafts.form', ['action' => route('characters.narrative_crafts.update', ['character' => $character, 'narrative_craft' => $narrativeCraft]), 'method' => 'PATCH'])
 @endsection

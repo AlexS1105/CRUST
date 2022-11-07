@@ -3,16 +3,5 @@
 @section('header', __('ideas.create'))
 
 @section('content')
-    <x-container>
-        <form class="space-y-8" method="POST" action="{{ route('characters.ideas.store', $character) }}">
-            @csrf
-
-            <x-form.card>
-                <x-form.input name="name" required maxlength="256" :value="old('name')"/>
-                <x-form.input name="description" maxlength="1024" :value="old('description')"/>
-
-                <x-button-submit/>
-            </x-form.card>
-        </form>
-    </x-container>
+    @include('ideas.form', ['action' => route('characters.ideas.store', $character), 'method' => 'POST'])
 @endsection
