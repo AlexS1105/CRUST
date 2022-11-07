@@ -3,14 +3,16 @@
 @section('header', __('perks.index'))
 
 @section('content')
-    <x-container class="max-w-screen space-y-8">
-        <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6 space-y-4">
+    <x-container>
+        <x-card class="space-y-4">
             <a class="flex max-w-fit space-x-2 items-center font-bold text-gray-600" href="{{ route('perks.create') }}">
                 <div class="far fa-plus-square text-xl"></div>
+
                 <div class="text-lg">
                     {{ __('perks.create') }}
                 </div>
             </a>
+
             @if (count($perks))
                 @foreach ($perks as $perk)
                     <div class="border border-gray-400 rounded-xl overflow-hidden">
@@ -92,13 +94,13 @@
                         </div>
                     </div>
                 @endforeach
-            @else
-                <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
-                    {{ __('perks.empty') }}
-                </p>
-            @endif
 
-            {{ $perks->links() }}
-        </div>
+                {{ $perks->links() }}
+            @else
+                <div class="my-4 text-xl font-semibold text-gray-500 text-center">
+                    {{ __('perks.empty') }}
+                </div>
+            @endif
+        </x-card>
     </x-container>
 @endsection
