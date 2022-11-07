@@ -244,7 +244,7 @@
                                 @foreach($character->experiences as $experience)
                                     <x-accordion-item id="experiences" :loop="$loop">
                                         <x-slot name="title">
-                                            {{ $experience->name }}
+                                            {{ $experience->name }} ({{ $experience->level }})
                                         </x-slot>
 
                                         <x-slot name="content">
