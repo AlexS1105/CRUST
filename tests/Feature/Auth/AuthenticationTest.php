@@ -23,7 +23,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'login' => $user->login,
             'password' => 'password',
         ]);
 
@@ -40,6 +40,23 @@ class AuthenticationTest extends TestCase
             'password' => 'wrong-password',
         ]);
 
+        $this->assertGuest();
+    }
+
+    public function test_user_can_logout()
+    {
+        $user = User::factory()->create();
+        $this->be($user);
+
+        $this->post(route('logout'))
+            ->assertRedirect('/');
+        $this->assertGuest();
+    }
+
+    public function test_unauthorized_user_can_not_logout()
+    {
+        $this->post(route('logout'))
+            ->assertRedirect(route('login'));
         $this->assertGuest();
     }
 }
