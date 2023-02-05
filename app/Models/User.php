@@ -37,8 +37,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Ban> $issuedBans
  * @property-read int|null $issued_bans_count
- * @property-read \Illuminate\Database\Eloquent\Collection|array<VoxLog> $issuedVox
- * @property-read int|null $issued_vox_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<EstitenceLog> $issuedEstitence
+ * @property-read int|null $issued_estitence_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|array<\Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Spatie\Permission\Models\Permission> $permissions
@@ -137,9 +137,9 @@ class User extends Authenticatable
         return $this->hasMany(Account::class);
     }
 
-    public function issuedVox()
+    public function issuedEstitence()
     {
-        return $this->hasMany(VoxLog::class, 'issued_by');
+        return $this->hasMany(EstitenceLog::class, 'issued_by');
     }
 
     public function routeNotificationForDiscord()

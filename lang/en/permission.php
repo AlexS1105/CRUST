@@ -5,7 +5,7 @@ return [
     'character-view' => 'View Characters',
     'character-manage' => 'Manage Characters',
     'character-force-delete' => 'Force Delete Characters',
-    'character-vox' => 'Add Vox To Characters',
+    'character-estitence' => 'Update Characters Estitence',
     'application-view' => 'View Applications',
     'application-approval' => 'Manage Applications',
     'application-admin' => 'Admin Applications',

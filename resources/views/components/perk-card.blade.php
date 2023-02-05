@@ -56,7 +56,7 @@
                 </div>
             @endif
 
-            {{ $bar }}
+            {{ $bar ?? '' }}
         </div>
 
         @if (isset($perk->general_description))

@@ -22,11 +22,11 @@ class RoleSeeder extends Seeder
             'character-view' => [$admin, $registrar, $gamemaster],
             'character-manage' => [$admin, $gamemaster],
             'character-force-delete' => [$admin],
-            'character-vox' => [$admin],
+            'character-estitence' => [$admin],
 
             'application-view' => [$admin, $registrar, $gamemaster],
             'application-approval' => [$admin, $registrar],
-            'application-admin' => [$admin],
+            'application-admin' => [$admin, $gamemaster],
 
             'user-view' => [$admin, $registrar, $gamemaster],
             'user-edit' => [$admin],

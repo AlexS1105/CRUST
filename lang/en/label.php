@@ -43,7 +43,7 @@ return [
     'combat' => 'Combat',
     'attack' => 'Attack',
     'defence' => 'Defence',
-    'vox' => 'Vox',
+    'estitence' => 'Estitence',
     'delta' => 'Change',
     'date' => 'Date',
     'amount' => 'Amount',

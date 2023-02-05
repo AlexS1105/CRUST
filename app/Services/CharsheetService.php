@@ -78,57 +78,7 @@ class CharsheetService
 
     public function togglePerk(Character $character, PerkVariant $perkVariant)
     {
-        try {
-            $perkVariant = $character->perkVariants->firstWhere('id', $perkVariant->id);
-            $pivot = $perkVariant->pivot;
-            $active = $pivot->active;
-
-            if ($character->vox <= 0 && ! $active) {
-                throw new Exception('validation.vox.not_enough');
-            }
-
-            $perks = $character->perkVariants->mapWithKeys(function ($variant) use ($perkVariant, $active) {
-                return [
-                    $variant->perk_id => [
-                        'variant' => $variant,
-                        'active' => $variant->is($perkVariant) ? ! $active : $variant->pivot->active,
-                        'note' => $variant->pivot->note,
-                    ],
-                ];
-            });
-
-            $validator = Validator::make([
-                'perks' => $perks,
-            ], [
-                'perks' => new PerkPool(true),
-            ]);
-
-            if ($validator->fails()) {
-                throw new Exception($validator->errors()->first());
-            }
-
-            if (! $pivot->active) {
-                app(VoxService::class)->giveVox(
-                    $character,
-                    -1,
-                    __('vox.perk_activation', ['perk' => $perkVariant->perk->name])
-                );
-            }
-
-            $character->perkVariants()->updateExistingPivot($perkVariant->id, ['active' => ! $active]);
-
-            info('Character perk '.($pivot->active ? 'deactivated' : 'activated'), [
-                'user' => auth()->user()->login,
-                'character' => $character->login,
-                'perk' => $perkVariant->perk->name,
-            ]);
-
-            return back();
-        } catch (Exception $e) {
-            return back()->withErrors([
-                'vox' => __($e->getMessage()),
-            ]);
-        }
+        return back();
     }
 
     public function convertFates($fates)

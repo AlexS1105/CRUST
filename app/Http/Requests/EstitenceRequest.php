@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\Vox;
+use App\Rules\Estitence;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VoxRequest extends FormRequest
+class EstitenceRequest extends FormRequest
 {
     public function authorize()
     {
@@ -23,7 +23,7 @@ class VoxRequest extends FormRequest
     {
         return [
             'reason' => ['required', 'max:256'],
-            'delta' => ['required', 'not_in:0', new Vox($this->route('character'))],
+            'delta' => ['required', 'not_in:0', new Estitence($this->route('character'))],
         ];
     }
 }

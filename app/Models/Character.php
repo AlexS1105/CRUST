@@ -37,7 +37,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property string|null $player_only_info
  * @property string|null $gm_only_info
  * @property int $registered
- * @property int $vox
+ * @property int $estitence
  * @property string|null $personality
  * @property string|null $last_idea
  *
@@ -57,8 +57,8 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read int|null $spheres_count
  * @property-read Ticket|null $ticket
  * @property-read User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|array<VoxLog> $voxLogs
- * @property-read int|null $vox_logs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|array<EstitenceLog> $estitenceLogs
+ * @property-read int|null $estitence_logs_count
  *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, $operator = '>=', $count = 1, $boolean = 'and', ?\Closure $callback = null)
  * @method static \Database\Factories\CharacterFactory factory(...$parameters)
@@ -91,7 +91,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereStatusUpdatedAt($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUpdatedAt($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUserId($value)
- * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereVox($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereEstitence($value)
  *
  * @mixin \Eloquent
  */
@@ -123,7 +123,7 @@ class Character extends Model
         'player_only_info',
         'gm_only_info',
         'registered',
-        'vox',
+        'estitence',
         'personality',
         'last_idea',
         'notion_page',
@@ -178,9 +178,9 @@ class Character extends Model
         return $this->hasMany(Fate::class);
     }
 
-    public function voxLogs()
+    public function estitenceLogs()
     {
-        return $this->hasMany(VoxLog::class);
+        return $this->hasMany(EstitenceLog::class);
     }
 
     public function ideas()

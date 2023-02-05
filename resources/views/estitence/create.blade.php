@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('header', __('vox.index'))
+@section('header', __('estitence.index'))
 
 @section('content')
     <x-container>
-        <form class="space-y-8" method="POST" action="{{ route('characters.vox.store', $character) }}">
+        <form class="space-y-8" method="POST" action="{{ route('characters.estitence.store', $character) }}">
             @csrf
 
             <x-form.card>

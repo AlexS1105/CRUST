@@ -2,23 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\VoxLog;
+use App\Models\EstitenceLog;
 
-class VoxService
+class EstitenceService
 {
-    public function giveVox($character, $delta, $reason)
+    public function giveEstitence($character, $delta, $reason)
     {
         if ($delta !== 0) {
-            VoxLog::create([
+            EstitenceLog::create([
                 'character_id' => $character->id,
                 'issued_by' => auth()->user()->id,
-                'before' => $character->vox,
-                'after' => $character->vox + $delta,
+                'before' => $character->estitence,
+                'after' => $character->estitence + $delta,
                 'reason' => $reason,
                 'delta' => $delta,
             ]);
 
-            $character->vox += $delta;
+            $character->estitence += $delta;
             $character->save();
         }
     }

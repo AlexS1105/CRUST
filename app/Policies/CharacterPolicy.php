@@ -165,22 +165,20 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-view');
     }
 
-    public function voxView(User $user, Character $character)
+    public function estitenceView(User $user, Character $character)
     {
         return $user->owns($character)
             || $user->hasPermissionTo('character-view');
     }
 
-    public function voxCreate(User $user, Character $character)
+    public function estitenceCreate(User $user, Character $character)
     {
-        return $user->hasPermissionTo('character-vox');
+        return $user->hasPermissionTo('character-estitence');
     }
 
     public function togglePerks(User $user, Character $character, PerkVariant $perkVariant)
     {
-        return ($character->vox > 0 && !$perkVariant->pivot->active || $perkVariant->pivot->active)
-            && $user->owns($character)
-            || $user->hasPermissionTo('character-manage');
+        return false;
     }
 
     public function addSphere(User $user, Character $character)

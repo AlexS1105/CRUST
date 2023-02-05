@@ -118,19 +118,19 @@
                 @can('see-player-only-info', $character)
                     <x-card class=" max-w-max mx-auto">
                         <x-header class="max-w-max mx-auto">
-                            {{ __('label.vox') }}: {{ $character->vox }}
+                            {{ __('label.estitence') }}: {{ $character->estitence }}
                         </x-header>
 
                         <div class="space-x-2">
-                            @can('vox-view', $character)
-                                <x-link href="{{ route('characters.vox.index', $character) }}">
-                                    {{ __('vox.index') }}
+                            @can('estitence-view', $character)
+                                <x-link href="{{ route('characters.estitence.index', $character) }}">
+                                    {{ __('estitence.index') }}
                                 </x-link>
                             @endcan
 
-                            @can('vox-create', $character)
-                                <x-link href="{{ route('characters.vox.create', $character) }}">
-                                    {{ __('vox.create') }}
+                            @can('estitence-create', $character)
+                                <x-link href="{{ route('characters.estitence.create', $character) }}">
+                                    {{ __('estitence.create') }}
                                 </x-link>
                             @endcan
                         </div>
@@ -488,8 +488,6 @@
                 @endif
             </div>
         @endif
-
-        <x-form.error name="vox"/>
 
         @can('update-charsheet-gm', $character)
             <x-character.action href="{{ route('characters.perks.edit', $character) }}">

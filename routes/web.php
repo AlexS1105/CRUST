@@ -19,7 +19,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SphereController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VoxController;
+use App\Http\Controllers\EstitenceController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
 
@@ -162,7 +162,7 @@ Route::middleware('auth')
                 Route::get('/wikiauth', WikiController::class)
                     ->name('wiki.index');
 
-                Route::resource('characters.vox', VoxController::class)
+                Route::resource('characters.estitence', EstitenceController::class)
                     ->scoped(['character' => 'login'])
                     ->only(['index', 'create', 'store']);
 

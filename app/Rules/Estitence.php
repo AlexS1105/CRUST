@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Vox implements Rule
+class Estitence implements Rule
 {
     public $character;
 
@@ -13,13 +13,13 @@ class Vox implements Rule
         $this->character = $character;
     }
 
-    public function passes($attribute, $vox)
+    public function passes($attribute, $estitence)
     {
-        return $this->character->vox + $vox >= 0;
+        return $this->character->estitence + $estitence >= 0;
     }
 
     public function message()
     {
-        return __('validation.vox.not_enough');
+        return __('validation.estitence.not_enough');
     }
 }

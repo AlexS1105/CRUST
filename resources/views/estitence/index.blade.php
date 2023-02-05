@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('header', __('vox.index'))
+@section('header', __('estitence.index'))
 
 @section('content')
     <x-container class="max-w-6xl">
         <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
-            @can('vox-create', $character)
-                <x-link href="{{ route('characters.vox.create', $character) }}">
-                    {{ __('vox.create') }}
+            @can('estitence-create', $character)
+                <x-link href="{{ route('characters.estitence.create', $character) }}">
+                    {{ __('estitence.create') }}
                 </x-link>
             @endcan
-            @if(count($character->voxLogs))
+            @if(count($character->estitenceLogs))
                 <table class="table-auto w-full border mt-2">
                     <thead class="border bg-gray-200">
                     <tr>
@@ -29,22 +29,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($character->voxLogs->sortBy('created_at') as $voxLog)
-                        <tr class="py-2 hover:{{ $voxLog->delta > 0 ? 'bg-green' : 'bg-red' }}-200 text-center {{ $voxLog->delta > 0 ? 'bg-green' : 'bg-red' }}-100">
+                    @foreach ($character->estitenceLogs->sortBy('created_at') as $estitenceLog)
+                        <tr class="py-2 hover:{{ $estitenceLog->delta > 0 ? 'bg-green' : 'bg-red' }}-200 text-center {{ $estitenceLog->delta > 0 ? 'bg-green' : 'bg-red' }}-100">
                             <td class="px-4 py-2 border border-gray-400">
-                                {{ $voxLog->created_at }}
+                                {{ $estitenceLog->created_at }}
                             </td>
                             <td class="px-4 py-2 border border-gray-400 leading-none">
-                                {{ $voxLog->delta }}
+                                {{ $estitenceLog->delta }}
                                 <div class="text-xs">
-                                    {{ $voxLog->before }} -> {{ $voxLog->after }}
+                                    {{ $estitenceLog->before }} -> {{ $estitenceLog->after }}
                                 </div>
                             </td>
                             <td class="px-4 py-2 border border-gray-400 min-w-full">
-                                {{ $voxLog->reason }}
+                                {{ $estitenceLog->reason }}
                             </td>
                             <td class="px-4 py-2 border border-gray-400">
-                                {{ $voxLog->issuedBy->login }}
+                                {{ $estitenceLog->issuedBy->login }}
                             </td>
                         </tr>
                     @endforeach
@@ -52,7 +52,7 @@
                 </table>
             @else
                 <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
-                    {{ __('vox.empty') }}
+                    {{ __('estitence.empty') }}
                 </p>
             @endif
         </div>

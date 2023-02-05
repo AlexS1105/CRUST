@@ -5,7 +5,7 @@ return [
     'character-view' => 'Просматривать персонажей',
     'character-manage' => 'Управлять персонажами',
     'character-force-delete' => 'Окончательно удалять персонажей',
-    'character-vox' => 'Выдавать Голос персонажам',
+    'character-estitence' => 'Менять Эститенцию персонажам',
     'application-view' => 'Просматривать персонажей на проверке',
     'application-approval' => 'Проверка персонажей',
     'application-admin' => 'Управление проверкой персонажей',
