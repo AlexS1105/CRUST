@@ -9,21 +9,23 @@
                 {{ $character->name }}
             </h2>
 
-            <div class="font-thin text-base">
-                {{ __('label.player') }}:
-                <a
-                    @can('view', $character->user)
-                        class="font-bold underline text-blue-600 visited:text-purple-600"
-                        href="{{ route('users.show', $character->user) }}"
-                    @endcan
-                >
-                    {{ $character->user->login }}
-                </a>
-            </div>
+            @can('see-player-only-info', $character)
+                <div class="font-thin text-base">
+                    {{ __('label.player') }}:
+                    <a
+                        @can('view', $character->user)
+                            class="font-bold underline text-blue-600 visited:text-purple-600"
+                            href="{{ route('users.show', $character->user) }}"
+                        @endcan
+                    >
+                        {{ $character->user->login }}
+                    </a>
+                </div>
 
-            <div class="font-thin text-base">
-                Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
-            </div>
+                <div class="font-thin text-base">
+                    Discord: <span class="select-all">{{ $character->user->discord_tag }}</span>
+                </div>
+            @endcan
 
             <div class="font-thin text-base">
                 {{ __('label.login') }}: <span class="select-all">{{ $character->login }}</span>
