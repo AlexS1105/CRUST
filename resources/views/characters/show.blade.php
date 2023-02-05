@@ -455,7 +455,7 @@
 
                         <div class="space-y-4">
                             @foreach ($perks->get('combat')->sortByDesc('active') as $perkVariant)
-                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" :accordion="false">
+                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" :accordion="true">
                                     @can('toggle-perks', [$character, $perkVariant])
                                         <x-slot name="bar">
                                             <x-perk.toggle :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" />
@@ -475,7 +475,7 @@
 
                         <div class="space-y-4">
                             @foreach ($perks->get('noncombat')->sortByDesc('active') as $perkVariant)
-                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant">
+                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" :accordion="true">
                                     <x-slot name="bar">
                                         <x-perk.toggle :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" />
                                     </x-slot>
