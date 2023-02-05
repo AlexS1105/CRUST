@@ -49,9 +49,13 @@
                                 <div class="font-bold text-lg line-clamp-2">
                                     {{$character->name}}
                                 </div>
-                                <div class="text-gray-700">
-                                    {{$character->login}}, {{$character->user->discord_tag}}
-                                </div>
+
+                                @can('see-player-only-info', $character)
+                                    <div class="text-gray-700">
+                                        {{$character->login}}, {{$character->user->discord_tag}}
+                                    </div>
+                                @endcan
+
                                 <div class="text-sm text-gray-400">
                                     {{Carbon\Carbon::parse($character->updated_at)->diffForHumans()}}
                                 </div>
