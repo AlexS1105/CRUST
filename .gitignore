@@ -1,4 +1,5 @@
 /node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
@@ -16,3 +17,4 @@ yarn-error.log
 .rnd
 .phpstorm.meta.php
 _ide_helper.php
+Dockerfile
