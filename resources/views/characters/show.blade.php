@@ -139,17 +139,17 @@
             </div>
         </div>
 
-        @if(isset($character->charsheet->skills) || $character->charsheet->hasAnyCrafts())
+        @if(isset($character->charsheet->stats) || $character->charsheet->hasAnyCrafts())
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
-                @if(isset($character->charsheet->skills) && count($character->charsheet->skills))
+                @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
                     <x-card class="w-full my-auto">
                         <x-header>
                             {{ __('charsheet.skills') }}
                         </x-header>
 
                         <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-                            @foreach ($character->charsheet->skills as $skill => $value)
-                                <x-progress value="{{ $value }}">{{ __('skill.'.$skill) }}</x-progress>
+                            @foreach ($character->charsheet->stats as $stat => $value)
+                                <x-progress value="{{ $value }}">{{ __('stat.'.$stat) }}</x-progress>
                             @endforeach
                         </div>
                     </x-card>

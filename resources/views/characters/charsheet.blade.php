@@ -9,41 +9,41 @@
         <x-form.base action="{{ route('characters.charsheet.update', $character->login) }}" method="PATCH">
             <x-form.card>
                 <x-slot name="header">
-                    {{ __('charsheet.skills') }}
+                    {{ __('charsheet.stats') }}
                 </x-slot>
 
                 <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto min-content">
-                    @foreach (App\Enums\CharacterSkill::cases() as $instance)
+                    @foreach (App\Enums\CharacterStat::cases() as $instance)
                         @php
-                            $skill = $instance->value;
-                            $value = old('skills.'.$skill, $character->charsheet->skills[$skill]);
+                            $stat = $instance->value;
+                            $value = old('stats.'.$stat, $character->charsheet->stats[$stat]);
                         @endphp
 
                         <div class="text-lg text-right">
                             {{ $instance->localized() }}
                         </div>
                         <div class="space-x-4 flex">
-                            <input class="w-full shrink" type="range" id="skills[{{ $skill }}]"
-                                   name="skills[{{ $skill }}]" min="0" max="10" value="{{ $value }}"
-                                   oninput="updateSkillSum(this)"/>
+                            <input class="w-full shrink" type="range" id="stats[{{ $stat }}]"
+                                   name="stats[{{ $stat }}]" min="1" max="21" value="{{ $value }}"
+                                   oninput="updateStatsSum(this)"/>
                         </div>
-                        <output id="{{ $skill }}" class="font-bold text-xl w-4">{{ $value }}</output>
+                        <output id="{{ $stat }}" class="font-bold text-xl w-4">{{ $value }}</output>
                     @endforeach
                 </div>
 
                 <div class="font-bold text-lg text-right flex justify-end">
                     <div class="mr-2">
-                        {{ __('charsheet.points.skills') }}
+                        {{ __('charsheet.points.stats') }}
                     </div>
-                    <div class="mr-2" id="skill_points">
-                        {{ $settings->skill_points - array_sum($character->charsheet->skills) }}
+                    <div class="mr-2" id="stat_points">
+                        {{ $character->estitence - array_sum($character->charsheet->stats) }}
                     </div>
                     <div>
-                        / {{ $settings->skill_points }}
+                        / {{ $character->estitence }}
                     </div>
                 </div>
-                <x-tip text="character.skills"/>
-                <x-form.error name="skills"/>
+                <x-tip text="character.stats"/>
+                <x-form.error name="stats"/>
             </x-form.card>
 
             <x-form.card>
@@ -122,7 +122,7 @@
 
 @push('scripts')
     <script>
-        var maxSkills = @json($settings->skill_points);
+        var maxStats = @json($character->estitence);
         var magicCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getMagicCrafts()));
         var techCrafts = @json(array_map(function($instance) { return $instance->value; }, App\Enums\CharacterCraft::getTechCrafts()));
         var _narrativeCrafts = @json(old('narrative_crafts', $character->narrativeCrafts)) ||

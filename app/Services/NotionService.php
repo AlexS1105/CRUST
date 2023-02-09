@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\CharacterSkill;
+use App\Enums\CharacterStat;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\NotionFacade;
 use FiveamCode\LaravelNotionApi\Query\Filters\Filter;
@@ -30,7 +30,7 @@ class NotionService
         $page->setTitle('Name', $character->notion_title);
         $page->setUrl('Crust', route('characters.show', $character));
 
-        foreach (CharacterSkill::cases() as $skill) {
+        foreach (CharacterStat::cases() as $skill) {
             $page->setNumber($skill->localized(), $character->charsheet->skills[$skill->value]);
         }
 

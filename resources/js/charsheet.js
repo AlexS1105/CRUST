@@ -13,12 +13,12 @@ var maxNarrativeCrafts = 0
 var narrativeCrafts = []
 var id = 0
 
-window.updateSkillSum = function (slider) {
-    var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
-    var skillLabel = document.getElementById(skill)
-    skillLabel.innerHTML = slider.value
+window.updateStatsSum = function (slider) {
+    var stat = slider.id.replace(/(^.*\[|\].*$)/g, '')
+    var statLabel = document.getElementById(stat)
+    statLabel.innerHTML = slider.value
 
-    updateSkills()
+    updateStats()
 }
 
 window.updateCraftsSum = function (slider) {
@@ -118,32 +118,32 @@ function updateAddButton() {
     }
 }
 
-function updateSkills() {
-    var skillSliders = document.querySelectorAll("*[id^='skills']");
+function updateStats() {
+    var statSliders = document.querySelectorAll("*[id^='stats']");
     var sum = 0
 
-    for (var i = 0; i < skillSliders.length; i++) {
-        var slider = skillSliders[i]
-        var skill = slider.id.replace(/(^.*\[|\].*$)/g, '')
+    for (var i = 0; i < statSliders.length; i++) {
+        var slider = statSliders[i]
+        var stat = slider.id.replace(/(^.*\[|\].*$)/g, '')
         var value = parseInt(slider.value)
 
         sum += value
 
-        if (skill == 'magic') {
+        if (stat == 'magic') {
             maxMagic = value
-        } else if (skill == 'tech') {
+        } else if (stat == 'tech') {
             maxTech = value
-        } else if (skill == 'ingenuity') {
+        } else if (stat == 'ingenuity') {
             ingenuityPoints = value
         }
     }
 
-    var sumLabel = document.getElementById('skill_points')
-    sumLabel.innerHTML = maxSkills - sum
+    var sumLabel = document.getElementById('stat_points')
+    sumLabel.innerHTML = maxStats - sum
 
     var parent = sumLabel.parentElement
 
-    if (sum > maxSkills) {
+    if (sum > maxStats) {
         parent.classList.add('text-red-600')
     } else {
         parent.classList.remove('text-red-600')
@@ -279,14 +279,14 @@ function updateGeneralPoints() {
     }
 }
 
-if (typeof (maxSkills) != 'undefined') {
+if (typeof (maxStats) != 'undefined') {
     if (_narrativeCrafts.length != 0) {
         _narrativeCrafts.forEach(craft => {
             addNarrativeCraftCard(craft['name'], craft['description'])
         });
     }
 
-    updateSkills()
+    updateStats()
     updateCrafts()
     updateNarrativeCrafts()
 }

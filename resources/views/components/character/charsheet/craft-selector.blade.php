@@ -10,7 +10,7 @@
             /
         @endif
         <div id="{{ $craft }}_points_max">
-            {{ $craft != 'general' ? $character->charsheet->skills[$craft] : 0 }}
+            {{ 0 }}
         </div>
     </div>
     <div class="space-y-1 px-1 pb-1">

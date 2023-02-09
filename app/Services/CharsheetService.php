@@ -14,9 +14,9 @@ class CharsheetService
     public function update($character, $validated)
     {
         $character->charsheet()->update([
-            'skills' => array_map(function ($value) {
+            'stats' => array_map(function ($value) {
                 return intval($value);
-            }, $validated['skills']),
+            }, $validated['stats']),
             'crafts' => array_map(function ($value) {
                 return intval($value);
             }, $validated['crafts']),
