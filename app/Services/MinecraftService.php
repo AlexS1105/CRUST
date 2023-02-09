@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\UserAuthorizedInLauncher;
 use App\Models\Account;
 use App\Models\Character;
 use Exception;
@@ -16,6 +17,8 @@ class MinecraftService
             $login = $request->login;
             $password = $request->password;
             $this->checkUser($login, $password);
+
+            UserAuthorizedInLauncher::dispatch($login);
 
             return $this->launcherResponse("OK:{$login}");
         } catch (Exception $e) {
