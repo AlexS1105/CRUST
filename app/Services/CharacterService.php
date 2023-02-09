@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\CharacterStatus;
 use App\Events\CharacterCompletelyDeleted;
+use App\Events\CharacterCreated;
 use App\Events\CharacterDeleted;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -17,6 +18,8 @@ class CharacterService
         $character->charsheet()->create();
 
         $this->saveReference($character, $validated);
+
+        CharacterCreated::dispatch($character);
 
         return $character;
     }

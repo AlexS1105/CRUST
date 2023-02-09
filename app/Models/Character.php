@@ -281,4 +281,12 @@ class Character extends Model
             get: fn () => $this->id.' '.$this->login.' | '.$this->name,
         );
     }
+
+    public function shouldReceiveAdditionalEstitence(): Attribute
+    {
+        return Attribute::make(
+            // TODO: Background check
+            get: fn() => true,
+        );
+    }
 }
