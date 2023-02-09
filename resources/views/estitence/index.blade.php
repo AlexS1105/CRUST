@@ -44,7 +44,7 @@
                                 {{ $estitenceLog->reason }}
                             </td>
                             <td class="px-4 py-2 border border-gray-400">
-                                {{ $estitenceLog->issuedBy->login }}
+                                {{ $estitenceLog->issuedBy?->login }}
                             </td>
                         </tr>
                     @endforeach

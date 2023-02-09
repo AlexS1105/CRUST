@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CharacterGender;
 use App\Enums\CharacterStatus;
 use App\Services\CharacterService;
+use App\Settings\CharsheetSettings;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -135,6 +136,15 @@ class Character extends Model
         'info_hidden' => 'boolean',
         'bio_hidden' => 'boolean',
     ];
+
+    public function scopeAffectedByEstitenceReduce($query)
+    {
+        return $query->where([
+            ['status', '=', CharacterStatus::Approved],
+            ['estitence', '>', app(CharsheetSettings::class)->safe_estitence],
+            ['last_online_at', '>', now()->subWeeks(2)],
+        ]);
+    }
 
     public function user()
     {

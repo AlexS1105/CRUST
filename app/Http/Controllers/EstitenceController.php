@@ -26,7 +26,7 @@ class EstitenceController extends Controller
     {
         $this->authorize('estitenceCreate', $character);
 
-        $estitenceService->giveEstitence($character, ...$request->validated());
+        $estitenceService->changeEstitence($character, ...$request->validated());
 
         return to_route('characters.estitence.index', $character);
     }

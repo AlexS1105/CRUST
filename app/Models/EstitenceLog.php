@@ -58,21 +58,21 @@ class EstitenceLog extends Model
 
         static::created(function ($estitenceLog) {
             info('Estitence log created', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user()?->login,
                 'character' => $estitenceLog->character->login,
             ]);
         });
 
         static::updated(function ($estitenceLog) {
             info('Estitence log updated', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user()?->login,
                 'character' => $estitenceLog->character->login,
             ]);
         });
 
         static::deleted(function ($estitenceLog) {
             info('Estitence log deleted', [
-                'user' => auth()->user()->login,
+                'user' => auth()->user()?->login,
                 'character' => $estitenceLog->character->login,
             ]);
         });
