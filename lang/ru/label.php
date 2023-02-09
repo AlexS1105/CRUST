@@ -58,4 +58,9 @@ return [
     'expires' => 'Истекает',
     'experience' => 'Опытность',
     'level' => 'Уровень',
+    'min_estitence' => 'Минимум Эститенции',
+    'max_estitence' => 'Максимум Эститенции',
+    'safe_estitence' => 'Порог Эститенции для автоматического снижения',
+    'default_estitence' => 'Стартовая Эститенция',
+    'additional_estitence' => 'Доп. Эститенция за происхождение',
 ];

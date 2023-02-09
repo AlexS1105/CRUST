@@ -12,6 +12,16 @@ class CharsheetSettings extends Settings
 
     public int $max_active_perks;
 
+    public int $min_estitence;
+
+    public int $max_estitence;
+
+    public int $safe_estitence;
+
+    public int $default_estitence;
+
+    public int $additional_estitence;
+
     public static function group(): string
     {
         return 'charsheet';
