@@ -8,35 +8,37 @@
 
         <x-form.base action="{{ route('characters.charsheet.update', $character->login) }}" method="PATCH">
             <x-form.card>
-                <x-slot name="header">
+                <x-header>
                     {{ __('charsheet.stats') }}
-                </x-slot>
+                </x-header>
 
-                <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto min-content">
-                    @foreach (App\Enums\CharacterStat::cases() as $instance)
-                        @php
-                            $stat = $instance->value;
-                            $value = old('stats.'.$stat, $character->charsheet->stats[$stat]);
-                        @endphp
+                <x-character.charsheet.stats>
+                    <x-slot name="headerBody">
+                        (<span id="body-sum">{{ $character->charsheet->body_sum }}</span>)
+                    </x-slot>
+                    <x-slot name="headerEssence">
+                        (<span id="essence-sum">{{ $character->charsheet->essence_sum }}</span>)
+                    </x-slot>
 
-                        <div class="text-lg text-right">
-                            {{ $instance->localized() }}
-                        </div>
-                        <div class="space-x-4 flex">
-                            <input class="w-full shrink" type="range" id="stats[{{ $stat }}]"
-                                   name="stats[{{ $stat }}]" min="1" max="21" value="{{ $value }}"
-                                   oninput="updateStatsSum(this)"/>
-                        </div>
-                        <output id="{{ $stat }}" class="font-bold text-xl w-4">{{ $value }}</output>
+                    @foreach ($character->charsheet->stats as $stat => $value)
+                        <x-slot :name="$stat">
+                            <input id="stats[{{$stat}}]"
+                                   name="stats[{{$stat}}]"
+                                   type="number"
+                                   min="1"
+                                   max="100"
+                                   value="{{ $value }}"
+                                   oninput="updateStatsSum()"
+                            >
+                        </x-slot>
                     @endforeach
-                </div>
-
+                </x-character.charsheet.stats>
                 <div class="font-bold text-lg text-right flex justify-end">
                     <div class="mr-2">
                         {{ __('charsheet.points.stats') }}
                     </div>
-                    <div class="mr-2" id="stat_points">
-                        {{ $character->estitence - array_sum($character->charsheet->stats) }}
+                    <div class="mr-2" id="stat-points">
+                        {{ $character->estitence - $character->charsheet->stats_sum }}
                     </div>
                     <div>
                         / {{ $character->estitence }}

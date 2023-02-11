@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Settings\CharsheetSettings;
+use App\Enums\CharacterStat;
 use Illuminate\Contracts\Validation\Rule;
 
 class StatPool implements Rule
@@ -16,7 +16,7 @@ class StatPool implements Rule
 
     public function passes($attribute, $value)
     {
-        return array_sum($value) <= $this->character->estitence;
+        return CharacterStat::getSum($value) <= $this->character->estitence;
     }
 
     public function message()

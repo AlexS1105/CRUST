@@ -1,4 +1,4 @@
-<div class="flex justify-between text-lg uppercase">
+<div class="sm:flex sm:justify-between text-lg uppercase">
     <x-character-stage-link
         href="{{ isset($character) ? route('characters.edit', $character->login) : '#' }}"
         :active="request()->routeIs('characters.edit') || request()->routeIs('characters.create')"

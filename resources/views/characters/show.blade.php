@@ -147,42 +147,20 @@
                             {{ __('charsheet.stats') }}
                         </x-header>
 
-                        <div class="lg:flex gap-4">
-                            <table class="table border border-red-300 w-full">
-                                <thead class="border border-red-300 bg-red-200">
-                                    <tr>
-                                        <th colspan="2" class="p-2 text-center text-xl">
-                                            {{ __('stat.body') }} ({{ $character->charsheet->body_sum }})
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($character->charsheet->body_stats as $stat => $value)
-                                    <tr class="border border-t-0 border-red-200 bg-red-100">
-                                        <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
-                                        <td class="p-2 text-xl text-center font-bold border border-t-0 border-red-200">{{ $value }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <table class="table border border-blue-300 w-full">
-                                <thead class="border border-blue-300 bg-blue-200">
-                                <tr>
-                                    <th colspan="2" class="p-2 text-center text-xl">
-                                        {{ __('stat.essence') }} ({{ $character->charsheet->essence_sum }})
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($character->charsheet->essence_stats as $stat => $value)
-                                    <tr class="border border-t-0 border-blue-200 bg-blue-100">
-                                        <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
-                                        <td class="p-2 text-xl text-center font-bold border border-t-0 border-blue-200">{{ $value }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <x-character.charsheet.stats>
+                            <x-slot name="headerBody">
+                                ({{ $character->charsheet->body_sum }})
+                            </x-slot>
+                            <x-slot name="headerEssence">
+                                ({{ $character->charsheet->essence_sum }})
+                            </x-slot>
+
+                            @foreach ($character->charsheet->stats as $stat => $value)
+                                <x-slot :name="$stat">
+                                    {{ $value }}
+                                </x-slot>
+                            @endforeach
+                        </x-character.charsheet.stats>
                     </x-card>
                 @endif
 

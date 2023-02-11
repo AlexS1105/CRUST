@@ -59,7 +59,7 @@ class Charsheet extends Model
     {
         return Attribute::make(
             get: function () {
-                return array_reduce($this->body_stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+                return CharacterStat::getSum($this->body_stats);
             }
         );
     }
@@ -77,7 +77,16 @@ class Charsheet extends Model
     {
         return Attribute::make(
             get: function () {
-                return array_reduce($this->essence_stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+                return CharacterStat::getSum($this->essence_stats);
+            }
+        );
+    }
+
+    public function statsSum(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return CharacterStat::getSum($this->stats);
             }
         );
     }

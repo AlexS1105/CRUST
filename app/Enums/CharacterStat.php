@@ -47,4 +47,9 @@ enum CharacterStat: string
 
         return $cost;
     }
+
+    public static function getSum($stats)
+    {
+        return array_reduce($stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+    }
 }
