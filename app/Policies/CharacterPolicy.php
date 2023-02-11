@@ -227,4 +227,14 @@ class CharacterPolicy
     {
         return $user->hasPermissionTo('character-view');
     }
+
+    public function updateStats(User $user, Character $character)
+    {
+        return $user->owns($character)
+            && ($character->stats_inequality != 0
+                || ! $character->registered)
+            && (! $character->stats_handled)
+            || $user->hasPermissionTo('character-manage')
+            || $user->registers($character);
+    }
 }

@@ -21,6 +21,6 @@ class StatPool implements Rule
 
     public function message()
     {
-        return __('validation.stat_pool');
+        return __('validation.stat.pool');
     }
 }

@@ -8,31 +8,12 @@
 
         <x-form.base action="{{ route('characters.charsheet.update', $character->login) }}" method="PATCH">
             <x-form.card>
-                <x-header>
+                <x-slot name="header">
                     {{ __('charsheet.stats') }}
-                </x-header>
+                </x-slot>
 
-                <x-character.charsheet.stats>
-                    <x-slot name="headerBody">
-                        (<span id="body-sum">{{ $character->charsheet->body_sum }}</span>)
-                    </x-slot>
-                    <x-slot name="headerEssence">
-                        (<span id="essence-sum">{{ $character->charsheet->essence_sum }}</span>)
-                    </x-slot>
+                <x-character.charsheet.stats-edit :character="$character" />
 
-                    @foreach ($character->charsheet->stats as $stat => $value)
-                        <x-slot :name="$stat">
-                            <input id="stats[{{$stat}}]"
-                                   name="stats[{{$stat}}]"
-                                   type="number"
-                                   min="1"
-                                   max="100"
-                                   value="{{ $value }}"
-                                   oninput="updateStatsSum()"
-                            >
-                        </x-slot>
-                    @endforeach
-                </x-character.charsheet.stats>
                 <div class="font-bold text-lg text-right flex justify-end">
                     <div class="mr-2">
                         {{ __('charsheet.points.stats') }}
@@ -44,8 +25,12 @@
                         / {{ $character->estitence }}
                     </div>
                 </div>
-                <x-tip text="character.stats"/>
+                <x-tip text="character.stats.penalties"/>
                 <x-form.error name="stats"/>
+
+                <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
+
+                <x-tip text="character.stats.handled"/>
             </x-form.card>
 
             <x-form.card>

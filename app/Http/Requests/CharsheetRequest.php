@@ -49,6 +49,10 @@ class CharsheetRequest extends FormRequest
             ]);
         }
 
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            $rules['stats_handled'] = ['boolean'];
+        }
+
         return $rules;
     }
 }

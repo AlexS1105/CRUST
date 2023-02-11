@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
+use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
@@ -83,5 +84,21 @@ class CharsheetController extends Controller
         $this->authorize('toggle-perks', [$character, $perkVariant]);
 
         return $this->charsheetService->togglePerk($character, $perkVariant);
+    }
+
+    public function editStats(Character $character)
+    {
+        $this->authorize('update-stats', $character);
+
+        return view('characters.stats', compact('character'));
+    }
+
+    public function updateStats(CharacterStatsRequest $request, Character $character)
+    {
+        $this->authorize('update-stats', $character);
+
+        $this->charsheetService->updateStats($character, $request->validated());
+
+        return to_route('characters.show', $character);
     }
 }

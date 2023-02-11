@@ -43,6 +43,10 @@ class MinecraftService
             if (! config('services.minecraft.characters_auth')) {
                 throw new Exception(__('minecraft.auth.characters'));
             }
+
+            if ($character->stats_inequality < 0 && ! $character->stats_handled) {
+                throw new Exception(__('minecraft.auth.stats'));
+            }
         } else {
             $account = Account::firstWhere(DB::raw('BINARY `login`'), $login);
 

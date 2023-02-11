@@ -103,6 +103,15 @@ Route::middleware('auth')
                                 Route::patch('fates', 'updateFates')
                                     ->name('update');
                             });
+
+                        Route::name('stats.')
+                            ->group(function () {
+                                Route::get('stats', 'editStats')
+                                    ->name('edit');
+
+                                Route::patch('stats', 'updateStats')
+                                    ->name('update');
+                            });
                     });
 
                 Route::controller(ApplicationController::class)

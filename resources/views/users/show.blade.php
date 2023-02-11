@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $user->name)
+@section('title', $user->login)
 
 @section('header')
     <div class="flex justify-between items-center text-gray-600">

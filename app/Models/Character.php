@@ -299,4 +299,11 @@ class Character extends Model
             get: fn() => true,
         );
     }
+
+    public function statsInequality(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->estitence - $this->charsheet->stats_sum,
+        );
+    }
 }

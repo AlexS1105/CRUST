@@ -1,4 +1,4 @@
-<div class="lg:flex gap-4">
+<div class="lg:flex lg:space-y-0 space-y-4 gap-4">
     <table class="table w-full p-1">
         <thead>
             <tr>
