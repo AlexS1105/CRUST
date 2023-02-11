@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\CharacterStat;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Arr;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Charsheet extends Model
@@ -41,6 +44,42 @@ class Charsheet extends Model
     public function hasAnyCrafts()
     {
         return array_sum($this->crafts) > 0;
+    }
+
+    public function bodyStats(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return Arr::only($this->stats, CharacterStat::getBodyStats());
+            }
+        );
+    }
+
+    public function bodySum(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return array_reduce($this->body_stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+            }
+        );
+    }
+
+    public function essenceStats(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return Arr::only($this->stats, CharacterStat::getEssenceStats());
+            }
+        );
+    }
+
+    public function essenceSum(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return array_reduce($this->essence_stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+            }
+        );
     }
 
     public function character()

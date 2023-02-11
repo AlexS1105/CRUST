@@ -9,4 +9,6 @@ return [
     'erudition' => 'Эрудиция',
     'will' => 'Воля',
     'potential' => 'Потенциал',
+    'body' => 'Сосуд',
+    'essence' => 'Сущность',
 ];

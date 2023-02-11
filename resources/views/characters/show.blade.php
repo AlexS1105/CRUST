@@ -140,17 +140,48 @@
         </div>
 
         @if(isset($character->charsheet->stats) || $character->charsheet->hasAnyCrafts())
-            <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
+            <div class="flex justify-center gap-8">
                 @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
                     <x-card class="w-full my-auto">
                         <x-header>
-                            {{ __('charsheet.skills') }}
+                            {{ __('charsheet.stats') }}
                         </x-header>
 
-                        <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-                            @foreach ($character->charsheet->stats as $stat => $value)
-                                <x-progress value="{{ $value }}">{{ __('stat.'.$stat) }}</x-progress>
-                            @endforeach
+                        <div class="lg:flex gap-4">
+                            <table class="table border border-red-300 w-full">
+                                <thead class="border border-red-300 bg-red-200">
+                                    <tr>
+                                        <th colspan="2" class="p-2 text-center text-xl">
+                                            {{ __('stat.body') }} ({{ $character->charsheet->body_sum }})
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($character->charsheet->body_stats as $stat => $value)
+                                    <tr class="border border-t-0 border-red-200 bg-red-100">
+                                        <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
+                                        <td class="p-2 text-xl text-center font-bold border border-t-0 border-red-200">{{ $value }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <table class="table border border-blue-300 w-full">
+                                <thead class="border border-blue-300 bg-blue-200">
+                                <tr>
+                                    <th colspan="2" class="p-2 text-center text-xl">
+                                        {{ __('stat.essence') }} ({{ $character->charsheet->essence_sum }})
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($character->charsheet->essence_stats as $stat => $value)
+                                    <tr class="border border-t-0 border-blue-200 bg-blue-100">
+                                        <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
+                                        <td class="p-2 text-xl text-center font-bold border border-t-0 border-blue-200">{{ $value }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </x-card>
                 @endif
