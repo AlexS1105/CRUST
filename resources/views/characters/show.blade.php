@@ -147,6 +147,17 @@
                             {{ __('charsheet.stats') }}
                         </x-header>
 
+                        @php
+                            $inequality = $character->stats_inequality;
+                            $positive = $inequality > 0;
+                        @endphp
+
+                        @if($inequality != 0)
+                            <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600' : 'text-red-600'}}">
+                                {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
+                            </div>
+                        @endif
+
                         <x-character.charsheet.stats>
                             <x-slot name="headerBody">
                                 ({{ $character->charsheet->body_sum }})
@@ -161,6 +172,17 @@
                                 </x-slot>
                             @endforeach
                         </x-character.charsheet.stats>
+
+                        @can('update-stats', $character)
+                            <x-accordion-action class="my-2 w-full border-t"
+                                                method="GET"
+                                                action="{{ route('characters.stats.update', ['character' => $character]) }}"
+                                                icon="fa-solid fa-arrows-turn-to-dots"
+                            >
+                                {{ __('stat.update') }}
+                            </x-accordion-action>
+                        @endcan
+
                     </x-card>
                 @endif
 
