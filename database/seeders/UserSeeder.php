@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Character;
+use App\Models\Charsheet;
 use App\Models\Perk;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,7 +20,7 @@ class UserSeeder extends Seeder
         User::factory(10)
             ->has(
                 Character::factory(3)
-                    ->hasCharsheet()
+                    ->hasCharsheet(Charsheet::factory()->create())
                     ->hasAttached($noncombatPerks->random(3)->map(function ($perk) {
                         return $perk->variants->random();
                     }), ['active' => true])

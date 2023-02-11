@@ -29,6 +29,7 @@ class CharacterFactory extends Factory
             'personality' => $this->faker->paragraph(),
             'player_only_info' => $this->faker->paragraph(),
             'gm_only_info' => $this->faker->paragraph(),
+            'estitence' => $this->faker->numberBetween(20, 100),
         ];
     }
 }

@@ -23,15 +23,14 @@ class CharsheetFactory extends Factory
     {
         return [
             'skills' => [
-                'fitness' => $this->faker->numberBetween(0, 10),
-                'perception' => $this->faker->numberBetween(0, 10),
-                'agility' => $this->faker->numberBetween(0, 10),
-                'coordination' => $this->faker->numberBetween(0, 10),
-                'ingenuity' => $this->faker->numberBetween(0, 10),
-                'tech' => $this->faker->numberBetween(0, 10),
-                'magic' => $this->faker->numberBetween(0, 10),
-                'charisma' => $this->faker->numberBetween(0, 10),
-                'composure' => $this->faker->numberBetween(0, 10),
+                'strength' => $this->faker->numberBetween(0, 12),
+                'endurance' => $this->faker->numberBetween(0, 12),
+                'perception' => $this->faker->numberBetween(0, 12),
+                'agility' => $this->faker->numberBetween(0, 12),
+                'determination' => $this->faker->numberBetween(0, 12),
+                'erudition' => $this->faker->numberBetween(0, 12),
+                'will' => $this->faker->numberBetween(0, 12),
+                'potential' => $this->faker->numberBetween(0, 12),
             ],
             'crafts' => [
                 'arc' => $this->faker->numberBetween(0, 3),
