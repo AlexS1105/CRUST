@@ -23,6 +23,7 @@ class CharsheetRequest extends FormRequest
         $this->merge([
             'perks' => $charsheetService->convertPerks($this->perks),
             'fates' => $charsheetService->convertFates($this->fates),
+            'stats_handled' => $this->stats_handled === 'on',
         ]);
     }
 
@@ -52,7 +53,7 @@ class CharsheetRequest extends FormRequest
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             $rules = array_merge($rules, [
-                'stats_handled' => ['boolean'],
+                'stats_handled' => ['sometimes', 'boolean'],
                 'perk_points' => ['numeric', 'min:0', 'max:100'],
             ]);
         }

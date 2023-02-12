@@ -13,13 +13,27 @@ class CharacterStatsRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'stats_handled' => $this->stats_handled === 'on',
+        ]);
+    }
+
     public function rules()
     {
         $character = $this->route('character');
-
-        return [
+        $rules = [
             'stats' => ['required', new StatPool($character), new StatUpdate($character)],
             'stats.*' => ['numeric', 'min:1'],
         ];
+
+        if (auth()->user()?->can('update-charsheet-gm', $character)) {
+            $rules = array_merge($rules, [
+                'stats_handled' => ['sometimes', 'boolean'],
+            ]);
+        }
+
+        return $rules;
     }
 }

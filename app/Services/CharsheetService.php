@@ -32,8 +32,16 @@ class CharsheetService
             $this->savePerks($character, $validated);
         }
 
-        if (isset($validated['stats_handled'])) {
-            $character->update(['stats_handled' => $validated['stats_handled']]);
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            if (isset($validated['stats_handled'])) {
+                $character->stats_handled = $validated['stats_handled'];
+            }
+
+            if (isset($validated['perk_points'])) {
+                $character->perk_points = $validated['perk_points'];
+            }
+
+            $character->save();
         }
 
         info('Charsheet updated', [
@@ -108,9 +116,14 @@ class CharsheetService
         });
     }
 
-    public function updateStats($character, $stats)
+    public function updateStats($character, $validated)
     {
-        $character->charsheet()->update($stats);
+        $character->charsheet()->update($validated);
+
+        if (isset($validated['stats_handled'])) {
+            $character->stats_handled = $validated['stats_handled'];
+            $character->save();
+        }
 
         info('Character stats updated', [
             'user' => auth()->user()?->login,

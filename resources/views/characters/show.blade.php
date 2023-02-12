@@ -153,7 +153,7 @@
                             $positive = $inequality > 0;
                         @endphp
 
-                        @if($inequality != 0)
+                        @if($inequality != 0 && ! $character->stats_handled)
                             <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600' : 'text-red-600'}}">
                                 {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
                             </div>
