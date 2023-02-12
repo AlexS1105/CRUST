@@ -58,11 +58,18 @@
         <div id="perk-cost">
             0
         </div>
-        / {{ $character->perk_points }}
+        / <div id="perk-points">{{ old('perk_points', $character->perk_points) }}</div>
     </div>
 </div>
 
+<x-tip text="character.perks"/>
 <x-form.error name="perks"/>
+
+@can('update-charsheet-gm', $character)
+    <x-form.input name="perk_points" type="number" required min="0" max="100" onchange="updatePerkPoints()" :value="old('perk_points', $character->perk_points)"/>
+
+    <x-form.error name="perk_points"/>
+@endcan
 
 <script>
     let maxPerks = @json($maxPerks);

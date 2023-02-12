@@ -51,7 +51,10 @@ class CharsheetRequest extends FormRequest
         }
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
-            $rules['stats_handled'] = ['boolean'];
+            $rules = array_merge($rules, [
+                'stats_handled' => ['boolean'],
+                'perk_points' => ['numeric', 'min:0', 'max:100'],
+            ]);
         }
 
         return $rules;

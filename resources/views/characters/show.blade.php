@@ -145,7 +145,7 @@
                 @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
                     <x-card class="w-full my-auto">
                         <x-header>
-                            {{ __('charsheet.stats') }}
+                            {{ __('charsheet.stats') }} ({{ $character->charsheet->stats_sum }} / {{ $character->stats_handled ? '???' : $character->estitence }})
                         </x-header>
 
                         @php
@@ -483,7 +483,7 @@
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 <x-card class="w-full my-auto">
                     <x-header>
-                        {{ __('perks.index') }} ({{ $character->perk_sum }})
+                        {{ __('perks.index') }} ({{ $character->perk_sum }} / {{ $character->perk_points }})
                     </x-header>
 
                     <div class="grid grid-cols-2 gap-4">

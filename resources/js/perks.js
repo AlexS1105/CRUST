@@ -37,6 +37,12 @@ function updateLabels() {
     perksCostLabel.innerHTML = perksCostSum
 }
 
+window.updatePerkPoints = function() {
+    let input = document.getElementById('perk_points')
+    let perkPointsLabel = document.getElementById('perk-points')
+    perkPointsLabel.innerHTML = input.value
+}
+
 if (typeof (maxPerks) != 'undefined') {
     updatePerks()
 }

@@ -87,8 +87,6 @@
 
                         <x-character.perks :character="$character" :perks="$perks"
                                            :maxPerks="$settings->max_perks"/>
-
-                        <x-tip text="character.perks"/>
                     </x-form.card>
                 @endif
 

@@ -48,6 +48,11 @@ class CharsheetService
             return [$id => ['note' => $perk['note']]];
         }));
 
+        if (isset($validated['perk_points']) && auth()->user()->can('update-charsheet-gm', $character)) {
+            $character->perk_points = $validated['perk_points'];
+            $character->save();
+        }
+
         info('Character perks updated', [
             'user' => auth()->user()?->login,
             'character' => $character->login,

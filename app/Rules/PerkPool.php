@@ -20,7 +20,7 @@ class PerkPool implements Rule
     {
         $settings = app(CharsheetSettings::class);
         $maxPerks = $settings->max_perks;
-        $perkPoints = $this->character->perk_points;
+        $perkPoints = request('perk_points', $this->character->perk_points);
         $perks = Perk::all();
 
         $perksAmount = count($value);
