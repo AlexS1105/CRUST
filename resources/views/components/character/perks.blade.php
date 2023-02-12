@@ -1,84 +1,44 @@
 <div class="overflow-auto h-fit max-h-96 space-y-1.5 p-1">
     @foreach ($perks as $perk)
         @php
-            $characterPerkVariant = $character->perkVariants->firstWhere('perk_id', $perk->id);
+            $characterPerk = $character->perks->firstWhere('id', $perk->id);
         @endphp
+
         <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
             <div class="flex justify-between border-b bg-gray-100 border-gray-400">
-                <div class="flex justify-between text-sm w-full items-center font-bold p-1 uppercase space-x-1">
-                    <div>
+                <div class="flex text-sm w-full items-center font-bold uppercase">
+                    <div class="p-2 border-r border-gray-400">
+                        {{ $perk->cost }}
+                    </div>
+                    <div class="p-2">
                         {{ $perk->name }}
                     </div>
-                    <div class="space-y-0.5 text-xs">
-                        @if ($perk->isCombat())
-                            <div class="bg-red-200 px-1 rounded-full max-w-min ml-auto">
-                                {{ __('perks.types.combat') }}
-                            </div>
-                        @else
-                            <div class="bg-green-200 px-1 rounded-full max-w-min ml-auto">
-                                {{ __('perks.types.noncombat') }}
-                            </div>
-                        @endif
-
-                        @if ($perk->isAttack())
-                            <div class="bg-orange-200 px-1 rounded-full max-w-min ml-auto">
-                                {{ __('perks.types.attack') }}
-                            </div>
-                        @endif
-
-                        @if ($perk->isDefence())
-                            <div class="bg-blue-300 px-1 rounded-full max-w-min ml-auto">
-                                {{ __('perks.types.defence') }}
-                            </div>
-                        @endif
-                    </div>
+                </div>
+                <div class="p-1">
+                    <input class="w-6 h-6"
+                        type="checkbox"
+                        name="perks[{{ $perk->id }}][selected]"
+                        id="perks[{{ $perk->id }}][selected]"
+                        onchange="updatePerks();"
+                        data-perk-id="{{ $perk->id }}"
+                        data-perk-cost="{{ $perk->cost }}"
+                        @checked($characterPerk != null)
+                    />
                 </div>
             </div>
 
-            @if (isset($perk->general_description))
-                <x-markdown class="p-1 min-w-full border-b">{!! $perk->general_description !!}</x-markdown>
+            @if (isset($perk->description))
+                <x-markdown class="p-1 min-w-full">{!! $perk->description !!}</x-markdown>
             @endif
 
-            <select
-                name="perks[{{ $perk->id }}][id]"
-                id="perks[{{ $perk->id }}][id]"
-                class="focus:ring-transparent block w-full border-none p-1 pr-10 cursor-pointer {{isset($perk->general_description) ? "bg-gray-50" : ""}}"
-                onchange="updatePerks();"
-                data-perk-id="{{ $perk->id }}"
-                data-combat="{{ $perk->isCombat() }}"
-                data-attack="{{ $perk->isAttack() }}"
-                data-defence="{{ $perk->isDefence() }}"
-            >
-                <option value="-1" selected>{{ __('perks.select') }}</option>
-                @foreach ($perk->variants as $variant)
-                    <option class="text-ellipsis"
-                            value="{{ $variant->id }}" {{ old("perks.$perk->id.id") == $variant->id || (isset($characterPerkVariant) ? $characterPerkVariant->id == $variant->id : false) ? 'selected' : '' }}>
-                        {{ $variant->description }}
-                    </option>
-                @endforeach
-            </select>
             <div id="perk-data-{{$perk->id}}" class="flex items-center hidden">
-                @if($edit)
-                    <div class="p-1 w-1/4 space-x-1 leading-none">
-                        <input
-                            class="focus:ring-0"
-                            name="perks[{{ $perk->id }}][active]" id="perks[{{ $perk->id }}][active]"
-                            type="checkbox"
-                            {{ old("perks.$perk->id.active", isset($characterPerkVariant) ? $characterPerkVariant->pivot->active : !$edit) ? 'checked' : '' }}
-                            onchange="updatePerks();"
-                        />
-                        <label for="perks[{{ $perk->id }}][active]">
-                            {{ __('perks.types.active') }}
-                        </label>
-                    </div>
-                @endif
                 <input
-                    class="p-1 text-xs border-b-0 border-r-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
+                    class="p-1 text-xs border-b-0 border-r-0 border-l-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
                     name="perks[{{ $perk->id }}][note]"
                     id="perks[{{ $perk->id }}][note]"
                     type="text"
                     placeholder="{{ __('perks.placeholder.note') }}"
-                    value="{{ old('perks.'.$perk->id.'.note', isset($characterPerkVariant) ? $characterPerkVariant->pivot->note : null) }}"
+                    value="{{ old('perks.'.$perk->id.'.note', $characterPerk?->pivot->note) }}"
                 />
             </div>
         </div>
@@ -86,41 +46,25 @@
 </div>
 
 <div class="space-y-2 text-lg font-bold">
-    <div class="flex justify-center gap-2 bg-green-100 rounded-full px-2 w-fit my-auto">
-        {{ __('charsheet.points.active_noncombat_perks') }}
-        <div id="noncombat_perk_count">
+    <div class="font-bold text-lg text-right flex justify-end gap-2">
+        {{ __('charsheet.points.perks') }}
+        <div id="perk-count">
             0
         </div>
-        / {{ $maxActivePerks }}
+        / {{ $maxPerks }}
     </div>
-    <div class="space-y-2">
-        <div class="flex justify-center gap-2 bg-red-100 rounded-full px-2">
-            {{ __('charsheet.points.active_combat_perks') }}
-            <div id="combat_perk_count">
-                0
-            </div>
-            / {{ $maxActivePerks }}
+    <div class="font-bold text-lg text-right flex justify-end gap-2">
+        {{ __('charsheet.points.perk_points') }}
+        <div id="perk-cost">
+            0
         </div>
-        <div class="flex justify-center gap-2 bg-orange-100 rounded-full px-2">
-            {{ __('charsheet.points.combat_perk_attack') }}
-            <div id="combat_perk_attack">
-                0
-            </div>
-            / 1
-        </div>
-        <div class="flex justify-center gap-2 bg-blue-200 rounded-full px-2">
-            {{ __('charsheet.points.combat_perk_defence') }}
-            <div id="combat_perk_defence">
-                0
-            </div>
-            / 1
-        </div>
+        / {{ $character->perk_points }}
     </div>
 </div>
 
 <x-form.error name="perks"/>
 
 <script>
-    var edit = @json($edit);
-    var maxActivePerks = @json($maxActivePerks)
+    let maxPerks = @json($maxPerks);
+    let perkPoints = @json($character->perk_points);
 </script>

@@ -180,9 +180,9 @@ class Character extends Model
         return $this->hasMany(NarrativeCraft::class);
     }
 
-    public function perkVariants()
+    public function perks()
     {
-        return $this->belongsToMany(PerkVariant::class, 'characters_perks')->withPivot('note', 'active');
+        return $this->belongsToMany(Perk::class, 'characters_perks')->withPivot('note');
     }
 
     public function fates()
@@ -221,7 +221,7 @@ class Character extends Model
 
     public function scopeHasPerk($query, $perkId)
     {
-        $query->whereHas('perkVariants', function ($query) use ($perkId) {
+        $query->whereHas('perk', function ($query) use ($perkId) {
             $query->where('perk_id', $perkId);
         });
     }
@@ -305,6 +305,20 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn() => $this->estitence - $this->charsheet->stats_sum,
+        );
+    }
+
+    public function perkSum(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->perks->sum('cost'),
+        );
+    }
+
+    public function shouldReceiveAdditionalPerkPoints(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->origin == CharacterOrigin::Planeborn,
         );
     }
 }

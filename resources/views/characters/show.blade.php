@@ -481,43 +481,17 @@
 
         @if (count($perks))
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
-                @if ($perks->get('combat'))
-                    <x-card class="w-auto my-auto">
-                        <x-header>
-                            {{ __('perks.combat') }}
-                        </x-header>
+                <x-card class="w-full my-auto">
+                    <x-header>
+                        {{ __('perks.index') }} ({{ $character->perk_sum }})
+                    </x-header>
 
-                        <div class="space-y-4">
-                            @foreach ($perks->get('combat')->sortByDesc('active') as $perkVariant)
-                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" :accordion="true">
-                                    @can('toggle-perks', [$character, $perkVariant])
-                                        <x-slot name="bar">
-                                            <x-perk.toggle :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" />
-                                        </x-slot>
-                                    @endcan
-                                </x-perk-card>
-                            @endforeach
-                        </div>
-                    </x-card>
-                @endif
-
-                @if ($perks->get('noncombat'))
-                    <x-card class="w-auto my-auto">
-                        <x-header>
-                            {{ __('perks.noncombat') }}
-                        </x-header>
-
-                        <div class="space-y-4">
-                            @foreach ($perks->get('noncombat')->sortByDesc('active') as $perkVariant)
-                                <x-perk-card :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" :accordion="true">
-                                    <x-slot name="bar">
-                                        <x-perk.toggle :character="$character" :perk="$perkVariant->perk" :perkVariant="$perkVariant" />
-                                    </x-slot>
-                                </x-perk-card>
-                            @endforeach
-                        </div>
-                    </x-card>
-                @endif
+                    <div class="grid grid-cols-2 gap-4">
+                        @foreach ($perks->sortByDesc('name') as $perk)
+                            <x-perk-card class="h-min" :character="$character" :perk="$perk" :accordion="true" />
+                        @endforeach
+                    </div>
+                </x-card>
             </div>
         @endif
 

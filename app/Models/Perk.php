@@ -42,49 +42,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Perk extends Model
 {
-    use HasFactory, QueriesFlaggedEnums, Searchable;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'name',
-        'general_description',
-        'type',
+        'cost',
+        'description',
     ];
-
-    public function variants()
-    {
-        return $this->hasMany(PerkVariant::class);
-    }
-
-    public function scopeType($query, $perkType)
-    {
-        if (isset($perkType)) {
-            if ($perkType != 0) {
-                $query->whereRaw('(type & ?) = ?', [$perkType, $perkType]);
-            } else {
-                $query->where('type', 0);
-            }
-        }
-    }
-
-    public function isCombat()
-    {
-        return ! $this->isNonCombat();
-    }
-
-    public function isNonCombat()
-    {
-        return PerkType::none($this->type, PerkType::Combat, PerkType::Attack, PerkType::Defence);
-    }
-
-    public function isAttack()
-    {
-        return PerkType::on($this->type, PerkType::Attack);
-    }
-
-    public function isDefence()
-    {
-        return PerkType::on($this->type, PerkType::Defence);
-    }
 
     protected static function boot()
     {

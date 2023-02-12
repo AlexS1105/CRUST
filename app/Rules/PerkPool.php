@@ -2,80 +2,50 @@
 
 namespace App\Rules;
 
+use App\Models\Perk;
 use App\Settings\CharsheetSettings;
 use Illuminate\Contracts\Validation\Rule;
 
 class PerkPool implements Rule
 {
     public $message = 'validation.perkpool.invalid';
-    public $edit = false;
+    public $character;
 
-    public function __construct($edit)
+    public function __construct($character)
     {
-        $this->edit = $edit;
+        $this->character = $character;
     }
 
     public function passes($attribute, $value)
     {
-        $maxActivePerks = app(CharsheetSettings::class)->max_active_perks;
+        $settings = app(CharsheetSettings::class);
+        $maxPerks = $settings->max_perks;
+        $perkPoints = $this->character->perk_points;
+        $perks = Perk::all();
 
-        $combatPerks = 0;
-        $noncombatPerks = 0;
-        $attackPerks = 0;
-        $defencePerks = 0;
+        $perksAmount = count($value);
+        $perkSum = 0;
 
-        foreach ($value as $perkData) {
-            $perk = $perkData['variant']->perk;
+        foreach ($value as $perkId => $perkData) {
+            $perk = $perks->firstWhere('id', $perkId);
 
-            if ($this->edit && ! $perkData['active']) {
-                continue;
-            }
-
-            if ($perk->isCombat()) {
-                $combatPerks += 1;
-
-                if ($perk->isAttack()) {
-                    $attackPerks += 1;
-                } elseif ($perk->isDefence()) {
-                    $defencePerks += 1;
-                }
+            if ($perk != null) {
+                $perkSum += $perk->cost;
             } else {
-                $noncombatPerks += 1;
+                $this->message = 'validation.perk_pool.invalid';
+
+                return false;
             }
         }
 
-        if ($combatPerks > $maxActivePerks) {
-            $this->message = 'validation.perkpool.too_much_combat';
+        if ($perksAmount > $maxPerks) {
+            $this->message = 'validation.perk_pool.too_much';
 
             return false;
         }
 
-        if ($noncombatPerks > $maxActivePerks) {
-            $this->message = 'validation.perkpool.too_much_noncombat';
-
-            return false;
-        }
-
-        if ($attackPerks > 1) {
-            $this->message = 'validation.perkpool.only_one_attack';
-
-            return false;
-        }
-
-        if ($defencePerks > 1) {
-            $this->message = 'validation.perkpool.only_one_defence';
-
-            return false;
-        }
-
-        if ($attackPerks === 0) {
-            $this->message = 'validation.perkpool.one_attack';
-
-            return false;
-        }
-
-        if ($defencePerks === 0) {
-            $this->message = 'validation.perkpool.one_defence';
+        if ($perkSum > $perkPoints) {
+            $this->message = 'validation.perk_pool.no_points';
 
             return false;
         }

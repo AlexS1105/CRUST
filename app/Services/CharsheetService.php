@@ -4,10 +4,6 @@ namespace App\Services;
 
 use App\Enums\FateType;
 use App\Models\Character;
-use App\Models\PerkVariant;
-use App\Rules\PerkPool;
-use Exception;
-use Illuminate\Support\Facades\Validator;
 
 class CharsheetService
 {
@@ -48,22 +44,14 @@ class CharsheetService
 
     public function savePerks(Character $character, $validated)
     {
-        $character->perkVariants()->detach();
+        $character->perks()->sync(collect($validated['perks'] ?? [])->mapWithKeys(function ($perk, $id) {
+            return [$id => ['note' => $perk['note']]];
+        }));
 
-        if (isset($validated['perks'])) {
-            foreach ($validated['perks'] as $perkVariant) {
-                $id = $perkVariant['variant']->id;
-                $character->perkVariants()->attach(
-                    $id,
-                    ['active' => $perkVariant['active'], 'note' => $perkVariant['note']]
-                );
-            }
-
-            info('Character perks updated', [
-                'user' => auth()->user()->login,
-                'character' => $character->login,
-            ]);
-        }
+        info('Character perks updated', [
+            'user' => auth()->user()?->login,
+            'character' => $character->login,
+        ]);
     }
 
     public function saveFates($character, $validated)
@@ -108,24 +96,11 @@ class CharsheetService
         return $fates;
     }
 
-    public function convertPerks($perks, $edit = false)
+    public function convertPerks($perks)
     {
-        $perkVariants = PerkVariant::with('perk')->get();
-        $perksCollection = [];
-
-        if (isset($perks)) {
-            foreach ($perks as $perkId => $perkData) {
-                if ($perkData['id'] !== '-1') {
-                    $perksCollection[$perkId] = [
-                        'variant' => $perkVariants->firstWhere('id', $perkData['id']),
-                        'note' => $perkData['note'],
-                        'active' => ! $edit || isset($perkData['active']),
-                    ];
-                }
-            }
-        }
-
-        return $perksCollection;
+        return array_filter($perks, function ($perk) {
+            return $perk['selected'] ?? 'off' == 'on';
+        });
     }
 
     public function updateStats($character, $stats)

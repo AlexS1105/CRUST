@@ -34,12 +34,12 @@ class NotionService
             $page->setNumber($skill->localized(), $character->charsheet->skills[$skill->value]);
         }
 
-        $character->load('perkVariants.perk');
+        $character->load('perks');
 
         $page->setMultiSelect(
             'Перки',
-            $character->perkVariants->map(function ($perkVariant) {
-                return $perkVariant->perk->name;
+            $character->perks->map(function ($perk) {
+                return $perk->name;
             })->toArray()
         );
     }

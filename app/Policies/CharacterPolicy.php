@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Enums\CharacterStatus;
 use App\Models\Character;
-use App\Models\PerkVariant;
 use App\Models\User;
 use App\Settings\GeneralSettings;
 
@@ -174,11 +173,6 @@ class CharacterPolicy
     public function estitenceCreate(User $user, Character $character)
     {
         return $user->hasPermissionTo('character-estitence');
-    }
-
-    public function togglePerks(User $user, Character $character, PerkVariant $perkVariant)
-    {
-        return false;
     }
 
     public function addSphere(User $user, Character $character)

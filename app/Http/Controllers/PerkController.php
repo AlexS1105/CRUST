@@ -11,24 +11,20 @@ class PerkController extends Controller
 {
     public function index()
     {
-        $perks = Perk::with('variants')->paginate(30);
+        $perks = Perk::paginate(30);
 
         return view('perks.index', compact('perks'));
     }
 
     public function all(Request $request)
     {
-        $perkType = $request->perk_type;
         $search = $request->search;
-        $perks = Perk::with('variants')
-            ->type($perkType)
-            ->search($search)
+        $perks = Perk::search($search)
             ->paginate(20);
 
         return view('perks.list', [
             'perks' => $perks,
             'search' => $search,
-            'perkType' => $perkType,
         ]);
     }
 

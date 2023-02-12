@@ -16,7 +16,9 @@ class CharsheetSettingsRequest extends FormRequest
         return [
             'skill_points' => ['integer', 'min:0'],
             'max_fates' => ['integer', 'min:0'],
-            'max_active_perks' => ['integer', 'min:0'],
+            'max_perks' => ['integer', 'min:0'],
+            'perk_points' => ['integer', 'min:0'],
+            'additional_perk_points' => ['integer', 'min:0'],
             'min_estitence' => ['integer'],
             'max_estitence' => ['integer'],
             'safe_estitence' => ['integer'],

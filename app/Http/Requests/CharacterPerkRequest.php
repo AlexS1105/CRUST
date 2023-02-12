@@ -15,17 +15,17 @@ class CharacterPerkRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $charsheetService = app(CharsheetService::class);
-
         $this->merge([
-            'perks' => $charsheetService->convertPerks($this->perks, true),
+            'perks' => app(CharsheetService::class)->convertPerks($this->perks, true),
         ]);
     }
 
     public function rules()
     {
+        $character = $this->route('character');
+
         return [
-            'perks' => [new PerkPool(true)],
+            'perks' => [new PerkPool($character)],
         ];
     }
 }

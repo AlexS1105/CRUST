@@ -12,21 +12,13 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $noncombatPerks = Perk::with('variants')->type(0)->get();
-        $combatPerks = Perk::with('variants')->where('type', 1)->get();
-        $attackPerks = Perk::with('variants')->type(3)->get();
-        $defencePerks = Perk::with('variants')->type(5)->get();
+        $perks = Perk::all();
 
         User::factory(10)
             ->has(
                 Character::factory(3)
                     ->hasCharsheet(Charsheet::factory()->create())
-                    ->hasAttached($noncombatPerks->random(3)->map(function ($perk) {
-                        return $perk->variants->random();
-                    }), ['active' => true])
-                    ->hasAttached($attackPerks->random()->variants->random(), ['active' => true])
-                    ->hasAttached($defencePerks->random()->variants->random(), ['active' => true])
-                    ->hasAttached($combatPerks->random()->variants->random(), ['active' => true])
+                    ->hasAttached($perks->random(3), ['note' => fake()->sentence()])
                     ->hasNarrativeCrafts(3)
                     ->hasExperiences(3)
                     ->hasSpheres(3)

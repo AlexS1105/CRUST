@@ -13,39 +13,12 @@ class PerkRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation()
-    {
-        $type = 0;
-
-        if (isset($this->combat)) {
-            $type = PerkType::set($type, PerkType::Combat);
-        }
-
-        if (isset($this->attack)) {
-            $type = PerkType::set($type, PerkType::Attack);
-        }
-
-        if (isset($this->defence)) {
-            $type = PerkType::set($type, PerkType::Defence);
-        }
-
-        $this->merge([
-            'type' => $type,
-        ]);
-    }
-
     public function rules()
     {
-        $rules = [
+        return [
             'name' => ['required', 'max:256', Rule::unique('perks')->ignore($this->name, 'name')],
-            'general_description' => ['max:5096'],
-            'type' => ['required'],
+            'cost' => ['numeric', 'min:0', 'max:100'],
+            'description' => ['max:5096'],
         ];
-
-        if (! $this->isMethod('PATCH')) {
-            $rules['description'] = ['required', 'max:5096'];
-        }
-
-        return $rules;
     }
 }

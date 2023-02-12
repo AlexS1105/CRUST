@@ -9,12 +9,6 @@ class PerkService
 {
     public function createPerk(PerkRequest $request)
     {
-        $validated = $request->validated();
-
-        $perk = Perk::create($validated);
-
-        $perk->variants()->create([
-            'description' => $validated['description'],
-        ]);
+        Perk::create($request->validated());
     }
 }

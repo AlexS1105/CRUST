@@ -14,7 +14,6 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\NarrativeCraftController;
 use App\Http\Controllers\PerkController;
-use App\Http\Controllers\PerkVariantController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SphereController;
@@ -90,9 +89,6 @@ Route::middleware('auth')
 
                                 Route::patch('perks', 'updatePerks')
                                     ->name('update');
-
-                                Route::patch('perks/{perkVariant}', 'togglePerk')
-                                    ->name('toggle');
                             });
 
                         Route::name('fates.')
@@ -277,18 +273,6 @@ Route::middleware('auth')
 
                         Route::resource('settings/perks', PerkController::class)
                             ->except(['show']);
-
-                        Route::resource('settings/perks/{perk}/variants', PerkVariantController::class)
-                            ->except(['index', 'show'])
-                            ->shallow()
-                            ->names([
-                                'index' => 'perks.variants.index',
-                                'store' => 'perks.variants.store',
-                                'create' => 'perks.variants.create',
-                                'update' => 'perks.variants.update',
-                                'edit' => 'perks.variants.edit',
-                                'destroy' => 'perks.variants.destroy',
-                            ]);
                     });
 
                 Route::middleware('can:logs')

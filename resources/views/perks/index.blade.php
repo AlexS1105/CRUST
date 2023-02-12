@@ -17,8 +17,11 @@
                 @foreach ($perks as $perk)
                     <div class="border border-gray-400 rounded-xl overflow-hidden">
                         <div class="flex justify-between border-b bg-gray-100 border-gray-400">
-                            <div class="flex items-center font-bold text-lg py-2 px-3 uppercase space-x-2">
-                                <div>
+                            <div class="flex items-center font-bold text-lg uppercase space-x-2">
+                                <div class="p-2 text-center border-r border-gray-400">
+                                    {{ $perk->cost }}
+                                </div>
+                                <div class="p-2 text-lg uppercase">
                                     {{ $perk->name }}
                                 </div>
                                 <a class="fas fa-edit text-xl text-gray-600"
@@ -33,64 +36,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div
-                            class="flex bg-gray-50 border-b border-gray-400 px-2 py-1 space-x-2 uppercase font-bold text-sm  ">
-                            @if ($perk->isCombat())
-                                <div class="bg-red-100 px-2 rounded-full">
-                                    {{ __('perks.types.combat') }}
-                                </div>
-                            @else
-                                <div class="bg-green-100 px-2 rounded-full">
-                                    {{ __('perks.types.noncombat') }}
-                                </div>
-                            @endif
-
-                            @if ($perk->isAttack())
-                                <div class="bg-orange-100 px-2 rounded-full">
-                                    {{ __('perks.types.attack') }}
-                                </div>
-                            @endif
-
-                            @if ($perk->isDefence())
-                                <div class="bg-blue-200 px-2 rounded-full">
-                                    {{ __('perks.types.defence') }}
-                                </div>
-                            @endif
-                        </div>
                         <div class="divide-y divide-dashed">
-                            @if (isset($perk->general_description))
+                            @if (isset($perk->description))
                                 <div class="flex items-center p-2 space-x-2 justify-between">
-                                    <x-markdown class="border-b">{!! $perk->general_description !!}</x-markdown>
+                                    <x-markdown>{!! $perk->description !!}</x-markdown>
                                 </div>
                             @endif
-                            @foreach ($perk->variants as $perkVariant)
-                                <div
-                                    class="flex items-center p-2 space-x-2 justify-between {{isset($perk->general_description) ? "bg-gray-50" : ""}}">
-                                    <x-markdown>{!! $perkVariant->description !!}</x-markdown>
-                                    <div class="flex space-x-2">
-                                        <a class="fas fa-edit text-xl text-gray-600"
-                                           href="{{ route('perks.variants.edit', ['variant' => $perkVariant->id, 'perk' => $perk]) }}"></a>
-
-                                        <form method="POST"
-                                              action="{{ route('perks.variants.destroy', ['variant' => $perkVariant->id, 'perk' => $perk]) }}">
-                                            @method('DELETE')
-                                            @csrf
-
-                                            <a class="fas fa-trash cursor-pointer text-xl text-gray-600"
-                                               onclick="event.preventDefault();this.closest('form').submit();"></a>
-                                        </form>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <div clas="min-w-max">
-                                <a class="flex max-w-fit space-x-2 items-center font-bold text-gray-600 p-2"
-                                   href="{{ route('perks.variants.create', $perk) }}">
-                                    <div class="far fa-plus-square text-xl"></div>
-                                    <div class="text-lg">
-                                        {{ __('perks.variants.create') }}
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 @endforeach

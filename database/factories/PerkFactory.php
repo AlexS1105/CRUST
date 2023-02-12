@@ -23,6 +23,8 @@ class PerkFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
+            'description' => $this->faker->sentences(3, true),
+            'cost' => $this->faker->numberBetween(1, 20),
         ];
     }
 }

@@ -8,7 +8,6 @@ use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
-use App\Models\PerkVariant;
 use App\Services\CharsheetService;
 use App\Settings\CharsheetSettings;
 
@@ -27,7 +26,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet', $character);
 
-        $perks = Perk::with('variants')->get();
+        $perks = Perk::all();
         $settings = $this->settings;
 
         return view('characters.charsheet', compact('character', 'perks', 'settings'));
@@ -46,7 +45,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $perks = Perk::with('variants')->get();
+        $perks = Perk::all();
         $settings = $this->settings;
 
         return view('characters.perks', compact('character', 'perks', 'settings'));
@@ -77,13 +76,6 @@ class CharsheetController extends Controller
         $this->charsheetService->saveFates($character, $request->validated());
 
         return to_route('characters.show', $character);
-    }
-
-    public function togglePerk(Character $character, PerkVariant $perkVariant)
-    {
-        $this->authorize('toggle-perks', [$character, $perkVariant]);
-
-        return $this->charsheetService->togglePerk($character, $perkVariant);
     }
 
     public function editStats(Character $character)
