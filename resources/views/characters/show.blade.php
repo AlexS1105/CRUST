@@ -71,11 +71,8 @@
                         </x-header>
 
                         <div class="text-lg">
-                            <div class="flex items-center gap-1">
-                                <b>{{ __('label.gender') }}:</b>
-                                {{ $character->gender->localized() }}
-                                <div
-                                    class="text-2xl fa {{ $character->gender->icon() }} {{ $character->gender->color() }}"></div>
+                            <div>
+                                <b>{{ __('label.origin') }}:</b> {{ $character->origin->localized() }}
                             </div>
 
                             <div>

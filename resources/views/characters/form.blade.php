@@ -14,12 +14,12 @@
         <x-tip text="character.name"/>
 
         <x-form.select required
-                       :name="'gender'"
-                       :values="App\Enums\CharacterGender::cases()"
-                       :labels="array_map(function($status) { return $status->localized(); }, App\Enums\CharacterGender::cases())"
-                       :value="old('gender', @$character?->gender)"
+                       :name="'origin'"
+                       :values="App\Enums\CharacterOrigin::cases()"
+                       :labels="array_map(function($origin) { return $origin->localized(); }, App\Enums\CharacterOrigin::cases())"
+                       :value="old('origin', @$character?->origin)"
         />
-        <x-tip text="character.gender"/>
+        <x-tip text="character.origin"/>
 
         <x-form.input name="race"
                       maxlength="100"

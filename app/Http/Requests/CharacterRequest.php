@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CharacterGender;
+use App\Enums\CharacterOrigin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -28,7 +28,7 @@ class CharacterRequest extends FormRequest
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
             'reference' => ['nullable', 'mimes:png,jpg,jpeg,bmp,svg,webp'],
-            'gender' => ['required', new Enum(CharacterGender::class)],
+            'origin' => ['required', new Enum(CharacterOrigin::class)],
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
             'appearance' => ['max:10000'],

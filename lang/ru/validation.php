@@ -179,7 +179,7 @@ return [
         'email' => 'E-Mail адрес',
         'excerpt' => 'Выдержка',
         'first_name' => 'Имя',
-        'gender' => 'Пол',
+        'origin' => 'Происхождение',
         'hour' => 'Час',
         'last_name' => 'Фамилия',
         'minute' => 'Минута',

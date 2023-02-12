@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\CharacterGender;
+use App\Enums\CharacterOrigin;
 use App\Enums\CharacterStatus;
 use App\Services\CharacterService;
 use App\Settings\CharsheetSettings;
@@ -21,7 +21,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int $id
  * @property string $name
  * @property string $description
- * @property CharacterGender $gender
+ * @property CharacterOrigin $gender
  * @property string $race
  * @property string $age
  * @property string|null $appearance
@@ -111,7 +111,7 @@ class Character extends Model
     protected $fillable = [
         'name',
         'description',
-        'gender',
+        'origin',
         'race',
         'age',
         'appearance',
@@ -132,7 +132,7 @@ class Character extends Model
 
     protected $casts = [
         'status' => CharacterStatus::class,
-        'gender' => CharacterGender::class,
+        'origin' => CharacterOrigin::class,
         'info_hidden' => 'boolean',
         'bio_hidden' => 'boolean',
     ];
@@ -143,6 +143,7 @@ class Character extends Model
             ['status', '=', CharacterStatus::Approved],
             ['estitence', '>', app(CharsheetSettings::class)->safe_estitence],
             ['last_online_at', '>', now()->subWeeks(2)],
+            ['origin', '!=', CharacterOrigin::Incarnated],
         ]);
     }
 
@@ -295,8 +296,7 @@ class Character extends Model
     public function shouldReceiveAdditionalEstitence(): Attribute
     {
         return Attribute::make(
-            // TODO: Background check
-            get: fn() => true,
+            get: fn() => $this->origin == CharacterOrigin::Limbborn,
         );
     }
 
