@@ -82,6 +82,10 @@
                             <div>
                                 <b>{{ __('label.age') }}:</b> {{ $character->age }}
                             </div>
+
+                            <div>
+                                <b>{{ __('label.legacy') }}:</b> {{ $character->legacy }}
+                            </div>
                         </div>
                     </x-card>
                 @endcan

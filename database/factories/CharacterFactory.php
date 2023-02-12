@@ -19,6 +19,7 @@ class CharacterFactory extends Factory
             'origin' => array_rand(CharacterOrigin::cases()),
             'race' => $this->faker->word(),
             'age' => $this->faker->numberBetween(1, 100).' '.$this->faker->word(),
+            'legacy' => $this->faker->words(3, true),
             'appearance' => $this->faker->paragraph(10),
             'background' => $this->faker->paragraphs(100, true),
             'login' => $this->faker->userName(),

@@ -36,6 +36,13 @@
         />
         <x-tip text="character.age"/>
 
+        <x-form.input name="legacy"
+                      maxlength="100"
+                      required
+                      :value="old('legacy', @$character?->legacy)"
+                      placeholder="{{ __('characters.placeholder.legacy') }}"/>
+        <x-tip text="character.legacy"/>
+
         <x-form.textarea name="description"
                          maxlength="512"
                          required

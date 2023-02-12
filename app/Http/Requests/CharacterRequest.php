@@ -31,6 +31,7 @@ class CharacterRequest extends FormRequest
             'origin' => ['required', new Enum(CharacterOrigin::class)],
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
+            'legacy' => ['required', 'max:100'],
             'appearance' => ['max:10000'],
             'personality' => ['nullable'],
             'background' => ['nullable'],

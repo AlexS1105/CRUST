@@ -114,6 +114,7 @@ class Character extends Model
         'origin',
         'race',
         'age',
+        'legacy',
         'appearance',
         'background',
         'info_hidden',
