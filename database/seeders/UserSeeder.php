@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Character;
 use App\Models\Charsheet;
 use App\Models\Perk;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,12 +14,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         $perks = Perk::all();
+        $skills = Skill::all();
 
         User::factory(10)
             ->has(
                 Character::factory(3)
                     ->hasCharsheet(Charsheet::factory()->create())
                     ->hasAttached($perks->random(3), ['note' => fake()->sentence()])
+                    ->hasAttached($skills->random(5), ['level' => fake()->numberBetween(1, 3)])
                     ->hasNarrativeCrafts(3)
                     ->hasExperiences(3)
                     ->hasSpheres(3)

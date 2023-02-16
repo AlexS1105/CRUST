@@ -20,4 +20,9 @@ class Skill extends Model
     protected $casts = [
         'stat' => CharacterStat::class,
     ];
+
+    public function characters()
+    {
+        return $this->belongsToMany(Character::class)->withPivot('level')->using(CharacterSkill::class);
+    }
 }

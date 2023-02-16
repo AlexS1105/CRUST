@@ -210,6 +210,11 @@ class Character extends Model
         return $this->hasMany(Experience::class);
     }
 
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class)->withPivot('level')->using(CharacterSkill::class);
+    }
+
     public function scopeFilter($query, $request)
     {
         $query->search($request->search);
@@ -319,6 +324,13 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn() => $this->origin == CharacterOrigin::Planeborn,
+        );
+    }
+
+    public function soulCoefficient(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => intval(ceil($this->estitence / 10)),
         );
     }
 }
