@@ -15,6 +15,7 @@ use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\NarrativeCraftController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SphereController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,9 @@ Route::get('/auth', MinecraftAuthController::class)
 
 Route::get('/perks', [PerkController::class, 'all'])
     ->name('perks.list');
+
+Route::get('/skills', [SkillController::class, 'all'])
+    ->name('skills.list');
 
 Route::middleware('auth')
     ->group(function () {
@@ -272,6 +276,9 @@ Route::middleware('auth')
                             });
 
                         Route::resource('settings/perks', PerkController::class)
+                            ->except(['show']);
+
+                        Route::resource('settings/skills', SkillController::class)
                             ->except(['show']);
                     });
 
