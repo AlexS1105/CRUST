@@ -18,6 +18,19 @@ enum CharacterStat: string
         return __('stat.'.$this->value);
     }
 
+    public function color()
+    {
+        return match($this->value) {
+            'strength' => 'red-200',
+            'endurance' => 'yellow-200',
+            'perception', 'erudition' => 'blue-200',
+            'agility' => 'green-200',
+            'determination' => 'orange-200',
+            'will' => 'cyan-200',
+            'potential' => 'purple-200',
+        };
+    }
+
     public static function getBodyStats()
     {
         return ['strength', 'endurance', 'perception', 'agility'];

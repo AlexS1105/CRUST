@@ -28,7 +28,7 @@ class SkillController extends Controller
 
     public function edit(Skill $skill)
     {
-        return view('skills.create', compact('skill'));
+        return view('skills.edit', compact('skill'));
     }
 
     public function update(SkillRequest $request, Skill $skill)

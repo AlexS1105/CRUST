@@ -14,6 +14,13 @@ class SkillRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'proficiency' => $this->proficiency === 'on',
+        ]);
+    }
+
     public function rules()
     {
         return [
