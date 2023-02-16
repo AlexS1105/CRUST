@@ -14,6 +14,13 @@ class SkillController extends Controller
         return view('skills.index', compact('skills'));
     }
 
+    public function all()
+    {
+        $skills = Skill::all();
+
+        return view('skills.list', compact('skills'));
+    }
+
     public function create()
     {
         return view('skills.create');
