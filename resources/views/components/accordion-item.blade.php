@@ -14,15 +14,20 @@
         </svg>
     </button>
 </h2>
-<div id="{{ $id }}-open-body-{{$loop->iteration}}" class="hidden" aria-labelledby="{{ $id }}-open-heading-{{$loop->iteration}}">
+<div id="{{ $id }}-open-body-{{$loop->iteration}}" class="hidden border border-t-0 border-gray-200" aria-labelledby="{{ $id }}-open-heading-{{$loop->iteration}}">
+    @if(!empty($body))
+        {{ $body }}
+    @endif
 
-    @if($content->isNotEmpty())
-        <div class="p-2 font-light border border-t-0 border-gray-200">
+    @if(!empty($content))
+        <div class="p-2 font-light">
             <p class="mb-2 text-gray-500">{{ $content }}</p>
         </div>
     @endif
 
-    <div class="inline-flex flex-wrap" role="group">
-        {{ $buttons }}
-    </div>
+    @if(!empty($buttons))
+        <div class="inline-flex flex-wrap" role="group">
+            {{ $buttons }}
+        </div>
+    @endif
 </div>

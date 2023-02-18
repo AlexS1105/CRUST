@@ -187,21 +187,56 @@
                     </x-card>
                 @endif
 
-                @if ($character->charsheet->hasAnyCrafts())
+                @if ($character->skills->isNotEmpty())
                     <x-card class="w-full my-auto">
                         <x-header>
-                            {{ __('charsheet.crafts.index') }}
+                            {{ __('skills.index') }}
                         </x-header>
 
-                        @if($character->charsheet->hasAnyCrafts())
-                            <div class="inline-grid w-full gap-x-2" style="grid-template-columns: min-content auto">
-                                @foreach ($character->charsheet->crafts as $craft => $value)
-                                    @if($value)
-                                        <x-progress value="{{ $value }}">{{ __('craft.'.$craft) }}</x-progress>
-                                    @endif
-                                @endforeach
-                            </div>
-                        @endif
+                        <div id="skills-open" data-accordion="open">
+                            @foreach ($character->skills as $skill)
+                                <x-accordion-item id="skill" :loop="$loop">
+                                    <x-slot name="title">
+                                        {{ $skill->name }} ({{ $skill->pivot->bonus }})
+                                    </x-slot>
+
+                                    <x-slot name="body">
+                                        <x-skill-bar class="border-gray-200" :skill="$skill" />
+
+                                        <ul class="py-0.5 px-1 bg-gray-50 border-b border-gray-200 text-sm">
+                                            <span>
+                                                {{ __('skills.level.title') }}:
+                                                <b>
+                                                    {{ __('skills.level.' . $skill->pivot->level) }}
+                                                </b>
+                                            </span>
+                                            <hr class="my-1">
+                                            <div>
+                                                {{ $skill->stat->localized() }}:
+                                                <b>+{{ $character->charsheet->skills[$skill->stat->value] }}</b>
+                                            </div>
+                                            @if($skill->pivot->level >= 2)
+                                                <div>
+                                                    {{ __('skills.soul_coefficient') }}:
+                                                    <b>+{{ $character->soul_coefficient }}</b>
+                                                </div>
+                                            @endif
+
+                                            @if($skill->pivot->level == 1 || $skill->pivot->level == 3)
+                                                <div>
+                                                    {{ __('skills.level.bonus') }}:
+                                                    <b>+{{ $skill->pivot->level }}</b>
+                                                </div>
+                                            @endif
+                                        </ul>
+                                    </x-slot>
+
+                                    <x-slot name="content">
+                                        {{ $skill->description }}
+                                    </x-slot>
+                                </x-accordion-item>
+                            @endforeach
+                        </div>
                     </x-card>
                 @endif
             </div>
