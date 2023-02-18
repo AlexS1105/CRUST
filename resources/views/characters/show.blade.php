@@ -140,8 +140,8 @@
             </div>
         </div>
 
-        @if(isset($character->charsheet->stats) || $character->charsheet->hasAnyCrafts())
-            <div class="flex justify-center gap-8">
+        @if(isset($character->charsheet->stats) || $character->skills->isNotEmpty())
+            <div class="md:flex justify-center md:gap-8 md:space-y-0 space-y-4">
                 @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
                     <x-card class="w-full my-auto">
                         <x-header>

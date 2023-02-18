@@ -32,6 +32,10 @@ class CharsheetService
             $this->savePerks($character, $validated);
         }
 
+        if (isset($validated['skills'])) {
+            $this->saveSkills($character, $validated);
+        }
+
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             if (isset($validated['stats_handled'])) {
                 $character->stats_handled = $validated['stats_handled'];
@@ -77,6 +81,18 @@ class CharsheetService
 
         info('Character fates updated', [
             'user' => auth()->user()->login,
+            'character' => $character->login,
+        ]);
+    }
+
+    public function saveSkills($character, $validated)
+    {
+        $character->skills()->sync(collect($validated['skills'] ?? [])->mapWithKeys(function ($skill, $id) {
+            return [$id => ['level' => $skill]];
+        }));
+
+        info('Character skills updated', [
+            'user' => auth()->user()?->login,
             'character' => $character->login,
         ]);
     }
@@ -129,5 +145,12 @@ class CharsheetService
             'user' => auth()->user()?->login,
             'character' => $character->login,
         ]);
+    }
+
+    public function convertSkills($skills)
+    {
+        return array_filter($skills, function ($skill) {
+            return $skill != 0;
+        });
     }
 }

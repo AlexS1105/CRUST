@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Rules\CraftPool;
 use App\Rules\FatesRule;
 use App\Rules\PerkPool;
+use App\Rules\SkillPool;
 use App\Rules\StatPool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,6 +24,7 @@ class CharsheetRequest extends FormRequest
         $this->merge([
             'perks' => $charsheetService->convertPerks($this->perks),
             'fates' => $charsheetService->convertFates($this->fates),
+            'skills' => $charsheetService->convertSkills($this->skills),
             'stats_handled' => $this->stats_handled === 'on',
         ]);
     }
@@ -38,6 +40,7 @@ class CharsheetRequest extends FormRequest
             'crafts.*' => ['numeric', 'min:0', 'max:3'],
             'narrative_crafts.*.name' => ['required', 'max:256'],
             'narrative_crafts.*.description' => ['required', 'max:1024'],
+            'skills' => [new SkillPool($character)],
         ];
 
         if (! $character->registered) {

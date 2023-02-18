@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class PerkPool implements Rule
 {
-    public $message = 'validation.perkpool.invalid';
+    public $message = 'validation.perk_pool.invalid';
     public $character;
 
     public function __construct($character)
