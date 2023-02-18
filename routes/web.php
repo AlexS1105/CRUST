@@ -112,6 +112,15 @@ Route::middleware('auth')
                                 Route::patch('stats', 'updateStats')
                                     ->name('update');
                             });
+
+                        Route::name('skills.')
+                            ->group(function () {
+                                Route::get('skills', 'editSkills')
+                                    ->name('edit');
+
+                                Route::patch('skills', 'updateSkills')
+                                    ->name('update');
+                            });
                     });
 
                 Route::controller(ApplicationController::class)

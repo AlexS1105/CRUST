@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\PerkPool;
+use App\Rules\SkillPool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CharacterPerkRequest extends FormRequest
+class CharacterSkillsRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,7 +16,7 @@ class CharacterPerkRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'perks' => app(CharsheetService::class)->convertPerks($this->perks),
+            'skills' => app(CharsheetService::class)->convertSkills($this->skills),
         ]);
     }
 
@@ -25,8 +25,8 @@ class CharacterPerkRequest extends FormRequest
         $character = $this->route('character');
 
         return [
-            'perks' => [new PerkPool($character)],
-            'perk_points' => ['numeric', 'min:0', 'max:200'],
+            'skills' => [new SkillPool($character)],
+            'skill_points' => ['numeric', 'min:0', 'max:200'],
         ];
     }
 }

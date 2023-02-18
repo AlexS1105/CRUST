@@ -40,6 +40,14 @@ function updateSkillsCost() {
     skillsCostLabel.innerHTML = maxSkills - skillCostSum
 }
 
+window.updateSkillPoints = function () {
+    let input = document.getElementById('skill_points')
+    let skillsPointsLabel = document.getElementById('skill-points')
+    skillsPointsLabel.innerHTML = input.value
+    maxSkills = input.value
+    updateSkills()
+}
+
 if (typeof (maxSkills) != 'undefined') {
     updateSkills()
 }

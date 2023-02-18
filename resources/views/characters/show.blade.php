@@ -141,7 +141,7 @@
         </div>
 
         @if(isset($character->charsheet->stats) || $character->skills->isNotEmpty())
-            <div class="md:flex justify-center md:gap-8 md:space-y-0 space-y-4">
+            <div class="md:flex justify-center md:gap-8 md:space-y-0 space-y-4 items-center">
                 @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
                     <x-card class="w-full my-auto">
                         <x-header>
@@ -190,7 +190,7 @@
                 @if ($character->skills->isNotEmpty())
                     <x-card class="w-full my-auto">
                         <x-header>
-                            {{ __('skills.index') }}
+                            {{ __('skills.index') }} ({{ $character->skill_sum }} / {{ $character->skill_points }})
                         </x-header>
 
                         <div id="skills-open" data-accordion="open">
@@ -209,6 +209,7 @@
                                                 <b>
                                                     {{ __('skills.level.' . $skill->pivot->level) }}
                                                 </b>
+                                                ({{ $skill->pivot->cost }})
                                             </span>
                                             <hr class="my-1">
                                             <div>
@@ -237,6 +238,16 @@
                                 </x-accordion-item>
                             @endforeach
                         </div>
+
+                        @can('update-charsheet-gm', $character)
+                            <x-accordion-action class="my-2 w-full border-t"
+                                                method="GET"
+                                                action="{{ route('characters.skills.update', ['character' => $character]) }}"
+                                                icon="fa-solid fa-arrows-turn-to-dots"
+                            >
+                                {{ __('skills.update') }}
+                            </x-accordion-action>
+                        @endcan
                     </x-card>
                 @endif
             </div>

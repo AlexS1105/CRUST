@@ -50,10 +50,25 @@
     <div class="mr-2" id="skills-cost">
         0
     </div>
-    <div>
-        / {{ $character->skill_points }}
+    /
+    <div class="ml-2" id="skill-points">
+        {{ $character->skill_points }}
     </div>
 </div>
+
+@can('update-charsheet-gm', $character)
+    <x-form.input name="skill_points"
+                  type="number"
+                  required
+                  min="0"
+                  max="100"
+                  onchange="updateSkillPoints()"
+                  :value="old('skill_points', $character->skill_points)"
+    />
+
+    <x-form.error name="skill_points"/>
+@endcan
+
 
 @push('scripts')
     <script>

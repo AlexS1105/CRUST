@@ -9,14 +9,23 @@ class CharsheetService
 {
     public function update($character, $validated)
     {
-        $character->charsheet()->update([
-            'stats' => array_map(function ($value) {
-                return intval($value);
-            }, $validated['stats']),
-            'crafts' => array_map(function ($value) {
-                return intval($value);
-            }, $validated['crafts']),
-        ]);
+        if (isset($validated['stats'])) {
+            $character->charsheet->fill([
+                'stats' => array_map(function ($value) {
+                    return intval($value);
+                }, $validated['stats'])
+            ]);
+        }
+
+        if (isset($validated['crafts'])) {
+            $character->charsheet->fill([
+                'crafts' => array_map(function ($value) {
+                    return intval($value);
+                }, $validated['crafts']),
+            ]);
+        }
+
+        $character->charsheet->save();
 
         $character->narrativeCrafts()->delete();
 
@@ -45,6 +54,10 @@ class CharsheetService
                 $character->perk_points = $validated['perk_points'];
             }
 
+            if (isset($validated['skill_points'])) {
+                $character->skill_points = $validated['skill_points'];
+            }
+
             $character->save();
         }
 
@@ -59,11 +72,6 @@ class CharsheetService
         $character->perks()->sync(collect($validated['perks'] ?? [])->mapWithKeys(function ($perk, $id) {
             return [$id => ['note' => $perk['note']]];
         }));
-
-        if (isset($validated['perk_points']) && auth()->user()->can('update-charsheet-gm', $character)) {
-            $character->perk_points = $validated['perk_points'];
-            $character->save();
-        }
 
         info('Character perks updated', [
             'user' => auth()->user()?->login,
@@ -130,21 +138,6 @@ class CharsheetService
         return array_filter($perks, function ($perk) {
             return $perk['selected'] ?? 'off' == 'on';
         });
-    }
-
-    public function updateStats($character, $validated)
-    {
-        $character->charsheet()->update($validated);
-
-        if (isset($validated['stats_handled'])) {
-            $character->stats_handled = $validated['stats_handled'];
-            $character->save();
-        }
-
-        info('Character stats updated', [
-            'user' => auth()->user()?->login,
-            'character' => $character->login,
-        ]);
     }
 
     public function convertSkills($skills)

@@ -41,6 +41,8 @@ window.updatePerkPoints = function() {
     let input = document.getElementById('perk_points')
     let perkPointsLabel = document.getElementById('perk-points')
     perkPointsLabel.innerHTML = input.value
+    maxPerks = input.value
+    updatePerks()
 }
 
 if (typeof (maxPerks) != 'undefined') {

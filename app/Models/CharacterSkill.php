@@ -38,4 +38,16 @@ class CharacterSkill extends Pivot
             }
         );
     }
+
+    public function cost() : Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->level) {
+                default => 0,
+                1 => 1,
+                2 => 3,
+                3 => 5,
+            }
+        );
+    }
 }

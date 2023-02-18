@@ -340,4 +340,11 @@ class Character extends Model
             get: fn() => $this->origin == CharacterOrigin::Planeborn,
         );
     }
+
+    public function skillSum(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->skills->reduce(fn($sum, $skill) => $sum + $skill->pivot->cost),
+        );
+    }
 }
