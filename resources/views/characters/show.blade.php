@@ -525,7 +525,7 @@
             @endif
         @endcan
 
-        @if (count($perks))
+        @if ($character->perks->isNotEmpty())
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 <x-card class="w-full my-auto">
                     <x-header>
@@ -533,8 +533,24 @@
                     </x-header>
 
                     <div class="grid grid-cols-2 gap-4">
-                        @foreach ($perks->sortByDesc('name') as $perk)
+                        @foreach ($character->perks->sortByDesc('name') as $perk)
                             <x-perk-card class="h-min" :character="$character" :perk="$perk" :accordion="true" />
+                        @endforeach
+                    </div>
+                </x-card>
+            </div>
+        @endif
+
+        @if ($character->talents->isNotEmpty())
+            <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
+                <x-card class="w-full my-auto">
+                    <x-header>
+                        {{ __('talents.index') }} ({{ $character->talent_sum }} / {{ $character->talent_points }})
+                    </x-header>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        @foreach ($character->talents->sortByDesc('name') as $talent)
+                            <x-talent-card class="h-min" :character="$character" :talent="$talent" :accordion="true" />
                         @endforeach
                     </div>
                 </x-card>

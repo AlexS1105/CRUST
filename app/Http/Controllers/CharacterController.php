@@ -55,10 +55,7 @@ class CharacterController extends Controller
 
     public function show(Character $character)
     {
-        $character->load(['perks']);
-        $perks = $character->perks;
-
-        return view('characters.show', compact('character', 'perks'));
+        return view('characters.show', compact('character'));
     }
 
     public function edit(Character $character)

@@ -18,6 +18,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SphereController;
+use App\Http\Controllers\TalentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EstitenceController;
 use App\Http\Controllers\WikiController;
@@ -42,6 +43,9 @@ Route::get('/perks', [PerkController::class, 'all'])
 
 Route::get('/skills', [SkillController::class, 'all'])
     ->name('skills.list');
+
+Route::get('/talents', [TalentController::class, 'all'])
+    ->name('talents.list');
 
 Route::middleware('auth')
     ->group(function () {
@@ -119,6 +123,15 @@ Route::middleware('auth')
                                     ->name('edit');
 
                                 Route::patch('skills', 'updateSkills')
+                                    ->name('update');
+                            });
+
+                        Route::name('talents.')
+                            ->group(function () {
+                                Route::get('talents', 'editTalents')
+                                    ->name('edit');
+
+                                Route::patch('talents', 'updateTalents')
                                     ->name('update');
                             });
                     });
@@ -288,6 +301,9 @@ Route::middleware('auth')
                             ->except(['show']);
 
                         Route::resource('settings/skills', SkillController::class)
+                            ->except(['show']);
+
+                        Route::resource('settings/talents', TalentController::class)
                             ->except(['show']);
                     });
 

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PerkSeeder::class,
             SkillSeeder::class,
+            TalentSeeder::class,
             UserSeeder::class,
         ]);
     }

@@ -20,6 +20,10 @@
             <div>
                 <a href="{{ route('skills.index') }}">{{ __('skills.index') }}</a>
             </div>
+
+            <div>
+                <a href="{{ route('talents.index') }}">{{ __('talents.index') }}</a>
+            </div>
         </div>
     </x-container>
 @endsection

@@ -215,6 +215,11 @@ class Character extends Model
         return $this->belongsToMany(Skill::class)->withPivot('level')->using(CharacterSkill::class);
     }
 
+    public function talents()
+    {
+        return $this->belongsToMany(Talent::class, 'character_talent');
+    }
+
     public function scopeFilter($query, $request)
     {
         $query->search($request->search);
