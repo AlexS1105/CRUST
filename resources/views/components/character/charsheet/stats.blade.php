@@ -10,9 +10,9 @@
         </thead>
         <tbody>
         @foreach (App\Enums\CharacterStat::getBodyStats() as $stat)
-            <tr class="border border-t-0 border-red-200 bg-red-100">
-                <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
-                <td class="p-2 text-xl text-center font-bold border border-t-0 border-red-200">{{ $$stat }}</td>
+            <tr class="border border-t-0 border-{{ $stat->color() }}-200 bg-{{ $stat->color() }}-100">
+                <td class="p-2 text-lg">{{ __('stat.' . $stat->value) }}</td>
+                <td class="p-2 text-xl text-center font-bold border border-t-0 border-{{ $stat->color() }}-200">{{ ${$stat->value} }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -28,9 +28,9 @@
         </thead>
         <tbody>
         @foreach (App\Enums\CharacterStat::getEssenceStats() as $stat)
-            <tr class="border border-t-0 border-cyan-200 bg-cyan-100">
-                <td class="p-2 text-lg">{{ __('stat.' . $stat) }}</td>
-                <td class="p-2 text-xl text-center font-bold border border-t-0 border-cyan-200">{{ $$stat }}</td>
+            <tr class="border border-t-0 border-{{ $stat->color() }}-200 bg-{{ $stat->color() }}-100">
+                <td class="p-2 text-lg">{{ __('stat.' . $stat->value) }}</td>
+                <td class="p-2 text-xl text-center font-bold border border-t-0 border-{{ $stat->color() }}-200">{{ ${$stat->value} }}</td>
             </tr>
         @endforeach
         </tbody>

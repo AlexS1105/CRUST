@@ -50,7 +50,7 @@ class Charsheet extends Model
     {
         return Attribute::make(
             get: function () {
-                return Arr::only($this->stats, CharacterStat::getBodyStats());
+                return Arr::only($this->stats, Arr::map(CharacterStat::getBodyStats(), fn($stat) => $stat->value));
             }
         );
     }
@@ -68,7 +68,7 @@ class Charsheet extends Model
     {
         return Attribute::make(
             get: function () {
-                return Arr::only($this->stats, CharacterStat::getEssenceStats());
+                return Arr::only($this->stats, Arr::map(CharacterStat::getEssenceStats(), fn($stat) => $stat->value));
             }
         );
     }

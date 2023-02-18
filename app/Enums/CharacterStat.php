@@ -27,19 +27,29 @@ enum CharacterStat: string
             'agility' => 'green',
             'determination' => 'orange',
             'erudition' => 'cyan',
-            'will' => 'teal',
+            'will' => 'lime',
             'potential' => 'purple',
         };
     }
 
     public static function getBodyStats()
     {
-        return ['strength', 'endurance', 'perception', 'agility'];
+        return [
+            CharacterStat::Strength,
+            CharacterStat::Endurance,
+            CharacterStat::Perception,
+            CharacterStat::Agility,
+        ];
     }
 
     public static function getEssenceStats()
     {
-        return ['determination', 'erudition', 'will', 'potential'];
+        return [
+            CharacterStat::Determination,
+            CharacterStat::Erudition,
+            CharacterStat::Will,
+            CharacterStat::Potential,
+        ];
     }
 
     public static function getCost($level)
