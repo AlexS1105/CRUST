@@ -7,6 +7,7 @@ use App\Traits\Searchable;
 use BenSampo\Enum\Traits\QueriesFlaggedEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Perk
@@ -49,6 +50,13 @@ class Perk extends Model
         'cost',
         'description',
     ];
+
+    public function scopeForCharacter($query, $character)
+    {
+        $perkIds = $character->perks->pluck('id')->implode(',');
+
+        return $query->orderByRaw(DB::raw("FIELD(id, $perkIds) DESC"));
+    }
 
     protected static function boot()
     {

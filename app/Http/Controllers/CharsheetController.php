@@ -26,7 +26,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet', $character);
 
-        $perks = Perk::all();
+        $perks = Perk::forCharacter($character)->orderBy('name')->get();
         $settings = $this->settings;
 
         return view('characters.charsheet', compact('character', 'perks', 'settings'));
@@ -45,7 +45,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $perks = Perk::all();
+        $perks = Perk::forCharacter($character)->get();
         $settings = $this->settings;
 
         return view('characters.perks', compact('character', 'perks', 'settings'));
