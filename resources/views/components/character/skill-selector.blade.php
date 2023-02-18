@@ -43,6 +43,9 @@
     @endforeach
 </div>
 
+<x-tip text="character.skills"/>
+<x-form.error name="skills"/>
+
 <div class="font-bold text-lg text-right flex justify-end">
     <div class="mr-2">
         {{ __('charsheet.points.skills') }}

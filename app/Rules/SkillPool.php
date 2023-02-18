@@ -43,6 +43,6 @@ class SkillPool implements Rule
 
     public function message()
     {
-        return __($this->message());
+        return __($this->message);
     }
 }
