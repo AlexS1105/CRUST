@@ -32,6 +32,7 @@ class CharacterFactory extends Factory
             'gm_only_info' => $this->faker->paragraph(),
             'estitence' => $this->faker->numberBetween(20, 100),
             'perk_points' => $this->faker->numberBetween(24, 36),
+            'skill_points' => $this->faker->numberBetween(16, 32),
         ];
     }
 }

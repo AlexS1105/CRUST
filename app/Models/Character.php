@@ -333,4 +333,11 @@ class Character extends Model
             get: fn() => intval(ceil($this->estitence / 10)),
         );
     }
+
+    public function shouldReceiveAdditionalSkillPoints(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->origin == CharacterOrigin::Planeborn,
+        );
+    }
 }

@@ -6,7 +6,7 @@ class CharsheetSettings extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('charsheet.skill_points', 25);
+        $this->migrator->add('charsheet.skill_points', 16);
         $this->migrator->add('charsheet.perk_points', 20);
     }
 }

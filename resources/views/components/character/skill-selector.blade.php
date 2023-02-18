@@ -51,12 +51,12 @@
         0
     </div>
     <div>
-        / {{ $character->skill_points ?? 16 }}
+        / {{ $character->skill_points }}
     </div>
 </div>
 
 @push('scripts')
     <script>
-        let maxSkills = @json($character->skill_points ?? 16)
+        let maxSkills = @json($character->skill_points)
     </script>
 @endpush

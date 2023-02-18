@@ -6,8 +6,6 @@ use Spatie\LaravelSettings\Settings;
 
 class CharsheetSettings extends Settings
 {
-    public int $skill_points;
-
     public int $max_fates;
 
     public int $max_perks;
@@ -15,6 +13,10 @@ class CharsheetSettings extends Settings
     public int $perk_points;
 
     public int $additional_perk_points;
+
+    public int $skill_points;
+
+    public int $additional_skill_points;
 
     public int $min_estitence;
 
