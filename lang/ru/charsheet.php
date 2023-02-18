@@ -30,6 +30,7 @@ return [
         'active_noncombat_perks' => 'Небоевых перков: ',
         'combat_perk_attack' => 'Атакующий перк: ',
         'combat_perk_defence' => 'Защитный перк: ',
+        'skills' => 'Доступно очков навыков: ',
     ],
     'inequality' => [
         'positive' => 'У персонажа есть :inequality свободных очков характеристик!',

@@ -35,6 +35,14 @@
 
             <x-form.card>
                 <x-slot name="header">
+                    {{ __('skills.index') }}
+                </x-slot>
+
+                <x-character.skill-selector :character="$character" :skills="$skills" />
+            </x-form.card>
+
+            <x-form.card>
+                <x-slot name="header">
                     {{ __('charsheet.crafts.index') }}
                 </x-slot>
 

@@ -7,6 +7,7 @@ return [
     'proficiency' => 'Специальный',
     'empty' => 'Навыки не найдены',
     'soul_coefficient' => 'Коэффициент души',
+    'cost' => 'Цена',
     'level' => [
         'title' => 'Уровень',
         'bonus' => 'Бонус уровня',

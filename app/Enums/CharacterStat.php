@@ -21,13 +21,14 @@ enum CharacterStat: string
     public function color()
     {
         return match($this->value) {
-            'strength' => 'red-200',
-            'endurance' => 'yellow-200',
-            'perception', 'erudition' => 'blue-200',
-            'agility' => 'green-200',
-            'determination' => 'orange-200',
-            'will' => 'cyan-200',
-            'potential' => 'purple-200',
+            'strength' => 'red',
+            'endurance' => 'yellow',
+            'perception' => 'blue',
+            'agility' => 'green',
+            'determination' => 'orange',
+            'erudition' => 'cyan',
+            'will' => 'teal',
+            'potential' => 'purple',
         };
     }
 
@@ -64,5 +65,19 @@ enum CharacterStat: string
     public static function getSum($stats)
     {
         return array_reduce($stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+    }
+
+    public function order()
+    {
+        return match($this->value) {
+            'strength' => 0,
+            'endurance' => 1,
+            'perception' => 2,
+            'agility' => 3,
+            'determination' => 4,
+            'erudition' => 5,
+            'will' => 6,
+            'potential' => 7,
+        };
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CharacterStat;
 use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
+use App\Models\Skill;
 use App\Services\CharsheetService;
 use App\Settings\CharsheetSettings;
 
@@ -27,9 +29,10 @@ class CharsheetController extends Controller
         $this->authorize('update-charsheet', $character);
 
         $perks = Perk::forCharacter($character)->orderBy('name')->get();
+        $skills = Skill::all()->groupBy('stat.value')->sortBy(fn($skills, $stat) => CharacterStat::from($stat)->order());
         $settings = $this->settings;
 
-        return view('characters.charsheet', compact('character', 'perks', 'settings'));
+        return view('characters.charsheet', compact('character', 'perks', 'settings', 'skills'));
     }
 
     public function update(CharsheetRequest $request, Character $character)

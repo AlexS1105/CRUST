@@ -13,7 +13,8 @@ import './markdown';
 import './markdown-preview';
 import './user';
 import './clipboard';
-import './skins'
+import './skins';
+import './skills';
 
 window.Alpine = Alpine;
 
