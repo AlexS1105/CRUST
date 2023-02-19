@@ -55,7 +55,7 @@ class CharacterRequest extends FormRequest
                         Rule::unique('characters', 'login'),
                     Rule::unique('accounts', 'login'),
                 ],
-            ]);
+            ], $rules);
         }
 
         return $rules;
