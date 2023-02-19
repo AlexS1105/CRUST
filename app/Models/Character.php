@@ -369,7 +369,7 @@ class Character extends Model
     public function maxTalentAmount(): Attribute
     {
         return Attribute::make(
-            get: fn() => max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2),
+            get: fn() => ceil(max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2)),
         );
     }
 

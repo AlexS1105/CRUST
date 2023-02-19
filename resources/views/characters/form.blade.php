@@ -18,6 +18,7 @@
                        :values="App\Enums\CharacterOrigin::cases()"
                        :labels="array_map(function($origin) { return $origin->localized(); }, App\Enums\CharacterOrigin::cases())"
                        :value="old('origin', @$character?->origin)"
+                       :disabled="$character?->registered"
         />
         <x-tip text="character.origin"/>
 

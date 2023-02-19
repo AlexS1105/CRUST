@@ -25,11 +25,12 @@
                 </div>
                 <x-tip text="character.stats.penalties"/>
                 <x-tip text="character.stats.update"/>
-
-                <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
-
-                <x-tip text="character.stats.handled"/>
                 <x-form.error name="stats"/>
+
+                @can('update-charsheet-gm')
+                    <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
+                    <x-tip text="character.stats.handled"/>
+                @endcan
             </x-form.card>
 
             <x-button-submit/>

@@ -28,9 +28,10 @@
                 <x-tip text="character.stats.penalties"/>
                 <x-form.error name="stats"/>
 
-                <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
-
-                <x-tip text="character.stats.handled"/>
+                @can('update-charsheet-gm')
+                    <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
+                    <x-tip text="character.stats.handled"/>
+                @endcan
             </x-form.card>
 
             <x-form.card>

@@ -28,7 +28,6 @@ class CharacterRequest extends FormRequest
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
             'reference' => ['nullable', 'mimes:png,jpg,jpeg,bmp,svg,webp'],
-            'origin' => ['required', new Enum(CharacterOrigin::class)],
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
             'legacy' => ['required', 'max:100'],
@@ -44,16 +43,19 @@ class CharacterRequest extends FormRequest
         $character = $this->route('character');
 
         if ($this->isMethod('POST') || ! $character->registered) {
-            $rules['login'] = [
-                $this->isMethod('POST') ? 'required' : 'sometimes',
-                'regex:/^\w{3,16}$/',
-                'min:3',
-                'max:16',
-                $this->isMethod('PATCH') ?
-                    Rule::unique('characters', 'login')->ignore($character->id) :
-                    Rule::unique('characters', 'login'),
-                Rule::unique('accounts', 'login'),
-            ];
+            $rules = array_merge([
+                'origin' => ['required', new Enum(CharacterOrigin::class)],
+                'login' => [
+                    $this->isMethod('POST') ? 'required' : 'sometimes',
+                    'regex:/^\w{3,16}$/',
+                    'min:3',
+                    'max:16',
+                    $this->isMethod('PATCH') ?
+                        Rule::unique('characters', 'login')->ignore($character->id) :
+                        Rule::unique('characters', 'login'),
+                    Rule::unique('accounts', 'login'),
+                ],
+            ]);
         }
 
         return $rules;
