@@ -40,8 +40,10 @@ class DiscordNotification extends Notification
     public function launcherLink()
     {
         $launcherUrl = config('services.launcher_url');
+        $launcherJarUrl = config('services.launcher_jar_url');
 
-        return PHP_EOL."[**Скачать лаунчер**]({$launcherUrl})";
+        return PHP_EOL."[**Скачать лаунчер**]({$launcherUrl})
+                        [**Скачать лаунчер (JAR)**]({$launcherJarUrl})";
     }
 
     public function url()
