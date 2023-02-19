@@ -25,8 +25,8 @@ enum CharacterStat: string
             'endurance' => 'yellow',
             'perception' => 'blue',
             'agility' => 'green',
-            'determination' => 'orange',
-            'erudition' => 'cyan',
+            'determination' => 'cyan',
+            'erudition' => 'orange',
             'will' => 'lime',
             'potential' => 'purple',
         };
