@@ -34,7 +34,7 @@ function updateLabels() {
     let perksLabel = document.getElementById('perk-count')
     perksLabel.innerHTML = perks
     let perksCostLabel = document.getElementById('perk-cost')
-    perksCostLabel.innerHTML = maxPerks - perksCostSum
+    perksCostLabel.innerHTML = perkPoints - perksCostSum
 }
 
 window.updatePerkPoints = function() {
