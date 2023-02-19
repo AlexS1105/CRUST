@@ -55,6 +55,10 @@ class Perk extends Model
     {
         $perkIds = $character->perks->pluck('id')->implode(',');
 
+        if (empty($perkIds)) {
+            return $query;
+        }
+
         return $query->orderByRaw(DB::raw("FIELD(id, $perkIds) DESC"));
     }
 

@@ -18,6 +18,10 @@ class PerkPool implements Rule
 
     public function passes($attribute, $value)
     {
+        if (empty($value)) {
+            return true;
+        }
+
         $settings = app(CharsheetSettings::class);
         $maxPerks = $settings->max_perks;
         $perkPoints = request('perk_points', $this->character->perk_points);

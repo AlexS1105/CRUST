@@ -27,6 +27,10 @@ class Talent extends Model
     {
         $talentIds = $character->talents->pluck('id')->implode(',');
 
+        if (empty($talentIds)) {
+            return $query;
+        }
+
         return $query->orderByRaw(DB::raw("FIELD(id, $talentIds) DESC"));
     }
 }

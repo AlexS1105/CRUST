@@ -22,7 +22,7 @@
                         onchange="updatePerks();"
                         data-perk-id="{{ $perk->id }}"
                         data-perk-cost="{{ $perk->cost }}"
-                        @checked($characterPerk != null)
+                        @checked(old('perks.' . $perk->id . '.selected', $characterPerk != null))
                     />
                 </div>
             </div>

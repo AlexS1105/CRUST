@@ -22,7 +22,7 @@
                         onchange="updateTalents();"
                         data-talent-id="{{ $talent->id }}"
                         data-talent-cost="{{ $talent->cost }}"
-                        @checked($characterTalent != null)
+                        @checked(old('talents.' . $talent->id . '.selected', $characterTalent != null))
                     />
                 </div>
             </div>

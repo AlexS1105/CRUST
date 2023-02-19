@@ -30,7 +30,7 @@
                             >
                                 @for($i = 0; $i < 4; $i++)
                                     <option value="{{ $i }}"
-                                        @selected($character->skills->find($skill->id)?->pivot->level == $i)>
+                                        @selected(old('skills.' . $skill->id, $character->skills->find($skill->id)?->pivot->level) == $i)>
                                         {{ __('skills.level.' . $i) }}
                                     </option>
                                 @endfor

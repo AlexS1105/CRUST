@@ -379,5 +379,4 @@ class Character extends Model
             get: fn() => $this->origin == CharacterOrigin::Undead,
         );
     }
-
 }

@@ -8,12 +8,12 @@
 
     @foreach ($character->charsheet->stats as $stat => $value)
         <x-slot :name="$stat">
-            <input id="stats[{{$stat}}]"
-                   name="stats[{{$stat}}]"
+            <input id="stats[{{ $stat }}]"
+                   name="stats[{{ $stat }}]"
                    type="number"
                    min="1"
                    max="100"
-                   value="{{ $value }}"
+                   value="{{ old('stats.' . $stat, $character->charsheet->stats[$stat]) }}"
                    oninput="updateStatsSum()"
             >
         </x-slot>

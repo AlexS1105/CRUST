@@ -17,6 +17,10 @@ class TalentPool implements Rule
 
     public function passes($attribute, $value)
     {
+        if (empty($value)) {
+            return true;
+        }
+
         $maxTalents = $this->character->max_talent_amount;
         $talentPoints = request('talent_points', $this->character->talent_points);
         $talents = Talent::all();

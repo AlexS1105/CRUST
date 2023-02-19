@@ -158,6 +158,10 @@ class CharsheetService
 
     public function convertPerks($perks)
     {
+        if (empty($perks)) {
+            return null;
+        }
+
         return array_filter($perks, function ($perk) {
             return $perk['selected'] ?? 'off' == 'on';
         });
@@ -165,6 +169,10 @@ class CharsheetService
 
     public function convertTalents($talents)
     {
+        if (empty($talents)) {
+            return null;
+        }
+
         return array_filter($talents, function ($talent) {
             return $talent['selected'] ?? 'off' == 'on';
         });
