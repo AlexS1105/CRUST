@@ -9,8 +9,6 @@
             @method('PATCH')
 
             <x-form.card>
-                <x-form.input name="max_fates" type="number" min="0" max="100"
-                              :value="old('max_fates', $settings->max_fates)"/>
                 <x-form.input name="max_perks" type="number" min="0" max="100"
                               :value="old('max_perks', $settings->max_perks)"/>
                 <x-form.input name="perk_points" type="number" min="0" max="100"
