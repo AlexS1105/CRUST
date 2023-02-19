@@ -215,7 +215,7 @@
                                                 <hr class="my-1">
                                                 <div>
                                                     {{ $skill->stat->localized() }}:
-                                                    <b>+{{ $character->charsheet->skills[$skill->stat->value] }}</b>
+                                                    <b>+{{ $character->charsheet->stats[$skill->stat->value] }}</b>
                                                 </div>
                                                 @if($skill->pivot->level >= 2)
                                                     <div>
