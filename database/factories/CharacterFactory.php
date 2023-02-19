@@ -33,6 +33,7 @@ class CharacterFactory extends Factory
             'estitence' => $this->faker->numberBetween(20, 100),
             'perk_points' => $this->faker->numberBetween(24, 36),
             'skill_points' => $this->faker->numberBetween(16, 32),
+            'talent_points' => $this->faker->numberBetween(12, 42),
         ];
     }
 }
