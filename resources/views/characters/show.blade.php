@@ -55,7 +55,7 @@
 @section('content')
     <x-container class="max-w-6xl space-y-8">
         <div class="flex flex-wrap md:flex-nowrap justify-center gap-8 p-2 md:p-0">
-            <x-card class="max-w-md my-auto flex-none p-0">
+            <x-card class="md:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
                     class="object-cover"
                     src="{{ Storage::disk('characters')->url($character->reference) }}"
@@ -265,7 +265,7 @@
                             ({{ $character->perks->count() }} / {{ app(App\Settings\CharsheetSettings::class)->max_perks }} {{ __('perks.slots') }})
                         </x-header>
 
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
                             @foreach ($character->perks->sortByDesc('name') as $perk)
                                 <x-perk-card class="h-min" :character="$character" :perk="$perk" :accordion="true" />
                             @endforeach
@@ -289,7 +289,7 @@
                             ({{ $character->talents->count() }} / {{ $character->max_talent_amount }} {{ __('talents.slots') }})
                         </x-header>
 
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
                             @foreach ($character->talents->sortByDesc('name') as $talent)
                                 <x-talent-card class="h-min" :character="$character" :talent="$talent" :accordion="true" />
                             @endforeach
