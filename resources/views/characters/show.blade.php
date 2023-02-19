@@ -529,7 +529,9 @@
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 <x-card class="w-full my-auto">
                     <x-header>
-                        {{ __('perks.index') }} ({{ $character->perk_sum }} / {{ $character->perk_points }})
+                        {{ __('perks.index') }}
+                        ({{ $character->perk_sum }} / {{ $character->perk_points }} {{ __('perks.points') }})
+                        ({{ $character->perks->count() }} / {{ app(App\Settings\CharsheetSettings::class)->max_perks }} {{ __('perks.slots') }})
                     </x-header>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -541,11 +543,19 @@
             </div>
         @endif
 
+        @can('update-charsheet-gm', $character)
+            <x-character.action href="{{ route('characters.perks.edit', $character) }}">
+                {{ __('charsheet.edit.perks') }}
+            </x-character.action>
+        @endcan
+
         @if ($character->talents->isNotEmpty())
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
                 <x-card class="w-full my-auto">
                     <x-header>
-                        {{ __('talents.index') }} ({{ $character->talent_sum }} / {{ $character->talent_points }})
+                        {{ __('talents.index') }}
+                        ({{ $character->talent_sum }} / {{ $character->talent_points }} {{ __('talents.points') }})
+                        ({{ $character->talents->count() }} / {{ $character->max_talent_amount }} {{ __('talents.slots') }})
                     </x-header>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -556,12 +566,6 @@
                 </x-card>
             </div>
         @endif
-
-        @can('update-charsheet-gm', $character)
-            <x-character.action href="{{ route('characters.perks.edit', $character) }}">
-                {{ __('charsheet.edit.perks') }}
-            </x-character.action>
-        @endcan
 
         @can('see-player-only-info', $character)
             @if (count($character->fates))

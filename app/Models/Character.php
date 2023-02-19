@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CharacterOrigin;
+use App\Enums\CharacterStat;
 use App\Enums\CharacterStatus;
 use App\Services\CharacterService;
 use App\Settings\CharsheetSettings;
@@ -350,6 +351,20 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn() => $this->skills->reduce(fn($sum, $skill) => $sum + $skill->pivot->cost),
+        );
+    }
+
+    public function talentSum(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->talents->reduce(fn($sum, $talent) => $sum + $talent->cost),
+        );
+    }
+
+    public function maxTalentAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2),
         );
     }
 }
