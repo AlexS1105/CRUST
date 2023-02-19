@@ -31,7 +31,7 @@ function updateLabels() {
     let talentsLabel = document.getElementById('talent-count')
     talentsLabel.innerHTML = talents
     let talentsCostLabel = document.getElementById('talent-cost')
-    talentsCostLabel.innerHTML = talentsCostSum
+    talentsCostLabel.innerHTML = maxTalents - talentsCostSum
 }
 
 window.updateTalentPoints = function() {
