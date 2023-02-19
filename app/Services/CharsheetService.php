@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\FateType;
 use App\Models\Character;
+use App\Models\Tide;
 
 class CharsheetService
 {
@@ -47,6 +48,10 @@ class CharsheetService
 
         if (isset($validated['talents'])) {
             $this->saveTalents($character, $validated);
+        }
+
+        if (isset($validated['tides'])) {
+            $this->saveTides($character, $validated);
         }
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
@@ -170,5 +175,31 @@ class CharsheetService
         return array_filter($skills, function ($skill) {
             return $skill != 0;
         });
+    }
+
+    public function saveTides($character, $validated)
+    {
+        $canUpdateLevel = auth()->user()->can('update-charsheet-gm', $character);
+
+        foreach ($validated['tides'] as $tideData) {
+            $tide = $character->tides()->firstWhere('tide', $tideData['tide']);
+
+            if ($tide == null) {
+                continue;
+            }
+
+            $tide->path = $tideData['path'];
+
+            if ($canUpdateLevel) {
+                $tide->level = $tideData['level'];
+            }
+
+            $tide->save();
+        }
+
+        info('Character tides updated', [
+            'user' => auth()->user()?->login,
+            'character' => $character->login,
+        ]);
     }
 }

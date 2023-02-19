@@ -116,6 +116,15 @@
                     <x-character.fates :character="$character" :maxFates="$settings->max_fates"/>
                     <x-tip text="character.fates"/>
                 </x-form.card>
+
+                <x-form.card>
+                    <x-slot name="header">
+                        {{ __('tides.index') }}
+                    </x-slot>
+
+                    <x-character.tides-edit :character="$character" />
+                    <x-tip text="character.tides"/>
+                </x-form.card>
             @endif
 
             <x-button-submit/>

@@ -629,24 +629,25 @@
                         {{ __('tides.index') }}
                     </x-header>
 
-                    <div class="space-y-2">
-                        @foreach ($character->tides as $tide)
-                            <div class="bg-{{ $tide->tide->color() }}-200 rounded-xl py-1 px-2">
-                                <div class="text-xl font-bold flex justify-between items-center ">
-                                    <div>
-                                        {{ $tide->tide->localized() }}
-                                    </div>
-                                    <div class="w-8 h-8 inline-flex text-center items-center justify-center bg-{{ $tide->tide->color() }}-300 p-1 rounded-xl">
-                                        {{ $tide->level }}
-                                    </div>
-                                </div>
+                    <x-character.tides>
+                        @foreach($character->tides as $tide)
+                            <x-slot :name="'level_' . $tide->tide->value">
+                                {{ $tide->level }}
+                            </x-slot>
 
+                            <x-slot :name="'content_' . $tide->tide->value">
                                 {{ $tide->path }}
-                            </div>
+                            </x-slot>
                         @endforeach
-                    </div>
+                    </x-character.tides>
                 </x-card>
             @endif
+        @endcan
+
+        @can('update-charsheet-gm', $character)
+            <x-character.action href="{{ route('characters.tides.edit', $character) }}">
+                {{ __('tides.update') }}
+            </x-character.action>
         @endcan
 
         @can('see-player-only-info', $character)

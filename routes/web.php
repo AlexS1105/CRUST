@@ -134,6 +134,15 @@ Route::middleware('auth')
                                 Route::patch('talents', 'updateTalents')
                                     ->name('update');
                             });
+
+                        Route::name('tides.')
+                            ->group(function () {
+                                Route::get('tides', 'editTides')
+                                    ->name('edit');
+
+                                Route::patch('tides', 'updateTides')
+                                    ->name('update');
+                            });
                     });
 
                 Route::controller(ApplicationController::class)

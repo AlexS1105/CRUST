@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\CharacterStatus;
+use App\Enums\Tide;
 use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterCreated;
 use App\Events\CharacterDeleted;
@@ -16,6 +17,10 @@ class CharacterService
         $validated = $request->validated();
         $character = $request->user()->characters()->create($validated);
         $character->charsheet()->create();
+        $character->tides->createMany(array_map(fn($tide) => [
+            'tide' => $tide->value,
+            'level' => 0,
+        ], Tide::cases()));
 
         $this->saveReference($character, $validated);
 
