@@ -14,11 +14,12 @@ class RegisteredNotification extends DiscordNotification
         $profileLink = route('users.edit', $notifiable);
         $createCharacterLink = route('characters.create');
         $wikiLink = route('wiki.index');
+        $projectName = config('crust.project_name');
 
         return DiscordMessage::create(
             '',
             array_merge($this->getEmbed(), [
-                'title' => "Добро пожаловать на ролевой проект Тесей, {$notifiable->login}!",
+                'title' => "Добро пожаловать на {$projectName}, {$notifiable->login}!",
                 'description' => "Вы успешно прошли регистрацию в нашей системе.
             Чтобы начать игру, Вам необходимо [создать персонажа]({$createCharacterLink}) и дождаться его проверки нашими регистраторами.
 
