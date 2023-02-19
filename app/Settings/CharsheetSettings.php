@@ -28,6 +28,10 @@ class CharsheetSettings extends Settings
 
     public int $additional_estitence;
 
+    public int $talent_points;
+
+    public int $additional_talent_points;
+
     public static function group(): string
     {
         return 'charsheet';

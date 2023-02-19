@@ -21,6 +21,10 @@
                               :value="old('skill_points', $settings->skill_points)"/>
                 <x-form.input name="additional_skill_points" type="number" min="0" max="100"
                               :value="old('additional_skill_points', $settings->additional_skill_points)"/>
+                <x-form.input name="talent_points" type="number" min="0" max="100"
+                              :value="old('talent_points', $settings->talent_points)"/>
+                <x-form.input name="additional_talent_points" type="number" min="0" max="100"
+                              :value="old('additional_talent_points', $settings->additional_talent_points)"/>
 
                 <x-form.input name="min_estitence" type="number" min="0"
                               :value="old('min_estitence', $settings->min_estitence)"/>

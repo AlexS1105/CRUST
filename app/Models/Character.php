@@ -367,4 +367,12 @@ class Character extends Model
             get: fn() => max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2),
         );
     }
+
+    public function shouldReceiveAdditionalTalentPoints(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->origin == CharacterOrigin::Undead,
+        );
+    }
+
 }
