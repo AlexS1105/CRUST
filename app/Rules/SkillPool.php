@@ -17,6 +17,10 @@ class SkillPool implements Rule
 
     public function passes($attribute, $value)
     {
+        if (empty($value)) {
+            return true;
+        }
+
         $skillPoints = request('skill_points', $this->character->skill_points);
         $skills = Skill::all();
         $sum = 0;
