@@ -31,6 +31,8 @@ return [
         'combat_perk_attack' => 'Атакующий перк: ',
         'combat_perk_defence' => 'Защитный перк: ',
         'skills' => 'Доступно очков навыков: ',
+        'talents' => 'Доступно талантов: ',
+        'talent_points' => 'Доступно очков талантов: ',
     ],
     'inequality' => [
         'positive' => 'У персонажа есть :inequality свободных очков характеристик!',

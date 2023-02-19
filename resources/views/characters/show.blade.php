@@ -569,7 +569,7 @@
 
         @can('update-charsheet-gm', $character)
             <x-character.action href="{{ route('characters.talents.edit', $character) }}">
-                {{ __('talents.edit') }}
+                {{ __('talents.update') }}
             </x-character.action>
         @endcan
 
