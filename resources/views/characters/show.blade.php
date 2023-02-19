@@ -623,6 +623,33 @@
         @endcan
 
         @can('see-player-only-info', $character)
+            @if (count($character->fates))
+                <x-card class=" mx-auto w-max max-w-full">
+                    <x-header>
+                        {{ __('tides.index') }}
+                    </x-header>
+
+                    <div class="space-y-2">
+                        @foreach ($character->tides as $tide)
+                            <div class="bg-{{ $tide->tide->color() }}-200 rounded-xl py-1 px-2">
+                                <div class="text-xl font-bold flex justify-between items-center ">
+                                    <div>
+                                        {{ $tide->tide->localized() }}
+                                    </div>
+                                    <div class="w-8 h-8 inline-flex text-center items-center justify-center bg-{{ $tide->tide->color() }}-300 p-1 rounded-xl">
+                                        {{ $tide->level }}
+                                    </div>
+                                </div>
+
+                                {{ $tide->path }}
+                            </div>
+                        @endforeach
+                    </div>
+                </x-card>
+            @endif
+        @endcan
+
+        @can('see-player-only-info', $character)
             @if ($character->player_only_info)
                 <x-card>
                     <x-header>

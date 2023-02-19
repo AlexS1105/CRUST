@@ -16,8 +16,8 @@ enum Tide: string
             Tide::Red => 'red',
             Tide::Blue => 'blue',
             Tide::Indigo => 'indigo',
-            Tide::Gold => 'gold',
-            Tide::Silver => 'silver',
+            Tide::Gold => 'yellow',
+            Tide::Silver => 'gray',
         };
     }
 
