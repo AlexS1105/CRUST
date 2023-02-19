@@ -7,6 +7,7 @@ use App\Rules\FatesRule;
 use App\Rules\PerkPool;
 use App\Rules\SkillPool;
 use App\Rules\StatPool;
+use App\Rules\TalentPool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,6 +27,7 @@ class CharsheetRequest extends FormRequest
             'fates' => $charsheetService->convertFates($this->fates),
             'skills' => $charsheetService->convertSkills($this->skills),
             'stats_handled' => $this->stats_handled === 'on',
+            'talents' => $charsheetService->convertTalents($this->talents),
         ]);
     }
 
@@ -51,6 +53,7 @@ class CharsheetRequest extends FormRequest
                 'fates.*.text' => ['required', 'max:1024'],
                 'fates.*.ambition' => ['required_without:fates.*.flaw', 'nullable'],
                 'fates.*.flaw' => ['required_without:fates.*.ambition', 'nullable'],
+                'talents' => [new TalentPool($character)],
             ]);
         }
 

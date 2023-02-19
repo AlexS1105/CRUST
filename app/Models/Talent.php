@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Talent extends Model
 {
@@ -20,5 +21,12 @@ class Talent extends Model
     public function characters()
     {
         return $this->belongsToMany(Character::class, 'character_talent');
+    }
+
+    public function scopeForCharacter($query, $character)
+    {
+        $talentIds = $character->talents->pluck('id')->implode(',');
+
+        return $query->orderByRaw(DB::raw("FIELD(id, $talentIds) DESC"));
     }
 }

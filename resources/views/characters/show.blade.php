@@ -567,7 +567,14 @@
             </div>
         @endif
 
-        @can('see-player-only-info', $character)
+        @can('update-charsheet-gm', $character)
+            <x-character.action href="{{ route('characters.talents.edit', $character) }}">
+                {{ __('talents.edit') }}
+            </x-character.action>
+        @endcan
+
+
+    @can('see-player-only-info', $character)
             @if (count($character->fates))
                 <x-card class=" mx-auto w-max max-w-full">
                     <x-header>

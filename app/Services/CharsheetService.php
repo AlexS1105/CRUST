@@ -45,6 +45,10 @@ class CharsheetService
             $this->saveSkills($character, $validated);
         }
 
+        if (isset($validated['talents'])) {
+            $this->saveTalents($character, $validated);
+        }
+
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             if (isset($validated['stats_handled'])) {
                 $character->stats_handled = $validated['stats_handled'];
@@ -56,6 +60,10 @@ class CharsheetService
 
             if (isset($validated['skill_points'])) {
                 $character->skill_points = $validated['skill_points'];
+            }
+
+            if (isset($validated['talent_points'])) {
+                $character->talent_points = $validated['talent_points'];
             }
 
             $character->save();
@@ -74,6 +82,16 @@ class CharsheetService
         }));
 
         info('Character perks updated', [
+            'user' => auth()->user()?->login,
+            'character' => $character->login,
+        ]);
+    }
+
+    public function saveTalents(Character $character, $validated)
+    {
+        $character->talents()->sync(collect($validated['talents'] ?? [])->keys());
+
+        info('Character talents updated', [
             'user' => auth()->user()?->login,
             'character' => $character->login,
         ]);
@@ -137,6 +155,13 @@ class CharsheetService
     {
         return array_filter($perks, function ($perk) {
             return $perk['selected'] ?? 'off' == 'on';
+        });
+    }
+
+    public function convertTalents($talents)
+    {
+        return array_filter($talents, function ($talent) {
+            return $talent['selected'] ?? 'off' == 'on';
         });
     }
 

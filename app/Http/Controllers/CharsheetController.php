@@ -7,10 +7,12 @@ use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
+use App\Http\Requests\CharacterTalentRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
 use App\Models\Skill;
+use App\Models\Talent;
 use App\Services\CharsheetService;
 use App\Settings\CharsheetSettings;
 
@@ -33,9 +35,10 @@ class CharsheetController extends Controller
         $skills = Skill::all()
             ->groupBy('stat.value')
             ->sortBy(fn($skills, $stat) => CharacterStat::from($stat)->order());
+        $talents = Talent::forCharacter($character)->orderBy('name')->get();
         $settings = $this->settings;
 
-        return view('characters.charsheet', compact('character', 'perks', 'settings', 'skills'));
+        return view('characters.charsheet', compact('character', 'perks', 'settings', 'skills', 'talents'));
     }
 
     public function update(CharsheetRequest $request, Character $character)
@@ -112,6 +115,25 @@ class CharsheetController extends Controller
     }
 
     public function updateSkills(CharacterSkillsRequest $request, Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $this->charsheetService->update($character, $request->validated());
+
+        return to_route('characters.show', $character);
+    }
+
+    public function editTalents(Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $talents = Talent::forCharacter($character)->get();
+        $settings = $this->settings;
+
+        return view('characters.talents', compact('character', 'talents', 'settings'));
+    }
+
+    public function updateTalents(CharacterTalentRequest $request, Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);
 

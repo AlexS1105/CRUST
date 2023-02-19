@@ -98,6 +98,16 @@
                     </x-form.card>
                 @endif
 
+                @if (count($talents))
+                    <x-form.card>
+                        <x-slot name="header">
+                            {{ __('talents.index') }}
+                        </x-slot>
+
+                        <x-character.talents :character="$character" :talents="$talents" />
+                    </x-form.card>
+                @endif
+
                 <x-form.card>
                     <x-slot name="header">
                         {{ __('charsheet.fates') }}

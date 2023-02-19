@@ -15,6 +15,7 @@ import './user';
 import './clipboard';
 import './skins';
 import './skills';
+import './talents';
 
 window.Alpine = Alpine;
 
