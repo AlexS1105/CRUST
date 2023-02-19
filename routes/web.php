@@ -23,6 +23,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EstitenceController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
+use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,15 +97,6 @@ Route::middleware('auth')
                                     ->name('edit');
 
                                 Route::patch('perks', 'updatePerks')
-                                    ->name('update');
-                            });
-
-                        Route::name('fates.')
-                            ->group(function () {
-                                Route::get('fates', 'editFates')
-                                    ->name('edit');
-
-                                Route::patch('fates', 'updateFates')
                                     ->name('update');
                             });
 
@@ -206,67 +198,6 @@ Route::middleware('auth')
                     ->scoped(['character' => 'login'])
                     ->only(['index', 'create', 'store']);
 
-                Route::controller(IdeaController::class)
-                    ->name('characters.ideas.')
-                    ->prefix('/characters/{character:login}/ideas/{idea}/')
-                    ->group(function () {
-                        Route::get('sphere', 'sphereView')
-                            ->name('sphere_view');
-
-                        Route::patch('sphere', 'sphere')
-                            ->name('sphere');
-                    });
-
-                Route::resource('characters.ideas', IdeaController::class)
-                    ->scoped(['character' => 'login'])
-                    ->except(['show', 'index']);
-
-                Route::controller(SphereController::class)
-                    ->name('characters.spheres.')
-                    ->prefix('/characters/{character:login}/spheres/{sphere}/')
-                    ->group(function () {
-                        Route::get('spend', 'spendView')
-                            ->name('spend_view');
-
-                        Route::patch('spend', 'spend')
-                            ->name('spend');
-
-                        Route::get('add', 'addView')
-                            ->name('add_view');
-
-                        Route::patch('add', 'add')
-                            ->name('add');
-
-                        Route::get('experience', 'experienceView')
-                            ->name('experience_view');
-
-                        Route::patch('experience', 'experience')
-                            ->name('experience');
-                    });
-
-                Route::resource('characters.spheres', SphereController::class)
-                    ->scoped(['character' => 'login'])
-                    ->except(['show', 'index']);
-
-                Route::resource('characters.narrative_crafts', NarrativeCraftController::class)
-                    ->scoped(['character' => 'login'])
-                    ->except(['show', 'index']);
-
-                Route::controller(ExperienceController::class)
-                    ->name('characters.experiences.')
-                    ->prefix('/characters/{character:login}/experiences/{experience}/')
-                    ->group(function () {
-                        Route::get('set', 'setView')
-                            ->name('set_view');
-
-                        Route::patch('set', 'set')
-                            ->name('set');
-                    });
-
-                Route::resource('characters.experiences', ExperienceController::class)
-                    ->scoped(['character' => 'login'])
-                    ->except(['show', 'index']);
-
                 Route::resource('users', UserController::class)
                     ->except(['create', 'store']);
 
@@ -322,7 +253,7 @@ Route::middleware('auth')
                         Route::get('logs', [LogController::class, 'index'])
                             ->name('index');
 
-                        Route::get('logs/crust', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
+                        Route::get('logs/crust', [LogViewerController::class, 'index'])
                             ->name('crust');
                     });
             });

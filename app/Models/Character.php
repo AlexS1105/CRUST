@@ -176,39 +176,14 @@ class Character extends Model
         return $this->hasOne(Ticket::class);
     }
 
-    public function narrativeCrafts()
-    {
-        return $this->hasMany(NarrativeCraft::class);
-    }
-
     public function perks()
     {
         return $this->belongsToMany(Perk::class, 'characters_perks')->withPivot('note');
     }
 
-    public function fates()
-    {
-        return $this->hasMany(Fate::class);
-    }
-
     public function estitenceLogs()
     {
         return $this->hasMany(EstitenceLog::class);
-    }
-
-    public function ideas()
-    {
-        return $this->hasMany(Idea::class);
-    }
-
-    public function spheres()
-    {
-        return $this->hasMany(Sphere::class);
-    }
-
-    public function experiences()
-    {
-        return $this->hasMany(Experience::class);
     }
 
     public function skills()

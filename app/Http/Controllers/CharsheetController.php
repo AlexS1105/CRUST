@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CharacterStat;
-use App\Http\Requests\CharacterFateRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
@@ -66,24 +65,6 @@ class CharsheetController extends Controller
         $this->authorize('update-charsheet-gm', $character);
 
         $this->charsheetService->update($character, $request->validated());
-
-        return to_route('characters.show', $character);
-    }
-
-    public function editFates(Character $character)
-    {
-        $this->authorize('update-charsheet-gm', $character);
-
-        $settings = $this->settings;
-
-        return view('characters.fates', compact('character', 'settings'));
-    }
-
-    public function updateFates(CharacterFateRequest $request, Character $character)
-    {
-        $this->authorize('update-charsheet-gm', $character);
-
-        $this->charsheetService->saveFates($character, $request->validated());
 
         return to_route('characters.show', $character);
     }

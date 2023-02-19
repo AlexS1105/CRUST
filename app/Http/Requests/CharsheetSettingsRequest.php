@@ -14,7 +14,6 @@ class CharsheetSettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'max_fates' => ['integer', 'min:0'],
             'max_perks' => ['integer', 'min:0'],
             'perk_points' => ['integer', 'min:0'],
             'additional_perk_points' => ['integer', 'min:0'],

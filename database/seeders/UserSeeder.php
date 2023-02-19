@@ -36,11 +36,6 @@ class UserSeeder extends Seeder
                                 ['tide' => \App\Enums\Tide::Silver->value],
                             )
                     )
-                    ->hasNarrativeCrafts(3)
-                    ->hasExperiences(3)
-                    ->hasSpheres(3)
-                    ->hasIdeas(3)
-                    ->hasFates(3)
             )
             ->create();
 

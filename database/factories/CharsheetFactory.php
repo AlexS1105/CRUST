@@ -32,18 +32,6 @@ class CharsheetFactory extends Factory
                 'will' => $this->faker->numberBetween(0, 12),
                 'potential' => $this->faker->numberBetween(0, 12),
             ],
-            'crafts' => [
-                'arc' => $this->faker->numberBetween(0, 3),
-                'mys' => $this->faker->numberBetween(0, 2),
-                'wiz' => $this->faker->numberBetween(0, 2),
-                'mnf' => $this->faker->numberBetween(0, 3),
-                'eng' => $this->faker->numberBetween(0, 2),
-                'gun' => $this->faker->numberBetween(0, 2),
-                'chm' => $this->faker->numberBetween(0, 2),
-                'smt' => $this->faker->numberBetween(0, 2),
-                'bld' => $this->faker->numberBetween(0, 1),
-                'med' => $this->faker->numberBetween(0, 1),
-            ],
         ];
     }
 }
