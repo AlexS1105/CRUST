@@ -221,6 +221,11 @@ class Character extends Model
         return $this->belongsToMany(Talent::class, 'character_talent');
     }
 
+    public function tides()
+    {
+        return $this->hasMany(Tide::class);
+    }
+
     public function scopeFilter($query, $request)
     {
         $query->search($request->search);
