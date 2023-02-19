@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Enums\FateType;
 use App\Models\Character;
-use App\Models\Tide;
 
 class CharsheetService
 {
@@ -14,7 +13,7 @@ class CharsheetService
             $character->charsheet->fill([
                 'stats' => array_map(function ($value) {
                     return intval($value);
-                }, $validated['stats'])
+                }, $validated['stats']),
             ]);
         }
 

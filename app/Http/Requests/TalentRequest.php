@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\CharacterStat;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class TalentRequest extends FormRequest
 {

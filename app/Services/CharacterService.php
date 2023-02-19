@@ -12,14 +12,16 @@ use Intervention\Image\Facades\Image;
 
 class CharacterService
 {
-    public function __construct(protected CharsheetSettings $settings) {}
+    public function __construct(protected CharsheetSettings $settings)
+    {
+    }
 
     public function create($request)
     {
         $validated = $request->validated();
         $character = $request->user()->characters()->create($validated);
         $character->charsheet()->create();
-        $character->tides()->createMany(array_map(fn($tide) => [
+        $character->tides()->createMany(array_map(fn ($tide) => [
             'tide' => $tide->value,
             'level' => 0,
         ], Tide::cases()));

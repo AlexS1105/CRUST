@@ -34,7 +34,7 @@ class CharsheetController extends Controller
         $perks = Perk::forCharacter($character)->orderBy('name')->get();
         $skills = Skill::all()
             ->groupBy('stat.value')
-            ->sortBy(fn($skills, $stat) => CharacterStat::from($stat)->order());
+            ->sortBy(fn ($skills, $stat) => CharacterStat::from($stat)->order());
         $talents = Talent::forCharacter($character)->orderBy('name')->get();
         $settings = $this->settings;
 
@@ -91,7 +91,7 @@ class CharsheetController extends Controller
 
         $skills = Skill::all()
             ->groupBy('stat.value')
-            ->sortBy(fn($skills, $stat) => CharacterStat::from($stat)->order());
+            ->sortBy(fn ($skills, $stat) => CharacterStat::from($stat)->order());
 
         return view('characters.skills', compact('character', 'skills'));
     }

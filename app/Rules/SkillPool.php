@@ -26,7 +26,7 @@ class SkillPool implements Rule
                 return false;
             }
 
-            $sum += match($skill) {
+            $sum += match ($skill) {
                 '1' => 1,
                 '2' => 3,
                 '3' => 5,

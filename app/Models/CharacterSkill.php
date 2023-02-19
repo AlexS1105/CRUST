@@ -17,7 +17,7 @@ class CharacterSkill extends Pivot
         return $this->belongsTo(Skill::class);
     }
 
-    public function bonus() : Attribute
+    public function bonus(): Attribute
     {
         return Attribute::make(
             get: function () {
@@ -39,7 +39,7 @@ class CharacterSkill extends Pivot
         );
     }
 
-    public function cost() : Attribute
+    public function cost(): Attribute
     {
         return Attribute::make(
             get: fn () => match ($this->level) {

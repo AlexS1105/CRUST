@@ -31,6 +31,6 @@ class Talent extends Model
             return $query;
         }
 
-        return $query->orderByRaw(DB::raw("FIELD(id, $talentIds) DESC"));
+        return $query->orderByRaw(DB::raw("FIELD(id, {$talentIds}) DESC"));
     }
 }

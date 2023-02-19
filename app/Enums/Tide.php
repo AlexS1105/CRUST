@@ -12,7 +12,7 @@ enum Tide: string
 
     public function color()
     {
-        return match($this) {
+        return match ($this) {
             Tide::Red => 'red',
             Tide::Blue => 'blue',
             Tide::Indigo => 'indigo',

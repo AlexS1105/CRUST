@@ -46,7 +46,7 @@ class CharsheetRequest extends FormRequest
                 'perks.*.note' => ['max:1024'],
                 'talents' => [new TalentPool($character)],
                 'tides.*.path' => ['sometimes', 'max:512'],
-                'tides.*.tide' => ['required', new In(array_map(fn($tide) => $tide->value, Tide::cases()))],
+                'tides.*.tide' => ['required', new In(array_map(fn ($tide) => $tide->value, Tide::cases()))],
             ]);
         }
 

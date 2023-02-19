@@ -288,70 +288,70 @@ class Character extends Model
     public function shouldReceiveAdditionalEstitence(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->origin == CharacterOrigin::Limbborn,
+            get: fn () => $this->origin == CharacterOrigin::Limbborn,
         );
     }
 
     public function statsInequality(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->estitence - $this->charsheet->stats_sum,
+            get: fn () => $this->estitence - $this->charsheet->stats_sum,
         );
     }
 
     public function perkSum(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->perks->sum('cost'),
+            get: fn () => $this->perks->sum('cost'),
         );
     }
 
     public function shouldReceiveAdditionalPerkPoints(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->origin == CharacterOrigin::Planeborn,
+            get: fn () => $this->origin == CharacterOrigin::Planeborn,
         );
     }
 
     public function soulCoefficient(): Attribute
     {
         return Attribute::make(
-            get: fn() => intval(ceil($this->estitence / 10)),
+            get: fn () => intval(ceil($this->estitence / 10)),
         );
     }
 
     public function shouldReceiveAdditionalSkillPoints(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->origin == CharacterOrigin::Planeborn,
+            get: fn () => $this->origin == CharacterOrigin::Planeborn,
         );
     }
 
     public function skillSum(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->skills->reduce(fn($sum, $skill) => $sum + $skill->pivot->cost),
+            get: fn () => $this->skills->reduce(fn ($sum, $skill) => $sum + $skill->pivot->cost),
         );
     }
 
     public function talentSum(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->talents->reduce(fn($sum, $talent) => $sum + $talent->cost),
+            get: fn () => $this->talents->reduce(fn ($sum, $talent) => $sum + $talent->cost),
         );
     }
 
     public function maxTalentAmount(): Attribute
     {
         return Attribute::make(
-            get: fn() => ceil(max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2)),
+            get: fn () => ceil(max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2)),
         );
     }
 
     public function shouldReceiveAdditionalTalentPoints(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->origin == CharacterOrigin::Undead,
+            get: fn () => $this->origin == CharacterOrigin::Undead,
         );
     }
 }

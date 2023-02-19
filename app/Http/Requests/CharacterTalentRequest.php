@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\PerkPool;
 use App\Rules\TalentPool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;

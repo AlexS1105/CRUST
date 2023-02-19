@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Skill;
 use App\Models\Talent;
 use Illuminate\Database\Seeder;
 

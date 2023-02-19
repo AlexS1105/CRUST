@@ -19,7 +19,7 @@ class CharacterTideRequest extends FormRequest
 
         $rules = [
             'tides.*.path' => ['sometimes', 'max:512'],
-            'tides.*.tide' => ['required', new In(array_map(fn($tide) => $tide->value, Tide::cases()))],
+            'tides.*.tide' => ['required', new In(array_map(fn ($tide) => $tide->value, Tide::cases()))],
         ];
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {

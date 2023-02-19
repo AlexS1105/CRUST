@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\PerkType;
 use App\Traits\Searchable;
-use BenSampo\Enum\Traits\QueriesFlaggedEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -59,7 +58,7 @@ class Perk extends Model
             return $query;
         }
 
-        return $query->orderByRaw(DB::raw("FIELD(id, $perkIds) DESC"));
+        return $query->orderByRaw(DB::raw("FIELD(id, {$perkIds}) DESC"));
     }
 
     protected static function boot()

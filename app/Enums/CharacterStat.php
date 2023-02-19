@@ -20,7 +20,7 @@ enum CharacterStat: string
 
     public function color()
     {
-        return match($this->value) {
+        return match ($this->value) {
             'strength' => 'red',
             'endurance' => 'yellow',
             'perception' => 'blue',
@@ -56,8 +56,7 @@ enum CharacterStat: string
     {
         $cost = 0;
 
-        for ($i = 1; $i <= $level; $i++)
-        {
+        for ($i = 1; $i <= $level; $i++) {
             if ($i <= 10) {
                 $cost++;
             } elseif ($i <= 15) {
@@ -74,12 +73,12 @@ enum CharacterStat: string
 
     public static function getSum($stats)
     {
-        return array_reduce($stats, fn($sum, $stat) => $sum += CharacterStat::getCost($stat));
+        return array_reduce($stats, fn ($sum, $stat) => $sum += CharacterStat::getCost($stat));
     }
 
     public function order()
     {
-        return match($this->value) {
+        return match ($this->value) {
             'strength' => 0,
             'endurance' => 1,
             'perception' => 2,
