@@ -12,6 +12,7 @@ use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
 use App\Http\Controllers\PerkController;
+use App\Http\Controllers\RumorController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
@@ -193,6 +194,14 @@ Route::middleware('auth')
                 Route::resource('characters.estitence', EstitenceController::class)
                     ->scoped(['character' => 'login'])
                     ->only(['index', 'create', 'store']);
+
+                Route::get('/rumors', [RumorController::class, 'index'])
+                    ->name('rumors.index');
+
+                Route::resource('characters.rumors', RumorController::class)
+                    ->shallow()
+                    ->scoped(['character' => 'login'])
+                    ->except(['index', 'show']);
 
                 Route::resource('users', UserController::class)
                     ->except(['create', 'store']);

@@ -1,10 +1,11 @@
+@php use App\Models\Rumor; @endphp
 @extends('layouts.app')
 
 @section('title', $character->name)
 
 @section('header')
     <div class="lg:flex lg:justify-between lg:items-center text-gray-600">
-        <div class="text-center text-lg md:text-left">
+        <div class="text-center text-lg lg:text-left">
             <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
                 {{ $character->name }}
             </h2>
@@ -12,14 +13,7 @@
             @can('see-player-only-info', $character)
                 <div class="font-thin text-base">
                     {{ __('label.player') }}:
-                    <a
-                        @can('view', $character->user)
-                            class="font-bold underline text-blue-600 visited:text-purple-600"
-                            href="{{ route('users.show', $character->user) }}"
-                        @endcan
-                    >
-                        {{ $character->user->login }}
-                    </a>
+                    <x-user-link :user="$character->user"/>
                 </div>
 
                 <div class="font-thin text-base">
@@ -54,8 +48,8 @@
 
 @section('content')
     <x-container class="max-w-6xl space-y-8">
-        <div class="flex flex-wrap md:flex-nowrap justify-center gap-8 p-2 md:p-0">
-            <x-card class="md:max-w-md max-w-fit my-auto flex-none p-0">
+        <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8 p-2 lg:p-0">
+            <x-card class="lg:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
                     class="object-cover"
                     src="{{ Storage::disk('characters')->url($character->reference) }}"
@@ -333,7 +327,31 @@
             </x-character.action>
         @endcan
 
-        @can('see-player-only-info', $character)
+        @if($character->rumors->isNotEmpty())
+            <x-card>
+                <x-header>
+                    {{ __('rumors.index') }}
+                </x-header>
+
+                @can('create', [App\Models\Rumor::class, $character])
+                    <a class="mb-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600" href="{{ route('characters.rumors.create', $character->login) }}">
+                        <div class="far fa-comment-dots text-xl"></div>
+
+                        <div class="text-lg">
+                            {{ __('rumors.create') }}
+                        </div>
+                    </a>
+                @endcan
+
+                <div class="space-y-2">
+                    @foreach($character->rumors()->latest()->get() as $rumor)
+                        <x-rumor :rumor="$rumor" />
+                    @endforeach
+                </div>
+            </x-card>
+        @endif
+
+    @can('see-player-only-info', $character)
             @if ($character->player_only_info)
                 <x-card>
                     <x-header>

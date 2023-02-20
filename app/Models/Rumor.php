@@ -12,6 +12,7 @@ class Rumor extends Model
     protected $fillable = [
         'tide',
         'text',
+        'user_id',
     ];
 
     protected $casts = [

@@ -67,4 +67,6 @@ return [
     'additional_skill_points' => 'Доп. очки навыков за происхождение',
     'talent_points' => 'Очки талантов',
     'additional_talent_points' => 'Доп. очки талантов за происхождение',
+    'text' => 'Текст',
+    'tide' => 'Поток',
 ];

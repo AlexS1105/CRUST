@@ -55,6 +55,8 @@ class CharacterController extends Controller
 
     public function show(Character $character)
     {
+        $character->load('rumors.user');
+
         return view('characters.show', compact('character'));
     }
 

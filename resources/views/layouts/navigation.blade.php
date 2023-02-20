@@ -14,6 +14,9 @@
                 <x-nav-link :href="route('characters.index')" :active="request()->routeIs('characters.index')">
                     {{ __('characters.index') }}
                 </x-nav-link>
+                <x-nav-link :href="route('rumors.index')">
+                    {{ __('rumors.index') }}
+                </x-nav-link>
                 @can('view-applications', App\Models\Character::class)
                     <x-nav-link :href="route('applications.index')"
                                 :active="request()->routeIs('applications.*')">
