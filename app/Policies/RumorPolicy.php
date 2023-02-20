@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\CharacterStatus;
 use App\Models\Character;
 use App\Models\Rumor;
 use App\Models\User;
@@ -22,6 +23,7 @@ class RumorPolicy
     {
         return (
                 ! $user->owns($character)
+                && $character->status == CharacterStatus::Approved
                 && $user->can_rumor
                 && $character->rumors()
                     ->where('user_id', $user->id)
