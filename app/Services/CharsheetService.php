@@ -119,6 +119,10 @@ class CharsheetService
 
     public function convertSkills($skills)
     {
+        if (empty($perks)) {
+            return null;
+        }
+
         return array_filter($skills, function ($skill) {
             return $skill != 0;
         });
