@@ -142,6 +142,11 @@ class User extends Authenticatable
         return $this->hasMany(EstitenceLog::class, 'issued_by');
     }
 
+    public function rumors()
+    {
+        return $this->hasMany(Rumor::class);
+    }
+
     public function routeNotificationForDiscord()
     {
         return $this->discord_private_channel_id;

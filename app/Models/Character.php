@@ -201,6 +201,11 @@ class Character extends Model
         return $this->hasMany(Tide::class);
     }
 
+    public function rumors()
+    {
+        return $this->hasMany(Rumor::class);
+    }
+
     public function scopeFilter($query, $request)
     {
         $query->search($request->search);

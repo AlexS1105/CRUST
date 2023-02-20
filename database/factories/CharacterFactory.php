@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\CharacterOrigin;
 use App\Enums\CharacterStatus;
 use App\Models\Character;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CharacterFactory extends Factory
@@ -14,6 +15,7 @@ class CharacterFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => User::factory(),
             'name' => $this->faker->name(),
             'description' => $this->faker->paragraph(6),
             'origin' => array_rand(CharacterOrigin::cases()),
