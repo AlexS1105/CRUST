@@ -8,6 +8,7 @@ use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterDeleted;
 use App\Settings\CharsheetSettings;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 class CharacterService
@@ -46,7 +47,7 @@ class CharacterService
         $disk = Storage::disk('characters');
 
         foreach ($disk->files($character->id) as $file) {
-            if (\Str::startsWith(basename($file), 'reference')) {
+            if (Str::startsWith(basename($file), 'reference')) {
                 $disk->delete($file);
             }
         }
