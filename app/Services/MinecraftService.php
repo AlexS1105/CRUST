@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\CharacterStatus;
 use App\Events\UserAuthorizedInLauncher;
 use App\Models\Account;
 use App\Models\Character;
@@ -37,7 +38,7 @@ class MinecraftService
 
         $character = Character::firstWhere(DB::raw('BINARY `login`'), $login);
 
-        if (isset($character) && $character->registered) {
+        if (isset($character) && ($character->status == CharacterStatus::Approved || $character->registered)) {
             $user = $character->user;
 
             if (! config('services.minecraft.characters_auth')) {
