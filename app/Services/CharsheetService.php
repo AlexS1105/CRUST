@@ -119,7 +119,7 @@ class CharsheetService
 
     public function convertSkills($skills)
     {
-        if (empty($perks)) {
+        if (empty($skills)) {
             return null;
         }
 
