@@ -34,7 +34,7 @@ class CharacterObserver
             'character' => $character->login,
         ]);
 
-        if ($character->registered) {
+        if ($character->registered && config('services.notion.enabled')) {
             ExportCharacter::dispatch($character);
         }
     }

@@ -64,5 +64,6 @@ return [
 
     'notion' => [
         'characters_database' => env('NOTION_CHARACTERS_DATABASE'),
+        'enabled' => env('NOTION_EXPORT_ENABLED', false),
     ],
 ];
