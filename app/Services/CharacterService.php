@@ -96,6 +96,10 @@ class CharacterService
 
     public function resetStartPoints($character)
     {
+        if ($character->registered) {
+            return;
+        }
+
         $character->estitence = $this->settings->default_estitence;
 
         if ($character->should_receive_additional_estitence) {
