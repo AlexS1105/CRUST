@@ -69,4 +69,5 @@ return [
     'additional_talent_points' => 'Доп. очки талантов за происхождение',
     'text' => 'Текст',
     'tide' => 'Поток',
+    'last_online_at' => 'Последний раз онлайн',
 ];

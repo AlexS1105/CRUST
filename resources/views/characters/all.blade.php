@@ -13,7 +13,7 @@
 
                 <div class="text-blue-500 space-x-1">
                     @sortablelink('created_at', __('ui.sort.created_at'), ['perk' => $perk, 'search' => $search])
-                    @sortablelink('updated_at', __('ui.sort.updated_at'), ['perk' => $perk, 'search' => $search])
+                    @sortablelink('last_online_at', __('ui.sort.last_online_at'), ['perk' => $perk, 'search' => $search])
                 </div>
 
                 @can('query-characters', App\Models\Character::class)

@@ -63,7 +63,6 @@ class ApplicationService
     public function approve($character)
     {
         $character->status = CharacterStatus::Approved;
-        $character->registered = true;
         $character->save();
 
         event(new CharacterApproved($character));

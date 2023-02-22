@@ -14,7 +14,7 @@ class ExportCharacters extends Command
 
     public function handle(NotionService $notionService)
     {
-        foreach (Character::with('perks')->where('registered', true)->get() as $character) {
+        foreach (Character::with('perks')->whereNotNull('last_online_at')->get() as $character) {
             $this->info('Exporting: ' . $character->notion_title);
             $notionService->exportCharacter($character);
         }

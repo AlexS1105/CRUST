@@ -125,7 +125,6 @@ class Character extends Model
         'status_updated_at',
         'player_only_info',
         'gm_only_info',
-        'registered',
         'estitence',
         'personality',
         'last_idea',
@@ -357,6 +356,13 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn () => $this->origin == CharacterOrigin::Undead,
+        );
+    }
+
+    public function registered(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->last_online_at != null,
         );
     }
 }
