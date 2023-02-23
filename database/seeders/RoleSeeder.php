@@ -36,6 +36,8 @@ class RoleSeeder extends Seeder
 
             'settings' => [$admin],
             'logs' => [$admin],
+            'rumors-see' => [$admin, $gamemaster],
+            'rumors-manage' => [$admin, $gamemaster],
         ];
 
         foreach ($permissions as $permission => $roles) {

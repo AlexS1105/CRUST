@@ -10,16 +10,21 @@ return new class extends Migration
 {
     public function up()
     {
-        $canSee = Permission::create(['name' => 'rumors-see']);
-        $manage = Permission::create(['name' => 'rumors-manage']);
+        try {
 
-        $admin = Role::findByName('admin');
-        $gamemaster = Role::findByName('gamemaster');
+            $admin = Role::findByName('admin');
+            $gamemaster = Role::findByName('gamemaster');
 
-        $admin->givePermissionTo($canSee);
-        $admin->givePermissionTo($manage);
-        $gamemaster->givePermissionTo($canSee);
-        $gamemaster->givePermissionTo($manage);
+            $canSee = Permission::create(['name' => 'rumors-see']);
+            $manage = Permission::create(['name' => 'rumors-manage']);
+
+            $admin->givePermissionTo($canSee);
+            $admin->givePermissionTo($manage);
+            $gamemaster->givePermissionTo($canSee);
+            $gamemaster->givePermissionTo($manage);
+        } catch (Exception) {
+
+        }
     }
 
     public function down()
