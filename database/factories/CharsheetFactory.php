@@ -32,6 +32,7 @@ class CharsheetFactory extends Factory
                 'will' => $this->faker->numberBetween(0, 12),
                 'potential' => $this->faker->numberBetween(0, 12),
             ],
+            'estitence' => $this->faker->numberBetween(20, 100),
         ];
     }
 }

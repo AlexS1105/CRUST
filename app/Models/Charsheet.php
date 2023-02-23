@@ -27,6 +27,7 @@ class Charsheet extends Model
             'will' => 1,
             'potential' => 1,
         ],
+        'estitence' => 0,
     ];
 
     public function bodyStats(): Attribute
