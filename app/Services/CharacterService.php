@@ -6,6 +6,8 @@ use App\Enums\CharacterStatus;
 use App\Enums\Tide;
 use App\Events\CharacterCompletelyDeleted;
 use App\Events\CharacterDeleted;
+use App\Models\Character;
+use App\Models\Skill;
 use App\Settings\CharsheetSettings;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -128,7 +130,7 @@ class CharacterService
         $character->save();
     }
 
-    public function syncCharsheet($character)
+    public function syncCharsheet(Character $character)
     {
         $charsheet = $character->charsheet;
 
@@ -136,11 +138,15 @@ class CharacterService
             return;
         }
 
+        $characterSkills = $character->skills;
+
         $charsheet->estitence = $character->estitence;
-        $charsheet->skills = $character->skills->map(function ($skill) {
+        $charsheet->skills = Skill::all()->sortByStat()->map(function ($skill) use ($characterSkills) {
+            $skill = $characterSkills->firstWhere('id', $skill->id) ?? $skill;
+
             return [
                 'name' => $skill->name,
-                'level' => $skill->pivot->level,
+                'level' => $skill->pivot?->level ?? 0,
                 'stat' => $skill->stat->toMore(),
                 'proficiency' => boolval($skill->proficiency),
             ];

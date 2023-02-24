@@ -10,14 +10,14 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::all()->sortBy(fn ($skill) => CharacterStat::from($skill->stat->value)->order());
+        $skills = Skill::all()->sortByStat();
 
         return view('skills.index', compact('skills'));
     }
 
     public function all()
     {
-        $skills = Skill::all()->sortBy(fn ($skill) => CharacterStat::from($skill->stat->value)->order());
+        $skills = Skill::all()->sortByStat();
 
         return view('skills.list', compact('skills'));
     }
