@@ -142,7 +142,15 @@ class CharacterService
 
         $charsheet->estitence = $character->estitence;
         $charsheet->skills = Skill::all()->sortByStat()->map(function ($skill) use ($characterSkills) {
-            $skill = $characterSkills->firstWhere('id', $skill->id) ?? $skill;
+            $characterSkill = $characterSkills->firstWhere('id', $skill->id);
+
+            if ($characterSkill == null && $skill->proficiency) {
+                return null;
+            }
+
+            if ($characterSkill != null) {
+                $skill = $characterSkill;
+            }
 
             return [
                 'name' => $skill->name,
@@ -150,7 +158,7 @@ class CharacterService
                 'stat' => $skill->stat->toMore(),
                 'proficiency' => boolval($skill->proficiency),
             ];
-        })->toArray();
+        })->values()->toArray();
         $charsheet->save();
     }
 }
