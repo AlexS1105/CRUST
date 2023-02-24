@@ -320,7 +320,7 @@ class Character extends Model
     public function soulCoefficient(): Attribute
     {
         return Attribute::make(
-            get: fn () => intval(ceil($this->estitence / 10)),
+            get: fn () => intval(round($this->estitence / 10)),
         );
     }
 
