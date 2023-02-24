@@ -141,7 +141,7 @@ class CharacterService
             return [
                 'name' => $skill->name,
                 'level' => $skill->pivot->level,
-                'stat' => $skill->stat->value,
+                'stat' => $skill->stat->toMore(),
                 'proficiency' => boolval($skill->proficiency),
             ];
         })->toArray();

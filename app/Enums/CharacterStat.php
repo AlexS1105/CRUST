@@ -89,4 +89,18 @@ enum CharacterStat: string
             'potential' => 7,
         };
     }
+
+    public function toMore()
+    {
+        return match($this->value) {
+            'strength' => 'STR',
+            'endurance' => 'END',
+            'perception' => 'PER',
+            'agility' => 'REF',
+            'determination' => 'DET',
+            'erudition' => 'INT',
+            'will' => 'WIL',
+            'potential' => 'SPR',
+        };
+    }
 }
