@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CharacterStat;
 use App\Http\Requests\SkillRequest;
 use App\Models\Skill;
 
@@ -9,14 +10,14 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::all()->sortBy(fn ($skill) => CharacterStat::from($skill->stat->value)->order());
 
         return view('skills.index', compact('skills'));
     }
 
     public function all()
     {
-        $skills = Skill::all();
+        $skills = Skill::all()->sortBy(fn ($skill) => CharacterStat::from($skill->stat->value)->order());
 
         return view('skills.list', compact('skills'));
     }
