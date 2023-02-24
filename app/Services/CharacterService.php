@@ -127,4 +127,24 @@ class CharacterService
 
         $character->save();
     }
+
+    public function syncCharsheet($character)
+    {
+        $charsheet = $character->charsheet;
+
+        if ($charsheet == null) {
+            return;
+        }
+
+        $charsheet->estitence = $character->estitence;
+        $charsheet->skills = $character->skills->map(function ($skill) {
+            return [
+                'name' => $skill->name,
+                'level' => $skill->pivot->level,
+                'stat' => $skill->stat->value,
+                'proficiency' => boolval($skill->proficiency),
+            ];
+        })->toArray();
+        $charsheet->save();
+    }
 }

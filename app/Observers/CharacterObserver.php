@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Jobs\ExportCharacter;
 use App\Models\Character;
+use App\Services\CharacterService;
 
 class CharacterObserver
 {
@@ -50,5 +51,10 @@ class CharacterObserver
         $character->charsheet?->delete();
 
         \Storage::disk('characters')->deleteDirectory($character->id);
+    }
+
+    public function saved(Character $character)
+    {
+        app(CharacterService::class)->syncCharsheet($character);
     }
 }

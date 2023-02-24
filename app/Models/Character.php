@@ -365,15 +365,4 @@ class Character extends Model
             get: fn () => $this->last_online_at != null,
         );
     }
-
-    public function estitence(): Attribute
-    {
-        return Attribute::make(
-            set: function ($value) {
-                $this->charsheet()->update(['estitence' => $value]);
-
-                return $value;
-            },
-        );
-    }
 }

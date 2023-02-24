@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CharacterService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
@@ -49,5 +50,12 @@ class CharacterSkill extends Pivot
                 3 => 5,
             }
         );
+    }
+
+    public static function booted()
+    {
+        static::updated(function ($skill) {
+            app(CharacterService::class)->syncCharsheet($skill->character);
+        });
     }
 }
