@@ -51,7 +51,7 @@
         <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8 p-2 lg:p-0">
             <x-card class="lg:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
-                    class="object-cover"
+                    class="object-cover rounded-xl"
                     src="{{ Storage::disk('characters')->url($character->reference) }}"
                     alt="Character Reference"
                 />
