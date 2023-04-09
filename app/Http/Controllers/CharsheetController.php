@@ -7,7 +7,7 @@ use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharacterTalentRequest;
-use App\Http\Requests\CharacterTideRequest;
+use App\Http\Requests\CharacterExperienceRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
@@ -131,11 +131,27 @@ class CharsheetController extends Controller
         return view('characters.tides', compact('character'));
     }
 
-    public function updateTides(CharacterTideRequest $request, Character $character)
+    public function updateTides(CharacterExperienceRequest $request, Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);
 
         $this->charsheetService->update($character, $request->validated());
+
+        return to_route('characters.show', $character);
+    }
+
+    public function editExperience(Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        return view('characters.experience', compact('character'));
+    }
+
+    public function updateExperience(CharacterExperienceRequest $request, Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $character->update($request->validated());
 
         return to_route('characters.show', $character);
     }

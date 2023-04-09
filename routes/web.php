@@ -132,6 +132,15 @@ Route::middleware('auth')
                                 Route::patch('tides', 'updateTides')
                                     ->name('update');
                             });
+
+                        Route::name('experience.')
+                            ->group(function () {
+                                Route::get('experience', 'editExperience')
+                                    ->name('edit');
+
+                                Route::patch('experience', 'updateExperience')
+                                    ->name('update');
+                            });
                     });
 
                 Route::controller(ApplicationController::class)

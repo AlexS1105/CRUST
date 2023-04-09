@@ -111,25 +111,41 @@
                 @endif
 
                 @can('see-player-only-info', $character)
-                    <x-card class=" max-w-max mx-auto">
-                        <x-header class="max-w-max mx-auto">
-                            {{ __('label.estitence') }}: {{ $character->estitence }}
-                        </x-header>
+                    <div class="md:flex justify-center md:gap-8 md:space-y-0 space-y-4 items-center">
+                        <x-card class="max-w-max mx-auto">
+                            <x-header class="max-w-max mx-auto">
+                                {{ __('label.estitence') }}: {{ $character->estitence }}
+                            </x-header>
 
-                        <div class="space-x-2">
-                            @can('estitence-view', $character)
-                                <x-link href="{{ route('characters.estitence.index', $character) }}">
-                                    {{ __('estitence.index') }}
-                                </x-link>
-                            @endcan
+                            <div class="space-x-2">
+                                @can('estitence-view', $character)
+                                    <x-link href="{{ route('characters.estitence.index', $character) }}">
+                                        {{ __('estitence.index') }}
+                                    </x-link>
+                                @endcan
 
-                            @can('estitence-create', $character)
-                                <x-link href="{{ route('characters.estitence.create', $character) }}">
-                                    {{ __('estitence.create') }}
-                                </x-link>
-                            @endcan
-                        </div>
-                    </x-card>
+                                @can('estitence-create', $character)
+                                    <x-link href="{{ route('characters.estitence.create', $character) }}">
+                                        {{ __('estitence.create') }}
+                                    </x-link>
+                                @endcan
+                            </div>
+                        </x-card>
+
+                        <x-card class="max-w-max mx-auto">
+                            <x-header class="max-w-max mx-auto">
+                                {{ __('label.experience') }}: {{ $character->experience }}
+                            </x-header>
+
+                            <div class="space-x-2">
+                                @can('update-charsheet-gm', $character)
+                                    <x-link href="{{ route('characters.experience.edit', $character) }}">
+                                        {{ __('experience.edit') }}
+                                    </x-link>
+                                @endcan
+                            </div>
+                        </x-card>
+                    </div>
                 @endcan
             </div>
         </div>

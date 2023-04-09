@@ -129,6 +129,7 @@ class Character extends Model
         'personality',
         'last_idea',
         'notion_page',
+        'experience',
     ];
 
     protected $casts = [
