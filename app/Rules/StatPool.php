@@ -16,7 +16,14 @@ class StatPool implements Rule
 
     public function passes($attribute, $value)
     {
-        return CharacterStat::getSum($value) <= $this->character->estitence;
+        $character = $this->character;
+        $statsHandled = false;
+
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            $statsHandled = request('stats_handled', $this->character->stats_handled) == 'on';
+        }
+
+        return $statsHandled || CharacterStat::getSum($value) <= $this->character->estitence;
     }
 
     public function message()

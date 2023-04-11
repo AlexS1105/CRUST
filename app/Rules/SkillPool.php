@@ -21,7 +21,13 @@ class SkillPool implements Rule
             return true;
         }
 
-        $skillPoints = request('skill_points', $this->character->skill_points);
+        $character = $this->character;
+        $skillPoints = $this->character->skill_points;
+
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            $skillPoints = request('skill_points', $skillPoints);
+        }
+
         $skills = Skill::all();
         $sum = 0;
 

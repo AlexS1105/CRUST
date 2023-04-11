@@ -55,7 +55,7 @@
     </div>
     /
     <div class="ml-2" id="skill-points">
-        {{ $character->skill_points }}
+        {{ old('skill_points', $character->skill_points) }}
     </div>
 </div>
 

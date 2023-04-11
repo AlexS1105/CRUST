@@ -22,9 +22,15 @@ class PerkPool implements Rule
             return true;
         }
 
+        $character = $this->character;
         $settings = app(CharsheetSettings::class);
         $maxPerks = $settings->max_perks;
-        $perkPoints = request('perk_points', $this->character->perk_points);
+        $perkPoints = $this->character->perk_points;
+
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            $perkPoints = request('perk_points', $perkPoints);
+        }
+
         $perks = Perk::all();
 
         $perksAmount = count($value);

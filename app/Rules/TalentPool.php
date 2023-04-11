@@ -21,8 +21,14 @@ class TalentPool implements Rule
             return true;
         }
 
-        $maxTalents = $this->character->max_talent_amount;
-        $talentPoints = request('talent_points', $this->character->talent_points);
+        $character = $this->character;
+        $maxTalents = $character->max_talent_amount;
+        $talentPoints = $character->talent_points;
+
+        if (auth()->user()->can('update-charsheet-gm', $character)) {
+            $talentPoints = request('talent_points', $talentPoints);
+        }
+
         $talents = Talent::all();
 
         $talentAmount = count($value);
