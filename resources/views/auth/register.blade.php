@@ -12,8 +12,8 @@
                       value="{{ old('discord_tag', $discord_data['username'].'#'.$discord_data['discriminator']) }}"
                       pattern="^.{3,32}#[0-9]{4}$" required readonly/>
         <x-form.input name="discord_id" value="{{ old('discord_id', $discord_data['id']) }}" required readonly/>
-        <x-form.input name="password" type="password" autocomplete="new-password" required/>
-        <x-form.input name="password_confirmation" type="password" required/>
+        <x-form.input name="password" type="password" autocomplete="new-password" minlength="8" required/>
+        <x-form.input name="password_confirmation" type="password" minlength="8" required/>
 
         <x-form.checkbox name="age_confirmation" required/>
         <x-form.checkbox name="rules_confirmation" required/>

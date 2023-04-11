@@ -41,6 +41,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        session()->forget('discord_data');
+
         return redirect(RouteServiceProvider::HOME);
     }
 

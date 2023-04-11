@@ -14,14 +14,20 @@ class DiscordService
     public function auth($request)
     {
         try {
-            $token = $this->getAccessToken($request->code, route('register'));
-            $userData = $this->getUserData($token);
+            if (session()->has('discord_data')) {
+                $userData = session('discord_data');
+            } else {
+                $token = $this->getAccessToken($request->code, route('register'));
+                $userData = $this->getUserData($token);
+            }
 
             if (User::where('discord_id', $userData['id'])->exists()) {
                 return to_route('login')->withErrors([
                     'discord' => __('auth.already_registered'),
                 ]);
             }
+
+            session(['discord_data' => $userData]);
 
             return view('auth.register', [
                 'discord_data' => $userData,
