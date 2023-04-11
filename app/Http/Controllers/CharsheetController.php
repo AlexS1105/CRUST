@@ -8,6 +8,7 @@ use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharacterTalentRequest;
 use App\Http\Requests\CharacterExperienceRequest;
+use App\Http\Requests\CharacterTideRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
@@ -131,7 +132,7 @@ class CharsheetController extends Controller
         return view('characters.tides', compact('character'));
     }
 
-    public function updateTides(CharacterExperienceRequest $request, Character $character)
+    public function updateTides(CharacterTideRequest $request, Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);
 

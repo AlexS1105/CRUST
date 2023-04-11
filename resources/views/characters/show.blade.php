@@ -328,9 +328,11 @@
                                 {{ $tide->level }}
                             </x-slot>
 
-                            <x-slot :name="'content_' . $tide->tide->value">
-                                {{ $tide->path }}
-                            </x-slot>
+                            @isset($tide->path)
+                                <x-slot :name="'content_' . $tide->tide->value">
+                                    {{ $tide->path }}
+                                </x-slot>
+                            @endisset
                         @endforeach
                     </x-character.tides>
                 </x-card>

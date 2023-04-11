@@ -2,7 +2,7 @@
     @foreach (App\Enums\Tide::cases() as $tide)
         <div class="bg-{{ $tide->color() }}-200 rounded-xl py-1 px-2">
             <div class="text-xl font-bold gap-4 flex justify-between items-center ">
-                <div class="bg-{{ $tide->color() }}-300 rounded-full px-2">
+                <div class="bg-{{ $tide->color() }}-300 rounded-xl px-2">
                     {{ $tide->localized() }}
                 </div>
 
@@ -11,9 +11,11 @@
                 </div>
             </div>
 
-            <div class="p-2">
-                {{ ${'content_' . $tide->value} ?? '' }}
-            </div>
+            @if(!empty(${'content_' . $tide->value}))
+                <div class="p-2">
+                    {{ ${'content_' . $tide->value} }}
+                </div>
+            @endif
         </div>
     @endforeach
 
