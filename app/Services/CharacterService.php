@@ -65,13 +65,13 @@ class CharacterService
 
     public function resizeReference($fileName, $size)
     {
+        $type = mime_content_type(public_path('storage/characters/' . $fileName));
         $disk = Storage::disk('characters');
         $img = Image::make($disk->get($fileName));
         $img->resize($size, $size, function ($constraint) {
             $constraint->aspectRatio();
         });
-
-        $disk->put($fileName.'_'.$size, $img->encode());
+        $disk->put($fileName.'_'.$size, $img->encode($type));
     }
 
     public function update($character, $request)

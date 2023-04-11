@@ -27,7 +27,7 @@ class CharacterRequest extends FormRequest
         $rules = [
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:512'],
-            'reference' => ['nullable', 'mimes:png,jpg,jpeg,bmp,svg,webp'],
+            'reference' => ['nullable', 'mimes:png,jpg,jpeg,bmp,svg,webp,gif'],
             'race' => ['required', 'max:100'],
             'age' => ['required', 'max:100'],
             'legacy' => ['required', 'max:100'],
