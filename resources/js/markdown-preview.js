@@ -11,7 +11,7 @@ window.preview = function (element) {
 
         element.style.height = (25 + element.scrollHeight) + 'px'
         element.previewWindow = element.parentElement.appendChild(document.createElement('div'));
-        element.previewWindow.className = 'mt-2 prose'
+        element.previewWindow.className = 'mt-2 prose max-w-none'
 
         element.previewWindow.header = element.previewWindow.appendChild(document.createElement('div'));
         element.previewWindow.header.className = 'block mb-2 uppercase text-xs text-gray-700'
