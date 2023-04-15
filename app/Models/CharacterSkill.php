@@ -23,7 +23,7 @@ class CharacterSkill extends Pivot
         return Attribute::make(
             get: function () {
                 $character = $this->character;
-                $value = $character->charsheet->skills[$this->skill->stat->value] ?? 0;
+                $value = $character->charsheet->stats[$this->skill->stat->value] ?? 0;
 
                 if ($this->level >= 2) {
                     $value += $character->soul_coefficient;
