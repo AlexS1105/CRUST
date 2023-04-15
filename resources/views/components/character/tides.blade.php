@@ -12,7 +12,7 @@
             </div>
 
             @if(!empty(${'content_' . $tide->value}))
-                <div class="p-2">
+                <div class="p-2 text-xl">
                     {{ ${'content_' . $tide->value} }}
                 </div>
             @endif
