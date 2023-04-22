@@ -4,7 +4,7 @@
 
 @section('content')
     <x-container>
-        <x-form.base action="{{ route('users.ban.store', $user) }}">
+        <x-form.base action="{{ route('users.ban.store', $user) }}" method="POST">
             <x-form.card>
                 <x-form.input name="expires"
                               type="datetime-local"

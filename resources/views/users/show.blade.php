@@ -20,7 +20,7 @@
 
 @section('content')
     @if ($user->isBanned)
-        <x-card class="bg-yellow-100 mt-4 mx-auto max-w-7xl">
+        <x-card class="mt-4 mx-auto max-w-7xl">
             <div class="flex items-center space-x-4">
                 <div class="fa fa-gavel text-7xl text-gray-800"></div>
                 <div class="min-w-auto">
