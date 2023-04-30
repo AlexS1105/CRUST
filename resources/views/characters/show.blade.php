@@ -117,6 +117,12 @@
                                 {{ __('label.estitence') }}: {{ $character->estitence }}
                             </x-header>
 
+                            @if(!$character->estitence_reduce)
+                                <div class="my-2 text-xs text-green-500">
+                                    {{ __('characters.no_estitence_reduce') }}
+                                </div>
+                            @endif
+
                             <div class="space-x-2">
                                 @can('estitence-view', $character)
                                     <x-link href="{{ route('characters.estitence.index', $character) }}">

@@ -71,4 +71,5 @@ return [
     'tide' => 'Поток',
     'last_online_at' => 'Последний раз онлайн',
     'experience' => 'Опытность',
+    'estitence_reduce' => 'Снижение Эститенции от Серости',
 ];

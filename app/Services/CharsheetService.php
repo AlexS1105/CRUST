@@ -52,6 +52,10 @@ class CharsheetService
                 $character->talent_points = $validated['talent_points'];
             }
 
+            if (isset($validated['estitence_reduce'])) {
+                $character->estitence_reduce = $validated['estitence_reduce'];
+            }
+
             $character->save();
         }
 

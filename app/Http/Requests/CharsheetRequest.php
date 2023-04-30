@@ -27,6 +27,7 @@ class CharsheetRequest extends FormRequest
             'skills' => $charsheetService->convertSkills($this->skills),
             'stats_handled' => $this->stats_handled === 'on',
             'talents' => $charsheetService->convertTalents($this->talents),
+            'estitence_reduce' => $this->estitence_reduce === 'on',
         ]);
     }
 
@@ -56,6 +57,7 @@ class CharsheetRequest extends FormRequest
                 'perk_points' => ['numeric', 'min:0', 'max:100'],
                 'talent_points' => ['numeric', 'min:0', 'max:100'],
                 'tides.*.level' => ['min:0', 'max:1000'],
+                'estitence_reduce' => ['sometimes', 'boolean'],
             ]);
         }
 

@@ -130,6 +130,7 @@ class Character extends Model
         'last_idea',
         'notion_page',
         'experience',
+        'estitence_reduce',
     ];
 
     protected $casts = [
@@ -142,10 +143,11 @@ class Character extends Model
     public function scopeAffectedByEstitenceReduce($query)
     {
         return $query->where([
-            ['status', '=', CharacterStatus::Approved],
+            ['registered', '=', true],
             ['estitence', '>', app(CharsheetSettings::class)->safe_estitence],
             ['last_online_at', '>', now()->subWeeks(2)],
             ['origin', '!=', CharacterOrigin::Incarnated],
+            ['estitence_reduce', '=', true],
         ]);
     }
 

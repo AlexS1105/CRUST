@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new ReduceEstitence(1))
-            ->weeklyOn(1, '00:00');
+            ->weeklyOn(1, '04:00');
     }
 
     /**
