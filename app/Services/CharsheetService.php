@@ -136,16 +136,18 @@ class CharsheetService
     {
         $canUpdateLevel = auth()->user()->can('update-charsheet-gm', $character);
 
-        foreach ($validated['tides'] as $tideData) {
-            $tide = $character->tides()->firstWhere('tide', $tideData['tide']);
+        foreach ($validated['tides'] as $id => $tideData) {
+            $tide = $character->tides()->find($id);
 
             if ($tide == null) {
                 continue;
             }
 
-            $tide->path = $tideData['path'];
+            if (isset($tideData['path'])) {
+                $tide->path = $tideData['path'];
+            }
 
-            if ($canUpdateLevel) {
+            if ($canUpdateLevel && isset($tideData['level'])) {
                 $tide->level = $tideData['level'];
             }
 
