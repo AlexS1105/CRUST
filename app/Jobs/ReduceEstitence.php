@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Character;
 use App\Services\EstitenceService;
+use App\Settings\CharsheetSettings;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,8 +22,12 @@ class ReduceEstitence implements ShouldQueue
         $this->amount = $amount;
     }
 
-    public function handle(EstitenceService $estitenceService)
+    public function handle(EstitenceService $estitenceService, CharsheetSettings $settings)
     {
+        if (!$settings->estitence_reduce_enabled) {
+            return;
+        }
+
         Character::affectedByEstitenceReduce()->get()->each(function ($character) use ($estitenceService) {
             $estitenceService->changeEstitence($character, -$this->amount, __('estitence.reduce_log'));
         });

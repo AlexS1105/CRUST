@@ -16,7 +16,7 @@ class SettingsService
     {
         $settings->update($request->validated());
 
-        Character::where('registered', 0)
+        Character::whereNull('last_online_at')
             ->get()
             ->each(function ($character) {
                 $this->characterService->resetStartPoints($character);

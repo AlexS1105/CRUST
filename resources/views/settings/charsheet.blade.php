@@ -34,7 +34,8 @@
                               :value="old('default_estitence', $settings->default_estitence)"/>
                 <x-form.input name="additional_estitence" type="number" min="0"
                               :value="old('additional_estitence', $settings->additional_estitence)"/>
-
+                <x-form.checkbox name="estitence_reduce_enabled"
+                                 value="{{ old('estitence_reduce_enabled', $settings->estitence_reduce_enabled) }}" />
                 <x-button-submit/>
             </x-form.card>
         </form>

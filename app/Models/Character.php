@@ -143,7 +143,6 @@ class Character extends Model
     public function scopeAffectedByEstitenceReduce($query)
     {
         return $query->where([
-            ['registered', '=', true],
             ['estitence', '>', app(CharsheetSettings::class)->safe_estitence],
             ['last_online_at', '>', now()->subWeeks(2)],
             ['origin', '!=', CharacterOrigin::Incarnated],

@@ -11,6 +11,13 @@ class CharsheetSettingsRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'estitence_reduce_enabled' => $this->estitence_reduce_enabled === 'on',
+        ]);
+    }
+
     public function rules()
     {
         return [
@@ -26,6 +33,7 @@ class CharsheetSettingsRequest extends FormRequest
             'safe_estitence' => ['integer'],
             'default_estitence' => ['integer'],
             'additional_estitence' => ['integer'],
+            'estitence_reduce_enabled' => ['boolean'],
         ];
     }
 }

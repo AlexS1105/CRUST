@@ -30,6 +30,8 @@ class CharsheetSettings extends Settings
 
     public int $additional_talent_points;
 
+    public bool $estitence_reduce_enabled;
+
     public static function group(): string
     {
         return 'charsheet';

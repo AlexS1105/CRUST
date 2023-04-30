@@ -72,4 +72,5 @@ return [
     'last_online_at' => 'Последний раз онлайн',
     'experience' => 'Опытность',
     'estitence_reduce' => 'Снижение Эститенции от Серости',
+    'estitence_reduce_enabled' => 'Снижение Эститенции от Серости',
 ];

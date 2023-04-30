@@ -128,6 +128,7 @@ class CharacterService
         }
 
         $character->save();
+        $character->estitenceLogs()->delete();
     }
 
     public function syncCharsheet(Character $character)
