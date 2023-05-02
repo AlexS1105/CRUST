@@ -6,8 +6,7 @@
                       :value="old('name', @$talent?->name)"
         />
 
-        <x-form.textarea name="description" maxlength="5096" onfocus="preview(this)"
-                         placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
+        <x-form.textarea name="description" maxlength="5096" onfocus="preview(this)" wrap="off">
             {{ old('description', @$talent?->description) }}
         </x-form.textarea>
 
