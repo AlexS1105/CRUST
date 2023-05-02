@@ -6,10 +6,10 @@
                       :value="old('name', @$talent?->name)"
         />
 
-        <x-form.input name="description"
-                      maxlength="1024"
-                      :value="old('description', @$talent?->description)"
-        />
+        <x-form.textarea name="description" maxlength="5096" onfocus="preview(this)"
+                         placeholder="{{ __('perks.placeholder.description') }}" wrap="off">
+            {{ old('description', @$talent?->description) }}
+        </x-form.textarea>
 
         <x-form.input name="cost"
                       type="number"
@@ -21,3 +21,9 @@
         <x-button-submit/>
     </x-form.card>
 </x-form.base>
+
+@push('scripts')
+    <script>
+        var previewText = @json(__('label.preview'))
+    </script>
+@endpush
