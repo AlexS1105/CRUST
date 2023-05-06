@@ -109,6 +109,8 @@ class CharacterService
             $character->estitence += $this->settings->additional_estitence;
         }
 
+        $character->estitence += $character->estitenceLogs->sum('delta');
+
         $character->perk_points = $this->settings->perk_points;
 
         if ($character->should_receive_additional_perk_points) {
@@ -134,7 +136,6 @@ class CharacterService
         }
 
         $character->save();
-        $character->estitenceLogs()->delete();
     }
 
     public function syncCharsheet(Character $character)
