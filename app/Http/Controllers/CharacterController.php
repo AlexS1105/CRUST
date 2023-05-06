@@ -6,6 +6,7 @@ use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
 use App\Models\Perk;
+use App\Models\Skill;
 use App\Services\CharacterService;
 use Illuminate\Http\Request;
 
@@ -56,8 +57,9 @@ class CharacterController extends Controller
     public function show(Character $character)
     {
         $character->load('rumors.user');
+        $skills = $this->characterService->getSkills($character);
 
-        return view('characters.show', compact('character'));
+        return view('characters.show', compact('character', 'skills'));
     }
 
     public function edit(Character $character)

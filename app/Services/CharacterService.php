@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\CharacterStat;
 use App\Enums\CharacterStatus;
 use App\Enums\Tide;
 use App\Events\CharacterCompletelyDeleted;
@@ -168,5 +169,23 @@ class CharacterService
             ];
         })->values()->toArray();
         $charsheet->save();
+    }
+
+    public function getSkills(Character $character)
+    {
+        $characterSkillsIds = $character->skills->pluck('id');
+        $characterSkills = Skill::with('advantages')
+            ->where('proficiency', false)
+            ->orWhereIn('id', $characterSkillsIds)
+            ->get()
+            ->groupBy('stat.value')
+            ->sortBy(fn ($items, $key) => CharacterStat::from($key)->order());
+
+        foreach ($characterSkills as $stat => $skills) {
+            $characterSkills->put($stat, $skills->sortBy('name')
+                ->sortByDesc(fn ($item) => $characterSkillsIds->contains($item->id)));
+        }
+
+        return $characterSkills;
     }
 }

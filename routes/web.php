@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdvantageController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
@@ -269,6 +270,10 @@ Route::middleware('auth')
 
                         Route::resource('settings/skills', SkillController::class)
                             ->except(['show']);
+
+                        Route::resource('settings/skills/{skill}/advantages', AdvantageController::class)
+                            ->except(['index', 'show'])
+                            ->shallow();
 
                         Route::resource('settings/talents', TalentController::class)
                             ->except(['show']);

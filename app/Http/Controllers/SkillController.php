@@ -10,14 +10,14 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::all()->sortByStat();
+        $skills = Skill::with('advantages')->get()->sortByStat();
 
         return view('skills.index', compact('skills'));
     }
 
     public function all()
     {
-        $skills = Skill::all()->sortByStat();
+        $skills = Skill::with('advantages')->get()->sortByStat();
 
         return view('skills.list', compact('skills'));
     }

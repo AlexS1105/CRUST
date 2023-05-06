@@ -1,4 +1,4 @@
-@php use App\Models\Rumor; @endphp
+@php use App\Enums\CharacterStat;use App\Models\Rumor; @endphp
 @extends('layouts.app')
 
 @section('title', $character->name)
@@ -157,118 +157,100 @@
         </div>
 
         @can('see-player-only-info', $character)
-            @if(isset($character->charsheet->stats) || $character->skills->isNotEmpty())
-                <div class="md:flex justify-center md:gap-8 md:space-y-0 space-y-4 items-center">
-                    @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
-                        <x-card class="w-full my-auto">
-                            <x-header>
-                                {{ __('charsheet.stats') }} ({{ $character->charsheet->stats_sum }} / {{ $character->stats_handled ? '???' : $character->estitence }})
-                            </x-header>
+            @if(isset($character->charsheet->stats) && count($character->charsheet->stats))
+                <x-card class="w-full my-auto">
+                    <x-header>
+                        {{ __('charsheet.stats') }} ({{ $character->charsheet->stats_sum }}
+                        / {{ $character->stats_handled ? '???' : $character->estitence }})
+                    </x-header>
 
-                            @php
-                                $inequality = $character->stats_inequality;
-                                $positive = $inequality > 0;
-                            @endphp
+                    @php
+                        $inequality = $character->stats_inequality;
+                        $positive = $inequality > 0;
+                    @endphp
 
-                            @if($inequality != 0 && ! $character->stats_handled)
-                                <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600' : 'text-red-600'}}">
-                                    {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
-                                </div>
-                            @endif
-
-                            <x-character.charsheet.stats>
-                                <x-slot name="headerBody">
-                                    ({{ $character->charsheet->body_sum }})
-                                </x-slot>
-                                <x-slot name="headerEssence">
-                                    ({{ $character->charsheet->essence_sum }})
-                                </x-slot>
-
-                                @foreach ($character->charsheet->stats as $stat => $value)
-                                    <x-slot :name="$stat">
-                                        {{ $value }}
-                                    </x-slot>
-                                @endforeach
-                            </x-character.charsheet.stats>
-
-                            @can('update-stats', $character)
-                                <x-accordion-action class="my-2 w-full border-t"
-                                                    method="GET"
-                                                    action="{{ route('characters.stats.update', ['character' => $character]) }}"
-                                                    icon="fa-solid fa-arrows-turn-to-dots"
-                                >
-                                    {{ __('stat.update') }}
-                                </x-accordion-action>
-                            @endcan
-
-                        </x-card>
+                    @if($inequality != 0 && ! $character->stats_handled)
+                        <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600' : 'text-red-600'}}">
+                            {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
+                        </div>
                     @endif
 
-                    @if ($character->skills->isNotEmpty())
-                        <x-card class="w-full my-auto">
-                            <x-header>
-                                {{ __('skills.index') }} ({{ $character->skill_sum }} / {{ $character->skill_points }})
-                            </x-header>
+                    <x-character.charsheet.stats>
+                        <x-slot name="headerBody">
+                            ({{ $character->charsheet->body_sum }})
+                        </x-slot>
+                        <x-slot name="headerEssence">
+                            ({{ $character->charsheet->essence_sum }})
+                        </x-slot>
 
-                            <div id="skills-open" data-accordion="open">
-                                @foreach ($character->skills as $skill)
-                                    <x-accordion-item id="skill" :loop="$loop">
-                                        <x-slot name="title">
-                                            {{ $skill->name }} ({{ $skill->pivot->bonus }})
-                                        </x-slot>
+                        @foreach ($character->charsheet->stats as $stat => $value)
+                            <x-slot :name="$stat">
+                                {{ $value }}
+                            </x-slot>
+                        @endforeach
+                    </x-character.charsheet.stats>
 
-                                        <x-slot name="body">
-                                            <x-skill-bar class="border-gray-200" :skill="$skill" />
+                    @can('update-stats', $character)
+                        <x-accordion-action class="my-2 w-full border-t"
+                                            method="GET"
+                                            action="{{ route('characters.stats.update', ['character' => $character]) }}"
+                                            icon="fa-solid fa-arrows-turn-to-dots"
+                        >
+                            {{ __('stat.update') }}
+                        </x-accordion-action>
+                    @endcan
 
-                                            <ul class="py-0.5 px-1 bg-gray-50 border-b border-gray-200 text-sm">
-                                                <span>
-                                                    {{ __('skills.level.title') }}:
-                                                    <b>
-                                                        {{ __('skills.level.' . $skill->pivot->level) }}
-                                                    </b>
-                                                    ({{ $skill->pivot->cost }})
-                                                </span>
-                                                <hr class="my-1">
-                                                <div>
-                                                    {{ $skill->stat->localized() }}:
-                                                    <b>+{{ $character->charsheet->stats[$skill->stat->value] }}</b>
-                                                </div>
-                                                @if($skill->pivot->level >= 2)
-                                                    <div>
-                                                        {{ __('skills.soul_coefficient') }}:
-                                                        <b>+{{ $character->soul_coefficient }}</b>
-                                                    </div>
-                                                @endif
+                </x-card>
+            @endif
 
-                                                @if($skill->pivot->level == 1 || $skill->pivot->level == 3)
-                                                    <div>
-                                                        {{ __('skills.level.bonus') }}:
-                                                        <b>+{{ $skill->pivot->level }}</b>
-                                                    </div>
-                                                @endif
-                                            </ul>
-                                        </x-slot>
+            <x-card class="w-full my-auto">
+                <x-header>
+                    {{ __('skills.index') }} ({{ $character->skill_sum }} / {{ $character->skill_points }})
+                </x-header>
 
-                                        <x-slot name="content">
-                                            {{ $skill->description }}
-                                        </x-slot>
-                                    </x-accordion-item>
+                <div id="skills-open" data-active-classes="rounded-t-xl" data-inactive-classes="rounded-xl" data-accordion="open" class="flex gap-4">
+                    <div class="w-1/2 space-y-1">
+                        @foreach (CharacterStat::getBodyStats() as $stat)
+                            @continue(!$skills->has($stat->value))
+
+                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 rounded-xl">
+                                <div class="bg-{{ $stat->color() }}-200 rounded-xl text-center text-lg font-bold">
+                                    {{ $stat->localized() }}
+                                </div>
+
+                                @foreach ($skills[$stat->value] as $skill)
+                                    <x-character.skill :character="$character" :skill="$skill" :loop="$loop"></x-character.skill>
                                 @endforeach
                             </div>
+                        @endforeach
+                    </div>
+                    <div class="w-1/2 space-y-1">
+                        @foreach (CharacterStat::getEssenceStats() as $stat)
+                            @continue(!$skills->has($stat->value))
 
-                            @can('update-charsheet-gm', $character)
-                                <x-accordion-action class="my-2 w-full border-t"
-                                                    method="GET"
-                                                    action="{{ route('characters.skills.update', ['character' => $character]) }}"
-                                                    icon="fa-solid fa-arrows-turn-to-dots"
-                                >
-                                    {{ __('skills.update') }}
-                                </x-accordion-action>
-                            @endcan
-                        </x-card>
-                    @endif
+                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 rounded-xl">
+                                <div class="bg-{{ $stat->color() }}-200 rounded-xl text-center text-lg font-bold">
+                                    {{ $stat->localized() }}
+                                </div>
+
+                                @foreach ($skills[$stat->value] as $skill)
+                                    <x-character.skill :character="$character" :skill="$skill" :loop="$loop"></x-character.skill>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            @endif
+
+                @can('update-charsheet-gm', $character)
+                    <x-accordion-action class="my-2 w-full border-t"
+                                        method="GET"
+                                        action="{{ route('characters.skills.update', ['character' => $character]) }}"
+                                        icon="fa-solid fa-arrows-turn-to-dots"
+                    >
+                        {{ __('skills.update') }}
+                    </x-accordion-action>
+                @endcan
+            </x-card>
         @endcan
 
         @can('see-player-only-info', $character)
@@ -278,12 +260,13 @@
                         <x-header>
                             {{ __('perks.index') }}
                             ({{ $character->perk_sum }} / {{ $character->perk_points }} {{ __('perks.points') }})
-                            ({{ $character->perks->count() }} / {{ app(App\Settings\CharsheetSettings::class)->max_perks }} {{ __('perks.slots') }})
+                            ({{ $character->perks->count() }}
+                            / {{ app(App\Settings\CharsheetSettings::class)->max_perks }} {{ __('perks.slots') }})
                         </x-header>
 
                         <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
                             @foreach ($character->perks->sortByDesc('name') as $perk)
-                                <x-perk-card class="h-min" :character="$character" :perk="$perk" :accordion="true" />
+                                <x-perk-card class="h-min" :character="$character" :perk="$perk" :accordion="true"/>
                             @endforeach
                         </div>
                     </x-card>
@@ -302,12 +285,14 @@
                         <x-header>
                             {{ __('talents.index') }}
                             ({{ $character->talent_sum }} / {{ $character->talent_points }} {{ __('talents.points') }})
-                            ({{ $character->talents->count() }} / {{ $character->max_talent_amount }} {{ __('talents.slots') }})
+                            ({{ $character->talents->count() }}
+                            / {{ $character->max_talent_amount }} {{ __('talents.slots') }})
                         </x-header>
 
                         <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
                             @foreach ($character->talents->sortByDesc('name') as $talent)
-                                <x-talent-card class="h-min" :character="$character" :talent="$talent" :accordion="true" />
+                                <x-talent-card class="h-min" :character="$character" :talent="$talent"
+                                               :accordion="true"/>
                             @endforeach
                         </div>
                     </x-card>
@@ -326,13 +311,16 @@
                     <x-card class="w-full my-auto">
                         <x-header>
                             {{ __('techniques.index') }}
-                            ({{ $character->technique_sum }} / {{ $character->technique_points }} {{ __('techniques.points') }})
-                            ({{ $character->techniques->count() }} / {{ $character->max_technique_amount }} {{ __('techniques.slots') }})
+                            ({{ $character->technique_sum }}
+                            / {{ $character->technique_points }} {{ __('techniques.points') }})
+                            ({{ $character->techniques->count() }}
+                            / {{ $character->max_technique_amount }} {{ __('techniques.slots') }})
                         </x-header>
 
                         <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
                             @foreach ($character->techniques->sortByDesc('name') as $technique)
-                                <x-technique-card class="h-min" :character="$character" :technique="$technique" :accordion="true" />
+                                <x-technique-card class="h-min" :character="$character" :technique="$technique"
+                                                  :accordion="true"/>
                             @endforeach
                         </div>
                     </x-card>
@@ -383,7 +371,8 @@
                 </x-header>
 
                 @can('create', [App\Models\Rumor::class, $character])
-                    <a class="mb-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600" href="{{ route('characters.rumors.create', $character->login) }}">
+                    <a class="mb-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600"
+                       href="{{ route('characters.rumors.create', $character->login) }}">
                         <div class="far fa-comment-dots text-xl"></div>
 
                         <div class="text-lg">
@@ -394,13 +383,13 @@
 
                 <div class="space-y-2">
                     @foreach($character->rumors()->latest()->get() as $rumor)
-                        <x-rumor :rumor="$rumor" />
+                        <x-rumor :rumor="$rumor"/>
                     @endforeach
                 </div>
             </x-card>
         @endif
 
-    @can('see-player-only-info', $character)
+        @can('see-player-only-info', $character)
             @if ($character->player_only_info)
                 <x-card>
                     <x-header>
