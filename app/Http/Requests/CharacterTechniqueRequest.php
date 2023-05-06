@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Rules\TalentPool;
+use App\Rules\TechniquePool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CharacterTalentRequest extends FormRequest
+class CharacterTechniqueRequest extends FormRequest
 {
     public function authorize()
     {
@@ -16,7 +17,7 @@ class CharacterTalentRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'talents' => app(CharsheetService::class)->convertTalents($this->talents),
+            'techniques' => app(CharsheetService::class)->convertTechniques($this->techniques),
         ]);
     }
 
@@ -25,8 +26,8 @@ class CharacterTalentRequest extends FormRequest
         $character = $this->route('character');
 
         return [
-            'talents' => [new TalentPool($character)],
-            'talent_points' => ['numeric', 'min:0', 'max:200'],
+            'techniques' => [new TechniquePool($character)],
+            'technique_points' => ['numeric', 'min:0', 'max:200'],
         ];
     }
 }

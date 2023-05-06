@@ -7,6 +7,7 @@ use App\Rules\PerkPool;
 use App\Rules\SkillPool;
 use App\Rules\StatPool;
 use App\Rules\TalentPool;
+use App\Rules\TechniquePool;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\In;
@@ -28,6 +29,7 @@ class CharsheetRequest extends FormRequest
             'stats_handled' => $this->stats_handled === 'on',
             'talents' => $charsheetService->convertTalents($this->talents),
             'estitence_reduce' => $this->estitence_reduce === 'on',
+            'techniques' => $charsheetService->convertTechniques($this->techniques),
         ]);
     }
 
@@ -46,6 +48,7 @@ class CharsheetRequest extends FormRequest
                 'perks' => [new PerkPool($character)],
                 'perks.*.note' => ['max:1024'],
                 'talents' => [new TalentPool($character)],
+                'techniques' => [new TechniquePool($character)],
                 'tides.*.path' => ['sometimes', 'max:512'],
                 'tides.*.tide' => ['required', new In(array_map(fn ($tide) => $tide->value, Tide::cases()))],
             ]);
@@ -54,8 +57,10 @@ class CharsheetRequest extends FormRequest
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             $rules = array_merge($rules, [
                 'stats_handled' => ['sometimes', 'boolean'],
+                'skill_points' => ['numeric', 'min:0', 'max:100'],
                 'perk_points' => ['numeric', 'min:0', 'max:100'],
                 'talent_points' => ['numeric', 'min:0', 'max:100'],
+                'technique_points' => ['numeric', 'min:0', 'max:200'],
                 'tides.*.level' => ['min:0', 'max:1000'],
                 'estitence_reduce' => ['sometimes', 'boolean'],
             ]);

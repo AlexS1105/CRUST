@@ -73,4 +73,5 @@ return [
     'experience' => 'Опытность',
     'estitence_reduce' => 'Снижение Эститенции от Серости',
     'estitence_reduce_enabled' => 'Снижение Эститенции от Серости',
+    'technique_points' => 'Очки техник',
 ];

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TalentRequest extends FormRequest
+class TechniqueRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,9 +15,8 @@ class TalentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:256', Rule::unique('talents')->ignore($this->name, 'name')],
+            'name' => ['required', 'max:256', Rule::unique('techniques')->ignore($this->name, 'name')],
             'description' => ['required', 'max:2048'],
-            'cost' => ['required', 'min:1', 'max:100'],
         ];
     }
 }

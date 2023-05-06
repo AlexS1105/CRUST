@@ -319,6 +319,31 @@
                     {{ __('talents.update') }}
                 </x-character.action>
             @endcan
+
+
+            @if ($character->techniques->isNotEmpty())
+                <div class="flex flex-wrap md:flex-nowrap justify-center gap-8">
+                    <x-card class="w-full my-auto">
+                        <x-header>
+                            {{ __('techniques.index') }}
+                            ({{ $character->technique_sum }} / {{ $character->technique_points }} {{ __('techniques.points') }})
+                            ({{ $character->techniques->count() }} / {{ $character->max_technique_amount }} {{ __('techniques.slots') }})
+                        </x-header>
+
+                        <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">
+                            @foreach ($character->techniques->sortByDesc('name') as $technique)
+                                <x-technique-card class="h-min" :character="$character" :technique="$technique" :accordion="true" />
+                            @endforeach
+                        </div>
+                    </x-card>
+                </div>
+            @endif
+
+            @can('update-charsheet-gm', $character)
+                <x-character.action href="{{ route('characters.techniques.edit', $character) }}">
+                    {{ __('techniques.update') }}
+                </x-character.action>
+            @endcan
         @endcan
 
         @can('see-player-only-info', $character)

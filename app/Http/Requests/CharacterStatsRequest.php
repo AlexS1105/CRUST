@@ -17,6 +17,7 @@ class CharacterStatsRequest extends FormRequest
     {
         $this->merge([
             'stats_handled' => $this->stats_handled === 'on',
+            'estitence_reduce' => $this->estitence_reduce === 'on',
         ]);
     }
 
@@ -31,6 +32,7 @@ class CharacterStatsRequest extends FormRequest
         if (auth()->user()?->can('update-charsheet-gm', $character)) {
             $rules = array_merge($rules, [
                 'stats_handled' => ['sometimes', 'boolean'],
+                'estitence_reduce' => ['sometimes', 'boolean'],
             ]);
         }
 

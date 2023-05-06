@@ -37,6 +37,7 @@ class CharacterFactory extends Factory
             'skill_points' => $this->faker->numberBetween(16, 32),
             'talent_points' => $this->faker->numberBetween(12, 42),
             'experience' => $this->faker->numberBetween(0, 20),
+            'technique_points' => $this->faker->numberBetween(5, 35),
         ];
     }
 }

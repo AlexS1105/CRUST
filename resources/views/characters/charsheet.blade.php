@@ -66,6 +66,16 @@
                 </x-form.card>
             @endif
 
+            @if (count($talents))
+                <x-form.card>
+                    <x-slot name="header">
+                        {{ __('techniques.index') }}
+                    </x-slot>
+
+                    <x-character.techniques :character="$character" :techniques="$techniques" />
+                </x-form.card>
+            @endif
+
             <x-form.card>
                 <x-slot name="header">
                     {{ __('tides.index') }}

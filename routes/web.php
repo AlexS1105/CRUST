@@ -17,6 +17,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\TalentController;
+use App\Http\Controllers\TechniqueController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,9 @@ Route::get('/skills', [SkillController::class, 'all'])
 
 Route::get('/talents', [TalentController::class, 'all'])
     ->name('talents.list');
+
+Route::get('/techniques', [TechniqueController::class, 'all'])
+    ->name('techniques.list');
 
 Route::middleware('auth')
     ->group(function () {
@@ -121,6 +125,15 @@ Route::middleware('auth')
                                     ->name('edit');
 
                                 Route::patch('talents', 'updateTalents')
+                                    ->name('update');
+                            });
+
+                        Route::name('techniques.')
+                            ->group(function () {
+                                Route::get('techniques', 'editTechniques')
+                                    ->name('edit');
+
+                                Route::patch('techniques', 'updateTechniques')
                                     ->name('update');
                             });
 
@@ -258,6 +271,9 @@ Route::middleware('auth')
                             ->except(['show']);
 
                         Route::resource('settings/talents', TalentController::class)
+                            ->except(['show']);
+
+                        Route::resource('settings/techniques', TechniqueController::class)
                             ->except(['show']);
                     });
 

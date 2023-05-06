@@ -30,6 +30,8 @@
                 @can('update-charsheet-gm', $character)
                     <x-form.checkbox name="stats_handled" value="{{ old('stats_handled', $character->stats_handled) }}" />
                     <x-tip text="character.stats.handled"/>
+                    <x-form.checkbox name="estitence_reduce" value="{{ old('estitence_reduce', $character->estitence_reduce) }}" />
+                    <x-tip text="character.estitence_reduce"/>
                 @endcan
             </x-form.card>
 

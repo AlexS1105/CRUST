@@ -32,6 +32,14 @@ class CharsheetSettings extends Settings
 
     public bool $estitence_reduce_enabled;
 
+    public int $technique_points;
+
+    public int $additional_technique_points;
+
+    public int $max_techniques;
+
+    public int $technique_cost;
+
     public static function group(): string
     {
         return 'charsheet';

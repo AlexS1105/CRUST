@@ -127,6 +127,12 @@ class CharacterService
             $character->talent_points += $this->settings->additional_talent_points;
         }
 
+        $character->technique_points = $this->settings->technique_points;
+
+        if ($character->should_receive_additional_technique_points) {
+            $character->technique_points += $this->settings->additional_technique_points;
+        }
+
         $character->save();
         $character->estitenceLogs()->delete();
     }

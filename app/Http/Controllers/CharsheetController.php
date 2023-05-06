@@ -8,12 +8,14 @@ use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharacterTalentRequest;
 use App\Http\Requests\CharacterExperienceRequest;
+use App\Http\Requests\CharacterTechniqueRequest;
 use App\Http\Requests\CharacterTideRequest;
 use App\Http\Requests\CharsheetRequest;
 use App\Models\Character;
 use App\Models\Perk;
 use App\Models\Skill;
 use App\Models\Talent;
+use App\Models\Technique;
 use App\Services\CharsheetService;
 use App\Settings\CharsheetSettings;
 
@@ -37,9 +39,17 @@ class CharsheetController extends Controller
             ->groupBy('stat.value')
             ->sortBy(fn ($skills, $stat) => CharacterStat::from($stat)->order());
         $talents = Talent::forCharacter($character)->orderBy('name')->get();
+        $techniques = Technique::forCharacter($character)->orderBy('name')->get();
         $settings = $this->settings;
 
-        return view('characters.charsheet', compact('character', 'perks', 'settings', 'skills', 'talents'));
+        return view('characters.charsheet', compact(
+            'character',
+            'perks',
+            'settings',
+            'skills',
+            'talents',
+            'techniques',
+        ));
     }
 
     public function update(CharsheetRequest $request, Character $character)
@@ -65,7 +75,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $this->charsheetService->update($character, $request->validated());
+        $this->charsheetService->savePerks($character, $request->validated());
 
         return to_route('characters.show', $character);
     }
@@ -81,7 +91,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-stats', $character);
 
-        $this->charsheetService->update($character, $request->validated());
+        $this->charsheetService->saveStats($character, $request->validated());
 
         return to_route('characters.show', $character);
     }
@@ -101,7 +111,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $this->charsheetService->update($character, $request->validated());
+        $this->charsheetService->saveSkills($character, $request->validated());
 
         return to_route('characters.show', $character);
     }
@@ -120,7 +130,26 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $this->charsheetService->update($character, $request->validated());
+        $this->charsheetService->saveTalents($character, $request->validated());
+
+        return to_route('characters.show', $character);
+    }
+
+    public function editTechniques(Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $techniques = Technique::forCharacter($character)->get();
+        $settings = $this->settings;
+
+        return view('characters.techniques', compact('character', 'techniques', 'settings'));
+    }
+
+    public function updateTechniques(CharacterTechniqueRequest $request, Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $this->charsheetService->saveTechniques($character, $request->validated());
 
         return to_route('characters.show', $character);
     }
@@ -136,7 +165,7 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $this->charsheetService->update($character, $request->validated());
+        $this->charsheetService->saveTides($character, $request->validated());
 
         return to_route('characters.show', $character);
     }

@@ -130,6 +130,11 @@ class Character extends Model
         'last_idea',
         'notion_page',
         'experience',
+        'perk_points',
+        'skill_points',
+        'talent_points',
+        'technique_points',
+        'stats_handled',
         'estitence_reduce',
     ];
 
@@ -205,6 +210,11 @@ class Character extends Model
     public function rumors()
     {
         return $this->hasMany(Rumor::class);
+    }
+
+    public function techniques()
+    {
+        return $this->belongsToMany(Technique::class, 'character_technique');
     }
 
     public function scopeFilter($query, $request)
@@ -365,6 +375,29 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn () => $this->last_online_at != null,
+        );
+    }
+
+    public function techniqueSum(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->techniques->reduce(fn ($sum, $technique) => $sum + $technique->cost),
+        );
+    }
+
+    public function maxTechniqueAmount(): Attribute
+    {
+        $settings = app(CharsheetSettings::class);
+
+        return Attribute::make(
+            get: fn () => $settings->max_techniques,
+        );
+    }
+
+    public function shouldReceiveAdditionalTechniquePoints(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->origin == CharacterOrigin::Undead,
         );
     }
 }
