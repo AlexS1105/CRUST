@@ -159,6 +159,31 @@ class User extends Authenticatable
         );
     }
 
+    public function canRumor(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $lastWeek = now()->subWeek();
+                $createdRumors = $this->rumors()->where('created_at', '>=', $lastWeek)->count();
+
+                if ($createdRumors < 5) {
+                    return true;
+                }
+
+                $receivedRumors = $this->characters()
+                    ->withCount([
+                        'rumors' => function ($query) use ($lastWeek) {
+                            $query->where('created_at', '>=', $lastWeek);
+                        },
+                    ])
+                    ->get()
+                    ->sum('rumors_count');
+
+                return $createdRumors - $receivedRumors < 5;
+            },
+        );
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -190,30 +215,5 @@ class User extends Authenticatable
                 'user' => $user->login,
             ]);
         });
-    }
-
-    public function canRumor(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                $lastWeek = now()->subWeek();
-                $createdRumors = $this->rumors()->where('created_at', '>=', $lastWeek)->count();
-
-                if ($createdRumors < 5) {
-                    return true;
-                }
-
-                $receivedRumors = $this->characters()
-                    ->withCount([
-                        'rumors' => function ($query) use($lastWeek) {
-                            $query->where('created_at', '>=', $lastWeek);
-                        }
-                    ])
-                    ->get()
-                    ->sum('rumors_count');
-
-                return $createdRumors - $receivedRumors < 5;
-            },
-        );
     }
 }

@@ -92,7 +92,7 @@ enum CharacterStat: string
 
     public function toMore()
     {
-        return match($this->value) {
+        return match ($this->value) {
             'strength' => 'STR',
             'endurance' => 'END',
             'perception' => 'PER',

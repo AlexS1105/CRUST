@@ -21,15 +21,13 @@ class RumorPolicy
 
     public function create(User $user, Character $character)
     {
-        return (
-                ! $user->owns($character)
+        return (! $user->owns($character)
                 && $character->status == CharacterStatus::Approved
                 && $user->can_rumor
                 && $character->rumors()
                     ->where('user_id', $user->id)
                     ->where('created_at', '>', now()->subWeek())
-                    ->count() == 0
-            )
+                    ->count() == 0)
             || $user->hasPermissionTo('rumors-manage');
     }
 

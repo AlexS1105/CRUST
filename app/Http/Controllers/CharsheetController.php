@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CharacterStat;
+use App\Http\Requests\CharacterExperienceRequest;
 use App\Http\Requests\CharacterPerkRequest;
 use App\Http\Requests\CharacterSkillsRequest;
 use App\Http\Requests\CharacterStatsRequest;
 use App\Http\Requests\CharacterTalentRequest;
-use App\Http\Requests\CharacterExperienceRequest;
 use App\Http\Requests\CharacterTechniqueRequest;
 use App\Http\Requests\CharacterTideRequest;
 use App\Http\Requests\CharsheetRequest;

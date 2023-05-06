@@ -24,7 +24,7 @@ class ReduceEstitence implements ShouldQueue
 
     public function handle(EstitenceService $estitenceService, CharsheetSettings $settings)
     {
-        if (!$settings->estitence_reduce_enabled) {
+        if (! $settings->estitence_reduce_enabled) {
             return;
         }
 
