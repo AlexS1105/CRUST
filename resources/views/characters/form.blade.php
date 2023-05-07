@@ -133,7 +133,7 @@
         @endisset
     </x-form.card>
 
-    @if(!isset($character) || auth()->user()->can('update-charsheet-gm', $character))
+    @if(!isset($character) || !$character->registered || auth()->user()->can('update-charsheet-gm', $character))
         <x-form.card>
             <x-slot name="header">
                 {{ __('characters.cards.registration_info') }}

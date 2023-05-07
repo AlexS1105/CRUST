@@ -36,6 +36,14 @@
                               :value="old('additional_estitence', $settings->additional_estitence)"/>
                 <x-form.checkbox name="estitence_reduce_enabled"
                                  value="{{ old('estitence_reduce_enabled', $settings->estitence_reduce_enabled) }}" />
+                <x-form.input name="technique_points" type="number" min="0"
+                              :value="old('technique_points', $settings->technique_points)"/>
+                <x-form.input name="additional_technique_points" type="number" min="0"
+                              :value="old('additional_technique_points', $settings->additional_technique_points)"/>
+                <x-form.input name="max_techniques" type="number" min="0"
+                              :value="old('max_techniques', $settings->max_techniques)"/>
+                <x-form.input name="technique_cost" type="number" min="0"
+                              :value="old('technique_cost', $settings->technique_cost)"/>
                 <x-button-submit/>
             </x-form.card>
         </form>

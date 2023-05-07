@@ -75,4 +75,7 @@ return [
     'estitence_reduce_enabled' => 'Снижение Эститенции от Серости',
     'technique_points' => 'Очки техник',
     'is_penalty' => 'Штраф',
+    'additional_technique_points' => 'Доп. очки техник за происхождение',
+    'max_techniques' => 'Максимум техник на персонажа',
+    'technique_cost' => 'Стоимость техники в очках',
 ];
