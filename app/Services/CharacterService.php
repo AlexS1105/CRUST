@@ -82,7 +82,6 @@ class CharacterService
         $character->update($validated);
 
         $this->saveReference($character, $validated);
-        $this->resetStartPoints($character);
     }
 
     public function restore($character)
