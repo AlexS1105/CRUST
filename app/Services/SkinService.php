@@ -26,14 +26,17 @@ class SkinService
 
     public function getSkins($character)
     {
-        $disk = Storage::disk('skins');
+        $charactersDisk = Storage::disk('characters');
+        $skinsDisk = Storage::disk('skins');
 
-        return collect($disk->files($character->id.'/skins'))->map(function ($value) use ($disk) {
-            return [
-                'url' => $disk->url($value),
-                'prefix' => basename($value),
-            ];
-        });
+        return collect($charactersDisk->files($character->id.'/skins'))
+            ->map(function ($value) use ($charactersDisk, $skinsDisk) {
+                return [
+                    'url' => $charactersDisk->url($value),
+                    'copy_url' => $skinsDisk->url($value),
+                    'prefix' => basename($value),
+                ];
+            });
     }
 
     public function deleteSkin($character, $prefix)

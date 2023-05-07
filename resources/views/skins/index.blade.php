@@ -44,7 +44,7 @@
                             <td class="border">
                                 <div class="w-min mx-auto text-center">
                                     <x-link class="cursor-pointer"
-                                       onclick="copyToClipboard('{{ $skin['url'] }}')">
+                                       onclick="copyToClipboard('{{ $skin['copy_url'] }}')">
                                         {{ __('skins.copy') }}
                                     </x-link>
                                     <form method="POST"
