@@ -59,6 +59,13 @@ return [
             'url' => env('APP_URL').'/storage/characters',
             'visibility' => 'public',
         ],
+
+        'skins' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/characters'),
+            'url' => env('SKINS_URL').'/characters',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

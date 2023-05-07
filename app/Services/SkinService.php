@@ -26,7 +26,7 @@ class SkinService
 
     public function getSkins($character)
     {
-        $disk = Storage::disk('characters');
+        $disk = Storage::disk('skins');
 
         return collect($disk->files($character->id.'/skins'))->map(function ($value) use ($disk) {
             return [
