@@ -56,9 +56,11 @@
                                     </div>
                                 @endcan
 
-                                <div class="text-sm text-gray-400">
-                                    {{Carbon\Carbon::parse($character->updated_at)->diffForHumans()}}
-                                </div>
+                                @isset($character->last_online_at)
+                                    <div class="text-sm text-gray-400">
+                                        {{Carbon\Carbon::parse($character->last_online_at)->diffForHumans()}}
+                                    </div>
+                                @endisset
                             </div>
                         </div>
                     </a>
