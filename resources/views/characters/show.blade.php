@@ -65,9 +65,11 @@
                         </x-header>
 
                         <div class="text-lg">
-                            <div>
-                                <b>{{ __('label.origin') }}:</b> {{ $character->origin->localized() }}
-                            </div>
+                            @can('see-player-only-info', $character)
+                                <div>
+                                    <b>{{ __('label.origin') }}:</b> {{ $character->origin->localized() }}
+                                </div>
+                            @endcan
 
                             <div>
                                 <b>{{ __('label.race') }}:</b> {{ $character->race }}
