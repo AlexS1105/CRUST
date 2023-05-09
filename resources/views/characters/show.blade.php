@@ -77,9 +77,11 @@
                                 <b>{{ __('label.age') }}:</b> {{ $character->age }}
                             </div>
 
-                            <div>
-                                <b>{{ __('label.legacy') }}:</b> {{ $character->legacy }}
-                            </div>
+                            @can('see-player-only-info', $character)
+                                <div>
+                                    <b>{{ __('label.legacy') }}:</b> {{ $character->legacy }}
+                                </div>
+                            @endcan
                         </div>
                     </x-card>
                 @endcan
