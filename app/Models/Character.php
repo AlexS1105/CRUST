@@ -107,6 +107,7 @@ class Character extends Model
         'status',
         'updated_at',
         'created_at',
+        'last_online_at',
     ];
 
     protected $fillable = [
