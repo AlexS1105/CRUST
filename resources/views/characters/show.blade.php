@@ -368,7 +368,7 @@
             </x-character.action>
         @endcan
 
-        @if($character->rumors->isNotEmpty())
+        @if($character->rumors->isNotEmpty() || auth()->user()->can('create', [App\Models\Rumor::class, $character]))
             <x-card>
                 <x-header>
                     {{ __('rumors.index') }}
