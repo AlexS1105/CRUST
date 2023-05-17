@@ -30,7 +30,8 @@ class UserPolicy
 
     public function delete(User $user, User $model)
     {
-        return false;
+        return $user->hasPermissionTo('user-ban')
+            && ! $user->is($model);
     }
 
     public function ban(User $user, User $model)
