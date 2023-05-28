@@ -21,7 +21,10 @@ class SkinService
     {
         $disk = Storage::disk('characters');
         $disk->putFileAs($character->id.'/skins', $file, $prefix);
-        $disk->putFileAs('skins', $file, $character->login.'.png');
+
+        if ($prefix == 'default') {
+            $disk->putFileAs('skins', $file, $character->login.'.png');
+        }
     }
 
     public function getSkins($character)
