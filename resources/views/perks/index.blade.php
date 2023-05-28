@@ -35,6 +35,10 @@
                     {{ __('perks.empty') }}
                 </div>
             @endif
+
+            <div class="pt-4">
+                {{ $perks->appends(request()->query())->links() }}
+            </div>
         </x-card>
     </x-container>
 @endsection
