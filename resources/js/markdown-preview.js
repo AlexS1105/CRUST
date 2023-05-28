@@ -11,10 +11,10 @@ window.preview = function (element) {
 
         element.style.height = (25 + element.scrollHeight) + 'px'
         element.previewWindow = element.parentElement.appendChild(document.createElement('div'));
-        element.previewWindow.className = 'mt-2 prose max-w-none'
+        element.previewWindow.className = 'mt-2 prose dark:prose-invert max-w-none'
 
         element.previewWindow.header = element.previewWindow.appendChild(document.createElement('div'));
-        element.previewWindow.header.className = 'block mb-2 uppercase text-xs text-gray-700'
+        element.previewWindow.header.className = 'block mb-2 uppercase text-xs text-gray-700 dark:text-gray-300'
         element.previewWindow.header.innerHTML = previewText
 
         element.previewWindow.text = element.previewWindow.appendChild(document.createElement('div'));

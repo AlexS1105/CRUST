@@ -47,7 +47,7 @@
 @endsection
 
 @section('content')
-    <x-container class="max-w-6xl space-y-8 text-gray-100">
+    <x-container class="max-w-6xl space-y-8 dark:text-gray-100">
         <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8 p-2 lg:p-0">
             <x-card class="lg:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
