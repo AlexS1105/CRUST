@@ -4,9 +4,9 @@
 @section('title', $character->name)
 
 @section('header')
-    <div class="lg:flex lg:justify-between lg:items-center text-gray-600">
+    <div class="lg:flex lg:justify-between lg:items-center text-gray-600 dark:text-gray-200">
         <div class="text-center text-lg lg:text-left">
-            <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
+            <h2 class="font-semibold leading-tight text-gray-800 dark:text-gray-100 text-3xl">
                 {{ $character->name }}
             </h2>
 
@@ -47,11 +47,11 @@
 @endsection
 
 @section('content')
-    <x-container class="max-w-6xl space-y-8">
+    <x-container class="max-w-6xl space-y-8 text-gray-100">
         <div class="flex flex-wrap lg:flex-nowrap justify-center gap-8 p-2 lg:p-0">
             <x-card class="lg:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
-                    class="object-cover rounded-xl"
+                    class="object-cover rounded-xl dark:bg-white"
                     src="{{ Storage::disk('characters')->url($character->reference) }}"
                     alt="Character Reference"
                 />
@@ -122,7 +122,7 @@
                             </x-header>
 
                             @if(!$character->estitence_reduce)
-                                <div class="my-2 text-xs text-green-500">
+                                <div class="my-2 text-xs text-green-500 dark:text-green-400">
                                     {{ __('characters.no_estitence_reduce') }}
                                 </div>
                             @endif
@@ -174,7 +174,7 @@
                     @endphp
 
                     @if($inequality != 0 && ! $character->stats_handled)
-                        <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600' : 'text-red-600'}}">
+                        <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}}">
                             {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
                         </div>
                     @endif
@@ -217,8 +217,8 @@
                         @foreach (CharacterStat::getBodyStats() as $stat)
                             @continue(!$skills->has($stat->value))
 
-                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 rounded-xl">
-                                <div class="bg-{{ $stat->color() }}-200 rounded-xl text-center text-lg font-bold">
+                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
+                                <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
                                     {{ $stat->localized() }}
                                 </div>
 
@@ -232,8 +232,8 @@
                         @foreach (CharacterStat::getEssenceStats() as $stat)
                             @continue(!$skills->has($stat->value))
 
-                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 rounded-xl">
-                                <div class="bg-{{ $stat->color() }}-200 rounded-xl text-center text-lg font-bold">
+                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
+                                <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
                                     {{ $stat->localized() }}
                                 </div>
 
@@ -375,7 +375,7 @@
                 </x-header>
 
                 @can('create', [App\Models\Rumor::class, $character])
-                    <a class="mb-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600"
+                    <a class="mb-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600 dark:text-gray-200"
                        href="{{ route('characters.rumors.create', $character->login) }}">
                         <div class="far fa-comment-dots text-xl"></div>
 

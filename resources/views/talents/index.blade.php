@@ -5,7 +5,7 @@
 @section('content')
     <x-container>
         <x-card class="space-y-4">
-            <a class="flex max-w-fit space-x-2 items-center font-bold text-gray-600" href="{{ route('talents.create') }}">
+            <a class="flex max-w-fit space-x-2 items-center font-bold text-gray-600 dark:text-gray-300" href="{{ route('talents.create') }}">
                 <div class="far fa-plus-square text-xl"></div>
 
                 <div class="text-lg">
@@ -17,14 +17,14 @@
                 @foreach ($talents as $talent)
                     <x-talent-card :talent="$talent" :accordion="false">
                         <x-slot name="name">
-                            <a class="fas fa-edit text-xl text-gray-600"
+                            <a class="fas fa-edit text-xl text-gray-600 dark:text-gray-300"
                                href="{{ route('talents.edit', $talent) }}"></a>
 
                             <form method="POST" action="{{ route('talents.destroy', $talent) }}">
                                 @method('DELETE')
                                 @csrf
 
-                                <a class="fas fa-trash cursor-pointer text-xl text-gray-600"
+                                <a class="fas fa-trash cursor-pointer text-xl text-gray-600 dark:text-gray-300"
                                    onclick="event.preventDefault();this.closest('form').submit();"></a>
                             </form>
                         </x-slot>

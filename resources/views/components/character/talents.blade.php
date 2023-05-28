@@ -4,10 +4,10 @@
             $characterTalent = $character->talents->firstWhere('id', $talent->id);
         @endphp
 
-        <div id="talent-{{$talent->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
-            <div class="flex justify-between border-b bg-gray-100 border-gray-400">
-                <div class="flex text-sm w-full items-center font-bold uppercase">
-                    <div class="p-2 border-r border-gray-400">
+        <div id="talent-{{$talent->id}}" class="border border-gray-400 dark:border-gray-900 rounded overflow-hidden opacity-50">
+            <div class="flex justify-between border-b bg-gray-100 dark:bg-gray-700 border-gray-400 dark:border-gray-900">
+                <div class="flex text-sm w-full items-center font-bold uppercase dark:text-gray-300">
+                    <div class="p-2 border-r border-gray-400 dark:border-gray-900">
                         {{ $talent->cost }}
                     </div>
                     <div class="p-2">
@@ -34,7 +34,7 @@
     @endforeach
 </div>
 
-<div class="space-y-2 text-lg font-bold">
+<div class="space-y-2 text-lg font-bold dark:text-gray-300">
     <div class="font-bold text-lg text-right flex justify-end gap-2">
         {{ __('charsheet.points.talents') }}
         <div id="talent-count">

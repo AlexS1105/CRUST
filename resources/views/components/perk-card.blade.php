@@ -1,19 +1,21 @@
-<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl bg-gray-100 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
+<div {{ $attributes->merge(['class' => 'border border-gray-400 dark:border-gray-900 dark:bg-gray-700 rounded-xl bg-gray-100 dark:bg-gray-900 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
     <button
         id="perk-open-heading-{{ $perk->id }}"
-        class="flex justify-between bg-gray-100 text-gray-500 border-gray-400 w-full items-center"
+        class="flex justify-between text-gray-500 dark:text-gray-200 dark:bg-gray-700 border-gray-400 dark:border-gray-900 w-full items-center"
         data-accordion-target="#perk-open-body-{{ $perk->id }}"
         aria-expanded="{{ $accordion ? 'false' : 'true' }}"
         aria-controls="perk-open-body-{{ $perk->id }}"
         @disabled(! $accordion)
     >
-        <div class="flex font-bold">
-            <div class="p-2 border-r border-gray-400">
+        <div class="flex items-center font-bold text-lg uppercase space-x-2 dark:border-gray-900">
+            <div class="p-2 border-r border-gray-400 dark:border-gray-900">
                 {{ $perk->cost }}
             </div>
             <div class="p-2 text-lg uppercase">
                 {{ $perk->name }}
             </div>
+
+            {{ $name ?? null }}
         </div>
 
         @if ($accordion)
@@ -28,11 +30,11 @@
 
     <div id="perk-open-body-{{ $perk->id }}" class="hidden" aria-labelledby="perk-open-heading-{{ $perk->id }}">
         @if (isset($perk->description))
-            <x-markdown class="p-2 min-w-full bg-white border-t border-gray-400">{!! $perk->description !!}</x-markdown>
+            <x-markdown class="p-2 min-w-full bg-white dark:bg-gray-600 dark:text-gray-300 border-t border-gray-400 dark:border-gray-900">{!! $perk->description !!}</x-markdown>
         @endif
 
-        @if($perk->pivot->note)
-            <div class="px-2 py-1 border-t bg-gray-50 italic">
+        @if($perk->pivot?->note)
+            <div class="px-2 py-1 border-t dark:border-gray-900 bg-gray-50 dark:bg-gray-700 dark:text-gray-300 italic">
                 {{ $perk->pivot->note }}
             </div>
         @endif

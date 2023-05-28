@@ -4,30 +4,27 @@
 
 @section('content')
     <x-container class="max-w-2xl">
-        <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
+        <x-card>
             <x-link
                href="{{ route('users.accounts.create', $user) }}">
                 {{ __('accounts.create') }}
             </x-link>
             @if(count($user->accounts))
-                <table class="table-auto w-full border">
-                    <thead class="border bg-gray-200">
-                    <tr>
-                        <th class="px-4 py-2 border border-gray-400">
+                <x-table>
+                    <x-slot name="heading">
+                        <x-table.header>
                             {{ __('label.account') }}
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('label.actions') }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </x-table.header>
+                    </x-slot>
                     @foreach ($user->accounts as $account)
-                        <tr class="py-2 border hover:bg-gray-100">
-                            <td class="px-4 py-2 border">
+                        <x-table.row>
+                            <x-table.cell>
                                 {{ $account->login }}
-                            </td>
-                            <td class="border">
+                            </x-table.cell>
+                            <x-table.cell>
                                 <div class="flex w-min mx-auto space-x-2">
                                     <form method="POST"
                                           action="{{ route('users.accounts.destroy', ['user' => $user, 'account' => $account]) }}">
@@ -41,16 +38,15 @@
                                         </x-link>
                                     </form>
                                 </div>
-                            </td>
-                        </tr>
+                            </x-table.cell>
+                        </x-table.row>
                     @endforeach
-                    </tbody>
-                </table>
+                </x-table>
             @else
-                <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
+                <p class="pt-4 text-xl font-semibold text-gray-500 dark:text-gray-300 text-center">
                     {{ __('accounts.empty') }}
                 </p>
             @endif
-        </div>
+        </x-card>
     </x-container>
 @endsection

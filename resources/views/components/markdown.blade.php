@@ -1,1 +1,1 @@
-<div {{ $attributes->merge(['class' => 'prose markdown']) }}>{{ $slot }}</div>
+<div {{ $attributes->merge(['class' => 'prose markdown dark:text-gray-200']) }}>{{ $slot }}</div>

@@ -1,6 +1,6 @@
 <h2 class="mt-2" id="{{ $id }}-open-heading-{{$loop->iteration}}">
     <button type="button"
-            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100 rounded-xl"
+            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-500 dark:text-gray-200 border border-gray-200 dark:border-gray-400 hover:bg-gray-100 dark:hover:bg-gray-500 rounded-xl"
             data-accordion-target="#{{ $id }}-open-body-{{$loop->iteration}}"
             aria-expanded="false"
             aria-controls="{{ $id }}-open-body-{{$loop->iteration}}">
@@ -14,14 +14,14 @@
         </svg>
     </button>
 </h2>
-<div id="{{ $id }}-open-body-{{$loop->iteration}}" class="hidden overflow-hidden border border-t-0 border-gray-200 rounded-b-xl" aria-labelledby="{{ $id }}-open-heading-{{$loop->iteration}}">
+<div id="{{ $id }}-open-body-{{$loop->iteration}}" class="hidden overflow-hidden border border-t-0 border-gray-200 dark:border-gray-400 rounded-b-xl" aria-labelledby="{{ $id }}-open-heading-{{$loop->iteration}}">
     @if(!empty($body))
         {{ $body }}
     @endif
 
     @if(!empty($content))
         <div class="p-2 font-light">
-            <p class="mb-2 text-gray-500">{{ $content }}</p>
+            <p class="mb-2 text-gray-500 dark:text-gray-300">{{ $content }}</p>
         </div>
     @endif
 

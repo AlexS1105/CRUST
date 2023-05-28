@@ -14,12 +14,12 @@
                                  value="{{ old('discord_notify', boolval($user->discord_notify)) }}"/>
 
                 @can('manage', $user)
-                    <div class="flex justify-items-between space-x-8">
+                    <div class="flex justify-items-between space-x-8 dark:text-gray-200">
                         <div>
                             <h1 class="font-bold text-2xl mb-1">{{ __('users.roles') }}</h1>
                             <div class="space-y-2">
                                 @foreach ($roles as $role)
-                                    <div class="flex items-center border p-2">
+                                    <div class="flex items-center border dark:border-gray-400 p-2">
                                         <input
                                             type="checkbox"
                                             name="roles[{{ $role->name }}]"
@@ -36,7 +36,7 @@
                             <h1 class="font-bold text-2xl mb-1">{{ __('users.permissions') }}</h1>
                             <div class="grid grid-cols-3 gap-2">
                                 @foreach ($permissions as $permission)
-                                    <div class="flex space-x-2 border p-2">
+                                    <div class="flex space-x-2 border dark:border-gray-400 p-2">
                                         <div>
                                             <input class="disabled:opacity-50 disabled:text-gray-100"
                                                    type="checkbox"

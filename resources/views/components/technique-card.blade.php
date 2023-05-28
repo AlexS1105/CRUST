@@ -1,7 +1,7 @@
-<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl bg-gray-100 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
+<div {{ $attributes->merge(['class' => 'border border-gray-400 dark:border-gray-900 rounded-xl bg-gray-100 dark:bg-gray-700 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
     <button
         id="technique-open-heading-{{ $technique->id }}"
-        class="flex justify-between bg-gray-100 text-gray-500 border-gray-400 w-full items-center"
+        class="flex justify-between bg-gray-100 dark:bg-gray-700 dark:bg-gray-600 text-gray-500 dark:text-gray-200 border-gray-400 dark:border-gray-900 w-full items-center"
         data-accordion-target="#technique-open-body-{{ $technique->id }}"
         aria-expanded="{{ $accordion ? 'false' : 'true' }}"
         aria-controls="technique-open-body-{{ $technique->id }}"
@@ -27,7 +27,7 @@
 
     <div id="technique-open-body-{{ $technique->id }}" class="hidden" aria-labelledby="technique-open-heading-{{ $technique->id }}">
         @if (isset($technique->description))
-            <x-markdown class="p-2 min-w-full bg-white border-t border-gray-400">{!! $technique->description !!}</x-markdown>
+            <x-markdown class="p-2 min-w-full bg-white dark:bg-gray-600 dark:text-gray-300 border-t border-gray-400 dark:border-gray-900">{!! $technique->description !!}</x-markdown>
         @endif
     </div>
 </div>

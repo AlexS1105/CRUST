@@ -14,7 +14,7 @@
 
                 <x-character.charsheet.stats-edit :character="$character" />
 
-                <div class="font-bold text-lg text-right flex justify-end">
+                <div class="font-bold text-lg text-right flex justify-end dark:text-gray-200">
                     <div class="mr-2">
                         {{ __('charsheet.points.stats') }}
                     </div>
@@ -25,7 +25,6 @@
                         / {{ $character->estitence }}
                     </div>
                 </div>
-                <x-tip text="character.stats.penalties"/>
                 <x-form.error name="stats"/>
 
                 @can('update-charsheet-gm', $character)

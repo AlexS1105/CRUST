@@ -4,9 +4,9 @@
             $characterTechnique = $character->techniques->firstWhere('id', $technique->id);
         @endphp
 
-        <div id="technique-{{$technique->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
-            <div class="flex justify-between border-b bg-gray-100 border-gray-400">
-                <div class="flex text-sm w-full items-center font-bold uppercase">
+        <div id="technique-{{$technique->id}}" class="border border-gray-400 dark:border-gray-900 rounded overflow-hidden opacity-50">
+            <div class="flex justify-between border-b bg-gray-100 dark:bg-gray-700 border-gray-400 dark:border-gray-900">
+                <div class="flex text-sm w-full items-center font-bold uppercase dark:text-gray-300">
                     <div class="p-2">
                         {{ $technique->name }}
                     </div>
@@ -31,7 +31,7 @@
     @endforeach
 </div>
 
-<div class="space-y-2 text-lg font-bold">
+<div class="space-y-2 text-lg font-bold dark:text-gray-300">
     <div class="font-bold text-lg text-right flex justify-end gap-2">
         {{ __('charsheet.points.techniques') }}
         <div id="technique-count">

@@ -3,44 +3,41 @@
 @section('header', __('users.index'))
 
 @section('content')
-    <x-container class="max-w-5xl">
-        <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
+    <x-container>
+        <x-card class="p-6">
             <x-search-field class="w-full mb-6" :search="$search" :route="route('users.index')"/>
 
             @if(count($users))
-                <table class="table-auto w-full border">
-                    <thead class="border bg-gray-200">
-                    <tr>
-                        <th class="px-4 py-2 border border-gray-400">
+                <x-table>
+                    <x-slot name="heading">
+                        <x-table.header>
                             @sortablelink('login', __('label.login'))
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             @sortablelink('discord_tag', __('label.discord_tag'))
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('label.characters') }}
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             @sortablelink('created_at', __('label.registered'))
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('label.actions') }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </x-table.header>
+                    </x-slot>
                     @foreach ($users as $user)
-                        <tr class="py-2 border hover:bg-gray-100">
-                            <td class="px-4 py-2 border text-center">
+                        <x-table.row>
+                            <x-table.cell>
                                 <x-link
                                    href="{{ route('users.show', $user) }}">
                                     {{ $user->login }}
                                 </x-link>
-                            </td>
-                            <td class="px-4 py-2 border text-center">
+                            </x-table.cell>
+                            <x-table.cell>
                                 <span class="select-all">{{ $user->discord_tag }}</span>
-                            </td>
-                            <td class="px-4 py-2 border text-center">
+                            </x-table.cell>
+                            <x-table.cell>
                                 @foreach ($user->characters as $character)
                                     <x-link
                                        href="{{ route('characters.show', $character->login) }}">
@@ -51,19 +48,18 @@
                                         ,
                                     @endunless
                                 @endforeach
-                            </td>
-                            <td class="px-4 py-2 border text-center">
+                            </x-table.cell>
+                            <x-table.cell>
                                 {{ Carbon\Carbon::parse($user->created_at)->diffForHumans() }}
-                            </td>
-                            <td class="border">
-                                <div class="flex w-min mx-auto">
+                            </x-table.cell>
+                            <x-table.cell>
+                                <div class="flex flex-wrap justify-center">
                                     <x-user.actions :user="$user" :tooltip="true"/>
                                 </div>
-                            </td>
-                        </tr>
+                            </x-table.cell>
+                        </x-table.row>
                     @endforeach
-                    </tbody>
-                </table>
+                </x-table>
             @else
                 <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
                     {{ __('users.empty') }}
@@ -73,6 +69,6 @@
             <div class="pt-4">
                 {{ $users->links() }}
             </div>
-        </div>
+        </x-card>
     </x-container>
 @endsection

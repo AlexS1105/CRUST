@@ -53,7 +53,10 @@ module.exports = {
 
     safelist: [
         {
-            pattern: /(bg|ring|text|border)-(red|blue|yellow|green|gray|pink|purple|lime|orange|cyan|indigo)-(100|200|300|400|600)/
+            pattern: /(bg|ring|text|border)-(red|blue|yellow|green|gray|pink|purple|lime|orange|cyan|indigo)-(100|200|300|400|500|600)/,
+            variants: [
+                'dark'
+            ]
         }
     ],
 
@@ -63,4 +66,6 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('flowbite/plugin'),
     ],
+
+    darkMode: 'class'
 };

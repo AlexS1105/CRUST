@@ -23,9 +23,9 @@
     </x-slot>
 
     <x-slot name="body">
-        <x-skill-bar class="border-gray-200" :skill="$skill" />
+        <x-skill-bar class="border-gray-200 dark:border-gray-800" :skill="$skill" />
 
-        <ul class="py-0.5 px-1 bg-gray-50 border-b border-gray-200 text-sm">
+        <ul class="py-0.5 px-1 bg-gray-50 dark:bg-gray-600 border-b border-gray-200 dark:border-gray-400 text-sm">
             <span>
                 {{ __('skills.level.title') }}:
                 <b>
@@ -36,7 +36,7 @@
                     ({{ $skill->pivot->cost }})
                 @endif
             </span>
-            <hr class="my-1">
+            <hr class="my-1 dark:border-gray-400">
             <div>
                 {{ $skill->stat->localized() }}:
                 <b>+{{ $stat }}</b>
@@ -62,11 +62,11 @@
     </x-slot>
 
     @if($skill->advantages->isNotEmpty())
-        <div class="divide-y divide-dashed divide-gray-300 bg-gray-100 border-t border-dashed border-gray-300">
+        <div class="divide-y divide-dashed divide-gray-300 bg-gray-100 dark:bg-gray-600 border-t border-dashed border-gray-300">
             @foreach($skill->advantages as $advantage)
                 @continue($advantage->is_penalty && $bonus > $advantage->level || $bonus < $advantage->level && !$advantage->is_penalty)
 
-                <div class="{{ $advantage->is_penalty ? 'bg-red-100' : 'bg-gray-100' }} grid grid-cols-12 grid-flow-col items-center">
+                <div class="{{ $advantage->is_penalty ? 'bg-red-100 dark:bg-red-500' : 'bg-gray-100 dark:bg-gray-700' }} grid grid-cols-12 grid-flow-col items-center">
                     <div class="col-span-1 text-center font-bold text-lg">{{ $loop->first ? '<=' : '' }} {{ $advantage->level }} {{ $loop->last ? '<=' : '' }}</div>
                     <div class="p-2 col-span-10 border-l border-dashed border-gray-300">{{ $advantage->description }}</div>
                 </div>

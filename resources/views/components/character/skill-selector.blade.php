@@ -1,16 +1,16 @@
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-2 dark:text-gray-100">
     @foreach($skills as $stat => $skillGroup)
         @php
             $statEnum = App\Enums\CharacterStat::from($stat);
         @endphp
-        <div class="bg-{{ $statEnum->color() }}-100 rounded-xl p-2">
-            <div class="uppercase bg-{{ $statEnum->color() }}-300 text-center rounded-full font-bold">
+        <div class="bg-{{ $statEnum->color() }}-100 dark:bg-{{ $statEnum->color() }}-400 rounded-xl p-2">
+            <div class="uppercase bg-{{ $statEnum->color() }}-300 dark:bg-{{ $statEnum->color() }}-500 text-center rounded-full font-bold">
                 {{ $statEnum->localized() }}
             </div>
 
             <div class="p-1 space-y-1">
                 @foreach($skillGroup as $skill)
-                    <div class="bg-{{ $statEnum->color() }}-200 rounded-lg p-2 sm:flex justify-between items-center gap-2">
+                    <div class="bg-{{ $statEnum->color() }}-200 dark:bg-{{ $statEnum->color() }}-500 rounded-lg p-2 sm:flex justify-between items-center gap-2">
                         <div class="text-lg {{ $skill->proficiency ? 'font-bold' : '' }}">
                             {{ $skill->name }}
                         </div>
@@ -23,7 +23,7 @@
                                     0
                                 </div>
                             </div>
-                            <select class="rounded-lg"
+                            <select class="rounded-lg dark:bg-gray-700"
                                     name="skills[{{ $skill->id }}]"
                                     data-skill-id="{{ $skill->id }}"
                                     oninput="updateSkills()"
@@ -46,7 +46,7 @@
 <x-tip text="character.skills"/>
 <x-form.error name="skills"/>
 
-<div class="font-bold text-lg text-right flex justify-end">
+<div class="font-bold text-lg text-right flex justify-end dark:text-gray-300">
     <div class="mr-2">
         {{ __('charsheet.points.skills') }}
     </div>

@@ -4,10 +4,10 @@
             $characterPerk = $character->perks->firstWhere('id', $perk->id);
         @endphp
 
-        <div id="perk-{{$perk->id}}" class="border border-gray-400 rounded overflow-hidden opacity-50">
-            <div class="flex justify-between border-b bg-gray-100 border-gray-400">
+        <div id="perk-{{$perk->id}}" class="border border-gray-400 dark:border-gray-900 rounded overflow-hidden opacity-50">
+            <div class="flex justify-between border-b bg-gray-100 dark:bg-gray-700 dark:text-gray-200 border-gray-400 dark:border-gray-900">
                 <div class="flex text-sm w-full items-center font-bold uppercase">
-                    <div class="p-2 border-r border-gray-400">
+                    <div class="p-2 border-r border-gray-400 dark:border-gray-900">
                         {{ $perk->cost }}
                     </div>
                     <div class="p-2">
@@ -33,7 +33,7 @@
 
             <div id="perk-data-{{$perk->id}}" class="flex items-center hidden">
                 <input
-                    class="p-1 text-xs border-b-0 border-r-0 border-l-0 focus:border-gray-400 border-gray-400 focus:ring-transparent w-full"
+                    class="p-1 text-xs border-b-0 border-r-0 border-l-0 dark:bg-gray-700 dark:text-gray-300 focus:border-gray-400 dark:border-gray-900 border-gray-400 dark:border-gray-900 focus:ring-transparent w-full"
                     name="perks[{{ $perk->id }}][note]"
                     id="perks[{{ $perk->id }}][note]"
                     type="text"
@@ -45,7 +45,7 @@
     @endforeach
 </div>
 
-<div class="space-y-2 text-lg font-bold">
+<div class="space-y-2 text-lg font-bold dark:text-gray-300">
     <div class="font-bold text-lg text-right flex justify-end gap-2">
         {{ __('charsheet.points.perks') }}
         <div id="perk-count">

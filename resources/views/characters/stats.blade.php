@@ -12,7 +12,7 @@
 
                 <x-character.charsheet.stats-edit :character="$character" />
 
-                <div class="font-bold text-lg text-right flex justify-end">
+                <div class="font-bold text-lg text-right flex justify-end dark:text-gray-300">
                     <div class="mr-2">
                         {{ __('charsheet.points.stats') }}
                     </div>

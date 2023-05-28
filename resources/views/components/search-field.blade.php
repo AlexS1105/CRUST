@@ -1,8 +1,8 @@
-<div {{ $attributes->merge(['class' => 'bg-gray-100 rounded-full']) }}>
+<div {{ $attributes->merge(['class' => 'bg-gray-100 dark:bg-gray-700 rounded-full']) }}>
     <form method="GET" action="{{ $route }}">
         @csrf
         <div class="flex items-center relative">
-            <input class="px-3 w-full bg-transparent border-0 rounded-full focus:ring-blue-200"
+            <input class="px-3 w-full bg-transparent border-0 rounded-full focus:ring-blue-200 dark:focus:ring-blue-500 dark:text-gray-200"
                    type="text"
                    name="search"
                    placeholder="{{ __('ui.search') }}"

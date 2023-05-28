@@ -1,14 +1,14 @@
-<div {{ $attributes->merge(['class' => 'border border-gray-400 rounded-xl bg-gray-100 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
+<div {{ $attributes->merge(['class' => 'border border-gray-400 dark:border-gray-900 rounded-xl bg-gray-100 dark:bg-gray-700 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
     <button
         id="talent-open-heading-{{ $talent->id }}"
-        class="flex justify-between bg-gray-100 text-gray-500 border-gray-400 w-full items-center"
+        class="flex justify-between bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-200 border-gray-400 dark:border-gray-900 w-full items-center"
         data-accordion-target="#talent-open-body-{{ $talent->id }}"
         aria-expanded="{{ $accordion ? 'false' : 'true' }}"
         aria-controls="talent-open-body-{{ $talent->id }}"
         @disabled(! $accordion)
     >
         <div class="flex items-center font-bold text-lg uppercase space-x-2">
-            <div class="p-2 border-r border-gray-400">
+            <div class="p-2 border-r border-gray-400 dark:border-gray-900">
                 {{ $talent->cost }}
             </div>
             <div class="p-2 text-lg uppercase">
@@ -30,7 +30,7 @@
 
     <div id="talent-open-body-{{ $talent->id }}" class="hidden" aria-labelledby="talent-open-heading-{{ $talent->id }}">
         @if (isset($talent->description))
-            <x-markdown class="p-2 min-w-full bg-white border-t border-gray-400">{!! $talent->description !!}</x-markdown>
+            <x-markdown class="p-2 min-w-full bg-white dark:bg-gray-600 dark:text-gray-300 border-t border-gray-400 dark:border-gray-900">{!! $talent->description !!}</x-markdown>
         @endif
     </div>
 </div>

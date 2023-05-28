@@ -3,9 +3,9 @@
 @section('title', $user->login)
 
 @section('header')
-    <div class="flex justify-between items-center text-gray-600">
+    <div class="flex justify-between items-center text-gray-600 dark:text-gray-300">
         <div class="flex-grow-0">
-            <h2 class="font-semibold leading-tight text-gray-800 text-3xl">
+            <h2 class="font-semibold leading-tight dark:text-gray-200 text-3xl">
                 {{ $user->login }}
             </h2>
             <div class="font-thin text-base mt-2">

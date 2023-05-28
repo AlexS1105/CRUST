@@ -8,7 +8,8 @@
 
     @foreach ($character->charsheet->stats as $stat => $value)
         <x-slot :name="$stat">
-            <input id="stats[{{ $stat }}]"
+            <input class="dark:bg-gray-700 dark:text-gray-300"
+                   id="stats[{{ $stat }}]"
                    name="stats[{{ $stat }}]"
                    type="number"
                    min="1"

@@ -4,7 +4,7 @@
 
 @section('content')
     <x-container class="max-w-6xl space-y-8">
-        <div class="bg-white rounded-xl max-w-3xl mx-auto shadow-lg place-self-start p-6 space-y-4">
+        <x-card class="max-w-3xl mx-auto shadow-lg place-self-start p-6 space-y-4 dark:text-gray-200 font-bold text-lg underline">
             <div>
                 <a href="{{ route('settings.general.show') }}">{{ __('settings.general') }}</a>
             </div>
@@ -28,6 +28,6 @@
             <div>
                 <a href="{{ route('techniques.index') }}">{{ __('techniques.index') }}</a>
             </div>
-        </div>
+        </x-card>
     </x-container>
 @endsection

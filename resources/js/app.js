@@ -16,6 +16,7 @@ import './skins';
 import './skills';
 import './talents';
 import './techniques';
+import './dark-theme';
 
 window.Alpine = Alpine;
 

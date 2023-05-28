@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('body')
-    <div class="p-6 space-y-4 bg-white">
+    <div class="p-6 space-y-4 bg-white dark:bg-gray-600">
         @if ($talents->isNotEmpty())
             @foreach ($talents as $talent)
                 <x-talent-card :talent="$talent" :accordion="false" />

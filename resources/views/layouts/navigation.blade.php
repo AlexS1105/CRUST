@@ -1,9 +1,9 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 sticky top-0 z-10">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-900 sticky top-0 z-10">
     <div class="max-w-7xl mx-auto px-4 lg:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex-shrink-0 flex items-center">
                 <a href="{{ route('characters.index') }}">
-                    <x-application-logo class="block h-12 w-auto fill-current text-gray-600"/>
+                    <x-application-logo class="block h-12 w-auto fill-current text-gray-600 dark:text-gray-100"/>
                 </a>
             </div>
 
@@ -46,14 +46,16 @@
                 </x-nav-link>
             </div>
 
+            <x-theme-switcher />
+
             <div class="hidden lg:flex lg:items-center lg:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div class="text-right">
-                                <div class="font-medium text-sm text-gray-800">{{ Auth::user()->login }}</div>
-                                <div class="font-medium text-xs text-gray-500">{{ Auth::user()->discord_tag }}</div>
+                                <div class="font-medium text-sm text-gray-800 dark:text-gray-300">{{ Auth::user()->login }}</div>
+                                <div class="font-medium text-xs text-gray-500 dark:text-gray-400">{{ Auth::user()->discord_tag }}</div>
                             </div>
 
                             <div class="ml-1">
@@ -79,9 +81,9 @@
             </div>
 
             <div class="-mr-2 flex items-center lg:hidden">
-                <h1 class="text-lg">{{ __('ui.menu') }}</h1>
+                <h1 class="text-lg dark:text-gray-300 mr-4">{{ __('ui.menu') }}</h1>
                 <button @click="open = ! open"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-200 hover:text-gray-500 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700 dark focus:text-gray-500 dark:focus:text-gray-200 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
                               stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -131,10 +133,10 @@
             </x-responsive-nav-link>
         </div>
 
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-900">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->login }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->discord_tag }}</div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-300">{{ Auth::user()->login }}</div>
+                <div class="font-medium text-sm text-gray-500 dark:text-gray-400">{{ Auth::user()->discord_tag }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
