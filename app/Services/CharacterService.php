@@ -83,7 +83,7 @@ class CharacterService
 
         $this->saveReference($character, $validated);
 
-        if (! $character->registered && $character->wasChanged('origin')) {
+        if (! $character->registered && $character->status != CharacterStatus::Approved && $character->wasChanged('origin')) {
             $this->resetStartPoints($character);
         }
     }
