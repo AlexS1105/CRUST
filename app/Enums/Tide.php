@@ -15,7 +15,7 @@ enum Tide: string
         return match ($this) {
             Tide::Red => 'red',
             Tide::Blue => 'blue',
-            Tide::Indigo => 'indigo',
+            Tide::Indigo => 'purple',
             Tide::Gold => 'yellow',
             Tide::Silver => 'gray',
         };
