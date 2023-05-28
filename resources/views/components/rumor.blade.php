@@ -4,7 +4,7 @@
 ])
 
 <div class="px-3 py-2 rounded-xl bg-{{ $rumor->tide->color() }}-100 {{ $rumor->user->is(auth()->user()) ? 'border border-2 border-'.$rumor->tide->color().'-300' : '' }}">
-    <div class="flex justify-between">
+    <div class="flex justify-between gap-4">
         <div class="text-lg">
             {{ $rumor->text }}
         </div>
