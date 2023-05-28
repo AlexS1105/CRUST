@@ -4,7 +4,7 @@
 
 @section('content')
     <x-container class="max-w-6xl">
-        <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
+        <div class="bg-white dark:bg-gray-600 rounded-xl shadow-lg p-6 w-auto">
             @can('estitence-create', $character)
                 <x-link href="{{ route('characters.estitence.create', $character) }}">
                     {{ __('estitence.create') }}
@@ -51,7 +51,7 @@
                     </tbody>
                 </table>
             @else
-                <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
+                <p class="pt-4 text-xl font-semibold text-gray-500 dark:text-gray-300 text-center">
                     {{ __('estitence.empty') }}
                 </p>
             @endif

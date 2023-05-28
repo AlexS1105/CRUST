@@ -4,7 +4,7 @@
 
 @section('content')
     <x-container>
-        <x-card class="p-6">
+        <x-card class="p-6 dark:text-gray-200">
             <x-search-field class="w-full mb-6" :search="$search" :route="route('users.index')"/>
 
             @if(count($users))

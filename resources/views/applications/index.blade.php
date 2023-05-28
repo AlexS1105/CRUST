@@ -4,7 +4,7 @@
 
 @section('content')
     <x-container>
-        <x-card class="p-6">
+        <x-card class="p-6 dark:text-gray-200">
             <div class="flex flex-wrap mb-4 gap-4">
                 @foreach (App\Enums\CharacterStatus::cases() as $_status)
                     <a href="{{ route('applications.index', [ 'status' => $_status ]) }}"
