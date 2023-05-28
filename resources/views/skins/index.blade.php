@@ -4,33 +4,30 @@
 
 @section('content')
     <x-container class="max-w-2xl">
-        <div class="bg-white rounded-xl shadow-lg p-6 w-auto">
+        <div class="bg-white dark:bg-gray-600 dark:text-gray-200 rounded-xl shadow-lg p-6 w-auto">
             <x-link
                href="{{ route('characters.skins.create', $character) }}">
                 {{ __('skins.create') }}
             </x-link>
             @if(count($skins))
-                <table class="table-auto w-full border mt-2">
-                    <thead class="border bg-gray-200">
-                    <tr>
-                        <th class="px-4 py-2 border border-gray-400">
+                <x-table>
+                    <x-slot name="heading">
+                        <x-table.header>
                             {{ __('label.prefix') }}
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('label.skin') }}
-                        </th>
-                        <th class="px-4 py-2 border border-gray-400">
+                        </x-table.header>
+                        <x-table.header>
                             {{ __('label.actions') }}
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </x-table.header>
+                    </x-slot>
                     @foreach ($skins as $skin)
-                        <tr class="py-2 border hover:bg-gray-100">
-                            <td class="px-4 py-2 border">
+                        <x-table.row>
+                            <x-table.cell>
                                 {{ $skin['prefix'] }}
-                            </td>
-                            <td class="px-4 py-2 border">
+                            </x-table.cell>
+                            <x-table.cell>
                                 <a href="{{ $skin['url'] }}">
                                     <img
                                         class="object-cover"
@@ -40,8 +37,8 @@
                                         height="128"
                                     />
                                 </a>
-                            </td>
-                            <td class="border">
+                            </x-table.cell>
+                            <x-table.cell>
                                 <div class="w-min mx-auto text-center">
                                     <x-link class="cursor-pointer"
                                        onclick="copyToClipboard('{{ $skin['copy_url'] }}')">
@@ -60,11 +57,10 @@
                                         </x-link>
                                     </form>
                                 </div>
-                            </td>
-                        </tr>
+                            </x-table.cell>
+                        </x-table.row>
                     @endforeach
-                    </tbody>
-                </table>
+                </x-table>
             @else
                 <p class="pt-4 text-xl font-semibold text-gray-500 text-center">
                     {{ __('skins.empty') }}
