@@ -36,6 +36,7 @@ class CharsheetRequest extends FormRequest
     public function rules()
     {
         $character = $this->route('character');
+        $can = auth()->user()->can('update-charsheet-gm', $character);
 
         $rules = [
             'stats' => ['required', new StatPool($character)],
@@ -43,7 +44,7 @@ class CharsheetRequest extends FormRequest
             'skills' => [new SkillPool($character)],
         ];
 
-        if (! $character->registered) {
+        if (! $character->registered || $can) {
             $rules = array_merge($rules, [
                 'perks' => [new PerkPool($character)],
                 'perks.*.note' => ['max:1024'],
@@ -54,7 +55,7 @@ class CharsheetRequest extends FormRequest
             ]);
         }
 
-        if (auth()->user()->can('update-charsheet-gm', $character)) {
+        if ($can) {
             $rules = array_merge($rules, [
                 'stats_handled' => ['sometimes', 'boolean'],
                 'skill_points' => ['numeric', 'min:0', 'max:100'],
