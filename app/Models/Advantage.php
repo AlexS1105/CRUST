@@ -13,5 +13,6 @@ class Advantage extends Model
         'description',
         'level',
         'is_penalty',
+        'no_estitence_reduce_required',
     ];
 }

@@ -17,6 +17,10 @@
                          value="{{ old('is_penalty', @$advantage?->is_penalty ?? false) }}"
         />
 
+        <x-form.checkbox name="no_estitence_reduce_required"
+                         value="{{ old('no_estitence_reduce_required', @$skill?->no_estitence_reduce_required ?? false) }}"
+        />
+
         <x-button-submit/>
     </x-form.card>
 </x-form.base>

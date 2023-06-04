@@ -78,4 +78,5 @@ return [
     'additional_technique_points' => 'Доп. очки техник за происхождение',
     'max_techniques' => 'Максимум техник на персонажа',
     'technique_cost' => 'Стоимость техники в очках',
+    'no_estitence_reduce_required' => 'Требуется титул',
 ];

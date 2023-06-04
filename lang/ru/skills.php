@@ -17,4 +17,5 @@ return [
         '2' => 'Профессия',
         '3' => 'Мастерство',
     ],
+    'no_estitence_reduce_required' => '+ Титул',
 ];

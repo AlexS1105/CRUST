@@ -19,8 +19,16 @@
         @endif
 
         @foreach($skill->advantages as $advantage)
-            <div class="{{ $advantage->is_penalty ? 'bg-red-100 dark:bg-red-500' : 'bg-gray-100 dark:bg-gray-700' }} grid grid-cols-12 grid-flow-col items-center">
-                <div class="col-span-1 text-center font-bold text-lg">{{ $loop->first ? '<=' : '' }} {{ $advantage->level }} {{ $loop->last ? '<=' : '' }}</div>
+            <div class="{{ $advantage->is_penalty ? 'bg-red-100 dark:bg-red-500' : ($advantage->no_estitence_reduce_required ? 'bg-yellow-100 dark:bg-yellow-500' : 'bg-gray-100 dark:bg-gray-700') }} grid grid-cols-12 grid-flow-col items-center">
+                <div class="col-span-1 text-center font-bold text-lg">
+                    {{ $loop->first ? '<=' : '' }} {{ $advantage->level }} {{ $loop->last ? '<=' : '' }}
+
+                    @if($advantage->no_estitence_reduce_required)
+                        <div class="font-light text-xs text-yellow-700 dark:text-yellow-200">
+                            {{ __('skills.no_estitence_reduce_required') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="p-2 col-span-10 border-l border-dashed border-gray-400 dark:border-gray-900">{{ $advantage->description }}</div>
 
                 {{ ${'advantage_' . $advantage->id} ?? null }}

@@ -16,12 +16,14 @@ class AdvantageRequest extends FormRequest
     {
         $this->merge([
             'is_penalty' => $this->is_penalty === 'on',
+            'no_estitence_reduce_required' => $this->no_estitence_reduce_required === 'on',
         ]);
     }
 
     public function rules()
     {
         $skill = $this->route('skill');
+        $advantage = $this->route('advantage');
 
         return [
             'description' => ['required', 'max:2048'],
@@ -33,9 +35,11 @@ class AdvantageRequest extends FormRequest
                     ->where(fn ($query) => $query->where([
                         ['level', $this->level],
                         ['skill_id', $skill->id],
-                    ])),
+                    ]))
+                    ->ignore($advantage->id),
             ],
             'is_penalty' => ['boolean'],
+            'no_estitence_reduce_required' => ['boolean'],
         ];
     }
 }
