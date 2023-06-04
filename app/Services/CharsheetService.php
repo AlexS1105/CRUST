@@ -24,9 +24,7 @@ class CharsheetService
     public function saveStats($character, $validated)
     {
         $character->charsheet->update([
-            'stats' => array_map(function ($value) {
-                return intval($value);
-            }, $validated['stats']),
+            'stats' => array_map('intval', $validated['stats']),
         ]);
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
