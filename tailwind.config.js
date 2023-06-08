@@ -42,6 +42,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            dropShadow: {
+                xs: '0 0 1.2px rgba(0, 0, 0, 0.8)'
+            }
         },
     },
 

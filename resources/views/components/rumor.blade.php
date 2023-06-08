@@ -5,7 +5,7 @@
 
 <div class="px-3 py-2 rounded-xl dark:text-gray-100 bg-{{ $rumor->tide->color() }}-100 dark:bg-{{ $rumor->tide->color() }}-400 {{ $rumor->user->is(auth()->user()) ? 'border border-2 border-'.$rumor->tide->color().'-300 dark:border-'.$rumor->tide->color().'-500' : '' }}">
     <div class="flex justify-between gap-4">
-        <div class="text-lg">
+        <div class="text-lg dark:drop-shadow-xs">
             {{ $rumor->text }}
         </div>
         <div class="flex gap-2 right-0">
@@ -29,7 +29,7 @@
     <div class="mt-2 inline-flex gap-2 items-center">
         @if($self)
             @can('view', $rumor->character)
-                <x-link href="{{ route('characters.show', $rumor->character->login) }}">
+                <x-link class="dark:drop-shadow-xs" href="{{ route('characters.show', $rumor->character->login) }}">
                     {{ $rumor->character->name }}
                 </x-link>
             @else
@@ -38,15 +38,15 @@
         @endif
 
         @can('see-user', $rumor)
-            <div class="text-sm text-gray-500 dark:text-gray-200">
+            <div class="text-sm text-gray-500 dark:text-gray-200 dark:drop-shadow-xs">
                 {{ __('rumors.from') }}
             </div>
-            <div class="text-sm">
+            <div class="text-sm dark:drop-shadow-xs">
                 <x-user-link :user="$rumor->user"/>
             </div>
         @endcan
 
-        <div class="text-right text-xs text-gray-500 dark:text-gray-200" title="{{ $rumor->created_at }}">
+        <div class="text-right text-xs text-gray-500 dark:text-gray-200 dark:drop-shadow-xs" title="{{ $rumor->created_at }}">
             {{ $rumor->created_at->diffForHumans() }}
         </div>
     </div>

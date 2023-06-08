@@ -5,21 +5,23 @@
         @endphp
         <div class="bg-{{ $statEnum->color() }}-100 dark:bg-{{ $statEnum->color() }}-400 rounded-xl p-2">
             <div class="uppercase bg-{{ $statEnum->color() }}-300 dark:bg-{{ $statEnum->color() }}-500 text-center rounded-full font-bold">
-                {{ $statEnum->localized() }}
+                <div class="dark:drop-shadow-xs">
+                    {{ $statEnum->localized() }}
+                </div>
             </div>
 
             <div class="p-1 space-y-1">
                 @foreach($skillGroup as $skill)
                     <div class="bg-{{ $statEnum->color() }}-200 dark:bg-{{ $statEnum->color() }}-500 rounded-lg p-2 sm:flex justify-between items-center gap-2">
-                        <div class="text-lg {{ $skill->proficiency ? 'font-bold' : '' }}">
+                        <div class="text-lg dark:drop-shadow-xs {{ $skill->proficiency ? 'font-bold' : '' }}">
                             {{ $skill->name }}
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="text-center">
-                                <div class="text-xs">
+                                <div class="text-xs dark:drop-shadow-xs">
                                     {{ __('skills.cost') }}
                                 </div>
-                                <div class="text-xl font-bold" id="skill-{{ $skill->id }}">
+                                <div class="text-xl font-bold dark:drop-shadow-xs" id="skill-{{ $skill->id }}">
                                     0
                                 </div>
                             </div>

@@ -22,11 +22,11 @@
         type="submit"
         onclick="{{ $confirmationText }}">
         @isset($icon)
-            <div class="{{ $icon }}"></div>
+            <div class="{{ $icon }} dark:drop-shadow-xs"></div>
         @endif
 
         @if(! $icons)
-            <div class="font-bold text-sm inline-block ml-1 hidden sm:block">
+            <div class="font-bold text-sm inline-block ml-1 hidden sm:block dark:drop-shadow-xs">
                 {{ $text }}
             </div>
         @endunless

@@ -122,7 +122,7 @@
                             </x-header>
 
                             @if(!$character->estitence_reduce)
-                                <div class="my-2 text-xs text-green-500 dark:text-green-400">
+                                <div class="my-2 text-xs text-green-500 dark:text-green-400 dark:drop-shadow-xs">
                                     {{ __('characters.no_estitence_reduce') }}
                                 </div>
                             @endif
@@ -174,7 +174,7 @@
                     @endphp
 
                     @if($inequality != 0 && ! $character->stats_handled)
-                        <div class="mb-3 font-bold text-center {{ $positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}}">
+                        <div class="mb-3 font-bold text-center dark:drop-shadow-xs {{ $positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}}">
                             {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
                         </div>
                     @endif
@@ -219,7 +219,9 @@
 
                             <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
                                 <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
-                                    {{ $stat->localized() }}
+                                    <div class="dark:drop-shadow-xs">
+                                        {{ $stat->localized() }}
+                                    </div>
                                 </div>
 
                                 @foreach ($skills[$stat->value] as $skill)
@@ -234,7 +236,9 @@
 
                             <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
                                 <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
-                                    {{ $stat->localized() }}
+                                    <div class="dark:drop-shadow-xs">
+                                        {{ $stat->localized() }}
+                                    </div>
                                 </div>
 
                                 @foreach ($skills[$stat->value] as $skill)
