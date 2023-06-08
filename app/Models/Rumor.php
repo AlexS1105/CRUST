@@ -28,4 +28,9 @@ class Rumor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeActual($query)
+    {
+        return $query->where('created_at', '>=', now()->subWeeks(2));
+    }
 }

@@ -368,7 +368,7 @@
             </x-character.action>
         @endcan
 
-        @if($character->rumors->isNotEmpty() || auth()->user()->can('create', [App\Models\Rumor::class, $character]))
+        @if($character->rumors()->actual()->count() > 0 || auth()->user()->can('create', [App\Models\Rumor::class, $character]))
             <x-card>
                 <x-header>
                     {{ __('rumors.index') }}
@@ -386,7 +386,7 @@
                 @endcan
 
                 <div class="space-y-2">
-                    @foreach($character->rumors()->latest()->get() as $rumor)
+                    @foreach($character->rumors()->actual()->latest()->get() as $rumor)
                         <x-rumor :rumor="$rumor"/>
                     @endforeach
                 </div>
