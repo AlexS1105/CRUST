@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use App\Rules\DiscordTag;
 use App\Services\DiscordService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -20,7 +19,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'login' => ['required', 'string', 'max:255', 'unique:users'],
-            'discord_tag' => ['required', new DiscordTag(), 'unique:users'],
+            'discord_tag' => ['required', 'max:100', 'unique:users'],
             'discord_id' => ['required', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'age_confirmation' => ['accepted'],
