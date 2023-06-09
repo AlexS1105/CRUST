@@ -221,6 +221,9 @@ Route::middleware('auth')
                 Route::get('/rumors', [RumorController::class, 'index'])
                     ->name('rumors.index');
 
+                Route::get('/characters/{character:login}/rumors', [RumorController::class, 'character'])
+                    ->name('rumors.character');
+
                 Route::resource('characters.rumors', RumorController::class)
                     ->shallow()
                     ->scoped(['character' => 'login'])

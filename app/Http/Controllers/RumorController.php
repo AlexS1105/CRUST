@@ -21,6 +21,15 @@ class RumorController extends Controller
         return view('rumors.index', compact('rumors'));
     }
 
+    public function character(Character $character)
+    {
+        $rumors = $character->rumors()
+            ->latest()
+            ->paginate(20);
+
+        return view('rumors.index', compact('rumors'));
+    }
+
     public function create(Character $character)
     {
         $this->authorize('create', [Rumor::class, $character]);

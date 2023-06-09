@@ -394,6 +394,11 @@
                         <x-rumor :rumor="$rumor"/>
                     @endforeach
                 </div>
+
+                <a class="text-lg mt-2 flex max-w-fit space-x-2 items-center font-bold text-gray-600 dark:text-gray-200"
+                   href="{{ route('rumors.character', $character) }}">
+                    {{ __('rumors.character') }}
+                </a>
             </x-card>
         @endif
 

@@ -31,6 +31,6 @@ class Rumor extends Model
 
     public function scopeActual($query)
     {
-        return $query->where('created_at', '>=', now()->subWeeks(2));
+        return $query->limit(5);
     }
 }
