@@ -8,7 +8,7 @@
                     </div>
                 </div>
 
-                <div class="w-8 h-8 inline-flex text-center items-center justify-center bg-{{ $tide->color() }}-300 dark:bg-{{ $tide->color() }}-500 p-1 rounded-xl">
+                <div class="w-8 h-8 inline-flex text-center items-center justify-center bg-{{ $tide->color() }}-300 dark:bg-{{ $tide->color() }}-500 dark:text-gray-100 p-1 rounded-xl">
                     <div class="dark:drop-shadow-xs">
                         {{ ${'level_' . $tide->value} ?? '' }}
                     </div>
