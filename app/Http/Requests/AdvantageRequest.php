@@ -36,7 +36,7 @@ class AdvantageRequest extends FormRequest
                         ['level', $this->level],
                         ['skill_id', $skill->id],
                     ]))
-                    ->ignore($advantage->id),
+                    ->ignore($advantage?->id),
             ],
             'is_penalty' => ['boolean'],
             'no_estitence_reduce_required' => ['boolean'],
