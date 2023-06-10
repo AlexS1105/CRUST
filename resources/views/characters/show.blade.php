@@ -1,4 +1,4 @@
-@php use App\Enums\CharacterStat;use App\Models\Rumor; @endphp
+@php use App\Enums\CharacterStat;use App\Enums\CharacterTitle;use App\Models\Rumor; @endphp
 @extends('layouts.app')
 
 @section('title', $character->name)
@@ -121,7 +121,7 @@
                                 {{ __('label.estitence') }}: {{ $character->estitence }}
                             </x-header>
 
-                            @if(!$character->estitence_reduce)
+                            @if(!$character->affected_by_estitence_reduce)
                                 <div class="my-2 text-xs text-green-500 dark:text-green-400 dark:drop-shadow-xs">
                                     {{ __('characters.no_estitence_reduce') }}
                                 </div>
@@ -174,7 +174,8 @@
                     @endphp
 
                     @if($inequality != 0 && ! $character->stats_handled)
-                        <div class="mb-3 font-bold text-center dark:drop-shadow-xs {{ $positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}}">
+                        <div
+                            class="mb-3 font-bold text-center dark:drop-shadow-xs {{ $positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}}">
                             {{ __('charsheet.inequality.' . ($positive ? 'positive' : 'negative'), ['inequality' => abs($inequality)]) }}
                         </div>
                     @endif
@@ -212,20 +213,24 @@
                     {{ __('skills.index') }} ({{ $character->skill_sum }} / {{ $character->skill_points }})
                 </x-header>
 
-                <div id="skills-open" data-active-classes="rounded-t-xl" data-inactive-classes="rounded-xl" data-accordion="open" class="flex gap-4">
+                <div id="skills-open" data-active-classes="rounded-t-xl" data-inactive-classes="rounded-xl"
+                     data-accordion="open" class="flex gap-4">
                     <div class="w-1/2 space-y-1">
                         @foreach (CharacterStat::getBodyStats() as $stat)
                             @continue(!$skills->has($stat->value))
 
-                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
-                                <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
+                            <div
+                                class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
+                                <div
+                                    class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
                                     <div class="dark:drop-shadow-xs">
                                         {{ $stat->localized() }}
                                     </div>
                                 </div>
 
                                 @foreach ($skills[$stat->value] as $skill)
-                                    <x-character.skill :character="$character" :skill="$skill" :loop="$loop"></x-character.skill>
+                                    <x-character.skill :character="$character" :skill="$skill"
+                                                       :loop="$loop"></x-character.skill>
                                 @endforeach
                             </div>
                         @endforeach
@@ -234,15 +239,18 @@
                         @foreach (CharacterStat::getEssenceStats() as $stat)
                             @continue(!$skills->has($stat->value))
 
-                            <div class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
-                                <div class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
+                            <div
+                                class="p-2 border border-2 border-{{ $stat->color() }}-400 dark:border-{{ $stat->color() }}-600 rounded-xl">
+                                <div
+                                    class="bg-{{ $stat->color() }}-200 dark:bg-{{ $stat->color() }}-400 rounded-xl text-center text-lg font-bold">
                                     <div class="dark:drop-shadow-xs">
                                         {{ $stat->localized() }}
                                     </div>
                                 </div>
 
                                 @foreach ($skills[$stat->value] as $skill)
-                                    <x-character.skill :character="$character" :skill="$skill" :loop="$loop"></x-character.skill>
+                                    <x-character.skill :character="$character" :skill="$skill"
+                                                       :loop="$loop"></x-character.skill>
                                 @endforeach
                             </div>
                         @endforeach
@@ -343,6 +351,24 @@
         @endcan
 
         @can('see-player-only-info', $character)
+            @if ($character->title != CharacterTitle::None || auth()->user()->can('update-charsheet-gm', $character))
+                <x-card class="mx-auto w-max max-w-full">
+                    <div class="text-center">
+                        {{ __('title.index') }}
+                    </div>
+
+                    <div class="text-4xl text-center font-bold">
+                        {{ $character->title->localized() }}
+                    </div>
+                </x-card>
+            @endif
+
+            @can('update-charsheet-gm', $character)
+                <x-character.action href="{{ route('characters.title.edit', $character) }}">
+                    {{ __('title.update') }}
+                </x-character.action>
+            @endcan
+
             @if (count($character->tides))
                 <x-card class=" mx-auto w-max max-w-full">
                     <x-header>

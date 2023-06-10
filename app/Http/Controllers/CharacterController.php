@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\CharacterStatus;
 use App\Http\Requests\CharacterRequest;
+use App\Http\Requests\CharacterTitleRequest;
 use App\Models\Character;
 use App\Models\Perk;
 use App\Models\Skill;
@@ -101,5 +102,21 @@ class CharacterController extends Controller
         $this->characterService->forceDelete($character);
 
         return to_route('characters.index');
+    }
+
+    public function editTitle(Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        return view('characters.title', compact('character'));
+    }
+
+    public function updateTitle(CharacterTitleRequest $request, Character $character)
+    {
+        $this->authorize('update-charsheet-gm', $character);
+
+        $character->update($request->validated());
+
+        return to_route('characters.show', $character);
     }
 }

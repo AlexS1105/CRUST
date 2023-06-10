@@ -224,6 +224,17 @@ Route::middleware('auth')
                 Route::get('/characters/{character:login}/rumors', [RumorController::class, 'character'])
                     ->name('rumors.character');
 
+                Route::controller(CharacterController::class)
+                    ->prefix('/characters/{character:login}/')
+                    ->name('characters.title.')
+                    ->group(function () {
+                        Route::get('title', 'editTitle')
+                            ->name('edit');
+
+                        Route::put('title', 'updateTitle')
+                            ->name('update');
+                    });
+
                 Route::resource('characters.rumors', RumorController::class)
                     ->shallow()
                     ->scoped(['character' => 'login'])

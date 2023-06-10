@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CharacterOrigin;
 use App\Enums\CharacterStat;
 use App\Enums\CharacterStatus;
+use App\Enums\CharacterTitle;
 use App\Services\CharacterService;
 use App\Settings\CharsheetSettings;
 use App\Traits\Searchable;
@@ -137,6 +138,7 @@ class Character extends Model
         'technique_points',
         'stats_handled',
         'estitence_reduce',
+        'title',
     ];
 
     protected $casts = [
@@ -144,6 +146,7 @@ class Character extends Model
         'origin' => CharacterOrigin::class,
         'info_hidden' => 'boolean',
         'bio_hidden' => 'boolean',
+        'title' => CharacterTitle::class,
     ];
 
     public function scopeAffectedByEstitenceReduce($query)
@@ -152,8 +155,14 @@ class Character extends Model
             ['estitence', '>', app(CharsheetSettings::class)->safe_estitence],
             ['last_online_at', '>', now()->subWeeks(2)],
             ['origin', '!=', CharacterOrigin::Incarnated],
-            ['estitence_reduce', '=', true],
+            ['estitence_reduce', true],
+            ['title', CharacterTitle::None->value],
         ]);
+    }
+
+    public function affectedByEstitenceReduce(): Attribute
+    {
+        return Attribute::get(fn () => $this->estitence_reduce && $this->title == CharacterTitle::None);
     }
 
     public function user()

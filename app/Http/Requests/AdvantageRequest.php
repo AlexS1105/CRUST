@@ -16,7 +16,7 @@ class AdvantageRequest extends FormRequest
     {
         $this->merge([
             'is_penalty' => $this->is_penalty === 'on',
-            'no_estitence_reduce_required' => $this->no_estitence_reduce_required === 'on',
+            'titled' => $this->titled === 'on',
         ]);
     }
 
@@ -39,7 +39,7 @@ class AdvantageRequest extends FormRequest
                     ->ignore($advantage?->id),
             ],
             'is_penalty' => ['boolean'],
-            'no_estitence_reduce_required' => ['boolean'],
+            'titled' => ['boolean'],
         ];
     }
 }

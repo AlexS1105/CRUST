@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\CharacterOrigin;
 use App\Enums\CharacterStatus;
+use App\Enums\CharacterTitle;
 use App\Models\Character;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -38,6 +39,7 @@ class CharacterFactory extends Factory
             'talent_points' => $this->faker->numberBetween(12, 42),
             'experience' => $this->faker->numberBetween(0, 20),
             'technique_points' => $this->faker->numberBetween(5, 35),
+            'title' => CharacterTitle::from(array_rand(CharacterTitle::cases())),
         ];
     }
 }
