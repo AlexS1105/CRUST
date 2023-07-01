@@ -9,6 +9,7 @@ use App\Http\Controllers\CharsheetController;
 use App\Http\Controllers\CharsheetSettingsController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\EstitenceController;
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
@@ -146,15 +147,6 @@ Route::middleware('auth')
                                 Route::patch('tides', 'updateTides')
                                     ->name('update');
                             });
-
-                        Route::name('experience.')
-                            ->group(function () {
-                                Route::get('experience', 'editExperience')
-                                    ->name('edit');
-
-                                Route::patch('experience', 'updateExperience')
-                                    ->name('update');
-                            });
                     });
 
                 Route::controller(ApplicationController::class)
@@ -215,6 +207,10 @@ Route::middleware('auth')
                     ->name('wiki.index');
 
                 Route::resource('characters.estitence', EstitenceController::class)
+                    ->scoped(['character' => 'login'])
+                    ->only(['index', 'create', 'store']);
+
+                Route::resource('characters.experience', ExperienceController::class)
                     ->scoped(['character' => 'login'])
                     ->only(['index', 'create', 'store']);
 

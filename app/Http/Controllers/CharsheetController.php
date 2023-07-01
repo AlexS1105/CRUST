@@ -17,6 +17,7 @@ use App\Models\Skill;
 use App\Models\Talent;
 use App\Models\Technique;
 use App\Services\CharsheetService;
+use App\Services\ExperienceService;
 use App\Settings\CharsheetSettings;
 
 class CharsheetController extends Controller
@@ -174,14 +175,14 @@ class CharsheetController extends Controller
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        return view('characters.experience', compact('character'));
+        return view('characters.experience.index', compact('character'));
     }
 
-    public function updateExperience(CharacterExperienceRequest $request, Character $character)
+    public function updateExperience(ExperienceService $service, CharacterExperienceRequest $request, Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);
 
-        $character->update($request->validated());
+        $service->changeExperience($character, ...$request->validated());
 
         return to_route('characters.show', $character);
     }

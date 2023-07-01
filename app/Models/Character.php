@@ -43,7 +43,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int $estitence
  * @property string|null $personality
  * @property string|null $last_idea
- *
  * @property-read Charsheet|null $charsheet
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Experience> $experiences
  * @property-read int|null $experiences_count
@@ -62,7 +61,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|array<EstitenceLog> $estitenceLogs
  * @property-read int|null $estitence_logs_count
- *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, $operator = '>=', $count = 1, $boolean = 'and', ?\Closure $callback = null)
  * @method static \Database\Factories\CharacterFactory factory(...$parameters)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character filter($request)
@@ -95,7 +93,46 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUpdatedAt($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUserId($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereEstitence($value)
- *
+ * @property CharacterOrigin $origin
+ * @property string|null $notion_page
+ * @property string|null $last_online_at
+ * @property int $stats_handled
+ * @property string $legacy
+ * @property int $perk_points
+ * @property int $skill_points
+ * @property int $talent_points
+ * @property int $experience
+ * @property int $estitence_reduce
+ * @property int $technique_points
+ * @property CharacterTitle $title
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExperienceLog> $experienceLogs
+ * @property-read int|null $experience_logs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perk> $perks
+ * @property-read int|null $perks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
+ * @property-read int|null $rumors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Skill> $skills
+ * @property-read int|null $skills_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Talent> $talents
+ * @property-read int|null $talents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Technique> $techniques
+ * @property-read int|null $techniques_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tide> $tides
+ * @property-read int|null $tides_count
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character affectedByEstitenceReduce()
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character status($status)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereEstitenceReduce($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereExperience($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereLastOnlineAt($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereLegacy($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereNotionPage($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereOrigin($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character wherePerkPoints($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereSkillPoints($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereStatsHandled($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTalentPoints($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTechniquePoints($value)
+ * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTitle($value)
  * @mixin \Eloquent
  */
 class Character extends Model
@@ -200,6 +237,11 @@ class Character extends Model
     public function estitenceLogs()
     {
         return $this->hasMany(EstitenceLog::class);
+    }
+
+    public function experienceLogs()
+    {
+        return $this->hasMany(ExperienceLog::class);
     }
 
     public function skills()

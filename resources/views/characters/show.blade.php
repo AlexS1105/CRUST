@@ -148,9 +148,15 @@
                             </x-header>
 
                             <div class="space-x-2">
+                                @can('see-player-only-info', $character)
+                                    <x-link href="{{ route('characters.experience.index', $character) }}">
+                                        {{ __('experience.index') }}
+                                    </x-link>
+                                @endcan
+
                                 @can('update-charsheet-gm', $character)
-                                    <x-link href="{{ route('characters.experience.edit', $character) }}">
-                                        {{ __('experience.edit') }}
+                                    <x-link href="{{ route('characters.experience.create', $character) }}">
+                                        {{ __('experience.create') }}
                                     </x-link>
                                 @endcan
                             </div>
