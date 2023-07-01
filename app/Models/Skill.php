@@ -32,6 +32,10 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereProficiency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereStat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Advantage> $advantages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Advantage> $advantages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @mixin \Eloquent
  */
 class Skill extends Model

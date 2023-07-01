@@ -8,6 +8,7 @@ use App\Rules\SkillPool;
 use App\Rules\StatPool;
 use App\Rules\TalentPool;
 use App\Rules\TechniquePool;
+use App\Rules\TideUpdate;
 use App\Services\CharsheetService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\In;
@@ -64,6 +65,7 @@ class CharsheetRequest extends FormRequest
                 'technique_points' => ['numeric', 'min:0', 'max:200'],
                 'tides.*.level' => ['min:0', 'max:1000'],
                 'estitence_reduce' => ['sometimes', 'boolean'],
+                'reason' => [new TideUpdate($character), 'max:256'],
             ]);
         }
 

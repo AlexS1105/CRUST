@@ -69,6 +69,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereVerified($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
  * @property-read int|null $rumors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
  * @mixin \Eloquent
  */
 class User extends Authenticatable

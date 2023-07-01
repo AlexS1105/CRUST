@@ -133,6 +133,23 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTalentPoints($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTechniquePoints($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTitle($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExperienceLog> $experienceLogs
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perk> $perks
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Skill> $skills
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Talent> $talents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Technique> $techniques
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TideLog> $tideLogs
+ * @property-read int|null $tide_logs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tide> $tides
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExperienceLog> $experienceLogs
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perk> $perks
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Skill> $skills
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Talent> $talents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Technique> $techniques
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TideLog> $tideLogs
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tide> $tides
  * @mixin \Eloquent
  */
 class Character extends Model
@@ -242,6 +259,11 @@ class Character extends Model
     public function experienceLogs()
     {
         return $this->hasMany(ExperienceLog::class);
+    }
+
+    public function tideLogs()
+    {
+        return $this->hasMany(TideLog::class);
     }
 
     public function skills()

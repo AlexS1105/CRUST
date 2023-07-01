@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\Tide;
+use App\Rules\TideUpdate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\In;
 
@@ -25,6 +26,7 @@ class CharacterTideRequest extends FormRequest
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             $rules = array_merge($rules, [
                 'tides.*.level' => ['min:0', 'max:1000'],
+                'reason' => [new TideUpdate($character), 'max:256'],
             ]);
         }
 

@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @mixin \Eloquent
  */
 class Talent extends Model

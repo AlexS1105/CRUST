@@ -155,22 +155,6 @@ class CharsheetController extends Controller
         return to_route('characters.show', $character);
     }
 
-    public function editTides(Character $character)
-    {
-        $this->authorize('update-charsheet-gm', $character);
-
-        return view('characters.tides', compact('character'));
-    }
-
-    public function updateTides(CharacterTideRequest $request, Character $character)
-    {
-        $this->authorize('update-charsheet-gm', $character);
-
-        $this->charsheetService->saveTides($character, $request->validated());
-
-        return to_route('characters.show', $character);
-    }
-
     public function editExperience(Character $character)
     {
         $this->authorize('update-charsheet-gm', $character);

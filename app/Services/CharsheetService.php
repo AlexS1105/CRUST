@@ -100,12 +100,14 @@ class CharsheetService
         ]);
     }
 
-    public function saveTides($character, $validated, $isGm = false)
+    public function saveTides($character, $validated)
     {
         $isGm = auth()->user()->can('update-charsheet-gm', $character);
 
+        $tides = $character->tides;
+
         foreach ($validated['tides'] as $id => $tideData) {
-            $tide = $character->tides()->find($id);
+            $tide = $tides->firstWhere('id', $id);
 
             if ($tide == null) {
                 continue;
@@ -116,7 +118,23 @@ class CharsheetService
             }
 
             if ($isGm && isset($tideData['level'])) {
-                $tide->level = $tideData['level'];
+                $tide->level = intval($tideData['level']);
+            }
+        }
+
+        foreach ($tides as $tide) {
+            if ($tide->isDirty('level')) {
+                $before = $tide->getOriginal('level');
+                $after = $tide->level;
+
+                $character->tideLogs()->create([
+                    'issued_by' => auth()->user()?->id,
+                    'before' => $before,
+                    'after' => $after,
+                    'reason' => $validated['reason'],
+                    'delta' => $after - $before,
+                    'tide' => $tide->tide,
+                ]);
             }
 
             $tide->save();

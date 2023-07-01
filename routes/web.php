@@ -20,6 +20,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\TechniqueController;
+use App\Http\Controllers\TideController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
@@ -138,15 +139,6 @@ Route::middleware('auth')
                                 Route::patch('techniques', 'updateTechniques')
                                     ->name('update');
                             });
-
-                        Route::name('tides.')
-                            ->group(function () {
-                                Route::get('tides', 'editTides')
-                                    ->name('edit');
-
-                                Route::patch('tides', 'updateTides')
-                                    ->name('update');
-                            });
                     });
 
                 Route::controller(ApplicationController::class)
@@ -213,6 +205,20 @@ Route::middleware('auth')
                 Route::resource('characters.experience', ExperienceController::class)
                     ->scoped(['character' => 'login'])
                     ->only(['index', 'create', 'store']);
+
+                Route::controller(TideController::class)
+                    ->prefix('/characters/{character:login}/tides/')
+                    ->name('characters.tides.')
+                    ->group(function () {
+                        Route::get('', 'index')
+                            ->name('index');
+
+                        Route::get('edit', 'edit')
+                            ->name('edit');
+
+                        Route::patch('', 'update')
+                            ->name('update');
+                    });
 
                 Route::get('/rumors', [RumorController::class, 'index'])
                     ->name('rumors.index');

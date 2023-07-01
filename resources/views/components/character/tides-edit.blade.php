@@ -37,3 +37,7 @@
 <x-form.error name="tides.*.path"/>
 <x-form.error name="tides.*.level"/>
 <x-form.error name="tides.*.tide"/>
+
+@can('update-charsheet-gm', $character)
+    <x-form.input name="reason" maxlength="100" :value="old('reason')"/>
+@endcan

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('header', __('tides.update'))
+@section('header', __('tides.edit'))
 
 @section('content')
     <x-container>

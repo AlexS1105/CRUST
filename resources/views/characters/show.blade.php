@@ -379,6 +379,12 @@
                 <x-card class=" mx-auto w-max max-w-full">
                     <x-header>
                         {{ __('tides.index') }}
+
+                        @can('see-player-only-info', $character)
+                            <x-link href="{{ route('characters.tides.index', $character) }}">
+                                {{ __('tides.logs') }}
+                            </x-link>
+                        @endcan
                     </x-header>
 
                     <x-character.tides>
@@ -400,7 +406,7 @@
 
         @can('update-charsheet-gm', $character)
             <x-character.action href="{{ route('characters.tides.edit', $character) }}">
-                {{ __('tides.update') }}
+                {{ __('tides.edit') }}
             </x-character.action>
         @endcan
 
