@@ -27,7 +27,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $verified
- *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Account> $accounts
  * @property-read int|null $accounts_count
  * @property-read Ban|null $ban
@@ -49,7 +48,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|array<\Laravel\Passport\Token> $tokens
  * @property-read int|null $tokens_count
- *
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -69,7 +67,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereVerified($value)
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
+ * @property-read int|null $rumors_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable

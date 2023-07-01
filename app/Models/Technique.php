@@ -8,6 +8,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Technique
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read int|null $characters_count
+ * @method static \Database\Factories\TechniqueFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique forCharacter($character)
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Technique whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Technique extends Model
 {
     use HasFactory;

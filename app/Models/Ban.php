@@ -16,10 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $expires
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read User|null $by
  * @property-read User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Ban newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Ban newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Ban query()
@@ -30,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Ban whereReason($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ban whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ban whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class Ban extends Model

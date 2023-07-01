@@ -6,6 +6,28 @@ use App\Services\CharacterService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * App\Models\CharacterSkill
+ *
+ * @property int $id
+ * @property int $character_id
+ * @property int $skill_id
+ * @property int $level
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Character $character
+ * @property-read \App\Models\Skill $skill
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereCharacterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereSkillId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class CharacterSkill extends Pivot
 {
     public function character()

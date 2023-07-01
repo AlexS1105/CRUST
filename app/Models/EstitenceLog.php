@@ -17,10 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $reason
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read Character $character
  * @property-read User|null $issuedBy
- *
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog query()
@@ -33,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog whereIssuedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog whereReason($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EstitenceLog whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class EstitenceLog extends Model
