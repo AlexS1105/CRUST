@@ -69,7 +69,7 @@
                 </x-table>
             @else
                 <p class="pt-4 text-xl font-semibold text-gray-500 dark:text-gray-300 text-center">
-                    {{ __('experience.empty') }}
+                    {{ __('tides.empty') }}
                 </p>
             @endif
         </div>
