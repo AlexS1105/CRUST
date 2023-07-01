@@ -47,7 +47,10 @@ class CharsheetService
         }));
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
-            $character->update(['perk_points' => $validated['perk_points']]);
+            $character->update([
+                'perk_points' => $validated['perk_points'],
+                'perks_amount' => $validated['perks_amount'] ?? null,
+            ]);
         }
 
         info('Character perks updated', [
@@ -77,7 +80,10 @@ class CharsheetService
         $character->talents()->sync(collect($validated['talents'] ?? [])->keys());
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
-            $character->update(['talent_points' => $validated['talent_points']]);
+            $character->update([
+                'talent_points' => $validated['talent_points'],
+                'talents_amount' => $validated['talents_amount'] ?? null,
+            ]);
         }
 
         info('Character talents updated', [
@@ -91,7 +97,10 @@ class CharsheetService
         $character->techniques()->sync(collect($validated['techniques'] ?? [])->keys());
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
-            $character->update(['technique_points' => $validated['technique_points']]);
+            $character->update([
+                'technique_points' => $validated['technique_points'],
+                'techniques_amount' => $validated['techniques_amount'] ?? null,
+            ]);
         }
 
         info('Character techniques updated', [

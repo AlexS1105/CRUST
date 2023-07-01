@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\DB;
  * @property int $cost
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
+ *
  * @method static \Database\Factories\TalentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Talent forCharacter($character)
  * @method static \Illuminate\Database\Eloquent\Builder|Talent newModelQuery()
@@ -28,8 +30,10 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Talent whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ *
  * @mixin \Eloquent
  */
 class Talent extends Model

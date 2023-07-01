@@ -42,6 +42,12 @@ window.updateTalentPoints = function() {
     updateTalents()
 }
 
+window.updateMaxTalentsAmount = function() {
+    let input = document.getElementById('talents_amount')
+    let talentAmountLabel = document.getElementById('max-talent-amount')
+    talentAmountLabel.innerHTML = input.value
+}
+
 if (typeof (maxTalents) != 'undefined') {
     updateTalents()
 }

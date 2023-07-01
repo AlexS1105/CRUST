@@ -283,7 +283,7 @@
                             {{ __('perks.index') }}
                             ({{ $character->perk_sum }} / {{ $character->perk_points }} {{ __('perks.points') }})
                             ({{ $character->perks->count() }}
-                            / {{ app(App\Settings\CharsheetSettings::class)->max_perks }} {{ __('perks.slots') }})
+                            / {{ $character->max_perk_amount }} {{ __('perks.slots') }})
                         </x-header>
 
                         <div class="md:grid md:grid-cols-2 md:gap-4 md:space-y-0 space-y-4">

@@ -43,6 +43,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int $estitence
  * @property string|null $personality
  * @property string|null $last_idea
+ *
  * @property-read Charsheet|null $charsheet
  * @property-read \Illuminate\Database\Eloquent\Collection|array<Experience> $experiences
  * @property-read int|null $experiences_count
@@ -61,6 +62,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|array<EstitenceLog> $estitenceLogs
  * @property-read int|null $estitence_logs_count
+ *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, $operator = '>=', $count = 1, $boolean = 'and', ?\Closure $callback = null)
  * @method static \Database\Factories\CharacterFactory factory(...$parameters)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character filter($request)
@@ -93,6 +95,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUpdatedAt($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereUserId($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereEstitence($value)
+ *
  * @property CharacterOrigin $origin
  * @property string|null $notion_page
  * @property string|null $last_online_at
@@ -105,6 +108,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property int $estitence_reduce
  * @property int $technique_points
  * @property CharacterTitle $title
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExperienceLog> $experienceLogs
  * @property-read int|null $experience_logs_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perk> $perks
@@ -119,6 +123,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read int|null $techniques_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tide> $tides
  * @property-read int|null $tides_count
+ *
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character affectedByEstitenceReduce()
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character status($status)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereEstitenceReduce($value)
@@ -133,6 +138,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTalentPoints($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTechniquePoints($value)
  * @method static \Jenssegers\Mongodb\Helpers\EloquentBuilder|Character whereTitle($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExperienceLog> $experienceLogs
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perk> $perks
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rumor> $rumors
@@ -150,6 +156,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Technique> $techniques
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TideLog> $tideLogs
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tide> $tides
+ *
  * @mixin \Eloquent
  */
 class Character extends Model
@@ -193,6 +200,9 @@ class Character extends Model
         'stats_handled',
         'estitence_reduce',
         'title',
+        'perks_amount',
+        'talents_amount',
+        'techniques_amount',
     ];
 
     protected $casts = [
@@ -431,10 +441,25 @@ class Character extends Model
         );
     }
 
+    public function maxPerkAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->perks_amount ?? app(CharsheetSettings::class)->max_perks,
+        );
+    }
+
     public function maxTalentAmount(): Attribute
     {
         return Attribute::make(
-            get: fn () => ceil(max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2)),
+            get: fn () => $this->talents_amount
+                ?? ceil(max(2, $this->charsheet->stats[CharacterStat::Determination->value] / 2)),
+        );
+    }
+
+    public function maxTechniqueAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->techniques_amount ?? app(CharsheetSettings::class)->max_techniques,
         );
     }
 
@@ -456,15 +481,6 @@ class Character extends Model
     {
         return Attribute::make(
             get: fn () => $this->techniques->reduce(fn ($sum, $technique) => $sum + $technique->cost),
-        );
-    }
-
-    public function maxTechniqueAmount(): Attribute
-    {
-        $settings = app(CharsheetSettings::class);
-
-        return Attribute::make(
-            get: fn () => $settings->max_techniques,
         );
     }
 

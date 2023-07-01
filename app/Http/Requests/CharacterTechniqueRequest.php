@@ -28,6 +28,7 @@ class CharacterTechniqueRequest extends FormRequest
         return [
             'techniques' => [new TechniquePool($character)],
             'technique_points' => ['numeric', 'min:0', 'max:200'],
+            'techniques_amount' => ['sometimes', 'min:0', 'max:100'],
         ];
     }
 }

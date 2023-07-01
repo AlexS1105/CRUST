@@ -40,7 +40,7 @@
         <div id="talent-count">
             0
         </div>
-        / {{ $character->max_talent_amount }}
+        / <div id="max-talent-amount">{{ old('talents_amount', $character->talents_amount ?? $character->max_talent_amount) }}</div>
     </div>
     <div class="font-bold text-lg text-right flex justify-end gap-2">
         {{ __('charsheet.points.talent_points') }}
@@ -56,8 +56,7 @@
 
 @can('update-charsheet-gm', $character)
     <x-form.input name="talent_points" type="number" required min="0" max="100" onchange="updateTalentPoints()" :value="old('talent_points', $character->talent_points)"/>
-
-    <x-form.error name="talent_points"/>
+    <x-form.input name="talents_amount" type="number" min="0" max="100" onchange="updateMaxTalentsAmount()" :value="old('talents_amount', $character->talents_amount)"/>
 @endcan
 
 <script>

@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\DB;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $general_description
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|array<PerkVariant> $variants
  * @property-read int|null $variants_count
+ *
  * @method static \Database\Factories\PerkFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk hasAllFlags(string $column, array $flags)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk hasAnyFlags(string $column, array $flags)
@@ -35,11 +37,14 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereUpdatedAt($value)
+ *
  * @property string|null $description
  * @property int $cost
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Perk forCharacter($character)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Perk whereDescription($value)
+ *
  * @mixin \Eloquent
  */
 class Perk extends Model

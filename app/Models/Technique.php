@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\DB;
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
+ *
  * @method static \Database\Factories\TechniqueFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Technique forCharacter($character)
  * @method static \Illuminate\Database\Eloquent\Builder|Technique newModelQuery()
@@ -28,8 +30,10 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Technique whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Technique whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Technique whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ *
  * @mixin \Eloquent
  */
 class Technique extends Model

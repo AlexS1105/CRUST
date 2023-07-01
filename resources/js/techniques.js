@@ -42,6 +42,12 @@ window.updateTechniquePoints = function() {
     updateTechniques()
 }
 
+window.updateMaxTechniquesAmount = function() {
+    let input = document.getElementById('techniques_amount')
+    let techniquesAmountLabel = document.getElementById('max-technique-amount')
+    techniquesAmountLabel.innerHTML = input.value
+}
+
 if (typeof (maxTechniques) != 'undefined') {
     updateTechniques()
 }

@@ -2,7 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\CharacterStat;
 use App\Models\Talent;
+use App\Settings\CharsheetSettings;
 use Illuminate\Contracts\Validation\Rule;
 
 class TalentPool implements Rule
@@ -27,6 +29,7 @@ class TalentPool implements Rule
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             $talentPoints = request('talent_points', $talentPoints);
+            $maxTalents = request('talents_amount', $this->getDefaultTalentsAmount());
         }
 
         $talents = Talent::all();
@@ -64,5 +67,10 @@ class TalentPool implements Rule
     public function message()
     {
         return __($this->message);
+    }
+
+    private function getDefaultTalentsAmount()
+    {
+        return ceil(max(2, request('stats.determination', 1) / 2));
     }
 }

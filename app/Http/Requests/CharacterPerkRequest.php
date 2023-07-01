@@ -27,6 +27,7 @@ class CharacterPerkRequest extends FormRequest
         return [
             'perks' => [new PerkPool($character)],
             'perk_points' => ['numeric', 'min:0', 'max:200'],
+            'perks_amount' => ['sometimes', 'min:0', 'max:100'],
         ];
     }
 }

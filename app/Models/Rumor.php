@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \App\Enums\Tide $tide
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\Character $character
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Rumor actual()
  * @method static \Database\Factories\RumorFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Rumor newModelQuery()
@@ -29,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Rumor whereTide($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rumor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rumor whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Rumor extends Model

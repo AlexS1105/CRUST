@@ -51,7 +51,7 @@
         <div id="perk-count">
             0
         </div>
-        / {{ $maxPerks }}
+        / <div id="max-perk-amount">{{ old('perks_amount', $character->perks_amount ?? $character->max_perk_amount) }}</div>
     </div>
     <div class="font-bold text-lg text-right flex justify-end gap-2">
         {{ __('charsheet.points.perk_points') }}
@@ -67,11 +67,10 @@
 
 @can('update-charsheet-gm', $character)
     <x-form.input name="perk_points" type="number" required min="0" max="100" onchange="updatePerkPoints()" :value="old('perk_points', $character->perk_points)"/>
-
-    <x-form.error name="perk_points"/>
+    <x-form.input name="perks_amount" type="number" min="0" max="100" onchange="updateMaxPerksAmount()" :value="old('perks_amount', $character->perks_amount)"/>
 @endcan
 
 <script>
-    let maxPerks = @json($maxPerks);
+    let maxPerks = @json($character->max_perk_amount);
     let perkPoints = @json($character->perk_points);
 </script>

@@ -80,4 +80,7 @@ return [
     'technique_cost' => 'Стоимость техники в очках',
     'titled' => 'Требуется титул',
     'title' => 'Титул',
+    'perks_amount' => 'Количество перков',
+    'talents_amount' => 'Количество талантов',
+    'techniques_amount' => 'Количество техник',
 ];

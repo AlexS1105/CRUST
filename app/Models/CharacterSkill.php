@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $level
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\Character $character
  * @property-read \App\Models\Skill $skill
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill query()
@@ -26,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereSkillId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CharacterSkill whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CharacterSkill extends Pivot

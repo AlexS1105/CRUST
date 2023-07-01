@@ -27,6 +27,7 @@ class TechniquePool implements Rule
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
             $techniquePoints = request('technique_points', $techniquePoints);
+            $maxTechniques = request('techniques_amount', $maxTechniques);
         }
 
         $techniques = Technique::all();

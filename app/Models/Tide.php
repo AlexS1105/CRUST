@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\Character $character
+ *
  * @method static \Database\Factories\TideFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Tide newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tide newQuery()
@@ -27,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Tide wherePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tide whereTide($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tide whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Tide extends Model

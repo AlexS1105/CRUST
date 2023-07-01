@@ -17,8 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $reason
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\Character $character
  * @property-read \App\Models\User|null $issuedBy
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog query()
@@ -31,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog whereIssuedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog whereReason($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ExperienceLog whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class ExperienceLog extends Model

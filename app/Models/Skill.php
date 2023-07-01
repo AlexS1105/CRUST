@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\DB;
  * @property CharacterStat $stat
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Advantage> $advantages
  * @property-read int|null $advantages_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
+ *
  * @method static \Database\Factories\SkillFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Skill newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Skill newQuery()
@@ -32,10 +34,12 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereProficiency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereStat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Skill whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Advantage> $advantages
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Advantage> $advantages
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ *
  * @mixin \Eloquent
  */
 class Skill extends Model

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $titled
+ *
  * @method static \Database\Factories\AdvantageFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Advantage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Advantage newQuery()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Advantage whereSkillId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Advantage whereTitled($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Advantage whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Advantage extends Model
