@@ -189,4 +189,16 @@ class CharacterPolicy
             || $user->hasPermissionTo('character-manage')
             || $user->registers($character);
     }
+
+    public function addAttunement(User $user, Character $character)
+    {
+        return $this->updateCharsheetGm($user, $character)
+            && $character->attunement_slots > $character->attunements()->count();
+    }
+
+    public function addModification(User $user, Character $character)
+    {
+        return $this->updateCharsheetGm($user, $character)
+            && $character->modification_slots > $character->modifications()->count();
+    }
 }

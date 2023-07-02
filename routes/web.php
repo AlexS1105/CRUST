@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdvantageController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AttunementController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharsheetController;
@@ -13,11 +14,13 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\GeneralSettingsController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MinecraftAuthController;
+use App\Http\Controllers\ModificationController;
 use App\Http\Controllers\PerkController;
 use App\Http\Controllers\RumorController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
+use App\Http\Controllers\SoulboundController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\TechniqueController;
 use App\Http\Controllers\TideController;
@@ -239,6 +242,18 @@ Route::middleware('auth')
 
                 Route::resource('characters.rumors', RumorController::class)
                     ->shallow()
+                    ->scoped(['character' => 'login'])
+                    ->except(['index', 'show']);
+
+                Route::resource('characters.attunements', AttunementController::class)
+                    ->scoped(['character' => 'login'])
+                    ->except(['index', 'show']);
+
+                Route::resource('characters.modifications', ModificationController::class)
+                    ->scoped(['character' => 'login'])
+                    ->except(['index', 'show']);
+
+                Route::resource('characters.soulbounds', SoulboundController::class)
                     ->scoped(['character' => 'login'])
                     ->except(['index', 'show']);
 

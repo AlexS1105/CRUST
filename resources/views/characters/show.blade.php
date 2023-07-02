@@ -357,6 +357,20 @@
         @endcan
 
         @can('see-player-only-info', $character)
+            @if($character->attunements->count() > 0 || auth()->user()->can('add-attunement', $character))
+                <x-character.attunements :character="$character" />
+            @endif
+
+            @if($character->modifications->count() > 0 || auth()->user()->can('add-modification', $character))
+                <x-character.modifications :character="$character" />
+            @endif
+
+            @if($character->soulbounds->count() > 0 || auth()->user()->can('update-charsheet-gm', $character))
+                <x-character.soulbounds :character="$character" />
+            @endif
+        @endcan
+
+        @can('see-player-only-info', $character)
             @if ($character->title != CharacterTitle::None || auth()->user()->can('update-charsheet-gm', $character))
                 <x-card class="mx-auto w-max max-w-full">
                     <div class="text-center">

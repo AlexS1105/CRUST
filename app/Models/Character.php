@@ -203,6 +203,8 @@ class Character extends Model
         'perks_amount',
         'talents_amount',
         'techniques_amount',
+        'attunement_slots',
+        'modification_slots',
     ];
 
     protected $casts = [
@@ -299,6 +301,21 @@ class Character extends Model
     public function techniques()
     {
         return $this->belongsToMany(Technique::class, 'character_technique');
+    }
+
+    public function attunements()
+    {
+        return $this->hasMany(Attunement::class);
+    }
+
+    public function modifications()
+    {
+        return $this->hasMany(Modification::class);
+    }
+
+    public function soulbounds()
+    {
+        return $this->hasMany(Soulbound::class);
     }
 
     public function scopeFilter($query, $request)

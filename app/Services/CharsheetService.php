@@ -31,6 +31,8 @@ class CharsheetService
             $character->update([
                 'stats_handled' => $validated['stats_handled'],
                 'estitence_reduce' => $validated['estitence_reduce'],
+                'attunement_slots' => $validated['attunement_slots'],
+                'modification_slots' => $validated['modification_slots'],
             ]);
         }
 

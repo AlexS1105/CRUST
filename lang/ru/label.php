@@ -83,4 +83,6 @@ return [
     'perks_amount' => 'Количество перков',
     'talents_amount' => 'Количество талантов',
     'techniques_amount' => 'Количество техник',
+    'attunement_slots' => 'Слоты настройки',
+    'modification_slots' => 'Слоты модификаций',
 ];

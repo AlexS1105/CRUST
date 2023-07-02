@@ -69,6 +69,8 @@ class CharsheetRequest extends FormRequest
                 'tides.*.level' => ['min:0', 'max:1000'],
                 'estitence_reduce' => ['sometimes', 'boolean'],
                 'reason' => [new TideUpdate($character), 'max:256'],
+                'attunement_slots' => ['numeric', 'min:0', 'max:100'],
+                'modification_slots' => ['numeric', 'min:0', 'max:100'],
             ]);
         }
 
