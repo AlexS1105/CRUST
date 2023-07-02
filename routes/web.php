@@ -21,6 +21,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SkinController;
 use App\Http\Controllers\SoulboundController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TalentController;
 use App\Http\Controllers\TechniqueController;
 use App\Http\Controllers\TideController;
@@ -311,6 +312,9 @@ Route::middleware('auth')
 
                         Route::resource('settings/techniques', TechniqueController::class)
                             ->except(['show']);
+
+                        Route::get('statistics/summary', [StatisticsController::class, 'summary'])
+                            ->name('statistics.summary');
                     });
 
                 Route::middleware('can:logs')
