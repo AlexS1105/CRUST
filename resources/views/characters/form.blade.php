@@ -152,7 +152,7 @@
         </x-form.card>
     @endif
 
-    @can('update-charsheet-gm', $character)
+    @can('update-charsheet-gm', $character ?? null)
         <x-form.card>
             <x-slot name="header">
                 {{ __('characters.cards.other') }}

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\CharacterOrigin;
+use App\Models\Character;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -57,6 +58,12 @@ class CharacterRequest extends FormRequest
                     Rule::unique('accounts', 'login'),
                 ],
             ], $rules);
+        }
+
+        if (auth()->user()->can('update-charsheet-gm', $character ?? null)) {
+            $rules = array_merge([
+                'is_technical' => ['boolean'],
+            ]);
         }
 
         return $rules;
