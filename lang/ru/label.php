@@ -85,4 +85,5 @@ return [
     'techniques_amount' => 'Количество техник',
     'attunement_slots' => 'Слоты настройки',
     'modification_slots' => 'Слоты модификаций',
+    'is_technical' => 'Технический персонаж',
 ];

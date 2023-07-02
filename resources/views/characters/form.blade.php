@@ -152,6 +152,21 @@
         </x-form.card>
     @endif
 
+    @can('update-charsheet-gm', $character)
+        <x-form.card>
+            <x-slot name="header">
+                {{ __('characters.cards.other') }}
+            </x-slot>
+
+            <x-form.checkbox name="is_technical"
+                             value="{{ old('is_technical', @$character?->is_technical ?? false) }}"
+            />
+            <x-tip>
+                {{ __('tips.character.is_technical') }}
+            </x-tip>
+        </x-form.card>
+    @endcan
+
     <x-button-submit/>
 </x-form.base>
 

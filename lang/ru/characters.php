@@ -12,6 +12,7 @@ return [
         'biography' => 'Биография',
         'registration_info' => 'Информация для регистрации',
         'additional_info' => 'Дополнительная информация',
+        'other' => 'Разное',
     ],
     'placeholder' => [
         'name' => 'Эйран Хайд',
