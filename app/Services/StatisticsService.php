@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\CharacterStat;
 use App\Enums\CharacterStatus;
 use App\Models\Character;
+use App\Models\Skill;
 use Illuminate\Support\Arr;
 
 class StatisticsService
@@ -73,15 +74,21 @@ class StatisticsService
 
     private function skills($summary, $characters)
     {
-        $skills = [];
+        $skills = Skill::all()->sortByStat()->mapWithKeys(fn ($item) => [
+            $item->name => [
+                'sum' => 0,
+                '1' => 0,
+                '2' => 0,
+                '3' => 0,
+            ],
+        ]);
 
         foreach ($characters as $character) {
             foreach ($character->skills as $skill) {
-                $sum = $skills[$skill->name]['sum'] ?? 0;
-                $level = $skills[$skill->name][$skill->pivot->level] ?? 0;
-
-                Arr::set($skills, $skill->name . '.sum', $sum + $skill->pivot->cost);
-                Arr::set($skills, $skill->name . '.' . $skill->pivot->level, $level + 1);
+                $data = $skills[$skill->name];
+                $data['sum'] += $skill->pivot->cost;
+                $data[$skill->pivot->level]++;
+                $skills[$skill->name] = $data;
             }
         }
 
@@ -112,6 +119,6 @@ class StatisticsService
             return $data;
         });
 
-        $summary[$relation] = $items;
+        $summary[$relation] = $items->sortByDesc('count');
     }
 }
