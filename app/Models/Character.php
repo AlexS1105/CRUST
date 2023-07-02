@@ -205,6 +205,7 @@ class Character extends Model
         'techniques_amount',
         'attunement_slots',
         'modification_slots',
+        'is_technical',
     ];
 
     protected $casts = [
