@@ -19,6 +19,7 @@ class CharacterRequest extends FormRequest
         $this->merge([
             'info_hidden' => $this->info_hidden === 'on',
             'bio_hidden' => $this->bio_hidden === 'on',
+            'is_technical' => $this->is_technical === 'on',
         ]);
     }
 
