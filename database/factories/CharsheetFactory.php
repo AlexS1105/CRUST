@@ -22,7 +22,7 @@ class CharsheetFactory extends Factory
     public function definition()
     {
         return [
-            'skills' => [
+            'stats' => [
                 'strength' => $this->faker->numberBetween(0, 12),
                 'endurance' => $this->faker->numberBetween(0, 12),
                 'perception' => $this->faker->numberBetween(0, 12),
@@ -32,7 +32,6 @@ class CharsheetFactory extends Factory
                 'will' => $this->faker->numberBetween(0, 12),
                 'potential' => $this->faker->numberBetween(0, 12),
             ],
-            'estitence' => $this->faker->numberBetween(20, 100),
         ];
     }
 }

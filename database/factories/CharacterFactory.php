@@ -39,7 +39,7 @@ class CharacterFactory extends Factory
             'talent_points' => $this->faker->numberBetween(12, 42),
             'experience' => $this->faker->numberBetween(0, 20),
             'technique_points' => $this->faker->numberBetween(5, 35),
-            'title' => CharacterTitle::from(array_rand(CharacterTitle::cases())),
+            'title' => CharacterTitle::cases()[array_rand(CharacterTitle::cases())],
         ];
     }
 }
