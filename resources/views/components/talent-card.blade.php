@@ -1,3 +1,9 @@
+@props([
+    'character',
+    'talent',
+    'accordion',
+])
+
 <div {{ $attributes->merge(['class' => 'border border-gray-400 dark:border-gray-900 rounded-xl bg-gray-100 dark:bg-gray-700 overflow-hidden', 'data-accordion' => 'open', 'accordion' => false]) }}>
     <button
         id="talent-open-heading-{{ $talent->id }}"

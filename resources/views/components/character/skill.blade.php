@@ -1,3 +1,9 @@
+@props([
+    'skill',
+    'character',
+    'loop',
+])
+
 @php
     $characterSkill = $character->skills->firstWhere('id', $skill->id);
     $stat = $character->charsheet->stats[$skill->stat->value];
