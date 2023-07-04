@@ -63,7 +63,7 @@ class CharacterRequest extends FormRequest
         if (auth()->user()->can('update-charsheet-gm', $character ?? null)) {
             $rules = array_merge([
                 'is_technical' => ['boolean'],
-            ]);
+            ], $rules);
         }
 
         return $rules;
