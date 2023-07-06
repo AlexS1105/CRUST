@@ -6,7 +6,7 @@
         </div>
         <img
             class="object-cover object-top h-96 w-full dark:bg-white"
-            src="{{ $character->getResizedReference(400) }}"
+            src="{{ $character->getResizedReference(400) . '?' . $character->updated_at }}"
             alt="Character Reference"
         >
     </div>

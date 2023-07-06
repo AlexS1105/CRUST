@@ -42,7 +42,7 @@
                         <div class="flex">
                             <img
                                 class="object-cover object-top h-36 w-36 dark:bg-white"
-                                src="{{ $character->getResizedReference(150) }}"
+                                src="{{ $character->getResizedReference(150) . '?' . $character->updated_at }}"
                                 alt="Character Reference"
                             >
                             <div class="ml-2 p-2 my-auto">

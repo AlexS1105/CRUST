@@ -52,7 +52,7 @@
             <x-card class="lg:max-w-md max-w-fit my-auto flex-none p-0">
                 <img
                     class="object-cover rounded-xl dark:bg-white"
-                    src="{{ Storage::disk('characters')->url($character->reference) }}"
+                    src="{{ Storage::disk('characters')->url($character->reference) . '?' . $character->updated_at }}"
                     alt="Character Reference"
                 />
             </x-card>
