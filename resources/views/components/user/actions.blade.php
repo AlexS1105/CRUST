@@ -38,7 +38,7 @@
     @can('unban', $user)
         <x-action-button text="{{ __('users.unban') }}"
                          bladeMethod="DELETE"
-                         action="{{ route('users.ban.destroy', ['user' => $user, 'ban' => 'qwe']) }}"
+                         action="{{ route('users.ban.destroy', ['user' => $user, 'ban' => $user->ban]) }}"
                          color="bg-green-100 dark:bg-green-700"
                          colorHover="border-green-200 dark:border-green-600"
                          colorRing="ring-green-300 dark:ring-green-500"
