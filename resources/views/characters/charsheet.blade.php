@@ -85,8 +85,8 @@
 
             @can('update-charsheet-gm', $character)
                 <x-form.card>
-                    <x-form.input name="attunement_slots" type="number" required min="0" max="100" :value="old('attunement_slots', $character->attunement_slots)"/>
-                    <x-form.input name="modification_slots" type="number" required min="0" max="100" :value="old('modification_slots', $character->modification_slots)"/>
+                    <x-form.input name="attunement_slots" type="number" required min="0" max="1000" :value="old('attunement_slots', $character->attunement_slots)"/>
+                    <x-form.input name="modification_slots" type="number" required min="0" max="1000" :value="old('modification_slots', $character->modification_slots)"/>
                 </x-form.card>
             @endcan
 

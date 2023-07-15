@@ -66,7 +66,7 @@
                   type="number"
                   required
                   min="0"
-                  max="100"
+                  max="1000"
                   onchange="updateSkillPoints()"
                   :value="old('skill_points', $character->skill_points)"
     />

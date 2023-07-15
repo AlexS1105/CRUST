@@ -59,18 +59,18 @@ class CharsheetRequest extends FormRequest
         if ($can) {
             $rules = array_merge($rules, [
                 'stats_handled' => ['sometimes', 'boolean'],
-                'skill_points' => ['numeric', 'min:0', 'max:100'],
-                'perk_points' => ['numeric', 'min:0', 'max:100'],
-                'talent_points' => ['numeric', 'min:0', 'max:100'],
-                'technique_points' => ['numeric', 'min:0', 'max:200'],
-                'perks_amount' => ['sometimes', 'min:0', 'max:100'],
-                'talents_amount' => ['sometimes', 'min:0', 'max:100'],
-                'techniques_amount' => ['sometimes', 'min:0', 'max:100'],
+                'skill_points' => ['numeric', 'min:0', 'max:1000'],
+                'perk_points' => ['numeric', 'min:0', 'max:1000'],
+                'talent_points' => ['numeric', 'min:0', 'max:1000'],
+                'technique_points' => ['numeric', 'min:0', 'max:1000'],
+                'perks_amount' => ['sometimes', 'min:0', 'max:1000'],
+                'talents_amount' => ['sometimes', 'min:0', 'max:1000'],
+                'techniques_amount' => ['sometimes', 'min:0', 'max:1000'],
                 'tides.*.level' => ['min:0', 'max:1000'],
                 'estitence_reduce' => ['sometimes', 'boolean'],
                 'reason' => [new TideUpdate($character), 'max:256'],
-                'attunement_slots' => ['numeric', 'min:0', 'max:100'],
-                'modification_slots' => ['numeric', 'min:0', 'max:100'],
+                'attunement_slots' => ['numeric', 'min:0', 'max:1000'],
+                'modification_slots' => ['numeric', 'min:0', 'max:1000'],
             ]);
         }
 

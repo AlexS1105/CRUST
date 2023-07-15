@@ -55,8 +55,8 @@
 <x-form.error name="talents"/>
 
 @can('update-charsheet-gm', $character)
-    <x-form.input name="talent_points" type="number" required min="0" max="100" onchange="updateTalentPoints()" :value="old('talent_points', $character->talent_points)"/>
-    <x-form.input name="talents_amount" type="number" min="0" max="100" onchange="updateMaxTalentsAmount()" :value="old('talents_amount', $character->talents_amount)"/>
+    <x-form.input name="talent_points" type="number" required min="0" max="1000" onchange="updateTalentPoints()" :value="old('talent_points', $character->talent_points)"/>
+    <x-form.input name="talents_amount" type="number" min="0" max="1000" onchange="updateMaxTalentsAmount()" :value="old('talents_amount', $character->talents_amount)"/>
 @endcan
 
 <script>
