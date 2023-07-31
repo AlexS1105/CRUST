@@ -1,7 +1,7 @@
 let skillCostSum = 0
 
 window.updateSkills = function () {
-    let skillSelectors = document.querySelectorAll("*[name^='skills'][id$='[level]']");
+    let skillSelectors = document.querySelectorAll("*[name^='skills'][name$='[level]']");
     skillCostSum = 0
 
     for (let i = 0; i < skillSelectors.length; i++) {
