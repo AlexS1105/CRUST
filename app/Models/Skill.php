@@ -59,7 +59,7 @@ class Skill extends Model
 
     public function characters()
     {
-        return $this->belongsToMany(Character::class)->withPivot('level')->using(CharacterSkill::class);
+        return $this->belongsToMany(Character::class)->withPivot('level', 'stat')->using(CharacterSkill::class);
     }
 
     public function advantages()

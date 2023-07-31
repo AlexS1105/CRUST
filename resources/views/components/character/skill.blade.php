@@ -6,7 +6,7 @@
 
 @php
     $characterSkill = $character->skills->firstWhere('id', $skill->id);
-    $stat = $character->charsheet->stats[$skill->stat->value];
+    $stat = $character->charsheet->stats[($characterSkill->pivot->stat ?? $skill->stat)->value];
     $bonus = $stat;
     $level = 0;
     $skillTaken = $characterSkill != null;
@@ -22,7 +22,7 @@
     <x-slot name="title">
         <div class="flex">
             {{ $skill->name }} ({{ $bonus }})
-            @if($skillTaken)
+            @if($skillTaken && $level > 0)
                 -&nbsp;<div class="font-bold">{{ __('skills.level.' . $level) }}</div>
             @endif
         </div>
@@ -44,7 +44,7 @@
             </span>
             <hr class="my-1 dark:border-gray-400">
             <div>
-                {{ $skill->stat->localized() }}:
+                {{ ($characterSkill->pivot->stat ?? $skill->stat)->localized() }}:
                 <b>+{{ $stat }}</b>
             </div>
             @if($skillTaken && $skill->pivot->level >= 2)

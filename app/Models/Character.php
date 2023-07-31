@@ -281,7 +281,7 @@ class Character extends Model
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class)->withPivot('level')->using(CharacterSkill::class);
+        return $this->belongsToMany(Skill::class)->withPivot('level', 'stat')->using(CharacterSkill::class);
     }
 
     public function talents()

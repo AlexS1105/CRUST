@@ -69,11 +69,21 @@ class CharsheetService
 
     public function saveSkills($character, $validated)
     {
-        $character->skills()->sync(collect($validated['skills'] ?? [])->mapWithKeys(function ($skill, $id) {
-            return [$id => ['level' => $skill]];
+        $can = auth()->user()->can('update-charsheet-gm', $character);
+
+        $character->skills()->sync(collect($validated['skills'] ?? [])->mapWithKeys(function ($skill, $id) use ($can) {
+            $pivot = [
+                'level' => $skill['level'],
+            ];
+
+            if ($can) {
+                $pivot['stat'] = $skill['stat'] ?? null;
+            }
+
+            return [$id => $pivot];
         }));
 
-        if (auth()->user()->can('update-charsheet-gm', $character)) {
+        if ($can) {
             $character->update(['skill_points' => $validated['skill_points']]);
         }
 
@@ -191,9 +201,17 @@ class CharsheetService
             return null;
         }
 
-        return array_filter($skills, function ($skill) {
-            return $skill != 0;
+        $skills = array_filter($skills, function ($skill) {
+            return $skill['level'] != 0 || isset($skill['stat']);
         });
+
+        return array_map(function ($skill) {
+            if ($skill['stat'] == null && isset($skill['level'])) {
+                unset($skill['stat']);
+            }
+
+            return $skill;
+        }, $skills);
     }
 
     public function convertTechniques($techniques)
