@@ -28,12 +28,18 @@ class CharsheetService
         ]);
 
         if (auth()->user()->can('update-charsheet-gm', $character)) {
-            $character->update([
-                'stats_handled' => $validated['stats_handled'],
-                'estitence_reduce' => $validated['estitence_reduce'],
-                'attunement_slots' => $validated['attunement_slots'] ?? null,
-                'modification_slots' => $validated['modification_slots'] ?? null,
-            ]);
+            $character->stats_handled = $validated['stats_handled'];
+            $character->estitence_reduce = $validated['estitence_reduce'];
+
+            if (isset($validated['attunement_slots'])) {
+                $character->attunement_slots = $validated['attunement_slots'];
+            }
+
+            if (isset($validated['modification_slots'])) {
+                $character->modification_slots = $validated['modification_slots'];
+            }
+
+            $character->save();
         }
 
         info('Character stats updated', [
