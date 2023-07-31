@@ -14,7 +14,7 @@
         <x-form.select required
                        :name="'stat'"
                        :values="App\Enums\CharacterStat::cases()"
-                       :labels="array_map(function($origin) { return $origin->localized(); }, App\Enums\CharacterStat::cases())"
+                       :labels="array_map(function($stat) { return $stat->localized(); }, App\Enums\CharacterStat::cases())"
                        :value="old('stat', @$skill?->stat)"
         />
 

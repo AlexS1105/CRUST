@@ -1,10 +1,12 @@
+@php use App\Enums\CharacterStat; @endphp
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 dark:text-gray-100">
     @foreach($skills as $stat => $skillGroup)
         @php
             $statEnum = App\Enums\CharacterStat::from($stat);
         @endphp
         <div class="bg-{{ $statEnum->color() }}-100 dark:bg-{{ $statEnum->color() }}-400 rounded-xl p-2">
-            <div class="uppercase bg-{{ $statEnum->color() }}-300 dark:bg-{{ $statEnum->color() }}-500 text-center rounded-full font-bold">
+            <div
+                class="uppercase bg-{{ $statEnum->color() }}-300 dark:bg-{{ $statEnum->color() }}-500 text-center rounded-full font-bold">
                 <div class="dark:drop-shadow-xs">
                     {{ $statEnum->localized() }}
                 </div>
@@ -12,7 +14,8 @@
 
             <div class="p-1 space-y-1">
                 @foreach($skillGroup as $skill)
-                    <div class="bg-{{ $statEnum->color() }}-200 dark:bg-{{ $statEnum->color() }}-500 rounded-lg p-2 sm:flex justify-between items-center gap-2">
+                    <div
+                        class="bg-{{ $statEnum->color() }}-200 dark:bg-{{ $statEnum->color() }}-500 rounded-lg p-2 sm:flex justify-between items-center gap-2">
                         <div class="text-lg dark:drop-shadow-xs {{ $skill->proficiency ? 'font-bold' : '' }}">
                             {{ $skill->name }}
                         </div>
@@ -26,17 +29,34 @@
                                 </div>
                             </div>
                             <select class="rounded-lg dark:bg-gray-700"
-                                    name="skills[{{ $skill->id }}]"
+                                    name="skills[{{ $skill->id }}][level]"
                                     data-skill-id="{{ $skill->id }}"
                                     oninput="updateSkills()"
                             >
                                 @for($i = 0; $i < 4; $i++)
                                     <option value="{{ $i }}"
-                                        @selected(old('skills.' . $skill->id, $character->skills->find($skill->id)?->pivot->level) == $i)>
+                                        @selected(old('skills.' . $skill->id . '.level', $character->skills->find($skill->id)?->pivot->level) == $i)>
                                         {{ __('skills.level.' . $i) }}
                                     </option>
                                 @endfor
                             </select>
+
+                            @can('update-charsheet-gm', $character)
+                                <select class="rounded-lg dark:bg-gray-700"
+                                        name="skills[{{ $skill->id }}][stat]">
+                                    <option value="" @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat ?? $skill->stat) == null)>
+                                        {{ __('skills.default') }}
+                                    </option>
+                                    @foreach(CharacterStat::cases() as $stat)
+                                        @continue($stat == $skill->stat)
+
+                                        <option value="{{ $stat }}"
+                                            @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat) == $stat)>
+                                            {{ __('stat.' . $stat->value) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endcan
                         </div>
                     </div>
                 @endforeach

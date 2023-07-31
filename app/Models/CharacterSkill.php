@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CharacterStat;
 use App\Services\CharacterService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -33,6 +34,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class CharacterSkill extends Pivot
 {
+    protected $casts = [
+        'stat' => CharacterStat::class,
+    ];
+
     public function character()
     {
         return $this->belongsTo(Character::class);
@@ -48,7 +53,7 @@ class CharacterSkill extends Pivot
         return Attribute::make(
             get: function () {
                 $character = $this->character;
-                $value = $character->charsheet->stats[$this->skill->stat->value] ?? 0;
+                $value = $character->charsheet->stats[($this->stat ?? $this->skill->stat)->value] ?? 0;
 
                 if ($this->level >= 2) {
                     $value += $character->soul_coefficient;
