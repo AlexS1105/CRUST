@@ -28,35 +28,37 @@
                                     0
                                 </div>
                             </div>
-                            <select class="rounded-lg dark:bg-gray-700"
-                                    name="skills[{{ $skill->id }}][level]"
-                                    data-skill-id="{{ $skill->id }}"
-                                    oninput="updateSkills()"
-                            >
-                                @for($i = 0; $i < 4; $i++)
-                                    <option value="{{ $i }}"
-                                        @selected(old('skills.' . $skill->id . '.level', $character->skills->find($skill->id)?->pivot->level) == $i)>
-                                        {{ __('skills.level.' . $i) }}
-                                    </option>
-                                @endfor
-                            </select>
-
-                            @can('update-charsheet-gm', $character)
-                                <select class="rounded-lg dark:bg-gray-700"
-                                        name="skills[{{ $skill->id }}][stat]">
-                                    <option value="" @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat ?? $skill->stat) == null)>
-                                        {{ __('skills.default') }}
-                                    </option>
-                                    @foreach(CharacterStat::cases() as $stat)
-                                        @continue($stat == $skill->stat)
-
-                                        <option value="{{ $stat }}"
-                                            @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat) == $stat)>
-                                            {{ __('stat.' . $stat->value) }}
+                            <div class="space-y-2">
+                                <select class="rounded-lg w-full dark:bg-gray-700"
+                                        name="skills[{{ $skill->id }}][level]"
+                                        data-skill-id="{{ $skill->id }}"
+                                        oninput="updateSkills()"
+                                >
+                                    @for($i = 0; $i < 4; $i++)
+                                        <option value="{{ $i }}"
+                                            @selected(old('skills.' . $skill->id . '.level', $character->skills->find($skill->id)?->pivot->level) == $i)>
+                                            {{ __('skills.level.' . $i) }}
                                         </option>
-                                    @endforeach
+                                    @endfor
                                 </select>
-                            @endcan
+
+                                @can('update-charsheet-gm', $character)
+                                    <select class="rounded-lg w-full dark:bg-gray-700"
+                                            name="skills[{{ $skill->id }}][stat]">
+                                        <option value="" @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat ?? $skill->stat) == null)>
+                                            {{ __('skills.default') }}
+                                        </option>
+                                        @foreach(CharacterStat::cases() as $stat)
+                                            @continue($stat == $skill->stat)
+
+                                            <option value="{{ $stat }}"
+                                                @selected(old('skills.' . $skill->id . '.stat', $character->skills->find($skill->id)?->pivot->stat) == $stat)>
+                                                {{ __('stat.' . $stat->value) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @endcan
+                            </div>
                         </div>
                     </div>
                 @endforeach
