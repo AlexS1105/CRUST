@@ -206,7 +206,7 @@ class CharsheetService
         });
 
         return array_map(function ($skill) {
-            if ($skill['stat'] == null && isset($skill['level'])) {
+            if (isset($skill['stat']) && $skill['stat'] == null && isset($skill['level'])) {
                 unset($skill['stat']);
             }
 
