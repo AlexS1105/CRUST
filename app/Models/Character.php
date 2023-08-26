@@ -330,9 +330,7 @@ class Character extends Model
 
     public function scopeHasPerk($query, $perkId)
     {
-        $query->whereHas('perk', function ($query) use ($perkId) {
-            $query->where('perk_id', $perkId);
-        });
+        $query->whereHas('perks', fn ($query) => $query->where('perk_id', $perkId));
     }
 
     public function scopeStatus($query, $status)
