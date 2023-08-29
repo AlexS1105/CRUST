@@ -28,7 +28,7 @@ class ReduceEstitence implements ShouldQueue
             return;
         }
 
-        Character::affectedByEstitenceReduce()->get()->each(function ($character) use ($estitenceService) {
+        Character::query()->affectedByEstitenceReduce()->get()->each(function ($character) use ($estitenceService) {
             $estitenceService->changeEstitence($character, -$this->amount, __('estitence.reduce_log'));
         });
     }
