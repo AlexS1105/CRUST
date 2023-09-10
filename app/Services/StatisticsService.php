@@ -85,9 +85,15 @@ class StatisticsService
 
         foreach ($characters as $character) {
             foreach ($character->skills as $skill) {
+                $level = $skill->pivot->level;
+
+                if ($level == 0) {
+                    continue;
+                }
+
                 $data = $skills[$skill->name];
                 $data['sum'] += $skill->pivot->cost;
-                $data[$skill->pivot->level]++;
+                $data[$level]++;
                 $skills[$skill->name] = $data;
             }
         }
