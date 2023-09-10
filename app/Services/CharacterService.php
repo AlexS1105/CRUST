@@ -10,6 +10,7 @@ use App\Events\CharacterDeleted;
 use App\Models\Character;
 use App\Models\Skill;
 use App\Settings\CharsheetSettings;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -176,7 +177,10 @@ class CharacterService
 
     public function getSkills(Character $character)
     {
-        $characterSkillsIds = $character->skills->pluck('id');
+        $characterSkillsIds = $character->skills
+            ->where('pivot.level', '>', 0)
+            ->pluck('id');
+
         $characterSkills = Skill::with('advantages')
             ->where('proficiency', false)
             ->orWhereIn('id', $characterSkillsIds)
