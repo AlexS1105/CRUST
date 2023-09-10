@@ -7,6 +7,7 @@ use App\Enums\CharacterStatus;
 use App\Models\Character;
 use App\Models\Skill;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsService
 {
@@ -126,5 +127,13 @@ class StatisticsService
         });
 
         $summary[$relation] = $items->sortByDesc('count');
+
+        DB::table($relation)
+            ->whereNotIn('name', $items->keys())
+            ->pluck('name')
+            ->each(fn ($name) => $summary[$relation][$name] = [
+                'count' => 0,
+                'frequency' => 0,
+            ]);
     }
 }
